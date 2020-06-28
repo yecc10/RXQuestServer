@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.InitDelmiaDocument = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // InitDelmiaDocument
+            // 
+            this.InitDelmiaDocument.Location = new System.Drawing.Point(22, 38);
+            this.InitDelmiaDocument.Name = "InitDelmiaDocument";
+            this.InitDelmiaDocument.Size = new System.Drawing.Size(125, 41);
+            this.InitDelmiaDocument.TabIndex = 0;
+            this.InitDelmiaDocument.Text = "初始化Delmia目录";
+            this.InitDelmiaDocument.UseVisualStyleBackColor = true;
+            this.InitDelmiaDocument.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 336);
-            this.Name = "Form1";
+            this.Controls.Add(this.InitDelmiaDocument);
+            this.Name = "Main";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button InitDelmiaDocument;
     }
 }
 

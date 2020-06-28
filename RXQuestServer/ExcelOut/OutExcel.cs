@@ -18,12 +18,13 @@ namespace RXQuestServer.ExcelOut
     /// </summary>
     static public class ExcelOprator
     {
+        #region Data Out To Excel
         /// <summary>
         /// 将dataGridView导出到EXCEL
         /// </summary>
         /// <param name="dataGridView">需要导出的dataGridView数据</param>
         /// <returns></returns>
-        static public bool SaveExcelForLvSport(DataGridView dataGridView, string SportName)
+        static public bool SaveToExcel(DataGridView dataGridView, string SportName)
         {
             if (dataGridView.Rows.Count > 1)
             {
@@ -72,5 +73,12 @@ namespace RXQuestServer.ExcelOut
                 return false;
             }
         }
+        #endregion
+        #region DataInput
+        static public bool ReadExcel(DataGridView dataGridView, string SportName)
+        {
+            return true;
+        }
+        #endregion
     }
 }

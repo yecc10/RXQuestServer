@@ -88,7 +88,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataType.cs" />
+    <Compile Include="Delmia\InitDelmiaDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Delmia\InitDelmiaDocument.Designer.cs">
+      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExcelOut\OutExcel.cs" />
+    <Compile Include="GloalForDelmia.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +105,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Delmia\InitDelmiaDocument.resx">
+      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -1271,7 +1282,6 @@
   <ItemGroup>
     <Folder Include="AutoCad\" />
     <Folder Include="CATIA\" />
-    <Folder Include="Delmia\" />
     <Folder Include="PDPS\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

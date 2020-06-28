@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RXQuestServer.Delmia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace RXQuestServer
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void InitDelmiaDocument_Click(object sender, EventArgs e)
+        {
+            InitDelmiaDocument IDM = new InitDelmiaDocument();
+            this.Hide();
+            IDM.Show();
         }
     }
 }
