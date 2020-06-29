@@ -41,8 +41,8 @@ namespace RXQuestServer
         {
             DataType.Dsystem  Dsvalue= new DataType.Dsystem();
             INFITF.Application DSApplication;
-            ProcessDocument DSDocument;
-            ProcessDocument DsPPR;
+            Documents DSDocument;
+            ProcessDocument DSActiveDocument;
             try
             {
                 DSApplication = (INFITF.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Delmia.Application");
@@ -60,8 +60,8 @@ namespace RXQuestServer
             // 获取当前活动ProductDocument
             try
             {
-                DSDocument = (ProcessDocument)DSApplication.ActiveDocument;
-                DsPPR = (ProcessDocument)DSDocument.PPRDocument;
+                DSDocument = (Documents)DSApplication.Documents;
+                DSActiveDocument = (ProcessDocument)DSApplication.ActiveDocument;
             }
             catch (Exception)
             {
@@ -73,7 +73,7 @@ namespace RXQuestServer
             // 添加一个新零件
             Dsvalue.DSApplication = DSApplication;
             Dsvalue.DSDocument = DSDocument;
-            Dsvalue.DSPPRProduct = DsPPR;
+            Dsvalue.DSActiveDocument = DSActiveDocument;
             Dsvalue.Revalue = 0;
             return Dsvalue;
         }
@@ -81,9 +81,7 @@ namespace RXQuestServer
         {
             FM.WindowState = FormWindowState.Minimized;
             INFITF.Application CatApplication=DSystem.DSApplication;
-            ProcessDocument CatDocument =DSystem.DSDocument;
-            ProcessDocument PPRP = DSystem.DSPPRProduct;
-            Part PartID=DSystem.PartID;
+            ProcessDocument PPRP = DSystem.DSActiveDocument;
             Selection USelect= PPRP.Selection;
             USelect.Clear();
             var Result = USelect.SelectElement2(InputObjectType(9), "请选择初始化对象", true);

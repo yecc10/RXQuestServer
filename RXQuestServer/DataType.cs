@@ -23,11 +23,13 @@ namespace RXQuestServer
             /// </summary>
             public virtual INFITF.Application DSApplication { get; set; }
             public virtual ProcessDocument DSPPRProduct { get; set; }
-            public virtual ProcessDocument DSResource { get; set; }
+            public virtual  PPRDocument DsPPRDocument { get; set; }
+            public virtual Resources DSResources { get; set; }
             /// <summary>
             /// 活动Document
             /// </summary>
-            public virtual ProcessDocument DSDocument { get; set; }
+            public virtual Documents DSDocument { get; set; }
+            public virtual ProcessDocument DSActiveDocument { get; set; }
             /// <summary>
             /// 自定义的零件
             /// </summary>
