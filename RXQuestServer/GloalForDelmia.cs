@@ -51,7 +51,7 @@ namespace RXQuestServer
             {
                 FM.WindowState = FormWindowState.Normal;
                 FM.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
+                MessageBox.Show("未检测到打开的Delmia!,请重新运行Delmia!");
                 Dsvalue.Revalue = -1;
                 return Dsvalue;
                 //throw;

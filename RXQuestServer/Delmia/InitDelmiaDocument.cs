@@ -37,7 +37,14 @@ namespace RXQuestServer.Delmia
         DataType.Dsystem DStype = new DataType.Dsystem();
         public InitDelmiaDocument()
         {
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                MessageBox.Show("未检测到已打开的Delmia 自动读取目录失败，请先打开软件后手动选择目录！");
+            }
             InitializeComponent();
+            SavePath.Text = DStype.DSActiveDocument.Path;
         }
 
         private void SelectInit_Click(object sender, EventArgs e)
@@ -66,6 +73,7 @@ namespace RXQuestServer.Delmia
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;
+            var RF=DStype.DSApplication.RefreshDisplay;
             for (int i = 1; i <= PPRS.Count; i++)
             {
                 Product PPRProduct = PPRS.Item(i);
@@ -73,7 +81,7 @@ namespace RXQuestServer.Delmia
                 {
                     case "Layout":
                         {
-                            if (CheckRepeat(PPRProduct, "Layout_2D"))
+                            if (CheckRepeatByPartNumber(PPRProduct, "Layout_2D"))
                             {
                                 continue;
                             }
@@ -87,7 +95,7 @@ namespace RXQuestServer.Delmia
                             for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
                             {
                                 String NWTP = "ST" + j * 10;
-                                if (CheckRepeat(PPRProduct, NWTP))
+                                if (CheckRepeatByPartNumber(PPRProduct, NWTP))
                                 {
                                     continue;
                                 }
@@ -110,16 +118,36 @@ namespace RXQuestServer.Delmia
         /// <param name="FatherList">被查询Product最高级</param>
         /// <param name="Name">被查询对象</param>
         /// <returns></returns>
-        public bool CheckRepeat(Product FatherList, String Name)
+        public bool CheckRepeatByName(Product FatherList, String Name)
         {
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             Selection CheckProduct = DSActiveDocument.Selection;
             CheckProduct.Clear();
             CheckProduct.Add(FatherList);
-            CheckProduct.Search("Name = '" + Name + ",all");
+            string Sc = "Name =" + Name + ",all";
+            CheckProduct.Search(Sc);
             if (CheckProduct.Count > 0)
             {
                 return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 查询选定的Product中是否存在指定的对象
+        /// </summary>
+        /// <param name="FatherList">被查询Product最高级</param>
+        /// <param name="PartNumber">被查询对象</param>
+        /// <returns></returns>
+        public bool CheckRepeatByPartNumber(Product FatherList, String PartNumber)
+        {
+            foreach (Product Pitem in FatherList.Products)
+            {
+                Pitem.set_Name(Pitem.get_PartNumber());
+                string CPartNumber = Pitem.get_PartNumber();
+                if (CPartNumber == PartNumber)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -138,6 +166,7 @@ namespace RXQuestServer.Delmia
                     return;
                 }
             }
+            DStype.DSApplication.DisplayFileAlerts = false; //关闭提示
             Documents CatDocuments = DStype.DSDocument;
             String Path = string.Empty;
             String Name = Tproduct.get_PartNumber();
@@ -147,11 +176,13 @@ namespace RXQuestServer.Delmia
             {
                 return;
             }
-            
-            Path = SavePath.Text + "\\03_Station" + "\\" + Name;
+            //string FN = DSPD.FullName; //读取零件全名称 如果没有保存则为Name+.Product
+            //string FP = DSPD.Path;//读取零件所在路径 如果没有保存则为null
+            Path = SavePath.Text + "\\03_Station" + "\\" + Name+"\\";
             CreatePath(Path);
             Path= Path+ Name + ".CATProduct";
             DSPD.SaveAs(Path);
+            DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
         public void SetAttrValue(Product Prodt)
         {
@@ -159,10 +190,11 @@ namespace RXQuestServer.Delmia
             Prodt.set_Definition("安徽瑞祥工业自动化产品定义");//产品定义
             Prodt.set_Nomenclature("安徽瑞祥工业自动化产品术语");//产品术语
             Prodt.set_DescriptionInst("安徽瑞祥工业自动化部件描述");//部件描述
-            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述");//产品描述
-            Prodt.Source = CatProductSource.catProductBought;
+            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述,创建于:"+DateTime.Now);//产品描述
+            Prodt.Source = CatProductSource.catProductMade;//默认自制
             Prodt.Update();
-            Prodt.set_Name(Prodt.get_PartNumber());
+            string PartNumber = Prodt.get_PartNumber();
+            Prodt.set_Name(PartNumber);
             //Prodt.set_PartNumber(Prodt.get_Name());
         }
         public void NewStationInit(Product UserSelectedProduct)
