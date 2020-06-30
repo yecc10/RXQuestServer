@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitDelmiaDocument));
             this.SM_Group = new System.Windows.Forms.GroupBox();
             this.LayoutGroup = new System.Windows.Forms.GroupBox();
@@ -39,6 +40,7 @@
             this.SavePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.FolderInit = new System.Windows.Forms.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.Station_Group.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,6 +137,10 @@
             this.FolderInit.UseVisualStyleBackColor = true;
             this.FolderInit.Click += new System.EventHandler(this.FolderInit_Click);
             // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -171,5 +177,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox StationNum;
         private System.Windows.Forms.Button FolderInit;
+        private System.Windows.Forms.Timer timer;
     }
 }

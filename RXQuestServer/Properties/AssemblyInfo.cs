@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("RXQuestServer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("瑞祥数字化")]
+[assembly: AssemblyDescription("Delmia数字化仿真快捷平台")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RXQuestServer")]
+[assembly: AssemblyCompany("安徽瑞祥工业有限公司")]
+[assembly: AssemblyProduct("Delmia数字化")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Copyright ©  2020")]
 [assembly: AssemblyCulture("")]
 
 //将 ComVisible 设置为 false 将使此程序集中的类型

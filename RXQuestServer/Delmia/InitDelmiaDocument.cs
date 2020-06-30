@@ -29,6 +29,9 @@ using FittingTypeLib;
 using DNBASY;
 using PPR;
 using PROCESSITF;
+using DNBDevice;
+using DNBRobot;
+using DNBIgpTagPath;
 
 namespace RXQuestServer.Delmia
 {
@@ -38,6 +41,7 @@ namespace RXQuestServer.Delmia
         public InitDelmiaDocument()
         {
             InitializeComponent();
+            timer.Enabled = true;
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
@@ -71,6 +75,20 @@ namespace RXQuestServer.Delmia
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
+        public void NewProduct(Product PPRProduct,string Name,bool NeedSave)
+        {
+            if (CheckRepeatByPartNumber(PPRProduct, Name))
+            {
+                return;
+            }
+            Product NwP = PPRProduct.Products.AddNewProduct(Name);
+            SetAttrValue(NwP);
+            if (NeedSave)
+            {
+                NewStationInit(NwP);
+                SaveProduct(NwP);
+            }
+        }
         public void NewResourseInit()
         {
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
@@ -78,16 +96,12 @@ namespace RXQuestServer.Delmia
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
             PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
             var RF=DStype.DSApplication.RefreshDisplay;
-            if (PPRSM.Count>0)
+            if (PPRSM.Count>0) //初始化产品数模
             {
                 Product PPRProduct = PPRSM.Item(1);
                 for (int i = 1; i <=Convert.ToInt16(StationNum.Text); i++)
                 {
-                    if (CheckRepeatByPartNumber(PPRProduct, "ST"+i*10))
-                    {
-                        continue;
-                    }
-                    PPRProduct.Products.AddNewProduct("ST" + i * 10);
+                    NewProduct(PPRProduct, "ST" + i * 10,false);
                 }
             }
             for (int i = 1; i <= PPRS.Count; i++) //初始化资源列表
@@ -101,10 +115,10 @@ namespace RXQuestServer.Delmia
                             {
                                 continue;
                             }
-                            PPRProduct.Products.AddNewProduct("01_Layout_2D");
-                            PPRProduct.Products.AddNewProduct("02_Layout_3D");
-                            PPRProduct.Products.AddNewProduct("03_Fence");
-                            PPRProduct.Products.AddNewProduct("04_Platform");//钢平台
+                            NewProduct(PPRProduct, "01_Layout_2D",false);
+                            NewProduct(PPRProduct, "02_Layout_3D", false);
+                            NewProduct(PPRProduct, "03_Fence", false);
+                            NewProduct(PPRProduct, "04_Platform", false);
                             break;
                         }
                     case "Station":
@@ -233,7 +247,23 @@ namespace RXQuestServer.Delmia
             SetAttrValue(PD);
             PD = UserSelectedProduct.Products.AddNewProduct(Name + "_TagList");
             SetAttrValue(PD);
+            NwTagGroup(PD, Name);
             UserSelectedProduct.Update();
+        }
+        public void NwTagGroup(Product PD,String Name)
+        {
+            TagGroupFactory TGF = (TagGroupFactory)PD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
+            TagGroup NwTagGroup = null; //创建TagGroup指针
+            TGF.CreateTagGroup(Name + "_R1_01", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R1_02", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R2_01", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R2_02", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R3_01", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R3_02", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R4_01", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R4_02", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R5_01", true, PD, out NwTagGroup);//创建TagGroupFactory
+            TGF.CreateTagGroup(Name + "_R5_02", true, PD, out NwTagGroup);//创建TagGroupFactory
         }
         public void GetDocument()
         {
@@ -349,12 +379,18 @@ namespace RXQuestServer.Delmia
                 return;
             }
             NewResourseInit();
+            MessageBox.Show("初始化完成！");
         }
 
         private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
             System.Environment.Exit(0);
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:"+DateTime.Now;
         }
     }
 }
