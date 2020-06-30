@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitDelmiaDocument));
             this.SM_Group = new System.Windows.Forms.GroupBox();
             this.LayoutGroup = new System.Windows.Forms.GroupBox();
             this.Station_Group = new System.Windows.Forms.GroupBox();
@@ -147,8 +148,10 @@
             this.Controls.Add(this.Station_Group);
             this.Controls.Add(this.LayoutGroup);
             this.Controls.Add(this.SM_Group);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InitDelmiaDocument";
             this.Text = "InitDelmiaDocument";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InitDelmiaDocument_FormClosed);
             this.Station_Group.ResumeLayout(false);
             this.Station_Group.PerformLayout();
             this.ResumeLayout(false);

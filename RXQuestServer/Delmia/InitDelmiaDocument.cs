@@ -73,6 +73,10 @@ namespace RXQuestServer.Delmia
                 {
                     case "Layout":
                         {
+                            if (CheckRepeat(PPRProduct, "Layout_2D"))
+                            {
+                                continue;
+                            }
                             PPRProduct.Products.AddNewProduct("Layout_2D");
                             PPRProduct.Products.AddNewProduct("Layout_3D");
                             PPRProduct.Products.AddNewProduct("Fence");
@@ -80,16 +84,18 @@ namespace RXQuestServer.Delmia
                         }
                     case "Station":
                         {
-                            for (int j =1; j <=Convert.ToInt16(StationNum.Text); j++)
+                            for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
                             {
-                                Product NwP=PPRProduct.Products.AddNewComponent("Product", "ST" + j * 10);
-                                NwP.set_Revision("V01");//版本号
-                                NwP.set_Definition("安徽瑞祥工业自动化产品定义");//产品定义
-                                NwP.set_Nomenclature("安徽瑞祥工业自动化产品术语");//产品术语
-                                NwP.set_DescriptionInst("安徽瑞祥工业自动化部件描述");//部件描述
-                                NwP.set_DescriptionRef("安徽瑞祥工业自动化产品描述");//产品描述
-                                NwP.Source = CatProductSource.catProductBought;
+                                String NWTP = "ST" + j * 10;
+                                if (CheckRepeat(PPRProduct, NWTP))
+                                {
+                                    continue;
+                                }
+                                Product NwP = PPRProduct.Products.AddNewComponent("Product", NWTP);
+                                PPRProduct.Update();
+                                SetAttrValue(NwP);
                                 NewStationInit(NwP);
+                                SaveProduct(NwP);
                             }
                             break;
                         }
@@ -97,24 +103,87 @@ namespace RXQuestServer.Delmia
                         break;
                 }
             }
-            //Product PPRProduct = PPRS.Item("Station.2");
-            //Products PPRProducts = PPRProduct.Products;
-            //PPRProduct = PPRProducts.Item("ST10.1");
-            //PPRProducts = PPRProduct.Products;
-            //PPRProduct = PPRProducts.AddNewProduct("01_Fixture");
+        }
+        /// <summary>
+        /// 查询选定的Product中是否存在指定的对象
+        /// </summary>
+        /// <param name="FatherList">被查询Product最高级</param>
+        /// <param name="Name">被查询对象</param>
+        /// <returns></returns>
+        public bool CheckRepeat(Product FatherList, String Name)
+        {
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            Selection CheckProduct = DSActiveDocument.Selection;
+            CheckProduct.Clear();
+            CheckProduct.Add(FatherList);
+            CheckProduct.Search("Name = '" + Name + ",all");
+            if (CheckProduct.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 保存Product 到文件夹
+        /// </summary>
+        /// <param name="Tproduct">需要保存的Product</param>
+        public void SaveProduct(Product Tproduct)
+        {
+            if (DStype.DSActiveDocument == null)
+            {
+                GloalForDelmia GFD = new GloalForDelmia();
+                DStype = GFD.InitCatEnv(this);
+                if (DStype.Revalue == -1)
+                {
+                    return;
+                }
+            }
+            Documents CatDocuments = DStype.DSDocument;
+            String Path = string.Empty;
+            String Name = Tproduct.get_PartNumber();
+            //String NwProductName = Name + "_Fixture";
+            ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
+            if (DSPD.Saved)
+            {
+                return;
+            }
+            
+            Path = SavePath.Text + "\\03_Station" + "\\" + Name;
+            CreatePath(Path);
+            Path= Path+ Name + ".CATProduct";
+            DSPD.SaveAs(Path);
+        }
+        public void SetAttrValue(Product Prodt)
+        {
+            Prodt.set_Revision("V01");//版本号
+            Prodt.set_Definition("安徽瑞祥工业自动化产品定义");//产品定义
+            Prodt.set_Nomenclature("安徽瑞祥工业自动化产品术语");//产品术语
+            Prodt.set_DescriptionInst("安徽瑞祥工业自动化部件描述");//部件描述
+            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述");//产品描述
+            Prodt.Source = CatProductSource.catProductBought;
+            Prodt.Update();
+            Prodt.set_Name(Prodt.get_PartNumber());
+            //Prodt.set_PartNumber(Prodt.get_Name());
         }
         public void NewStationInit(Product UserSelectedProduct)
         {
             String Name = UserSelectedProduct.get_PartNumber();
-            Product PD=UserSelectedProduct.Products.AddNewProduct(Name + "_Fixture");
-            //UserSelectedProduct.Source = CatProductSource.catProductBought;//定义为自制件
-            UserSelectedProduct.Products.AddNewProduct(Name + "_Robots");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_Gun");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_Gripper");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_Peripheral");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_RobotSlide");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_GripperStander");
-            UserSelectedProduct.Products.AddNewProduct(Name + "_TagList");
+            Product PD = UserSelectedProduct.Products.AddNewProduct(Name + "_Fixture");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_Robots");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_Gun");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_Gripper");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_Peripheral");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_RobotSlide");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_GripperStander");
+            SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_TagList");
+            SetAttrValue(PD);
             UserSelectedProduct.Update();
         }
         public void GetDocument()
@@ -141,21 +210,24 @@ namespace RXQuestServer.Delmia
         }
         public void InitSimDocument()
         {
-            CheckForIllegalCrossThreadCalls = false;
-            FolderBrowserDialog GetDocument = new FolderBrowserDialog();
-            GetDocument.Description = "选择仿真存储最高级.CatProcess所在文件夹";
-            if (GetDocument.ShowDialog() == DialogResult.OK)
+            if (string.IsNullOrEmpty(SavePath.Text))
             {
-                if (string.IsNullOrEmpty(GetDocument.SelectedPath))
+                CheckForIllegalCrossThreadCalls = false;
+                FolderBrowserDialog GetDocument = new FolderBrowserDialog();
+                GetDocument.Description = "选择仿真存储最高级.CatProcess所在文件夹";
+                if (GetDocument.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("选择的文件夹为空！");
+                    if (string.IsNullOrEmpty(GetDocument.SelectedPath))
+                    {
+                        MessageBox.Show("选择的文件夹为空！");
+                    }
+                    SavePath.Text = GetDocument.SelectedPath;
                 }
-                SavePath.Text = GetDocument.SelectedPath;
-            }
-            else
-            {
-                MessageBox.Show("未知错误00A！");
-                return;
+                else
+                {
+                    MessageBox.Show("未知错误00A！");
+                    return;
+                }
             }
             String MPath = SavePath.Text;
             String CPath = MPath + "//01_SM";
@@ -202,17 +274,25 @@ namespace RXQuestServer.Delmia
 
         private void FolderInit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(SavePath.Text))
-            {
-                string Path = string.Empty;
-                System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(InitSimDocument));
-                importThread.SetApartmentState(ApartmentState.STA); //重点
-                importThread.Start();
-            }
+
+            string Path = string.Empty;
+            System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(InitSimDocument));
+            importThread.SetApartmentState(ApartmentState.STA); //重点
+            importThread.Start();
+
         }
 
         private void Fullint_Click(object sender, EventArgs e)
         {
+            CheckForIllegalCrossThreadCalls = false;
+            if (string.IsNullOrEmpty(SavePath.Text))
+            {
+                MessageBox.Show("请设置工作目录后重试！");
+                System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetDocument));
+                importThread.SetApartmentState(ApartmentState.STA); //重点
+                importThread.Start();
+                return;
+            }
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
@@ -220,6 +300,12 @@ namespace RXQuestServer.Delmia
                 return;
             }
             NewResourseInit();
+        }
+
+        private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+            System.Environment.Exit(0);
         }
     }
 }
