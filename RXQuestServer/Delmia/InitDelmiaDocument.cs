@@ -37,6 +37,7 @@ namespace RXQuestServer.Delmia
         DataType.Dsystem DStype = new DataType.Dsystem();
         public InitDelmiaDocument()
         {
+            InitializeComponent();
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
@@ -47,7 +48,6 @@ namespace RXQuestServer.Delmia
             {
                 SavePath.Text = DStype.DSActiveDocument.Path;
             }
-            InitializeComponent();
         }
 
         private void SelectInit_Click(object sender, EventArgs e)
@@ -75,9 +75,22 @@ namespace RXQuestServer.Delmia
         {
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
-            PPRProducts PPRS = (PPRProducts)PPRD.Resources;
+            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
+            PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
             var RF=DStype.DSApplication.RefreshDisplay;
-            for (int i = 1; i <= PPRS.Count; i++)
+            if (PPRSM.Count>0)
+            {
+                Product PPRProduct = PPRSM.Item(1);
+                for (int i = 1; i <=Convert.ToInt16(StationNum.Text); i++)
+                {
+                    if (CheckRepeatByPartNumber(PPRProduct, "ST"+i*10))
+                    {
+                        continue;
+                    }
+                    PPRProduct.Products.AddNewProduct("ST" + i * 10);
+                }
+            }
+            for (int i = 1; i <= PPRS.Count; i++) //初始化资源列表
             {
                 Product PPRProduct = PPRS.Item(i);
                 switch (PPRProduct.get_PartNumber())
@@ -88,9 +101,10 @@ namespace RXQuestServer.Delmia
                             {
                                 continue;
                             }
-                            PPRProduct.Products.AddNewProduct("Layout_2D");
-                            PPRProduct.Products.AddNewProduct("Layout_3D");
-                            PPRProduct.Products.AddNewProduct("Fence");
+                            PPRProduct.Products.AddNewProduct("01_Layout_2D");
+                            PPRProduct.Products.AddNewProduct("02_Layout_3D");
+                            PPRProduct.Products.AddNewProduct("03_Fence");
+                            PPRProduct.Products.AddNewProduct("04_Platform");//钢平台
                             break;
                         }
                     case "Station":
@@ -272,7 +286,7 @@ namespace RXQuestServer.Delmia
             CreatePath(CPath + "//01_3DLayout");
             CreatePath(CPath + "//02_2DLayout");
             CreatePath(CPath + "//03_Fence");
-            CreatePath(CPath + "//04_3DLayout");
+            CreatePath(CPath + "//04_Platform");
 
             CPath = MPath + "//03_Station";
             CreatePath(CPath);
