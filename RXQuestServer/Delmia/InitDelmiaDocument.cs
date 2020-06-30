@@ -43,8 +43,11 @@ namespace RXQuestServer.Delmia
             {
                 MessageBox.Show("未检测到已打开的Delmia 自动读取目录失败，请先打开软件后手动选择目录！");
             }
+            else
+            {
+                SavePath.Text = DStype.DSActiveDocument.Path;
+            }
             InitializeComponent();
-            SavePath.Text = DStype.DSActiveDocument.Path;
         }
 
         private void SelectInit_Click(object sender, EventArgs e)
