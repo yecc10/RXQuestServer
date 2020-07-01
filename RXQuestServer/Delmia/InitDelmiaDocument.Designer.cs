@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.FolderInit = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.InitRobot = new System.Windows.Forms.Button();
             this.Station_Group.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,6 +142,16 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // InitRobot
+            // 
+            this.InitRobot.Location = new System.Drawing.Point(336, 326);
+            this.InitRobot.Name = "InitRobot";
+            this.InitRobot.Size = new System.Drawing.Size(102, 38);
+            this.InitRobot.TabIndex = 1;
+            this.InitRobot.Text = "机器人初始化";
+            this.InitRobot.UseVisualStyleBackColor = true;
+            this.InitRobot.Click += new System.EventHandler(this.InitRobot_Click);
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -148,6 +159,7 @@
             this.ClientSize = new System.Drawing.Size(838, 429);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SavePath);
+            this.Controls.Add(this.InitRobot);
             this.Controls.Add(this.FolderInit);
             this.Controls.Add(this.SelectInit);
             this.Controls.Add(this.Fullint);
@@ -178,5 +190,6 @@
         private System.Windows.Forms.TextBox StationNum;
         private System.Windows.Forms.Button FolderInit;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button InitRobot;
     }
 }

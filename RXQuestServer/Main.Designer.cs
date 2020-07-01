@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.InitDelmiaDocument = new System.Windows.Forms.Button();
+            this.WeldSportTool = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
@@ -38,15 +39,26 @@
             this.InitDelmiaDocument.Name = "InitDelmiaDocument";
             this.InitDelmiaDocument.Size = new System.Drawing.Size(125, 41);
             this.InitDelmiaDocument.TabIndex = 0;
-            this.InitDelmiaDocument.Text = "初始化Delmia目录";
+            this.InitDelmiaDocument.Text = "Delmia初始化工具";
             this.InitDelmiaDocument.UseVisualStyleBackColor = true;
             this.InitDelmiaDocument.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
+            // 
+            // WeldSportTool
+            // 
+            this.WeldSportTool.Location = new System.Drawing.Point(153, 38);
+            this.WeldSportTool.Name = "WeldSportTool";
+            this.WeldSportTool.Size = new System.Drawing.Size(125, 41);
+            this.WeldSportTool.TabIndex = 0;
+            this.WeldSportTool.Text = "焊点快捷工具";
+            this.WeldSportTool.UseVisualStyleBackColor = true;
+            this.WeldSportTool.Click += new System.EventHandler(this.WeldSportTool_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 336);
+            this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.InitDelmiaDocument);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
@@ -58,6 +70,7 @@
         #endregion
 
         private System.Windows.Forms.Button InitDelmiaDocument;
+        private System.Windows.Forms.Button WeldSportTool;
     }
 }
 

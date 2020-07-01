@@ -392,5 +392,54 @@ namespace RXQuestServer.Delmia
         {
             this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:"+DateTime.Now;
         }
+
+        private void InitRobot_Click(object sender, EventArgs e)
+        {
+            //RobotMotion RM;
+            //RM.SetMotionProfile("");
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype);
+            try
+            {
+                Product Usp = (Product)Uselect.Item2(1).Value;
+                RobControllerFactory CRM =(RobControllerFactory)Usp.GetTechnologicalObject("RobControllerFactory");
+                GenericAccuracyProfile GP;
+                GenericMotionProfile GMP;
+                GenericToolProfile GTP;
+                GenericObjFrameProfile GOP;
+                for (int i = 1; i <= 10; i++)
+                {
+                    CRM.CreateGenericAccuracyProfile(out GP);
+                    GP.SetAccuracyValue(i*0.1);
+                    GP.SetName(i*10+"%");
+                    GP.SetAccuracyType(AccuracyType.ACCURACY_TYPE_SPEED);
+                    GP.SetFlyByMode(false);
+                    Usp.Update();
+
+                    CRM.CreateGenericObjFrameProfile(out GOP);
+                    GOP.SetObjectFrame(0,0,0,0,0,0);
+                    GOP.SetName("Object_0"+i);
+
+                    CRM.CreateGenericMotionProfile(out GMP);
+                    GMP.SetSpeedValue(i * 0.1);
+                    GMP.SetName(i * 10 + "%");
+                    GMP.SetMotionBasis(MotionBasis.MOTION_PERCENT);
+
+                    CRM.CreateGenericToolProfile(out GTP);
+                    GTP.set_Name("Tool" + i);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
     }
 }

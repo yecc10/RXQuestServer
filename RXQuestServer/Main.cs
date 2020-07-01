@@ -24,5 +24,12 @@ namespace RXQuestServer
             this.Hide();
             IDM.Show();
         }
+
+        private void WeldSportTool_Click(object sender, EventArgs e)
+        {
+            AutoDeskLine_ToPlant.CatiaQuickTool CQT = new AutoDeskLine_ToPlant.CatiaQuickTool();
+            this.Hide();
+            CQT.Show();
+        }
     }
 }

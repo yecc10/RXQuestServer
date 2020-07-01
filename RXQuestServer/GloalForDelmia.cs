@@ -84,7 +84,7 @@ namespace RXQuestServer
             ProcessDocument PPRP = DSystem.DSActiveDocument;
             Selection USelect= PPRP.Selection;
             USelect.Clear();
-            var Result = USelect.SelectElement2(InputObjectType(9), "请选择初始化对象", true);
+            var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择初始化对象", true);
             if (Result == "Cancel")
             {
                 return null;
@@ -96,59 +96,24 @@ namespace RXQuestServer
             }
             return USelect;
         }
-        /// <summary>
-        /// 设置CATIA 拾取对象类型
-        /// 0：GetAnyObject；1：GetPoint；2:Face；3:Edge；4:Pad；5:sketch；6:Shape；7:Bodies；8:Part；9：Product
-        /// </summary>
-        /// <returns>:</returns>
-        [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
-        public object[] InputObjectType(int ReadType)
+        public Selection GetIRobotMotion(Form FM, DataType.Dsystem DSystem)
         {
-            switch (ReadType)
+            FM.WindowState = FormWindowState.Minimized;
+            INFITF.Application CatApplication = DSystem.DSApplication;
+            ProcessDocument PPRP = DSystem.DSActiveDocument;
+            Selection USelect = PPRP.Selection;
+            USelect.Clear();
+            var Result = USelect.SelectElement2(DataType.InputObjectType(11), "请选择一个机器人", true);
+            if (Result == "Cancel")
             {
-                case 0: //GetAnyObject
-                    {
-                        return new object[] { "AnyObject" };
-                    }
-                case 1: //GetPoint
-                    {
-                        return new object[] { "Point", "Symmetry", "Translate" };
-                    }
-                case 2: //Face
-                    {
-                        return new object[] { "Face" };
-                    }
-                case 3: //Edge
-                    {
-                        return new object[] { "Edge" };
-                    }
-                case 4: //Pad
-                    {
-                        return new object[] { "Pad" };
-                    }
-                case 5: //sketch
-                    {
-                        return new object[] { "sketch" };
-                    }
-                case 6: //Shape
-                    {
-                        return new object[] { "Shape" };
-                    }
-                case 7: //Bodies
-                    {
-                        return new object[] { "Bodies" };
-                    }
-                case 8: //Part
-                    {
-                        return new object[] { "Product" };
-                    }
-                case 9: //Product
-                    {
-                        return new object[] { "Product" };
-                    }
-                default:
-                    return new object[] { "AnyObject" };
+                return null;
             }
+            if (USelect.Count < 1)
+            {
+                MessageBox.Show("请先选择对象后再点此命令！");
+                return null;
+            }
+            return USelect;
         }
     }
 }
