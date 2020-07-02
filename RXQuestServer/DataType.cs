@@ -106,7 +106,10 @@ namespace RXQuestServer
                     {
                         return new object[] { "RobotTask" };
                     }
-
+                case 13: //Resource
+                    {
+                        return new object[] { "Operation" };
+                    }
                 default:
                     return new object[] { "AnyObject" };
             }

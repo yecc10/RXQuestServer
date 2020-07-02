@@ -41,16 +41,25 @@ namespace RXQuestServer.Delmia
         public InitDelmiaDocument()
         {
             InitializeComponent();
-            timer.Enabled = true;
-            GloalForDelmia GFD = new GloalForDelmia();
-            DStype = GFD.InitCatEnv(this);
-            if (DStype.Revalue == -1)
+            try
             {
-                MessageBox.Show("未检测到已打开的Delmia 自动读取目录失败，请先打开软件后手动选择目录！");
+                ModelName.Text = Properties.Settings.Default.ModelName;
+                RobotID.Text = Properties.Settings.Default.RobotID;
+                timer.Enabled = true;
+                GloalForDelmia GFD = new GloalForDelmia();
+                DStype = GFD.InitCatEnv(this);
+                if (DStype.Revalue == -1)
+                {
+                    MessageBox.Show("未检测到已打开的Delmia 自动读取目录失败，请先打开软件后手动选择目录！");
+                }
+                else
+                {
+                    SavePath.Text = DStype.DSActiveDocument.Path;
+                }
             }
-            else
+            catch (Exception)
             {
-                SavePath.Text = DStype.DSActiveDocument.Path;
+                MessageBox.Show("您可能打开了超过1个Delmia或者打开的Delmia为空文档！请核实！");
             }
         }
 
@@ -63,6 +72,10 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
+            if (Uselect.Count<1)
+            {
+                return;
+            }
             try
             {
                 Product Usp = (Product)Uselect.Item2(1).Value;
@@ -182,6 +195,21 @@ namespace RXQuestServer.Delmia
             }
             return false;
         }
+        public Product GetProductByPartNumber(Product FatherList, String PartNumber)
+        {
+            foreach (Product Pitem in FatherList.Products)
+            {
+                Pitem.set_Name(Pitem.get_PartNumber());
+                string CPartNumber = Pitem.get_PartNumber();
+                if (CPartNumber == PartNumber)
+                {
+                    return Pitem;
+                }
+            }
+            return null;
+        }
+
+
         /// <summary>
         /// 保存Product 到文件夹
         /// </summary>
@@ -247,7 +275,10 @@ namespace RXQuestServer.Delmia
             SetAttrValue(PD);
             PD = UserSelectedProduct.Products.AddNewProduct(Name + "_TagList");
             SetAttrValue(PD);
-            NwTagGroup(PD, Name);
+            if (NSTagGroup.Checked)
+            {
+                NwTagGroup(PD, Name);
+            }
             UserSelectedProduct.Update();
         }
         public void NwTagGroup(Product PD,String Name)
@@ -264,6 +295,27 @@ namespace RXQuestServer.Delmia
             TGF.CreateTagGroup(Name + "_R4_02", true, PD, out NwTagGroup);//创建TagGroupFactory
             TGF.CreateTagGroup(Name + "_R5_01", true, PD, out NwTagGroup);//创建TagGroupFactory
             TGF.CreateTagGroup(Name + "_R5_02", true, PD, out NwTagGroup);//创建TagGroupFactory
+        }
+        /// <summary>
+        /// 创建单个TagGroup
+        /// </summary>
+        /// <param name="PD">TagGroup Product父级</param>
+        /// <param name="Name">TagGroup名称</param>
+        public void NwSingleTagGroup(Product PD, String Name)
+        {
+            Product NPD = null;
+            NPD = GetProductByPartNumber(PD, PD.get_PartNumber() + "_TagList");
+            if (NPD == null)
+            {
+                NPD = PD.Products.AddNewProduct(Name + "_TagList");
+                SetAttrValue(PD);
+            }
+            else
+            {
+                TagGroupFactory TGF = (TagGroupFactory)NPD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
+                TagGroup NwTagGroup = null; //创建TagGroup指针
+                TGF.CreateTagGroup(Name, true, NPD, out NwTagGroup);//创建TagGroupFactory
+            }
         }
         public void GetDocument()
         {
@@ -404,42 +456,112 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetIRobotMotion(this, DStype);
-            try
+            if (Uselect!=null&&Uselect.Count>0)
             {
-                Product Usp = (Product)Uselect.Item2(1).Value;
-                RobControllerFactory CRM =(RobControllerFactory)Usp.GetTechnologicalObject("RobControllerFactory");
-                GenericAccuracyProfile GP;
-                GenericMotionProfile GMP;
-                GenericToolProfile GTP;
-                GenericObjFrameProfile GOP;
-                for (int i = 1; i <= 10; i++)
+                try
                 {
-                    CRM.CreateGenericAccuracyProfile(out GP);
-                    GP.SetAccuracyValue(i*0.1);
-                    GP.SetName(i*10+"%");
-                    GP.SetAccuracyType(AccuracyType.ACCURACY_TYPE_SPEED);
-                    GP.SetFlyByMode(false);
+                    String GetName = string.Empty;
+                    Product Usp = (Product)Uselect.Item2(1).Value;
+                    GetName = Usp.get_Name();
+                    RobControllerFactory CRM = (RobControllerFactory)Usp.GetTechnologicalObject("RobControllerFactory");
+                    GetName = CRM.get_Name();
+                    for (int i = 1; i <= Convert.ToInt16(RobotCtrlNum.Text); i++)
+                    {
+                        GenericAccuracyProfile GP;
+                        GenericMotionProfile GMP;
+                        GenericToolProfile GTP;
+                        GenericObjFrameProfile GOP;
+
+                        CRM.CreateGenericAccuracyProfile(out GP);
+                        GP.GetName(ref GetName);
+                        GetName = CRM.get_Name();
+                        GP.SetAccuracyValue(i * 0.1);
+                        GP.SetName(i * 10 + "%");
+                        GP.SetAccuracyType(AccuracyType.ACCURACY_TYPE_SPEED);
+                        GP.SetFlyByMode(false);
+
+                        CRM.CreateGenericObjFrameProfile(out GOP);
+                        GOP.SetObjectFrame(0, 0, 0, 0, 0, 0);
+                        GOP.SetName("Object_0" + i);
+
+                        CRM.CreateGenericMotionProfile(out GMP);
+                        GMP.SetSpeedValue(i * 0.1);
+                        GMP.SetName(i * 10 + "%");
+                        GMP.SetMotionBasis(MotionBasis.MOTION_PERCENT);
+
+                        CRM.CreateGenericToolProfile(out GTP);
+                        //GTP.set_Name("Tool" + i);
+                    }
+                    RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
+                    for (int i = 1; i <=Convert.ToInt16(ModelNum.Text); i++)
+                    {
+                        GetName = Rtf.get_Name();
+                        if (GPWeld.Checked)
+                        {
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_"+RobotID.Text.ToUpper() + "_" +ModelName.Text.ToUpper() + "_GP" + "_0" + i;
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                        }
+                        if (RPWeld.Checked)
+                        {
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_0" + i;
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                        }
+                        if (Glue.Checked)
+                        {
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_0" + i;
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                        }
+                        if (PickAndUp.Checked)
+                        {
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_0" + i;
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                        }
+                        if (StudWeld.Checked)
+                        {
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Stud" + "_0" + i;
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                        }
+
+                    }
+                    object[] RTask = new object[50];
+                    Rtf.GetAllRobotTasks(RTask);
+                    foreach (RobotTask item in RTask)
+                    {
+                        if (item!=null)
+                        {
+                            item.set_Description("安徽瑞祥工业自动化产品，机器人轨迹,创建于:" + DateTime.Now);
+                        }
+                    }
+                    //DeviceTaskFactory DTF= (DeviceTaskFactory)Usp.GetTechnologicalObject("DeviceTaskFactory");
+                    //DeviceTask DT=null;
+                    //DTF.CreateDeviceTask("YECCNewTask",ref DT);
                     Usp.Update();
-
-                    CRM.CreateGenericObjFrameProfile(out GOP);
-                    GOP.SetObjectFrame(0,0,0,0,0,0);
-                    GOP.SetName("Object_0"+i);
-
-                    CRM.CreateGenericMotionProfile(out GMP);
-                    GMP.SetSpeedValue(i * 0.1);
-                    GMP.SetName(i * 10 + "%");
-                    GMP.SetMotionBasis(MotionBasis.MOTION_PERCENT);
-
-                    CRM.CreateGenericToolProfile(out GTP);
-                    GTP.set_Name("Tool" + i);
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    throw;
+                    //MessageBox.Show("您选择的不是一个运动机构！");
+                }
             }
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void ModelName_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ModelName= ModelName.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void RobotID_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RobotID= RobotID.Text; ;
+            Properties.Settings.Default.Save();
         }
     }
 }

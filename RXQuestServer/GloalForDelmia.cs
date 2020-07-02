@@ -103,7 +103,7 @@ namespace RXQuestServer
             ProcessDocument PPRP = DSystem.DSActiveDocument;
             Selection USelect = PPRP.Selection;
             USelect.Clear();
-            var Result = USelect.SelectElement2(DataType.InputObjectType(11), "请选择一个机器人", true);
+            var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择一个机器人", true);
             if (Result == "Cancel")
             {
                 return null;
