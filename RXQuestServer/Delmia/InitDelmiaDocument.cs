@@ -109,6 +109,12 @@ namespace RXQuestServer.Delmia
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
             PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
             var RF=DStype.DSApplication.RefreshDisplay;
+            if (PPRSM.Count <1 || PPRS.Count < 1) //初始化产品数模
+            {
+                
+                MessageBox.Show("当前环境非标准环境，无法执行初始化！");
+                return;
+            }
             if (PPRSM.Count>0) //初始化产品数模
             {
                 Product PPRProduct = PPRSM.Item(1);
@@ -155,6 +161,7 @@ namespace RXQuestServer.Delmia
                         break;
                 }
             }
+            MessageBox.Show("初始化完成！");
         }
         /// <summary>
         /// 查询选定的Product中是否存在指定的对象
@@ -405,12 +412,10 @@ namespace RXQuestServer.Delmia
 
         private void FolderInit_Click(object sender, EventArgs e)
         {
-
             string Path = string.Empty;
             System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(InitSimDocument));
             importThread.SetApartmentState(ApartmentState.STA); //重点
             importThread.Start();
-
         }
 
         private void Fullint_Click(object sender, EventArgs e)
@@ -431,7 +436,6 @@ namespace RXQuestServer.Delmia
                 return;
             }
             NewResourseInit();
-            MessageBox.Show("初始化完成！");
         }
 
         private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
