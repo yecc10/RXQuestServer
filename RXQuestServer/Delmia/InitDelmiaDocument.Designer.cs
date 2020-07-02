@@ -57,6 +57,7 @@
             this.RobotID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.NSTagGroup = new System.Windows.Forms.CheckBox();
+            this.BackForm = new System.Windows.Forms.Button();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -331,6 +332,16 @@
             this.NSTagGroup.Text = "包含TagGroup";
             this.NSTagGroup.UseVisualStyleBackColor = true;
             // 
+            // BackForm
+            // 
+            this.BackForm.Location = new System.Drawing.Point(724, 353);
+            this.BackForm.Name = "BackForm";
+            this.BackForm.Size = new System.Drawing.Size(102, 38);
+            this.BackForm.TabIndex = 1;
+            this.BackForm.Text = "返回上一级";
+            this.BackForm.UseVisualStyleBackColor = true;
+            this.BackForm.Click += new System.EventHandler(this.BackForm_Click);
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -338,6 +349,7 @@
             this.ClientSize = new System.Drawing.Size(838, 429);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SavePath);
+            this.Controls.Add(this.BackForm);
             this.Controls.Add(this.InitRobot);
             this.Controls.Add(this.FolderInit);
             this.Controls.Add(this.SelectInit);
@@ -390,5 +402,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox RobotID;
         private System.Windows.Forms.CheckBox NSTagGroup;
+        private System.Windows.Forms.Button BackForm;
     }
 }

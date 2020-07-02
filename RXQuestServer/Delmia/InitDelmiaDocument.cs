@@ -567,5 +567,9 @@ namespace RXQuestServer.Delmia
             Properties.Settings.Default.RobotID= RobotID.Text; ;
             Properties.Settings.Default.Save();
         }
+
+        private void BackForm_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
