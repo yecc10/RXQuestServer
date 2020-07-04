@@ -177,6 +177,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resourse\Layout.CATProduct" />
+    <None Include="Resourse\SM.CATProduct" />
+    <None Include="Resourse\Station.CATProduct" />
     <None Include="RXQuestServer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

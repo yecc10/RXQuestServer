@@ -72,7 +72,7 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
-            if (Uselect.Count<1)
+            if (Uselect.Count < 1)
             {
                 return;
             }
@@ -88,11 +88,18 @@ namespace RXQuestServer.Delmia
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
-        public void NewProduct(Product PPRProduct,string Name,bool NeedSave)
+        /// <summary>
+        /// 创建新Product.CatProduct
+        /// </summary>
+        /// <param name="PPRProduct">父级</param>
+        /// <param name="Name">子名称</param>
+        /// <param name="NeedSave">是否需要保存</param>
+        /// <returns></returns>
+        public Product NewProduct(Product PPRProduct, string Name, bool NeedSave)
         {
             if (CheckRepeatByPartNumber(PPRProduct, Name))
             {
-                return;
+                return null;
             }
             Product NwP = PPRProduct.Products.AddNewProduct(Name);
             SetAttrValue(NwP);
@@ -101,6 +108,7 @@ namespace RXQuestServer.Delmia
                 NewStationInit(NwP);
                 SaveProduct(NwP);
             }
+            return NwP;
         }
         public void NewResourseInit()
         {
@@ -108,19 +116,28 @@ namespace RXQuestServer.Delmia
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
             PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
-            var RF=DStype.DSApplication.RefreshDisplay;
-            if (PPRSM.Count <1 || PPRS.Count < 1) //初始化产品数模
+            var RF = DStype.DSApplication.RefreshDisplay;
+            if (PPRSM.Count < 1 || PPRS.Count < 1) //初始化产品数模
             {
-                
+                try
+                {
+                    String MPth = Path.GetFullPath("SM.CATProduct");
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
                 MessageBox.Show("当前环境非标准环境，无法执行初始化！");
                 return;
             }
-            if (PPRSM.Count>0) //初始化产品数模
+            if (PPRSM.Count > 0) //初始化产品数模
             {
                 Product PPRProduct = PPRSM.Item(1);
-                for (int i = 1; i <=Convert.ToInt16(StationNum.Text); i++)
+                for (int i = 1; i <= Convert.ToInt16(StationNum.Text); i++)
                 {
-                    NewProduct(PPRProduct, "ST" + i * 10,false);
+                    NewProduct(PPRProduct, "ST" + i * 10, false);
                 }
             }
             for (int i = 1; i <= PPRS.Count; i++) //初始化资源列表
@@ -134,7 +151,7 @@ namespace RXQuestServer.Delmia
                             {
                                 continue;
                             }
-                            NewProduct(PPRProduct, "01_Layout_2D",false);
+                            NewProduct(PPRProduct, "01_Layout_2D", false);
                             NewProduct(PPRProduct, "02_Layout_3D", false);
                             NewProduct(PPRProduct, "03_Fence", false);
                             NewProduct(PPRProduct, "04_Platform", false);
@@ -244,9 +261,9 @@ namespace RXQuestServer.Delmia
             }
             //string FN = DSPD.FullName; //读取零件全名称 如果没有保存则为Name+.Product
             //string FP = DSPD.Path;//读取零件所在路径 如果没有保存则为null
-            Path = SavePath.Text + "\\03_Station" + "\\" + Name+"\\";
+            Path = SavePath.Text + "\\03_Station" + "\\" + Name + "\\";
             CreatePath(Path);
-            Path= Path+ Name + ".CATProduct";
+            Path = Path + Name + ".CATProduct";
             DSPD.SaveAs(Path);
             DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
@@ -256,7 +273,7 @@ namespace RXQuestServer.Delmia
             Prodt.set_Definition("安徽瑞祥工业自动化产品定义");//产品定义
             Prodt.set_Nomenclature("安徽瑞祥工业自动化产品术语");//产品术语
             Prodt.set_DescriptionInst("安徽瑞祥工业自动化部件描述");//部件描述
-            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述,创建于:"+DateTime.Now);//产品描述
+            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述,创建于:" + DateTime.Now);//产品描述
             Prodt.Source = CatProductSource.catProductMade;//默认自制
             Prodt.Update();
             string PartNumber = Prodt.get_PartNumber();
@@ -288,7 +305,7 @@ namespace RXQuestServer.Delmia
             }
             UserSelectedProduct.Update();
         }
-        public void NwTagGroup(Product PD,String Name)
+        public void NwTagGroup(Product PD, String Name)
         {
             TagGroupFactory TGF = (TagGroupFactory)PD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
             TagGroup NwTagGroup = null; //创建TagGroup指针
@@ -346,6 +363,9 @@ namespace RXQuestServer.Delmia
             }
             return;
         }
+        /// <summary>
+        /// 文件夹初始化
+        /// </summary>
         public void InitSimDocument()
         {
             if (string.IsNullOrEmpty(SavePath.Text))
@@ -370,13 +390,19 @@ namespace RXQuestServer.Delmia
             String MPath = SavePath.Text;
             String CPath = MPath + "//01_SM";
             CreatePath(CPath);
+            CreatePath(CPath + "//01_Model");
+            CreatePath(CPath + "//02_Model");
+            CreatePath(CPath + "//03_Model");
+            CreatePath(CPath + "//04_Model");
             CPath = MPath + "//02_Layout";
             CreatePath(CPath);
             CreatePath(CPath + "//01_3DLayout");
             CreatePath(CPath + "//02_2DLayout");
             CreatePath(CPath + "//03_Fence");
-            CreatePath(CPath + "//04_Platform");
-
+            CPath = CPath + "//04_Platform";//---------平台
+            CreatePath(CPath);
+            CreatePath(CPath + "//01_SteelPlatForm"); //钢平台
+            CreatePath(CPath + "//02_RobotPlatForm");//机器人平台
             CPath = MPath + "//03_Station";
             CreatePath(CPath);
             for (int i = 1; i <= Convert.ToInt16(StationNum.Text); i++)
@@ -393,13 +419,16 @@ namespace RXQuestServer.Delmia
             CPath = MPath + "//04_Resourse";
             CreatePath(CPath);
             CreatePath(CPath + "//01_Robot");
-            CreatePath(CPath + "//02_Gun");
-            CreatePath(CPath + "//03_ATC");
-            CreatePath(CPath + "//04_Dress");
-            CreatePath(CPath + "//05_Riser");
-            CreatePath(CPath + "//06_Box");
-            CreatePath(CPath + "//07_Water unit");
-            CreatePath(CPath + "//08_GlueMachine");
+            CreatePath(CPath + "//02_RobotBase");
+            CreatePath(CPath + "//03_Gun");
+            CreatePath(CPath + "//04_ATC");
+            CreatePath(CPath + "//05_Dress");
+            CreatePath(CPath + "//06_Riser");
+            CreatePath(CPath + "//07_Box");
+            CreatePath(CPath + "//08_Water unit");
+            CreatePath(CPath + "//09_GlueMachine");
+            CreatePath(CPath + "//10_Vin");
+            CreatePath(CPath + "//10_WaterUnit");
         }
         public void CreatePath(string Dpath)
         {
@@ -410,6 +439,11 @@ namespace RXQuestServer.Delmia
 
         }
 
+        /// <summary>
+        /// 文件夹初始化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderInit_Click(object sender, EventArgs e)
         {
             string Path = string.Empty;
@@ -446,13 +480,11 @@ namespace RXQuestServer.Delmia
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:"+DateTime.Now;
+            this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
         }
 
         private void InitRobot_Click(object sender, EventArgs e)
         {
-            //RobotMotion RM;
-            //RM.SetMotionProfile("");
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
@@ -460,7 +492,7 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetIRobotMotion(this, DStype);
-            if (Uselect!=null&&Uselect.Count>0)
+            if (Uselect != null && Uselect.Count > 0)
             {
                 try
                 {
@@ -497,30 +529,30 @@ namespace RXQuestServer.Delmia
                         //GTP.set_Name("Tool" + i);
                     }
                     RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
-                    for (int i = 1; i <=Convert.ToInt16(ModelNum.Text); i++)
+                    for (int i = 1; i <= Convert.ToInt16(ModelNum.Text); i++)
                     {
                         GetName = Rtf.get_Name();
                         if (GPWeld.Checked)
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_"+RobotID.Text.ToUpper() + "_" +ModelName.Text.ToUpper() + "_GP" + "_0" + i;
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_GP" + "_0" + i;
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
                         if (RPWeld.Checked)
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_0" + i;
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_0" + i;
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
                         if (Glue.Checked)
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_0" + i;
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_0" + i;
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
                         if (PickAndUp.Checked)
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber()  +"_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_0" + i;
+                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_0" + i;
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
@@ -536,7 +568,7 @@ namespace RXQuestServer.Delmia
                     Rtf.GetAllRobotTasks(RTask);
                     foreach (RobotTask item in RTask)
                     {
-                        if (item!=null)
+                        if (item != null)
                         {
                             item.set_Description("安徽瑞祥工业自动化产品，机器人轨迹,创建于:" + DateTime.Now);
                         }
@@ -558,13 +590,13 @@ namespace RXQuestServer.Delmia
 
         private void ModelName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ModelName= ModelName.Text;
+            Properties.Settings.Default.ModelName = ModelName.Text;
             Properties.Settings.Default.Save();
         }
 
         private void RobotID_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.RobotID= RobotID.Text; ;
+            Properties.Settings.Default.RobotID = RobotID.Text; ;
             Properties.Settings.Default.Save();
         }
 
