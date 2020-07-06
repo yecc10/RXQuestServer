@@ -110,7 +110,7 @@ namespace RXQuestServer.Delmia
             }
             return NwP;
         }
-        public void NewPPRProduct(PPRProducts Product,string Name,string RefProductPath)
+        public void NewPPRProduct(PPRProducts Product,string Name)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
@@ -135,12 +135,12 @@ namespace RXQuestServer.Delmia
             {
                 try
                 {
-                    String SMPath = Path.GetFullPath("SM.CATProduct");
-                    String StationPath = Path.GetFullPath("Station.CATProduct");
-                    String LayoutPath = Path.GetFullPath("Layout.CATProduct");
-                    NewPPRProduct(PPRSM, "SM", SMPath);
-                    NewPPRProduct(PPRS, "Station", StationPath);
-                    NewPPRProduct(PPRS, "Layout", LayoutPath);
+                    //String SMPath = Path.GetFullPath("SM.CATProduct");
+                    //String StationPath = Path.GetFullPath("Station.CATProduct");
+                    //String LayoutPath = Path.GetFullPath("Layout.CATProduct");
+                    NewPPRProduct(PPRSM, "SM");
+                    NewPPRProduct(PPRS, "Station");
+                    NewPPRProduct(PPRS, "Layout");
                 }
                 catch (Exception)
                 {

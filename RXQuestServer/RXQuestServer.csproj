@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\DESKTOP-5HK1A1I\SystemRoot\PushSoft\01_RXQuesetServer\</InstallUrl>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -177,9 +177,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resourse\Layout.CATProduct" />
-    <None Include="Resourse\SM.CATProduct" />
-    <None Include="Resourse\Station.CATProduct" />
     <None Include="RXQuestServer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -1333,6 +1330,7 @@
   <ItemGroup>
     <Folder Include="AutoCad\" />
     <Folder Include="PDPS\" />
+    <Folder Include="Resourse\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
