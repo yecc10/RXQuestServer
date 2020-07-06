@@ -57,10 +57,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 336);
+            this.ClientSize = new System.Drawing.Size(304, 111);
             this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.InitDelmiaDocument);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(320, 150);
+            this.MinimumSize = new System.Drawing.Size(320, 150);
             this.Name = "Main";
             this.Text = "主入口";
             this.ResumeLayout(false);

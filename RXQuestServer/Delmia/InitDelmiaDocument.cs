@@ -110,8 +110,22 @@ namespace RXQuestServer.Delmia
             }
             return NwP;
         }
+        public void NewPPRProduct(PPRProducts Product,string Name,string RefProductPath)
+        {
+            ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
+            Product Teproduct = TeDocument.Product;
+            SetAttrValue(Teproduct);
+            Product.Add(Teproduct);
+            TeDocument.Close();
+            Product NWResProduct = Product.Item(Product.Count);
+            NWResProduct.set_Name(Name);
+            NWResProduct.set_PartNumber(Name);
+            SaveProduct(NWResProduct);
+
+        }
         public void NewResourseInit()
         {
+            InitSimDocument();
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
@@ -121,16 +135,19 @@ namespace RXQuestServer.Delmia
             {
                 try
                 {
-                    String MPth = Path.GetFullPath("SM.CATProduct");
-
+                    String SMPath = Path.GetFullPath("SM.CATProduct");
+                    String StationPath = Path.GetFullPath("Station.CATProduct");
+                    String LayoutPath = Path.GetFullPath("Layout.CATProduct");
+                    NewPPRProduct(PPRSM, "SM", SMPath);
+                    NewPPRProduct(PPRS, "Station", StationPath);
+                    NewPPRProduct(PPRS, "Layout", LayoutPath);
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    MessageBox.Show("当前环境非标准环境，无法执行初始化！");
+                    //throw;
                 }
-                MessageBox.Show("当前环境非标准环境，无法执行初始化！");
-                return;
+               // MessageBox.Show("当前环境非标准环境，已执行初始化！");
             }
             if (PPRSM.Count > 0) //初始化产品数模
             {
@@ -235,7 +252,7 @@ namespace RXQuestServer.Delmia
 
 
         /// <summary>
-        /// 保存Product 到文件夹
+        /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
         public void SaveProduct(Product Tproduct)
@@ -261,7 +278,28 @@ namespace RXQuestServer.Delmia
             }
             //string FN = DSPD.FullName; //读取零件全名称 如果没有保存则为Name+.Product
             //string FP = DSPD.Path;//读取零件所在路径 如果没有保存则为null
-            Path = SavePath.Text + "\\03_Station" + "\\" + Name + "\\";
+            switch (Name)
+            {
+                case "SM":
+                    {
+                        Path = SavePath.Text + "\\01_SM" + "\\" ;
+                        break;
+                    }
+                case "Station":
+                    {
+                        Path = SavePath.Text + "\\03_Station" + "\\";
+                        break;
+                    }
+                case "Layout":
+                    {
+                        Path = SavePath.Text + "\\02_Layout" + "\\";
+                        break;
+                    }
+                default:
+                    Path = SavePath.Text + "\\03_Station" + "\\" + Name + "\\";
+                    break;
+            }
+
             CreatePath(Path);
             Path = Path + Name + ".CATProduct";
             DSPD.SaveAs(Path);
@@ -457,7 +495,7 @@ namespace RXQuestServer.Delmia
             CheckForIllegalCrossThreadCalls = false;
             if (string.IsNullOrEmpty(SavePath.Text))
             {
-                MessageBox.Show("请设置工作目录后重试！");
+                MessageBox.Show("请设置工作目录或保存Process后重试,请勿向默认Process中添加任何元素！");
                 System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetDocument));
                 importThread.SetApartmentState(ApartmentState.STA); //重点
                 importThread.Start();

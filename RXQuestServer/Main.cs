@@ -16,6 +16,9 @@ namespace RXQuestServer
         public Main()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
