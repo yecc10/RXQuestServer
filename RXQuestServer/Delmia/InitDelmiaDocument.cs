@@ -32,6 +32,7 @@ using PROCESSITF;
 using DNBDevice;
 using DNBRobot;
 using DNBIgpTagPath;
+using MANUFACTURING;
 
 namespace RXQuestServer.Delmia
 {
@@ -110,7 +111,7 @@ namespace RXQuestServer.Delmia
             }
             return NwP;
         }
-        public void NewPPRProduct(PPRProducts Product,string Name)
+        public void NewPPRProduct(PPRProducts Product, string Name)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
@@ -144,10 +145,10 @@ namespace RXQuestServer.Delmia
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("当前环境非标准环境，无法执行初始化！");
+                    MessageBox.Show("当前环境非标准环境，或解密软件未登陆，无法执行初始化！");
                     //throw;
                 }
-               // MessageBox.Show("当前环境非标准环境，已执行初始化！");
+                // MessageBox.Show("当前环境非标准环境，已执行初始化！");
             }
             if (PPRSM.Count > 0) //初始化产品数模
             {
@@ -282,7 +283,7 @@ namespace RXQuestServer.Delmia
             {
                 case "SM":
                     {
-                        Path = SavePath.Text + "\\01_SM" + "\\" ;
+                        Path = SavePath.Text + "\\01_SM" + "\\";
                         break;
                     }
                 case "Station":
@@ -537,6 +538,7 @@ namespace RXQuestServer.Delmia
                     String GetName = string.Empty;
                     Product Usp = (Product)Uselect.Item2(1).Value;
                     GetName = Usp.get_Name();
+                    RobGenericController Rgcr = (RobGenericController)Usp.GetTechnologicalObject("RobGenericController");
                     RobControllerFactory CRM = (RobControllerFactory)Usp.GetTechnologicalObject("RobControllerFactory");
                     GetName = CRM.get_Name();
                     for (int i = 1; i <= Convert.ToInt16(RobotCtrlNum.Text); i++)
@@ -545,7 +547,7 @@ namespace RXQuestServer.Delmia
                         GenericMotionProfile GMP;
                         GenericToolProfile GTP;
                         GenericObjFrameProfile GOP;
-
+                        bool ExistsObject;
                         CRM.CreateGenericAccuracyProfile(out GP);
                         GP.GetName(ref GetName);
                         GetName = CRM.get_Name();
@@ -553,18 +555,45 @@ namespace RXQuestServer.Delmia
                         GP.SetName(i * 10 + "%");
                         GP.SetAccuracyType(AccuracyType.ACCURACY_TYPE_SPEED);
                         GP.SetFlyByMode(false);
+                        Rgcr.HasAccuracyProfile((i * 10 + "%"), out ExistsObject);
+                        if (!ExistsObject)
+                        {
+                            Rgcr.AddAccuracyProfile(GP);
+                        }
 
                         CRM.CreateGenericObjFrameProfile(out GOP);
                         GOP.SetObjectFrame(0, 0, 0, 0, 0, 0);
                         GOP.SetName("Object_0" + i);
-
+                        Rgcr.HasObjFrameProfile(("Object_0" + i), out ExistsObject);
+                        if (!ExistsObject)
+                        {
+                            Rgcr.AddObjFrameProfile(GOP);
+                        }
                         CRM.CreateGenericMotionProfile(out GMP);
                         GMP.SetSpeedValue(i * 0.1);
                         GMP.SetName(i * 10 + "%");
                         GMP.SetMotionBasis(MotionBasis.MOTION_PERCENT);
-
+                        Rgcr.HasMotionProfile((i * 10 + "%"), out ExistsObject);
+                        if (!ExistsObject)
+                        {
+                            Rgcr.AddMotionProfile(GMP);
+                        }
                         CRM.CreateGenericToolProfile(out GTP);
-                        //GTP.set_Name("Tool" + i);
+                        // NwName = i < 9 ? ("Tool_0" + i) : ("Tool_" + i);
+                        string NwName = "Tool_0" + i;
+                        Rgcr.HasToolProfile(NwName, out ExistsObject);
+                        if (!ExistsObject)
+                        {
+                            Rgcr.AddToolProfile(GTP);
+                            //Object[] TooList = new object[99];
+                            //Rgcr.GetToolProfiles(TooList);
+                            //int TotalTool;
+                            //Rgcr.GetToolProfileCount(out TotalTool);
+                            //GenericToolProfile ToolProfile =(GenericToolProfile)TooList[TotalTool-1];
+                            //NwName = ToolProfile.get_Name();
+                            //ToolProfile.set_Name(NwName);
+                        }
+
                     }
                     RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
                     for (int i = 1; i <= Convert.ToInt16(ModelNum.Text); i++)
@@ -618,8 +647,8 @@ namespace RXQuestServer.Delmia
                 }
                 catch (Exception)
                 {
-                    throw;
-                    //MessageBox.Show("您选择的不是一个运动机构！");
+                    //throw;
+                    MessageBox.Show("您选择的不是一个运动机构！");
                 }
             }
             this.WindowState = FormWindowState.Normal;
