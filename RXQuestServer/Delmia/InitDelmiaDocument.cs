@@ -467,7 +467,8 @@ namespace RXQuestServer.Delmia
             CreatePath(CPath + "//08_Water unit");
             CreatePath(CPath + "//09_GlueMachine");
             CreatePath(CPath + "//10_Vin");
-            CreatePath(CPath + "//10_WaterUnit");
+            CreatePath(CPath + "//11_WaterUnit");
+            CreatePath(CPath + "//12_APC");
         }
         public void CreatePath(string Dpath)
         {
