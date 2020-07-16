@@ -16,6 +16,7 @@ namespace RXQuestServer
         public Main()
         {
             InitializeComponent();
+            this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
