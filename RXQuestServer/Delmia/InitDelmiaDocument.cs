@@ -42,6 +42,9 @@ namespace RXQuestServer.Delmia
         public InitDelmiaDocument()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.TopMost = true;
             try
             {
@@ -581,13 +584,38 @@ namespace RXQuestServer.Delmia
                         {
                             Rgcr.AddMotionProfile(GMP);
                         }
-                        CRM.CreateGenericToolProfile(out GTP);
+
                         // NwName = i < 9 ? ("Tool_0" + i) : ("Tool_" + i);
                         string NwName = "Tool_0" + i;
                         Rgcr.HasToolProfile(NwName, out ExistsObject);
                         if (!ExistsObject)
                         {
-                            Rgcr.AddToolProfile(GTP);
+                            try
+                            {
+                                int ToolNum = 0;
+                                Rgcr.GetToolProfileCount(out ToolNum);
+                                string Ctname = string.Empty;
+                                if (ToolNum < 16)
+                                {
+                                    CRM.CreateGenericToolProfile(out GTP);
+                                    Rgcr.AddToolProfile(GTP);
+                                    //Object[] ToolLists = new object[ToolNum];
+                                    //Rgcr.GetToolProfiles(ToolLists);
+                                    //for (int j = 1; j <= ToolNum; j++)
+                                    //{
+                                    //    Ctname = ((GenericToolProfile)ToolLists[i]).get_Name();
+                                    //    ((GenericToolProfile)ToolLists[i]).set_Name(NwName);
+                                    //}
+                                    //GTP.GetName(Ctname);
+                                    //GTP.SetToolMobility(true);
+                                    //GTP.set_Name(NwName);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+
                             //Object[] TooList = new object[99];
                             //Rgcr.GetToolProfiles(TooList);
                             //int TotalTool;
@@ -608,57 +636,53 @@ namespace RXQuestServer.Delmia
                     {
                         RobotTaskLists = null;
                     }
-                    for (int i = 1; i <= Convert.ToInt16(ModelNum.Text); i++)
+                    GetName = Rtf.get_Name();
+                    if (GPWeld.Checked)
                     {
-                        GetName = Rtf.get_Name();
-                        if (GPWeld.Checked)
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_GP" + "_" + ELEID.Text;
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_GP" + "_0" + i;
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                            }
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-                        if (RPWeld.Checked)
+                    }
+                    if (RPWeld.Checked)
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_" + ELEID.Text;
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_0" + i;
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                            }
-
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-                        if (Glue.Checked)
-                        {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_0" + i;
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                            }
 
+                    }
+                    if (Glue.Checked)
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_" + ELEID.Text;
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                        {
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-                        if (PickAndUp.Checked)
-                        {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_0" + i;
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                            }
 
+                    }
+                    if (PickAndUp.Checked)
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_" + ELEID.Text;
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                        {
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-                        if (StudWeld.Checked)
-                        {
-                            String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Stud" + "_0" + i;
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                            }
 
+                    }
+                    if (StudWeld.Checked)
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Stud" + "_" + ELEID.Text;
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                        {
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
 
                     }
@@ -694,7 +718,7 @@ namespace RXQuestServer.Delmia
         /// <returns></returns>
         private bool CheckTaskExists(Object[] RobotTaskList, string CheckedName)
         {
-            if (RobotTaskList==null)
+            if (RobotTaskList == null)
             {
                 return false;
             }
@@ -723,8 +747,22 @@ namespace RXQuestServer.Delmia
             Properties.Settings.Default.Save();
         }
 
-        private void BackForm_Click(object sender, EventArgs e)
+        private void ELEADD_Click(object sender, EventArgs e)
         {
+            int CV = Convert.ToInt16(ELEID.Text);
+            CV += 1;
+            CV = CV < 1 ? 1 : CV;
+            String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
+            ELEID.Text = TV;
+        }
+
+        private void ELEREMOVE_Click(object sender, EventArgs e)
+        {
+            int CV = Convert.ToInt16(ELEID.Text);
+            CV -= 1;
+            CV = CV < 1 ? 1 : CV;
+            String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
+            ELEID.Text = TV;
         }
     }
 }
