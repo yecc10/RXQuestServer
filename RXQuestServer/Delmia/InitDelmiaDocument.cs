@@ -173,6 +173,7 @@ namespace RXQuestServer.Delmia
                             NewProduct(PPRProduct, "02_Layout_3D", false);
                             NewProduct(PPRProduct, "03_Fence", false);
                             NewProduct(PPRProduct, "04_Platform", false);
+                            NewProduct(PPRProduct, "05_Human", false);
                             break;
                         }
                     case "Station":
