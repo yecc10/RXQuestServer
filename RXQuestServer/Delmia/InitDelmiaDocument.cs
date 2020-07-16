@@ -600,7 +600,14 @@ namespace RXQuestServer.Delmia
                     }
                     RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
                     object[] RobotTaskLists = new object[99];
-                    Rtf.GetAllRobotTasks(RobotTaskLists);
+                    try
+                    {
+                        Rtf.GetAllRobotTasks(RobotTaskLists);
+                    }
+                    catch (Exception)
+                    {
+                        RobotTaskLists = null;
+                    }
                     for (int i = 1; i <= Convert.ToInt16(ModelNum.Text); i++)
                     {
                         GetName = Rtf.get_Name();
@@ -677,6 +684,7 @@ namespace RXQuestServer.Delmia
             }
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.TopMost = true;
         }
         /// <summary>
         /// 检查机器人程序是否重复
@@ -686,6 +694,10 @@ namespace RXQuestServer.Delmia
         /// <returns></returns>
         private bool CheckTaskExists(Object[] RobotTaskList, string CheckedName)
         {
+            if (RobotTaskList==null)
+            {
+                return false;
+            }
             foreach (RobotTask item in RobotTaskList)
             {
                 if (item != null)
