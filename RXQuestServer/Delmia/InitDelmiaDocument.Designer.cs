@@ -519,6 +519,7 @@
             this.Controls.Add(this.Station_Group);
             this.Controls.Add(this.LayoutGroup);
             this.Controls.Add(this.SM_Group);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(854, 468);
             this.MinimumSize = new System.Drawing.Size(854, 468);

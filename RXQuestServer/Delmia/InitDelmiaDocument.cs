@@ -665,6 +665,14 @@ namespace RXQuestServer.Delmia
                 Fullint.Enabled = false;
                 return;
             }
+            string[] Dirst = Directory.GetDirectories(SavePath.Text);
+            if (Dirst.Length > 0)
+            {
+                foreach (string item in Dirst)
+                {
+                    Directory.Delete(item, true);
+                }
+            }
             CheckForIllegalCrossThreadCalls = false;
             if (string.IsNullOrEmpty(SavePath.Text))
             {
