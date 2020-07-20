@@ -26,6 +26,7 @@ using DNBASY;
 using System.Windows.Forms;
 using PROCESSITF;
 using PPR;
+using NPOI.POIFS.Crypt.Dsig;
 
 namespace RXQuestServer
 {
@@ -43,9 +44,30 @@ namespace RXQuestServer
             INFITF.Application DSApplication;
             Documents DSDocument;
             ProcessDocument DSActiveDocument;
+            Process[] AllProcess = Process.GetProcessesByName("DELMIA");
+            if (AllProcess.Length>1)
+            {
+                try
+                {
+                   // MessageBox.Show("当前打开超过1个Delmia,可能操控的Delmia非您需要的对象，请核实！");
+                   // IntPtr Ptr = AllProcess[2].MainWindowHandle;
+                   // string Pname = AllProcess[2].MainWindowTitle;
+                   //  int progid=  AllProcess[2].;
+                   // object Pobj = Marshal.GetActiveObject("Delmia.Application");
+                   //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
+                   // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
+                   // DSApplication = (INFITF.Application)Pobj;
+                   // String tn = DSApplication.get_Caption();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
             try
             {
-                DSApplication = (INFITF.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Delmia.Application");
+                DSApplication = (INFITF.Application)Marshal.GetActiveObject("Delmia.Application");
             }
             catch (Exception)
             {

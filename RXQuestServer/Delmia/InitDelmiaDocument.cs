@@ -38,10 +38,22 @@ namespace RXQuestServer.Delmia
 {
     public partial class InitDelmiaDocument : Form
     {
+        DataType.SimulationDir SimulationDir = new DataType.SimulationDir();
         DataType.Dsystem DStype = new DataType.Dsystem();
+        /// <summary>
+        /// 自动化布局主要区域类型
+        /// </summary>
+        enum LayoutType { MB, SBL, SBR, FR, RR, UB, ST }
         public InitDelmiaDocument()
         {
             InitializeComponent();
+            INITCtrol();
+        }
+        /// <summary>
+        /// 初始化环境
+        /// </summary>
+        public void INITCtrol()
+        {
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -64,10 +76,23 @@ namespace RXQuestServer.Delmia
             }
             catch (Exception)
             {
+                FolderInit.Enabled = false;
                 MessageBox.Show("您可能打开了超过1个Delmia或者打开的Delmia为空文档！请核实！");
+                return;
+            }
+            if (!string.IsNullOrEmpty(SavePath.Text))
+            {
+                string[] dirst = Directory.GetDirectories(SavePath.Text);//读取文件夹中文件夹数量
+                if (dirst.Length > 0)
+                {
+                    FolderInit.Enabled = false;
+                }
+                else
+                {
+                    FolderInit.Enabled = true;
+                }
             }
         }
-
         private void SelectInit_Click(object sender, EventArgs e)
         {
             GloalForDelmia GFD = new GloalForDelmia();
@@ -111,11 +136,11 @@ namespace RXQuestServer.Delmia
             if (NeedSave)
             {
                 NewStationInit(NwP);
-                SaveProduct(NwP);
+                SaveProduct(NwP,null);
             }
             return NwP;
         }
-        public void NewPPRProduct(PPRProducts Product, string Name)
+        public Product NewPPRProduct(PPRProducts Product, string Name)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
@@ -125,11 +150,50 @@ namespace RXQuestServer.Delmia
             Product NWResProduct = Product.Item(Product.Count);
             NWResProduct.set_Name(Name);
             NWResProduct.set_PartNumber(Name);
-            SaveProduct(NWResProduct);
-
+            SaveProduct(NWResProduct,null);
+            return NWResProduct;
+        }
+        /// <summary>
+        /// 获取用户需求添加哪些区域
+        /// </summary>
+        /// <returns>返回用户选择的区域列表</returns>
+        public List<string> GetZeroList()
+        {
+            List<string> ZeroList = new List<string>();
+            if (MB.Checked)
+            {
+                ZeroList.Add("MB");
+            }
+            if (SBL.Checked)
+            {
+                ZeroList.Add("SBL");
+            }
+            if (SBR.Checked)
+            {
+                ZeroList.Add("SBR");
+            }
+            if (FR.Checked)
+            {
+                ZeroList.Add("FR");
+            }
+            if (RR.Checked)
+            {
+                ZeroList.Add("RR");
+            }
+            if (UB.Checked)
+            {
+                ZeroList.Add("UB");
+            }
+            if (ST.Checked)
+            {
+                ZeroList.Add("ST");
+            }
+            return ZeroList;
         }
         public void NewResourseInit()
         {
+            this.TopMost = false;
+            List<string> ZeroList = GetZeroList();
             InitSimDocument();
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
@@ -143,9 +207,45 @@ namespace RXQuestServer.Delmia
                     //String SMPath = Path.GetFullPath("SM.CATProduct");
                     //String StationPath = Path.GetFullPath("Station.CATProduct");
                     //String LayoutPath = Path.GetFullPath("Layout.CATProduct");
-                    NewPPRProduct(PPRSM, "SM");
-                    NewPPRProduct(PPRS, "Station");
-                    NewPPRProduct(PPRS, "Layout");
+                    for (int i = 0; i < ZeroList.Count; i++)
+                    {
+                        Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i]+"_SM"); //初始化产品数模
+                        for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                        {
+                            NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
+                        }
+                        Product CNewProduct = null;
+                        if (ZeroList[i] == "ST")
+                        {
+                            CNewProduct = NewPPRProduct(PPRS, "Station");
+                        }
+                        else
+                        {
+                            CNewProduct = NewPPRProduct(PPRS, ZeroList[i]);
+                        }
+                        for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                        {
+                            String NWTP = ZeroList[i] + j * 10;
+                            if (CheckRepeatByPartNumber(CNewProduct, NWTP))
+                            {
+                                continue;
+                            }
+                            Product NwP = CNewProduct.Products.AddNewComponent("Product", NWTP);
+                            CNewProduct.Update();
+                            SetAttrValue(NwP);
+                            NewStationInit(NwP);
+                            SaveProduct(NwP, ZeroList[i]);
+                        }
+                    }
+                    Product CLayoutProduct=  NewPPRProduct(PPRS, "Layout");
+                    if (!CheckRepeatByPartNumber(CLayoutProduct, "Layout_2D"))
+                    {
+                        NewProduct(CLayoutProduct, "01_Layout_2D", false);
+                        NewProduct(CLayoutProduct, "02_Layout_3D", false);
+                        NewProduct(CLayoutProduct, "03_Fence", false);
+                        NewProduct(CLayoutProduct, "04_Platform", false);
+                        NewProduct(CLayoutProduct, "05_Human", false);
+                    }
                 }
                 catch (Exception)
                 {
@@ -153,53 +253,6 @@ namespace RXQuestServer.Delmia
                     //throw;
                 }
                 // MessageBox.Show("当前环境非标准环境，已执行初始化！");
-            }
-            if (PPRSM.Count > 0) //初始化产品数模
-            {
-                Product PPRProduct = PPRSM.Item(1);
-                for (int i = 1; i <= Convert.ToInt16(StationNum.Text); i++)
-                {
-                    NewProduct(PPRProduct, "ST" + i * 10, false);
-                }
-            }
-            for (int i = 1; i <= PPRS.Count; i++) //初始化资源列表
-            {
-                Product PPRProduct = PPRS.Item(i);
-                switch (PPRProduct.get_PartNumber())
-                {
-                    case "Layout":
-                        {
-                            if (CheckRepeatByPartNumber(PPRProduct, "Layout_2D"))
-                            {
-                                continue;
-                            }
-                            NewProduct(PPRProduct, "01_Layout_2D", false);
-                            NewProduct(PPRProduct, "02_Layout_3D", false);
-                            NewProduct(PPRProduct, "03_Fence", false);
-                            NewProduct(PPRProduct, "04_Platform", false);
-                            NewProduct(PPRProduct, "05_Human", false);
-                            break;
-                        }
-                    case "Station":
-                        {
-                            for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
-                            {
-                                String NWTP = "ST" + j * 10;
-                                if (CheckRepeatByPartNumber(PPRProduct, NWTP))
-                                {
-                                    continue;
-                                }
-                                Product NwP = PPRProduct.Products.AddNewComponent("Product", NWTP);
-                                PPRProduct.Update();
-                                SetAttrValue(NwP);
-                                NewStationInit(NwP);
-                                SaveProduct(NwP);
-                            }
-                            break;
-                        }
-                    default:
-                        break;
-                }
             }
             MessageBox.Show("初始化完成！");
         }
@@ -261,7 +314,7 @@ namespace RXQuestServer.Delmia
         /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
-        public void SaveProduct(Product Tproduct)
+        public void SaveProduct(Product Tproduct,String DLayouType)
         {
             if (DStype.DSActiveDocument == null)
             {
@@ -275,6 +328,7 @@ namespace RXQuestServer.Delmia
             DStype.DSApplication.DisplayFileAlerts = false; //关闭提示
             Documents CatDocuments = DStype.DSDocument;
             String Path = string.Empty;
+            String SPath = string.Empty;
             String Name = Tproduct.get_PartNumber();
             //String NwProductName = Name + "_Fixture";
             ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
@@ -284,28 +338,70 @@ namespace RXQuestServer.Delmia
             }
             //string FN = DSPD.FullName; //读取零件全名称 如果没有保存则为Name+.Product
             //string FP = DSPD.Path;//读取零件所在路径 如果没有保存则为null
+            if (!string.IsNullOrEmpty(DLayouType))
+            {
+                Name = DLayouType;
+            }
             switch (Name)
             {
                 case "SM":
                     {
-                        Path = SavePath.Text + "\\01_SM" + "\\";
+                        Path = SimulationDir.SMPath;
                         break;
                     }
                 case "Station":
                     {
-                        Path = SavePath.Text + "\\03_Station" + "\\";
+                        Path = SimulationDir.STPath;
+                        break;
+                    }
+                case "MB":
+                    {
+                        Path = SimulationDir.MBPath;
+                        break;
+                    }
+                case "SBL":
+                    {
+                        Path = SimulationDir.SBLPath;
+                        break;
+                    }
+                case "SBR":
+                    {
+                        Path = SimulationDir.SBRPath;
+                        break;
+                    }
+                case "FR":
+                    {
+                        Path = SimulationDir.FRPath;
+                        break;
+                    }
+                case "RR":
+                    {
+                        Path = SimulationDir.RRPath;
+                        break;
+                    }
+                case "UB":
+                    {
+                        Path = SimulationDir.UBPath;
+                        break;
+                    }
+                case "ST":
+                    {
+                        Path = SimulationDir.STPath;
                         break;
                     }
                 case "Layout":
                     {
-                        Path = SavePath.Text + "\\02_Layout" + "\\";
+                        Path = SimulationDir.LayoutPath;
                         break;
                     }
                 default:
-                    Path = SavePath.Text + "\\03_Station" + "\\" + Name + "\\";
+                    Path = SimulationDir.SMPath;
                     break;
             }
-
+            if (!string.IsNullOrEmpty(DLayouType))
+            {
+                Path = Path  + Tproduct.get_PartNumber() + "\\";
+            }
             CreatePath(Path);
             Path = Path + Name + ".CATProduct";
             DSPD.SaveAs(Path);
@@ -412,10 +508,16 @@ namespace RXQuestServer.Delmia
         /// </summary>
         public void InitSimDocument()
         {
+            List<string> ZeroList = GetZeroList();
+            if (ZeroList.Count < 1)
+            {
+                MessageBox.Show("当前您未选中任何Layout类型请核实！");
+                return;
+            }
+            FolderBrowserDialog GetDocument = new FolderBrowserDialog();
             if (string.IsNullOrEmpty(SavePath.Text))
             {
                 CheckForIllegalCrossThreadCalls = false;
-                FolderBrowserDialog GetDocument = new FolderBrowserDialog();
                 GetDocument.Description = "选择仿真存储最高级.CatProcess所在文件夹";
                 if (GetDocument.ShowDialog() == DialogResult.OK)
                 {
@@ -428,39 +530,94 @@ namespace RXQuestServer.Delmia
                 else
                 {
                     MessageBox.Show("未知错误00A！");
-                    return;
+                    //return;
                 }
             }
             String MPath = SavePath.Text;
-            String CPath = MPath + "//01_SM";
+            String CPath = MPath + "\\01_SM";
+            SimulationDir.SMPath = CPath + "\\";
             CreatePath(CPath);
-            CreatePath(CPath + "//01_Model");
-            CreatePath(CPath + "//02_Model");
-            CreatePath(CPath + "//03_Model");
-            CreatePath(CPath + "//04_Model");
-            CPath = MPath + "//02_Layout";
+            CreatePath(CPath + "\\01_Model");
+            CreatePath(CPath + "\\02_Model");
+            CreatePath(CPath + "\\03_Model");
+            CreatePath(CPath + "\\04_Model");
+            CPath = MPath + "\\02_Layout";
+            SimulationDir.LayoutPath = CPath + "\\";
             CreatePath(CPath);
-            CreatePath(CPath + "//01_3DLayout");
-            CreatePath(CPath + "//02_2DLayout");
-            CreatePath(CPath + "//03_Fence");
-            CPath = CPath + "//04_Platform";//---------平台
+            CreatePath(CPath + "\\01_3DLayout");
+            CreatePath(CPath + "\\02_2DLayout");
+            CreatePath(CPath + "\\03_Fence");
+            CPath = CPath + "\\04_Platform";//---------平台
             CreatePath(CPath);
-            CreatePath(CPath + "//01_SteelPlatForm"); //钢平台
-            CreatePath(CPath + "//02_RobotPlatForm");//机器人平台
-            CPath = MPath + "//03_Station";
-            CreatePath(CPath);
-            for (int i = 1; i <= Convert.ToInt16(StationNum.Text); i++)
+            CreatePath(CPath + "\\01_SteelPlatForm"); //钢平台
+            CreatePath(CPath + "\\02_RobotPlatForm");//机器人平台
+            int StationID = 3;
+
+            for (int i = 0; i < ZeroList.Count; i++)
             {
-                string StationPath = i > 10 ? CPath + "//ST" + i * 10 : CPath + "//ST" + i * 10;
-                CreatePath(StationPath);
-                CreatePath(StationPath + "//01_Fixture");
-                CreatePath(StationPath + "//02_Gripper");
-                CreatePath(StationPath + "//03_GripperStander");
-                CreatePath(StationPath + "//04_GunStander");
-                CreatePath(StationPath + "//05_Buffer");
-                CreatePath(StationPath + "//06_ROBOTSLIDE&Stander");
+                switch (ZeroList[i])
+                {
+                    case "ST":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_Station";
+                            SimulationDir.STPath = CPath + "\\";
+                            break;
+                        }
+                    case "MB":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.MBPath = CPath + "\\";
+                            break;
+                        }
+                    case "SBR":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.SBRPath = CPath + "\\";
+                            break;
+                        }
+                    case "SBL":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.SBLPath = CPath + "\\";
+                            break;
+                        }
+                    case "UB":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.UBPath = CPath + "\\";
+                            break;
+                        }
+                    case "FR":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.FRPath = CPath + "\\";
+                            break;
+                        }
+                    case "RR":
+                        {
+                            CPath = MPath + (StationID < 10 ? "\\0" + StationID : "\\" + StationID) + "_" + ZeroList[i];
+                            SimulationDir.RRPath = CPath + "\\";
+                            break;
+                        }
+                    default:
+                        MessageBox.Show("类型错误！请查询initDelmiaDocument.CS源码");
+                        break;
+                }
+                CreatePath(CPath);
+                for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                {
+                    string StationPath = j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
+                    CreatePath(StationPath);
+                    CreatePath(StationPath + "//01_Fixture");
+                    CreatePath(StationPath + "//02_Gripper");
+                    CreatePath(StationPath + "//03_GripperStander");
+                    CreatePath(StationPath + "//04_GunStander");
+                    CreatePath(StationPath + "//05_Buffer");
+                    CreatePath(StationPath + "//06_ROBOTSLIDE&Stander");
+                }
+                StationID += 1;
             }
-            CPath = MPath + "//04_Resourse";
+            CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_Resourse";
             CreatePath(CPath);
             CreatePath(CPath + "//01_Robot");
             CreatePath(CPath + "//02_RobotBase");
@@ -499,6 +656,15 @@ namespace RXQuestServer.Delmia
 
         private void Fullint_Click(object sender, EventArgs e)
         {
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
+            if (PPRS.Count>0)
+            {
+                MessageBox.Show("当前仿真文档已被初始化，无法重新执行初始化!");
+                Fullint.Enabled = false;
+                return;
+            }
             CheckForIllegalCrossThreadCalls = false;
             if (string.IsNullOrEmpty(SavePath.Text))
             {
@@ -526,6 +692,18 @@ namespace RXQuestServer.Delmia
         private void timer_Tick(object sender, EventArgs e)
         {
             this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
+            if (!string.IsNullOrEmpty(SavePath.Text))
+            {
+                string[] dirst = Directory.GetDirectories(SavePath.Text);//读取文件夹中文件夹数量
+                if (dirst.Length > 0)
+                {
+                    FolderInit.Enabled = false;
+                }
+                else
+                {
+                    FolderInit.Enabled = true;
+                }
+            }
         }
 
         private void InitRobot_Click(object sender, EventArgs e)
@@ -645,6 +823,15 @@ namespace RXQuestServer.Delmia
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
+                        if (GunStand.Checked)
+                        {
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_PickAndPlace";
+                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                            {
+                                Rtf.CreateRobotTask(RobotTaskName, null);
+                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            }
+                        }
                     }
                     if (RPWeld.Checked)
                     {
@@ -674,7 +861,15 @@ namespace RXQuestServer.Delmia
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-
+                        if (GrpStand.Checked)
+                        {
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Pick&Drop";
+                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                            {
+                                Rtf.CreateRobotTask(RobotTaskName, null);
+                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            }
+                        }
                     }
                     if (StudWeld.Checked)
                     {
@@ -763,6 +958,11 @@ namespace RXQuestServer.Delmia
             CV = CV < 1 ? 1 : CV;
             String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
             ELEID.Text = TV;
+        }
+
+        private void ManuleInit_Click(object sender, EventArgs e)
+        {
+            INITCtrol();
         }
     }
 }

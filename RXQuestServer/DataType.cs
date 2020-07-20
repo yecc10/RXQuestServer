@@ -114,5 +114,17 @@ namespace RXQuestServer
                     return new object[] { "AnyObject" };
             }
         }
+        public class SimulationDir
+        {
+            public string MBPath { get; set; }
+            public string SBRPath { get; set; }
+            public string SBLPath { get; set; }
+            public string FRPath { get; set; }
+            public string RRPath { get; set; }
+            public string UBPath { get; set; }
+            public string STPath { get; set; }
+            public string SMPath { get; set; }
+            public string LayoutPath { get; set; }
+        }
     }
 }
