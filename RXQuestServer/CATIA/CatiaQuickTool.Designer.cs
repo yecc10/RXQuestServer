@@ -54,11 +54,11 @@
             // 
             // TryRead
             // 
-            this.TryRead.Location = new System.Drawing.Point(599, 345);
+            this.TryRead.Location = new System.Drawing.Point(596, 404);
             this.TryRead.Name = "TryRead";
             this.TryRead.Size = new System.Drawing.Size(118, 44);
             this.TryRead.TabIndex = 0;
-            this.TryRead.Text = "读取数据";
+            this.TryRead.Text = "返回上一级";
             this.TryRead.UseVisualStyleBackColor = true;
             this.TryRead.Click += new System.EventHandler(this.TryRead_Click);
             // 
@@ -84,7 +84,7 @@
             // 
             // BollToPoint
             // 
-            this.BollToPoint.Location = new System.Drawing.Point(170, 345);
+            this.BollToPoint.Location = new System.Drawing.Point(158, 345);
             this.BollToPoint.Name = "BollToPoint";
             this.BollToPoint.Size = new System.Drawing.Size(118, 44);
             this.BollToPoint.TabIndex = 2;
@@ -94,7 +94,7 @@
             // 
             // InsGun
             // 
-            this.InsGun.Location = new System.Drawing.Point(456, 345);
+            this.InsGun.Location = new System.Drawing.Point(596, 345);
             this.InsGun.Name = "InsGun";
             this.InsGun.Size = new System.Drawing.Size(118, 44);
             this.InsGun.TabIndex = 2;
@@ -118,7 +118,7 @@
             // 
             // ReadCoord
             // 
-            this.ReadCoord.Location = new System.Drawing.Point(170, 404);
+            this.ReadCoord.Location = new System.Drawing.Point(158, 404);
             this.ReadCoord.Name = "ReadCoord";
             this.ReadCoord.Size = new System.Drawing.Size(118, 44);
             this.ReadCoord.TabIndex = 2;
@@ -128,7 +128,7 @@
             // 
             // ClearAllData
             // 
-            this.ClearAllData.Location = new System.Drawing.Point(313, 345);
+            this.ClearAllData.Location = new System.Drawing.Point(304, 345);
             this.ClearAllData.Name = "ClearAllData";
             this.ClearAllData.Size = new System.Drawing.Size(118, 44);
             this.ClearAllData.TabIndex = 2;
@@ -153,7 +153,7 @@
             // ReadAixPoint
             // 
             this.ReadAixPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ReadAixPoint.Location = new System.Drawing.Point(313, 404);
+            this.ReadAixPoint.Location = new System.Drawing.Point(304, 404);
             this.ReadAixPoint.Name = "ReadAixPoint";
             this.ReadAixPoint.Size = new System.Drawing.Size(118, 44);
             this.ReadAixPoint.TabIndex = 2;
@@ -163,7 +163,7 @@
             // 
             // Creat3dPoint
             // 
-            this.Creat3dPoint.Location = new System.Drawing.Point(456, 404);
+            this.Creat3dPoint.Location = new System.Drawing.Point(450, 345);
             this.Creat3dPoint.Name = "Creat3dPoint";
             this.Creat3dPoint.Size = new System.Drawing.Size(118, 44);
             this.Creat3dPoint.TabIndex = 2;
@@ -173,7 +173,7 @@
             // 
             // Creat3dBall
             // 
-            this.Creat3dBall.Location = new System.Drawing.Point(599, 405);
+            this.Creat3dBall.Location = new System.Drawing.Point(450, 404);
             this.Creat3dBall.Name = "Creat3dBall";
             this.Creat3dBall.Size = new System.Drawing.Size(118, 44);
             this.Creat3dBall.TabIndex = 2;

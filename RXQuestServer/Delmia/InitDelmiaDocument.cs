@@ -136,7 +136,7 @@ namespace RXQuestServer.Delmia
             if (NeedSave)
             {
                 NewStationInit(NwP);
-                SaveProduct(NwP,null);
+                SaveProduct(NwP, null);
             }
             return NwP;
         }
@@ -150,7 +150,7 @@ namespace RXQuestServer.Delmia
             Product NWResProduct = Product.Item(Product.Count);
             NWResProduct.set_Name(Name);
             NWResProduct.set_PartNumber(Name);
-            SaveProduct(NWResProduct,null);
+            SaveProduct(NWResProduct, null);
             return NWResProduct;
         }
         /// <summary>
@@ -199,17 +199,16 @@ namespace RXQuestServer.Delmia
             PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
             PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
-            var RF = DStype.DSApplication.RefreshDisplay;
+            Pbar.PerformStep();
             if (PPRSM.Count < 1 || PPRS.Count < 1) //初始化产品数模
             {
                 try
                 {
-                    //String SMPath = Path.GetFullPath("SM.CATProduct");
-                    //String StationPath = Path.GetFullPath("Station.CATProduct");
-                    //String LayoutPath = Path.GetFullPath("Layout.CATProduct");
+                    Pbar.Step = 80 / ZeroList.Count;
+                    Pbar.Step = Pbar.Step / Convert.ToInt16(StationNum.Text);
                     for (int i = 0; i < ZeroList.Count; i++)
                     {
-                        Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i]+"_SM"); //初始化产品数模
+                        Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i] + "_SM"); //初始化产品数模
                         for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
                         {
                             NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
@@ -225,6 +224,7 @@ namespace RXQuestServer.Delmia
                         }
                         for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
                         {
+                            Pbar.PerformStep();
                             String NWTP = ZeroList[i] + j * 10;
                             if (CheckRepeatByPartNumber(CNewProduct, NWTP))
                             {
@@ -237,7 +237,9 @@ namespace RXQuestServer.Delmia
                             SaveProduct(NwP, ZeroList[i]);
                         }
                     }
-                    Product CLayoutProduct=  NewPPRProduct(PPRS, "Layout");
+                    Pbar.Step = 5;
+                    Pbar.PerformStep();
+                    Product CLayoutProduct = NewPPRProduct(PPRS, "Layout");
                     if (!CheckRepeatByPartNumber(CLayoutProduct, "Layout_2D"))
                     {
                         NewProduct(CLayoutProduct, "01_Layout_2D", false);
@@ -246,6 +248,8 @@ namespace RXQuestServer.Delmia
                         NewProduct(CLayoutProduct, "04_Platform", false);
                         NewProduct(CLayoutProduct, "05_Human", false);
                     }
+                    Pbar.Step = 5;
+                    Pbar.PerformStep();
                 }
                 catch (Exception)
                 {
@@ -314,7 +318,7 @@ namespace RXQuestServer.Delmia
         /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
-        public void SaveProduct(Product Tproduct,String DLayouType)
+        public void SaveProduct(Product Tproduct, String DLayouType)
         {
             if (DStype.DSActiveDocument == null)
             {
@@ -400,7 +404,7 @@ namespace RXQuestServer.Delmia
             }
             if (!string.IsNullOrEmpty(DLayouType))
             {
-                Path = Path  + Tproduct.get_PartNumber() + "\\";
+                Path = Path + Tproduct.get_PartNumber() + "\\";
             }
             CreatePath(Path);
             Path = Path + Name + ".CATProduct";
@@ -656,15 +660,8 @@ namespace RXQuestServer.Delmia
 
         private void Fullint_Click(object sender, EventArgs e)
         {
-            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
-            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
-            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
-            if (PPRS.Count>0)
-            {
-                MessageBox.Show("当前仿真文档已被初始化，无法重新执行初始化!");
-                Fullint.Enabled = false;
-                return;
-            }
+            Pbar.Value = 0;
+            Pbar.Step = 5;
             CheckForIllegalCrossThreadCalls = false;
             if (string.IsNullOrEmpty(SavePath.Text))
             {
@@ -672,6 +669,15 @@ namespace RXQuestServer.Delmia
                 System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetDocument));
                 importThread.SetApartmentState(ApartmentState.STA); //重点
                 importThread.Start();
+                return;
+            }
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
+            if (PPRS.Count > 0)
+            {
+                MessageBox.Show("当前仿真文档已被初始化，无法重新执行初始化!");
+                Fullint.Enabled = false;
                 return;
             }
             string[] Dirst = Directory.GetDirectories(SavePath.Text);
@@ -688,7 +694,9 @@ namespace RXQuestServer.Delmia
             {
                 return;
             }
+            Pbar.PerformStep();
             NewResourseInit();
+            Pbar.Value = 100;
         }
 
         private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
@@ -716,6 +724,8 @@ namespace RXQuestServer.Delmia
 
         private void InitRobot_Click(object sender, EventArgs e)
         {
+            Pbar.Value = 0;
+            Pbar.Step = 10;
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
@@ -752,7 +762,7 @@ namespace RXQuestServer.Delmia
                         {
                             Rgcr.AddAccuracyProfile(GP);
                         }
-
+                        Pbar.PerformStep();
                         CRM.CreateGenericObjFrameProfile(out GOP);
                         GOP.SetObjectFrame(0, 0, 0, 0, 0, 0);
                         GOP.SetName("Object_0" + i);
@@ -761,6 +771,7 @@ namespace RXQuestServer.Delmia
                         {
                             Rgcr.AddObjFrameProfile(GOP);
                         }
+                        Pbar.PerformStep();
                         CRM.CreateGenericMotionProfile(out GMP);
                         GMP.SetSpeedValue(i * 0.1);
                         GMP.SetName(i * 10 + "%");
@@ -770,7 +781,7 @@ namespace RXQuestServer.Delmia
                         {
                             Rgcr.AddMotionProfile(GMP);
                         }
-
+                        Pbar.PerformStep();
                         // NwName = i < 9 ? ("Tool_0" + i) : ("Tool_" + i);
                         string NwName = "Tool_0" + i;
                         Rgcr.HasToolProfile(NwName, out ExistsObject);
@@ -810,7 +821,7 @@ namespace RXQuestServer.Delmia
                             //NwName = ToolProfile.get_Name();
                             //ToolProfile.set_Name(NwName);
                         }
-
+                        Pbar.PerformStep();
                     }
                     RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
                     object[] RobotTaskLists = new object[99];
@@ -841,6 +852,7 @@ namespace RXQuestServer.Delmia
                             }
                         }
                     }
+                    Pbar.PerformStep();
                     if (RPWeld.Checked)
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_" + ELEID.Text;
@@ -851,6 +863,7 @@ namespace RXQuestServer.Delmia
                         }
 
                     }
+                    Pbar.PerformStep();
                     if (Glue.Checked)
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_" + ELEID.Text;
@@ -861,6 +874,7 @@ namespace RXQuestServer.Delmia
                         }
 
                     }
+                    Pbar.PerformStep();
                     if (PickAndUp.Checked)
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_" + ELEID.Text;
@@ -879,6 +893,7 @@ namespace RXQuestServer.Delmia
                             }
                         }
                     }
+                    Pbar.PerformStep();
                     if (StudWeld.Checked)
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Stud" + "_" + ELEID.Text;
@@ -889,6 +904,7 @@ namespace RXQuestServer.Delmia
                         }
 
                     }
+                    Pbar.PerformStep();
                     object[] RTask = new object[50];
                     Rtf.GetAllRobotTasks(RTask);
                     foreach (RobotTask item in RTask)
@@ -909,6 +925,7 @@ namespace RXQuestServer.Delmia
                     MessageBox.Show("您选择的不是一个运动机构！");
                 }
             }
+            Pbar.PerformStep();
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.TopMost = true;

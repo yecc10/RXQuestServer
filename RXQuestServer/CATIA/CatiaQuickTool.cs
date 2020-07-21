@@ -55,48 +55,51 @@ namespace AutoDeskLine_ToPlant
         }
         private void TryRead_Click(object sender, EventArgs e)
         {
-            ReadType = 2;
-            Selection SelectArc = GetSelect();
-            if (SelectArc == null || SelectArc.Count2 == 0)
-            {
-                return;
-            }
-            int ERR = 0;
-            object[] PointCoord = new object[] { -99, -99, -99 };
-            for (int i = 1; i <= SelectArc.Count2; i++)
-            {
-                HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
-                SPAWorkbench TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench");
-                Reference referenceObject = SelectArc.Item(i).Reference;
-                Measurable TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
-                TheMeasurable.GetPoint(PointCoord); //读取选择的曲面坐标
-                var TName = referenceObject.get_Name(); //读取选择的曲面名称
-                HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(Convert.ToDouble(PointCoord[0]), Convert.ToDouble(PointCoord[1]), Convert.ToDouble(PointCoord[2]));
-                if (KeepName.Checked)
-                {
-                    NewPoint.set_Name(TName);
-                }
-                else
-                {
-                    NewPoint.set_Name("YPoint_" + i);
-                }
-                HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = Hybs.Item("几何图形集.1");
-                Hyb.AppendHybridShape(NewPoint);
-                PartID.InWorkObject = NewPoint;
-                try
-                {
-                    PartID.Update();
-                }
-                catch (Exception)
-                {
-                    ERR += 1;
-                }
-            }
-            if (ERR > 0)
-            {
-                MessageBox.Show("共计:" + ERR + "个点创建新参考点失败！");
-            }
+            RXQuestServer.Main CM = new RXQuestServer.Main();
+            this.Hide();
+            CM.Show();
+            //ReadType = 2;
+            //Selection SelectArc = GetSelect();
+            //if (SelectArc == null || SelectArc.Count2 == 0)
+            //{
+            //    return;
+            //}
+            //int ERR = 0;
+            //object[] PointCoord = new object[] { -99, -99, -99 };
+            //for (int i = 1; i <= SelectArc.Count2; i++)
+            //{
+            //    HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
+            //    SPAWorkbench TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench");
+            //    Reference referenceObject = SelectArc.Item(i).Reference;
+            //    Measurable TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
+            //    TheMeasurable.GetPoint(PointCoord); //读取选择的曲面坐标
+            //    var TName = referenceObject.get_Name(); //读取选择的曲面名称
+            //    HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(Convert.ToDouble(PointCoord[0]), Convert.ToDouble(PointCoord[1]), Convert.ToDouble(PointCoord[2]));
+            //    if (KeepName.Checked)
+            //    {
+            //        NewPoint.set_Name(TName);
+            //    }
+            //    else
+            //    {
+            //        NewPoint.set_Name("YPoint_" + i);
+            //    }
+            //    HybridBodies Hybs = PartID.HybridBodies;
+            //    HybridBody Hyb = Hybs.Item("几何图形集.1");
+            //    Hyb.AppendHybridShape(NewPoint);
+            //    PartID.InWorkObject = NewPoint;
+            //    try
+            //    {
+            //        PartID.Update();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        ERR += 1;
+            //    }
+            //}
+            //if (ERR > 0)
+            //{
+            //    MessageBox.Show("共计:" + ERR + "个点创建新参考点失败！");
+            //}
 
         }
 

@@ -72,6 +72,7 @@
             this.BackForm = new System.Windows.Forms.Button();
             this.ManuleInit = new System.Windows.Forms.Button();
             this.BallToRobotList = new System.Windows.Forms.Button();
+            this.Pbar = new System.Windows.Forms.ProgressBar();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -514,12 +515,21 @@
             this.BallToRobotList.UseVisualStyleBackColor = true;
             this.BallToRobotList.Click += new System.EventHandler(this.BallToRobotList_Click);
             // 
+            // Pbar
+            // 
+            this.Pbar.Location = new System.Drawing.Point(12, 397);
+            this.Pbar.Name = "Pbar";
+            this.Pbar.Size = new System.Drawing.Size(814, 23);
+            this.Pbar.Step = 1;
+            this.Pbar.TabIndex = 17;
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(838, 429);
+            this.Controls.Add(this.Pbar);
             this.Controls.Add(this.BallToRobotList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SavePath);
@@ -595,5 +605,6 @@
         private System.Windows.Forms.CheckBox MB;
         private System.Windows.Forms.Button ManuleInit;
         private System.Windows.Forms.Button BallToRobotList;
+        private System.Windows.Forms.ProgressBar Pbar;
     }
 }
