@@ -665,14 +665,6 @@ namespace RXQuestServer.Delmia
                 Fullint.Enabled = false;
                 return;
             }
-            string[] Dirst = Directory.GetDirectories(SavePath.Text);
-            if (Dirst.Length > 0)
-            {
-                foreach (string item in Dirst)
-                {
-                    Directory.Delete(item, true);
-                }
-            }
             CheckForIllegalCrossThreadCalls = false;
             if (string.IsNullOrEmpty(SavePath.Text))
             {
@@ -681,6 +673,14 @@ namespace RXQuestServer.Delmia
                 importThread.SetApartmentState(ApartmentState.STA); //重点
                 importThread.Start();
                 return;
+            }
+            string[] Dirst = Directory.GetDirectories(SavePath.Text);
+            if (Dirst.Length > 0)
+            {
+                foreach (string item in Dirst)
+                {
+                    Directory.Delete(item, true);
+                }
             }
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
@@ -971,6 +971,18 @@ namespace RXQuestServer.Delmia
         private void ManuleInit_Click(object sender, EventArgs e)
         {
             INITCtrol();
+        }
+
+        private void BackForm_Click(object sender, EventArgs e)
+        {
+            Main CMain = new Main();
+            this.Hide();
+            CMain.Show();
+        }
+
+        private void BallToRobotList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

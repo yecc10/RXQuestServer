@@ -9,11 +9,11 @@ using INFITF;
 using PROCESSITF;
 using PPR;
 using System.Runtime.InteropServices;
-
 namespace RXQuestServer
 {
     class DataType
     {
+     
         /// <summary>
         /// 达索关键值传送器
         /// </summary>

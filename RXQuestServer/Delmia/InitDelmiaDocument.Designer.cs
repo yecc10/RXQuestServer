@@ -71,6 +71,7 @@
             this.RobotCtrlNum = new System.Windows.Forms.TextBox();
             this.BackForm = new System.Windows.Forms.Button();
             this.ManuleInit = new System.Windows.Forms.Button();
+            this.BallToRobotList = new System.Windows.Forms.Button();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -491,10 +492,11 @@
             this.BackForm.TabIndex = 15;
             this.BackForm.Text = "返回上一级";
             this.BackForm.UseVisualStyleBackColor = true;
+            this.BackForm.Click += new System.EventHandler(this.BackForm_Click);
             // 
             // ManuleInit
             // 
-            this.ManuleInit.Location = new System.Drawing.Point(444, 353);
+            this.ManuleInit.Location = new System.Drawing.Point(616, 353);
             this.ManuleInit.Name = "ManuleInit";
             this.ManuleInit.Size = new System.Drawing.Size(102, 38);
             this.ManuleInit.TabIndex = 14;
@@ -502,11 +504,23 @@
             this.ManuleInit.UseVisualStyleBackColor = true;
             this.ManuleInit.Click += new System.EventHandler(this.ManuleInit_Click);
             // 
+            // BallToRobotList
+            // 
+            this.BallToRobotList.Location = new System.Drawing.Point(444, 353);
+            this.BallToRobotList.Name = "BallToRobotList";
+            this.BallToRobotList.Size = new System.Drawing.Size(102, 38);
+            this.BallToRobotList.TabIndex = 16;
+            this.BallToRobotList.Text = "球->RobotTag";
+            this.BallToRobotList.UseVisualStyleBackColor = true;
+            this.BallToRobotList.Click += new System.EventHandler(this.BallToRobotList_Click);
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(838, 429);
+            this.Controls.Add(this.BallToRobotList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SavePath);
             this.Controls.Add(this.BackForm);
@@ -580,5 +594,6 @@
         private System.Windows.Forms.CheckBox SBL;
         private System.Windows.Forms.CheckBox MB;
         private System.Windows.Forms.Button ManuleInit;
+        private System.Windows.Forms.Button BallToRobotList;
     }
 }
