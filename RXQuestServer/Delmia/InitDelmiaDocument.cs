@@ -922,6 +922,8 @@ namespace RXQuestServer.Delmia
                 catch (Exception)
                 {
                     //throw;
+                    this.TopMost = true;
+                    Pbar.Value = 100;
                     MessageBox.Show("您选择的不是一个运动机构！");
                 }
             }
