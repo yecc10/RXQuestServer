@@ -14,9 +14,6 @@ using System.Threading;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
-
-
-
 namespace AutoDeskLine_ToPlant
 {
     static public class RxDataOprator
@@ -63,7 +60,6 @@ namespace AutoDeskLine_ToPlant
                     }
                     string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
                     string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
                     string path = strDesktopPath + "\\瑞祥工业工厂仿真组" + datatime + ".xls";
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     wkb.Write(file);
@@ -131,7 +127,6 @@ namespace AutoDeskLine_ToPlant
                                 MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
                                 return false;
                             }
-
                         }
                         else
                         {
@@ -211,12 +206,10 @@ namespace AutoDeskLine_ToPlant
                             }
                             catch (Exception)
                             {
-
                                 throw;
                             }
                         }
                     }
-
                     return true;
                 }
                 catch (Exception)
@@ -256,31 +249,24 @@ namespace AutoDeskLine_ToPlant
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "序号";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "名称";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "X坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "Y坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "Z坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RX";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RY";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RZ";
                                     DG.Columns.Add(dataColum);
@@ -291,7 +277,6 @@ namespace AutoDeskLine_ToPlant
                                 MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
                                 return false;
                             }
-
                         }
                         else
                         {
@@ -371,12 +356,10 @@ namespace AutoDeskLine_ToPlant
                             }
                             catch (Exception)
                             {
-
                                 throw;
                             }
                         }
                     }
-
                     return true;
                 }
                 catch (Exception)
@@ -399,7 +382,6 @@ namespace AutoDeskLine_ToPlant
                     Excel.Workbook xlsWorkBook = xlApp.Workbooks.Open(xlsPath, System.Type.Missing, System.Type.Missing, System.Type.Missing,
                     System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing,
                     System.Type.Missing, System.Type.Missing, System.Type.Missing, System.Type.Missing);
-
                     //处理数据过程，更多操作方法自行百度
                     Excel.Worksheet sheet;
                     if (xlsWorkBook.Sheets.Count > 1)
@@ -435,31 +417,24 @@ namespace AutoDeskLine_ToPlant
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "序号";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "名称";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "X坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "Y坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "Z坐标";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RX";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RY";
                                     DG.Columns.Add(dataColum);
-
                                     dataColum = new System.Data.DataColumn();
                                     dataColum.ColumnName = "RZ";
                                     DG.Columns.Add(dataColum);
@@ -470,7 +445,6 @@ namespace AutoDeskLine_ToPlant
                                 MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
                                 return false;
                             }
-
                         }
                         else
                         {
@@ -550,7 +524,6 @@ namespace AutoDeskLine_ToPlant
                             }
                             catch (Exception)
                             {
-
                                 throw;
                             }
                         }
@@ -593,7 +566,6 @@ namespace AutoDeskLine_ToPlant
                 return null;
             }
         }
-
         /// <summary>
         /// 对数据进行执行重复检查，标记重复数据并在执行完成后报警！
         /// </summary>
@@ -637,5 +609,4 @@ namespace AutoDeskLine_ToPlant
            // p.Kill();     //关闭进程
         }
     }
-
 }

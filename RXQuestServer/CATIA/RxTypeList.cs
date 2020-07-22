@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
-
 namespace AutoDeskLine_ToPlant
 {
     public class RxTypeList
@@ -76,7 +75,6 @@ namespace AutoDeskLine_ToPlant
             public virtual double With { get; set; }
             public virtual int Color { get; set; }
             public virtual string Layer { get; set; }
-
         }
         public class CatPointType
         {
@@ -87,7 +85,6 @@ namespace AutoDeskLine_ToPlant
             public virtual double RX { get; set; }
             public virtual double RY { get; set; }
             public virtual double RZ { get; set; }
-
         }
     }
     /// <summary>
@@ -116,5 +113,4 @@ namespace AutoDeskLine_ToPlant
             return _exit;
         }
     }
-
 }

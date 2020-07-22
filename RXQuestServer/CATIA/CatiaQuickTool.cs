@@ -27,7 +27,6 @@ using DNBPert;
 using CATMat;
 using FittingTypeLib;
 using DNBASY;
-
 namespace AutoDeskLine_ToPlant
 {
     public partial class CatiaQuickTool : Form
@@ -39,10 +38,8 @@ namespace AutoDeskLine_ToPlant
         DataRow DataRow;
         DataView dataview;
         Part PartID;
-
         AnyObject[] GetRepeatRef = new AnyObject[99];
         int RepeatNum = 0;
-
         /// <summary>
         /// Value=1->Read Point;Value=2->AnyPoint
         /// </summary>
@@ -100,14 +97,11 @@ namespace AutoDeskLine_ToPlant
             //{
             //    MessageBox.Show("共计:" + ERR + "个点创建新参考点失败！");
             //}
-
         }
-
         private void CatiaQuickTool_FormClosed(object sender, FormClosedEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
         }
-
         [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
         public object[] InputObjectType()
         {
@@ -125,12 +119,10 @@ namespace AutoDeskLine_ToPlant
                     return new object[] { "AnyObject" };
             }
         }
-
         private void OutToEXcel_Click(object sender, EventArgs e)
         {
             RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, "Cad路径坐标值");
         }
-
         private void BollToPoint_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -176,9 +168,7 @@ namespace AutoDeskLine_ToPlant
             {
                 MessageBox.Show("共计:" + ERR + "个点创建新参考点失败！");
             }
-
         }
-
         /// <summary>
         /// 记录重复对象并将坐标保存到主视图DataGrid中
         /// </summary>
@@ -228,9 +218,7 @@ namespace AutoDeskLine_ToPlant
                 //throw;
                 return false;
             }
-
         }
-
         private void ReadCoord_Click(object sender, EventArgs e)
         {
             if (datatable.Columns.Count < 1)
@@ -240,7 +228,6 @@ namespace AutoDeskLine_ToPlant
             this.WindowState = FormWindowState.Minimized;
             RepeatNum = 0;
             Array.Clear(GetRepeatRef, 0, GetRepeatRef.Length);
-
             ReadType = 2;
             Selection SelectArc = GetSelect();
             if (SelectArc == null || SelectArc.Count2 == 0)
@@ -370,12 +357,10 @@ namespace AutoDeskLine_ToPlant
             DataGrid.Update();
             this.TopMost = true;
         }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             this.FindForm().Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
         }
-
         private void PointToCoord_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -520,7 +505,6 @@ namespace AutoDeskLine_ToPlant
             this.StartPosition = FormStartPosition.CenterScreen;
             return SelectArc;
         }
-
         private bool GetSelect(bool InitFrame)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -599,7 +583,6 @@ namespace AutoDeskLine_ToPlant
             this.StartPosition = FormStartPosition.CenterScreen;
             return true;
         }
-
         [STAThread]
         private void Aix_To_Ball_Click(object sender, EventArgs e)
         {
@@ -689,7 +672,6 @@ namespace AutoDeskLine_ToPlant
                 }
                 catch (Exception)
                 {
-
                     continue;
                 }
                 HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString()));
@@ -732,7 +714,6 @@ namespace AutoDeskLine_ToPlant
             Creat3dBall.BackColor = Color.Green;
             ShowCenter();
         }
-
         private void Creat3dPoint_Click(object sender, EventArgs e)//Creat3dBall_Click
         {
             Creat3dPoint.BackColor = SystemColors.ActiveCaption;
@@ -762,7 +743,6 @@ namespace AutoDeskLine_ToPlant
                 }
                 catch (Exception)
                 {
-
                     continue;
                 }
                 HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString()));
@@ -803,7 +783,6 @@ namespace AutoDeskLine_ToPlant
             this.TopMost = false;
             return false;
         }
-
         private void InsGun_Click(object sender, EventArgs e)
         {
             this.TopMost = false;
@@ -827,7 +806,6 @@ namespace AutoDeskLine_ToPlant
                 InitCatEnv();
                 Cproduct = CatDocument.Product;
             }
-
             Products Cps = Cproduct.Products;
             string GunPath = string.Empty;
             this.TopMost = true;
@@ -900,43 +878,26 @@ namespace AutoDeskLine_ToPlant
                 if (ARCChange.Checked) //弧度值
                 {
                     oRx = Convert.ToDouble(DataGrid.Rows[i].Cells[7].Value.ToString()); //DELMIA Tag点导出集合该坐标为Z
-
                     oRy = Convert.ToDouble(DataGrid.Rows[i].Cells[6].Value.ToString());//DELMIA Tag点导出集合该坐标为Y
-
                     oRz = Convert.ToDouble(DataGrid.Rows[i].Cells[5].Value.ToString());//DELMIA Tag点导出集合该坐标为X
-
                 }
                 else
                 {
                     oRx = Convert.ToDouble(DataGrid.Rows[i].Cells[5].Value.ToString()) * oPi / 180; //转换弧度进行运算
-
                     oRy = Convert.ToDouble(DataGrid.Rows[i].Cells[6].Value.ToString()) * oPi / 180;//转换弧度进行运算
-
                     oRz = Convert.ToDouble(DataGrid.Rows[i].Cells[7].Value.ToString()) * oPi / 180;//转换弧度进行运算
                 }
-
                 oPositionMatrix[0] = Math.Round(Math.Cos(oRy) * Math.Cos(oRz), 5);
-
                 oPositionMatrix[1] = Math.Round(Math.Cos(oRy) * Math.Sin(oRz), 5);
-
                 oPositionMatrix[2] = Math.Round(-Math.Sin(oRy), 5);
-
                 oPositionMatrix[3] = Math.Round((Math.Sin(oRx) * Math.Sin(oRy) * Math.Cos(oRz)) - (Math.Cos(oRx) * Math.Sin(oRz)), 5);
-
                 oPositionMatrix[4] = Math.Round((Math.Sin(oRx) * Math.Sin(oRy) * Math.Sin(oRz)) + (Math.Cos(oRx) * Math.Cos(oRz)), 5);
-
                 oPositionMatrix[5] = Math.Round((Math.Sin(oRx) * Math.Cos(oRy)), 5);
-
                 oPositionMatrix[6] = Math.Round((Math.Cos(oRx) * Math.Sin(oRy) * Math.Cos(oRz)) + (Math.Sin(oRx) * Math.Sin(oRz)), 5);
-
                 oPositionMatrix[7] = Math.Round((Math.Cos(oRx) * Math.Sin(oRy) * Math.Sin(oRz)) - (Math.Sin(oRx) * Math.Cos(oRz)), 5);
-
                 oPositionMatrix[8] = Math.Round(Math.Cos(oRx) * Math.Cos(oRy), 5);
-
                 oPositionMatrix[9] = Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString());
-
                 oPositionMatrix[10] = Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString());
-
                 oPositionMatrix[11] = Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString());
                 //oPositionMatrix =new object[12]{ 1,0,0,0,0.707,0.707,0,-0.707,0.707,10,20,30};//测试
                 object[] arrayOfVariantOfBSTR1 = new object[1] { GunPath };
@@ -1025,35 +986,27 @@ namespace AutoDeskLine_ToPlant
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "序号";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "名称";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "X坐标";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "Y坐标";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "Z坐标";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "RX";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "RY";
             datatable.Columns.Add(dataColum);
-
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "RZ";
             datatable.Columns.Add(dataColum);
         }
-
     }
 }

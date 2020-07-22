@@ -33,7 +33,6 @@ using DNBDevice;
 using DNBRobot;
 using DNBIgpTagPath;
 using MANUFACTURING;
-
 namespace RXQuestServer.Delmia
 {
     public partial class InitDelmiaDocument : Form
@@ -312,8 +311,6 @@ namespace RXQuestServer.Delmia
             }
             return null;
         }
-
-
         /// <summary>
         /// 保存StationProduct 到文件夹
         /// </summary>
@@ -556,7 +553,6 @@ namespace RXQuestServer.Delmia
             CreatePath(CPath + "\\01_SteelPlatForm"); //钢平台
             CreatePath(CPath + "\\02_RobotPlatForm");//机器人平台
             int StationID = 3;
-
             for (int i = 0; i < ZeroList.Count; i++)
             {
                 switch (ZeroList[i])
@@ -642,9 +638,7 @@ namespace RXQuestServer.Delmia
             {
                 Directory.CreateDirectory(Dpath);
             }
-
         }
-
         /// <summary>
         /// 文件夹初始化
         /// </summary>
@@ -657,7 +651,6 @@ namespace RXQuestServer.Delmia
             importThread.SetApartmentState(ApartmentState.STA); //重点
             importThread.Start();
         }
-
         private void Fullint_Click(object sender, EventArgs e)
         {
             Pbar.Value = 0;
@@ -698,13 +691,11 @@ namespace RXQuestServer.Delmia
             NewResourseInit();
             Pbar.Value = 100;
         }
-
         private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
             System.Environment.Exit(0);
         }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
@@ -721,7 +712,6 @@ namespace RXQuestServer.Delmia
                 }
             }
         }
-
         private void InitRobot_Click(object sender, EventArgs e)
         {
             Pbar.Value = 0;
@@ -812,7 +802,6 @@ namespace RXQuestServer.Delmia
                             {
                                 throw;
                             }
-
                             //Object[] TooList = new object[99];
                             //Rgcr.GetToolProfiles(TooList);
                             //int TotalTool;
@@ -861,7 +850,6 @@ namespace RXQuestServer.Delmia
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-
                     }
                     Pbar.PerformStep();
                     if (Glue.Checked)
@@ -872,7 +860,6 @@ namespace RXQuestServer.Delmia
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-
                     }
                     Pbar.PerformStep();
                     if (PickAndUp.Checked)
@@ -902,7 +889,6 @@ namespace RXQuestServer.Delmia
                             Rtf.CreateRobotTask(RobotTaskName, null);
                             NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                         }
-
                     }
                     Pbar.PerformStep();
                     object[] RTask = new object[50];
@@ -962,13 +948,11 @@ namespace RXQuestServer.Delmia
             Properties.Settings.Default.ModelName = ModelName.Text;
             Properties.Settings.Default.Save();
         }
-
         private void RobotID_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.RobotID = RobotID.Text; ;
             Properties.Settings.Default.Save();
         }
-
         private void ELEADD_Click(object sender, EventArgs e)
         {
             int CV = Convert.ToInt16(ELEID.Text);
@@ -977,7 +961,6 @@ namespace RXQuestServer.Delmia
             String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
             ELEID.Text = TV;
         }
-
         private void ELEREMOVE_Click(object sender, EventArgs e)
         {
             int CV = Convert.ToInt16(ELEID.Text);
@@ -986,22 +969,18 @@ namespace RXQuestServer.Delmia
             String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
             ELEID.Text = TV;
         }
-
         private void ManuleInit_Click(object sender, EventArgs e)
         {
             INITCtrol();
         }
-
         private void BackForm_Click(object sender, EventArgs e)
         {
             Main CMain = new Main();
             this.Hide();
             CMain.Show();
         }
-
         private void BallToRobotList_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

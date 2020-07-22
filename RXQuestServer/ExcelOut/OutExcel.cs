@@ -10,7 +10,6 @@ using NPOI.OpenXml4Net;
 using NPOI.Util;
 using System.IO;
 using System.Windows.Forms;
-
 namespace RXQuestServer.ExcelOut
 {
     /// <summary>
@@ -54,10 +53,8 @@ namespace RXQuestServer.ExcelOut
                         DataCell.CellStyle = CST;
                     }
                 }
-
                 string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
                 string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
                 string path = strDesktopPath + "\\瑞祥工业工厂仿真组" + datatime + ".xls";
                 FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                 wkb.Write(file);

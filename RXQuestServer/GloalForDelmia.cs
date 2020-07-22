@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using PROCESSITF;
 using PPR;
 using NPOI.POIFS.Crypt.Dsig;
-
 namespace RXQuestServer
 {
     class GloalForDelmia
@@ -61,7 +60,6 @@ namespace RXQuestServer
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
@@ -137,6 +135,5 @@ namespace RXQuestServer
             }
             return USelect;
         }
-
     }
 }
