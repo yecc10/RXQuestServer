@@ -15,6 +15,7 @@ namespace RXQuestServer.PLC_Advance
 {
     public partial class CAdvancePLC : Form
     {
+        Subscription m_subscription = null;
         public CAdvancePLC()
         {
             InitializeComponent();
