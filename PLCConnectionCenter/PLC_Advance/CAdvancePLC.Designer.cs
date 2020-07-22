@@ -29,13 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CAdvancePLC));
+            this.ConnectPLC = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // ConnectPLC
+            // 
+            this.ConnectPLC.Location = new System.Drawing.Point(365, 152);
+            this.ConnectPLC.Name = "ConnectPLC";
+            this.ConnectPLC.Size = new System.Drawing.Size(75, 23);
+            this.ConnectPLC.TabIndex = 0;
+            this.ConnectPLC.Text = "连接PLC";
+            this.ConnectPLC.UseVisualStyleBackColor = true;
+            this.ConnectPLC.Click += new System.EventHandler(this.ConnectPLC_Click);
             // 
             // CAdvancePLC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(996, 462);
+            this.ClientSize = new System.Drawing.Size(452, 187);
+            this.Controls.Add(this.ConnectPLC);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CAdvancePLC";
             this.Text = "CAdvancePLC";
@@ -44,5 +56,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button ConnectPLC;
     }
 }
