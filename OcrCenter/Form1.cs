@@ -7,16 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Opc.UaFx.Client;
-using Opc.Ua;
-using Opc.Ua.Configuration;
-using Opc.Ua.Client;
-namespace RXQuestServer.PLC_Advance
+
+namespace OcrCenter
 {
-    public partial class CAdvancePLC : Form
+    public partial class Form1 : Form
     {
-        Subscription m_subscription = null;
-        public CAdvancePLC()
+        public Form1()
         {
             InitializeComponent();
         }

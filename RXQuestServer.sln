@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RXQuestServer", "RXQuestSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCConnectionCenter", "PLCConnectionCenter\PLCConnectionCenter.csproj", "{7A3AE3A3-03E3-4090-A9CB-E9F7F7961D82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrCenter", "OcrCenter\OcrCenter.csproj", "{ED1B3AD1-9387-4C6E-85F1-581991DA347A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7A3AE3A3-03E3-4090-A9CB-E9F7F7961D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A3AE3A3-03E3-4090-A9CB-E9F7F7961D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A3AE3A3-03E3-4090-A9CB-E9F7F7961D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1B3AD1-9387-4C6E-85F1-581991DA347A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1B3AD1-9387-4C6E-85F1-581991DA347A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1B3AD1-9387-4C6E-85F1-581991DA347A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1B3AD1-9387-4C6E-85F1-581991DA347A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
