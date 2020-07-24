@@ -32,6 +32,7 @@
             this.InitDelmiaDocument = new System.Windows.Forms.Button();
             this.WeldSportTool = new System.Windows.Forms.Button();
             this.GotoOCR = new System.Windows.Forms.Button();
+            this.ShowToPlc = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
@@ -64,6 +65,16 @@
             this.GotoOCR.UseVisualStyleBackColor = true;
             this.GotoOCR.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
+            // ShowToPlc
+            // 
+            this.ShowToPlc.Location = new System.Drawing.Point(153, 59);
+            this.ShowToPlc.Name = "ShowToPlc";
+            this.ShowToPlc.Size = new System.Drawing.Size(125, 41);
+            this.ShowToPlc.TabIndex = 0;
+            this.ShowToPlc.Text = "PLC通讯";
+            this.ShowToPlc.UseVisualStyleBackColor = true;
+            this.ShowToPlc.Click += new System.EventHandler(this.GotoOCR_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -71,8 +82,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(304, 111);
             this.Controls.Add(this.WeldSportTool);
+            this.Controls.Add(this.ShowToPlc);
             this.Controls.Add(this.GotoOCR);
             this.Controls.Add(this.InitDelmiaDocument);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(320, 150);
             this.MinimumSize = new System.Drawing.Size(320, 150);
@@ -87,6 +100,7 @@
         private System.Windows.Forms.Button InitDelmiaDocument;
         private System.Windows.Forms.Button WeldSportTool;
         private System.Windows.Forms.Button GotoOCR;
+        private System.Windows.Forms.Button ShowToPlc;
     }
 }
 

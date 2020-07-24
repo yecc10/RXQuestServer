@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-
+using asprise_ocr_api;
 
 namespace OcrCenter
 {
@@ -22,6 +22,7 @@ namespace OcrCenter
 
         private void ReadTarget_Click(object sender, EventArgs e)
         {
+            ResultTest.Text = string.Empty;
             PBOCR.Value = 0;
             PBOCR.Step = 1;
             System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetFileDocument));
@@ -46,30 +47,31 @@ namespace OcrCenter
             }
             else
             {
+                ResultTest.Text = "读取失败！当前仅限英文模式！";
                 PBOCR.Value = 100;
             }
         }
         private void TranslateFile()
         {
-            //AspriseOCR.SetUp();
-            //AspriseOCR ocr = new AspriseOCR();
-            //PBOCR.Value = 30;
-            //try
-            //{
-            //    ocr.StartEngine("eng", AspriseOCR.SPEED_FASTEST);
-            //    string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
-            //    string Result = ocr.Recognize(file, -1, -1, -1, -1, -1, AspriseOCR.RECOGNIZE_TYPE_ALL, AspriseOCR.OUTPUT_FORMAT_PLAINTEXT);
-            //    Console.WriteLine("Result: " + Result);
-            //    ocr.StopEngine();
-            //    PBOCR.Value = 90;
-            //    ResultTest.Text = Result;
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
+            AspriseOCR.SetUp();
+            AspriseOCR ocr = new AspriseOCR();
+            PBOCR.Value = 30;
+            try
+            {
+                ocr.StartEngine("eng", AspriseOCR.SPEED_FASTEST);
+                string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
+                string Result = ocr.Recognize(file, -1, -1, -1, -1, -1, AspriseOCR.RECOGNIZE_TYPE_ALL, AspriseOCR.OUTPUT_FORMAT_PLAINTEXT);
+                Console.WriteLine("Result: " + Result);
+                ocr.StopEngine();
+                PBOCR.Value = 90;
+                ResultTest.Text = Result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
-            //PBOCR.Value = 100;
+            PBOCR.Value = 100;
         }
 
         private void OCR_FormClosed(object sender, FormClosedEventArgs e)

@@ -61,6 +61,18 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="asprise-ocr-api, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-api.15.3.1.0\lib\net40\asprise-ocr-api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="asprise-ocr-dll-bundle-32, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-32.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="asprise-ocr-dll-bundle-64, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-64.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-64.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,11 +92,16 @@
     <Compile Include="OCR.Designer.cs">
       <DependentUpon>OCR.cs</DependentUpon>
     </Compile>
+    <Compile Include="OcrSampleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OcrSampleForm.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="OCR.resx">
       <DependentUpon>OCR.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OcrSampleForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -95,6 +112,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="OcrCenter_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -110,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OCR_HelpRef.txt" />
-    <Content Include="Tesseract-OCR\mftraining.exe" />
+    <Content Include="ReadMe-AspriseOCR.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
