@@ -34,11 +34,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ResultTest = new System.Windows.Forms.TextBox();
             this.PBOCR = new System.Windows.Forms.ProgressBar();
+            this.savetoword = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ReadTarget
             // 
-            this.ReadTarget.Location = new System.Drawing.Point(396, 391);
+            this.ReadTarget.Location = new System.Drawing.Point(283, 391);
             this.ReadTarget.Name = "ReadTarget";
             this.ReadTarget.Size = new System.Drawing.Size(107, 38);
             this.ReadTarget.TabIndex = 0;
@@ -75,8 +76,18 @@
             // 
             this.PBOCR.Location = new System.Drawing.Point(13, 399);
             this.PBOCR.Name = "PBOCR";
-            this.PBOCR.Size = new System.Drawing.Size(377, 23);
+            this.PBOCR.Size = new System.Drawing.Size(264, 23);
             this.PBOCR.TabIndex = 4;
+            // 
+            // savetoword
+            // 
+            this.savetoword.Location = new System.Drawing.Point(396, 391);
+            this.savetoword.Name = "savetoword";
+            this.savetoword.Size = new System.Drawing.Size(107, 38);
+            this.savetoword.TabIndex = 0;
+            this.savetoword.Text = "保存到Word";
+            this.savetoword.UseVisualStyleBackColor = true;
+            this.savetoword.Click += new System.EventHandler(this.savetoword_Click);
             // 
             // OCR
             // 
@@ -87,6 +98,7 @@
             this.Controls.Add(this.ResultTest);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FilePath);
+            this.Controls.Add(this.savetoword);
             this.Controls.Add(this.ReadTarget);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OCR";
@@ -104,6 +116,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox ResultTest;
         private System.Windows.Forms.ProgressBar PBOCR;
+        private System.Windows.Forms.Button savetoword;
     }
 }
 
