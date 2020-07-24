@@ -38,7 +38,9 @@ namespace RXQuestServer
 
         private void GotoOCR_Click(object sender, EventArgs e)
         {
-            
+            OcrCenter.OCR Socr = new OcrCenter.OCR();
+            this.Hide();
+            Socr.Show();
         }
     }
 }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IronOcr.Languages;
 using IronOcr;
+using System.Threading;
+
 namespace OcrCenter
 {
     public partial class OCR : Form
@@ -20,12 +22,28 @@ namespace OcrCenter
 
         private void ReadTarget_Click(object sender, EventArgs e)
         {
+            System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetFileDocument));
+            importThread.SetApartmentState(ApartmentState.STA); //重点
+            importThread.Start();
+        }
+        private void GetFileDocument()
+        {
+            CheckForIllegalCrossThreadCalls = false;
+            var result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                FilePath.Text = openFileDialog.FileName;
+                TranslateFile();
+            }
+        }
+        private void TranslateFile()
+        {
             var Ocr = new IronOcr.AdvancedOcr();
             {
                 Ocr.CleanBackgroundNoise = true;
                 Ocr.EnhanceContrast = true;
                 Ocr.EnhanceResolution = true;
-                Ocr.Language = IronOcr.Languages.English.OcrLanguagePack;
+                Ocr.Language = IronOcr.Languages.MultiLanguage.OcrLanguagePack(IronOcr.Languages.English.OcrLanguagePack, IronOcr.Languages.ChineseSimplified.OcrLanguagePack);
                 Ocr.Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced;
                 Ocr.ColorSpace = AdvancedOcr.OcrColorSpace.Color;
                 Ocr.DetectWhiteTextOnDarkBackgrounds = true;
@@ -34,8 +52,9 @@ namespace OcrCenter
                 Ocr.ReadBarCodes = true;
                 Ocr.ColorDepth = 4;
             }
-            var Result = Ocr.Read(@"C:\Users\Administrator\Desktop\image.png");
-            Console.WriteLine(Result.Text);
+            string Path = string.Empty;
+            var Result = Ocr.Read(@FilePath.Text);
+            ResultTest.Text = Result.Text;
         }
     }
 }
