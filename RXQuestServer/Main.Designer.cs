@@ -31,11 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.InitDelmiaDocument = new System.Windows.Forms.Button();
             this.WeldSportTool = new System.Windows.Forms.Button();
+            this.GotoOCR = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
             // 
-            this.InitDelmiaDocument.Location = new System.Drawing.Point(22, 38);
+            this.InitDelmiaDocument.Location = new System.Drawing.Point(22, 12);
             this.InitDelmiaDocument.Name = "InitDelmiaDocument";
             this.InitDelmiaDocument.Size = new System.Drawing.Size(125, 41);
             this.InitDelmiaDocument.TabIndex = 0;
@@ -45,13 +46,23 @@
             // 
             // WeldSportTool
             // 
-            this.WeldSportTool.Location = new System.Drawing.Point(153, 38);
+            this.WeldSportTool.Location = new System.Drawing.Point(153, 12);
             this.WeldSportTool.Name = "WeldSportTool";
             this.WeldSportTool.Size = new System.Drawing.Size(125, 41);
             this.WeldSportTool.TabIndex = 0;
             this.WeldSportTool.Text = "焊点快捷工具";
             this.WeldSportTool.UseVisualStyleBackColor = true;
             this.WeldSportTool.Click += new System.EventHandler(this.WeldSportTool_Click);
+            // 
+            // GotoOCR
+            // 
+            this.GotoOCR.Location = new System.Drawing.Point(22, 59);
+            this.GotoOCR.Name = "GotoOCR";
+            this.GotoOCR.Size = new System.Drawing.Size(125, 41);
+            this.GotoOCR.TabIndex = 0;
+            this.GotoOCR.Text = "OCR工具";
+            this.GotoOCR.UseVisualStyleBackColor = true;
+            this.GotoOCR.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // Main
             // 
@@ -60,6 +71,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(304, 111);
             this.Controls.Add(this.WeldSportTool);
+            this.Controls.Add(this.GotoOCR);
             this.Controls.Add(this.InitDelmiaDocument);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(320, 150);
@@ -74,6 +86,7 @@
 
         private System.Windows.Forms.Button InitDelmiaDocument;
         private System.Windows.Forms.Button WeldSportTool;
+        private System.Windows.Forms.Button GotoOCR;
     }
 }
 

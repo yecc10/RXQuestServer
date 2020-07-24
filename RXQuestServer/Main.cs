@@ -35,5 +35,10 @@ namespace RXQuestServer
             this.Hide();
             CQT.Show();
         }
+
+        private void GotoOCR_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

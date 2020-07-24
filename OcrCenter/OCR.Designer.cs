@@ -1,6 +1,6 @@
 ﻿namespace OcrCenter
 {
-    partial class Form1
+    partial class OCR
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,20 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OCR));
+            this.ReadTarget = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // ReadTarget
+            // 
+            this.ReadTarget.Location = new System.Drawing.Point(364, 189);
+            this.ReadTarget.Name = "ReadTarget";
+            this.ReadTarget.Size = new System.Drawing.Size(107, 38);
+            this.ReadTarget.TabIndex = 0;
+            this.ReadTarget.Text = "读取对象";
+            this.ReadTarget.UseVisualStyleBackColor = true;
+            this.ReadTarget.Click += new System.EventHandler(this.ReadTarget_Click);
+            // 
+            // OCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 239);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.ReadTarget);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "OCR";
+            this.Text = "OCR";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button ReadTarget;
     }
 }
 

@@ -152,7 +152,17 @@ namespace AutoDeskLine_ToPlant
                     NewPoint.set_Name("Rx_" + i);
                 }
                 HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = Hybs.Item("几何图形集.1");
+                HybridBody Hyb = null;
+                try
+                {
+                    Hyb = Hybs.Item("几何图形集.1");
+                }
+                catch (Exception)
+                {
+
+                    Hyb = Hybs.Item("Geometrical Set.1");
+                }
+
                 Hyb.AppendHybridShape(NewPoint);
                 PartID.InWorkObject = NewPoint;
                 try
@@ -558,6 +568,12 @@ namespace AutoDeskLine_ToPlant
                     // throw;
                 }
                 PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
+                HybridBodies HBS = PartID.HybridBodies;
+                if (HBS.Count<1)
+                {
+                   HybridBody HB= HBS.Add();
+                   HB.set_Name("Geometrical Set.1");
+                }
                 OriginElements Tpart = PartID.OriginElements;
                 AnyObject dxy = Tpart.PlaneXY;
                 AnyObject dyz = Tpart.PlaneYZ;
@@ -689,7 +705,15 @@ namespace AutoDeskLine_ToPlant
                     NewShape.set_Name("Rx_" + (i + 1));
                 }
                 HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = Hybs.Item("几何图形集.1");
+                HybridBody Hyb = null;
+                try
+                {
+                    Hyb = Hybs.Item("几何图形集.1");
+                }
+                catch (Exception)
+                {
+                    Hyb = Hybs.Item("Geometrical Set.1");
+                }
                 // Hyb.AppendHybridShape(NewPoint);
                 Hyb.AppendHybridShape(NewShape);
                 //  PartID.InWorkObject = NewPoint;

@@ -40,7 +40,6 @@
             this.ConnectPLC.TabIndex = 0;
             this.ConnectPLC.Text = "连接PLC";
             this.ConnectPLC.UseVisualStyleBackColor = true;
-            this.ConnectPLC.Click += new System.EventHandler(this.ConnectPLC_Click);
             // 
             // CAdvancePLC
             // 
