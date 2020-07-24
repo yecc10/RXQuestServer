@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OCR));
             this.ReadTarget = new System.Windows.Forms.Button();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.FilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ResultTest = new System.Windows.Forms.TextBox();
+            this.PBOCR = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // ReadTarget
@@ -45,11 +45,6 @@
             this.ReadTarget.Text = "读取对象";
             this.ReadTarget.UseVisualStyleBackColor = true;
             this.ReadTarget.Click += new System.EventHandler(this.ReadTarget_Click);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
-            this.openFileDialog.Filter = "\".Png图片文件|*.PNG|.PDF文件|*.pdf\"\"";
             // 
             // FilePath
             // 
@@ -72,14 +67,23 @@
             this.ResultTest.Location = new System.Drawing.Point(13, 42);
             this.ResultTest.Multiline = true;
             this.ResultTest.Name = "ResultTest";
+            this.ResultTest.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ResultTest.Size = new System.Drawing.Size(490, 343);
             this.ResultTest.TabIndex = 3;
+            // 
+            // PBOCR
+            // 
+            this.PBOCR.Location = new System.Drawing.Point(13, 399);
+            this.PBOCR.Name = "PBOCR";
+            this.PBOCR.Size = new System.Drawing.Size(377, 23);
+            this.PBOCR.TabIndex = 4;
             // 
             // OCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 441);
+            this.Controls.Add(this.PBOCR);
             this.Controls.Add(this.ResultTest);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FilePath);
@@ -87,6 +91,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OCR";
             this.Text = "OCR";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OCR_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,10 +100,10 @@
         #endregion
 
         private System.Windows.Forms.Button ReadTarget;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.TextBox FilePath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox ResultTest;
+        private System.Windows.Forms.ProgressBar PBOCR;
     }
 }
 

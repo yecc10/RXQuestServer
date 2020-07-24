@@ -61,12 +61,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronOcr, Version=4.4.0.21181, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
-      <HintPath>..\packages\IronOcr.4.4.0\lib\net40\IronOcr.dll</HintPath>
+    <Reference Include="asprise-ocr-api, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-api.15.3.1.0\lib\net40\asprise-ocr-api.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="IronOcr.ChineseSimplified, Version=4.0.0.20746, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
-      <HintPath>..\packages\IronOcr.Languages.ChineseSimplified.4.4.4.1\lib\net40\IronOcr.ChineseSimplified.dll</HintPath>
+    <Reference Include="asprise-ocr-dll-bundle-32, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-32.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="asprise-ocr-dll-bundle-64, Version=15.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\asprise-ocr-dll-bundle-64.15.3.1.0\lib\net40\asprise-ocr-dll-bundle-64.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -88,11 +92,16 @@
     <Compile Include="OCR.Designer.cs">
       <DependentUpon>OCR.cs</DependentUpon>
     </Compile>
+    <Compile Include="OcrSampleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OcrSampleForm.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="OCR.resx">
       <DependentUpon>OCR.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OcrSampleForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -113,12 +122,64 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Tesseract-OCR\doc\AUTHORS" />
+    <None Include="Tesseract-OCR\doc\COPYING" />
+    <None Include="Tesseract-OCR\doc\README" />
+    <None Include="Tesseract-OCR\doc\ReleaseNotes" />
+    <None Include="Tesseract-OCR\tessdata\chi_sim.traineddata" />
+    <None Include="Tesseract-OCR\tessdata\configs\ambigs.train" />
+    <None Include="Tesseract-OCR\tessdata\configs\api_config" />
+    <None Include="Tesseract-OCR\tessdata\configs\bigram" />
+    <None Include="Tesseract-OCR\tessdata\configs\box.train" />
+    <None Include="Tesseract-OCR\tessdata\configs\box.train.stderr" />
+    <None Include="Tesseract-OCR\tessdata\configs\digits" />
+    <None Include="Tesseract-OCR\tessdata\configs\hocr" />
+    <None Include="Tesseract-OCR\tessdata\configs\inter" />
+    <None Include="Tesseract-OCR\tessdata\configs\kannada" />
+    <None Include="Tesseract-OCR\tessdata\configs\linebox" />
+    <None Include="Tesseract-OCR\tessdata\configs\logfile" />
+    <None Include="Tesseract-OCR\tessdata\configs\makebox" />
+    <None Include="Tesseract-OCR\tessdata\configs\quiet" />
+    <None Include="Tesseract-OCR\tessdata\configs\rebox" />
+    <None Include="Tesseract-OCR\tessdata\configs\strokewidth" />
+    <None Include="Tesseract-OCR\tessdata\configs\unlv" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.bigrams" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.fold" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.lm" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.lm_" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.nn" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.params" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.size" />
+    <None Include="Tesseract-OCR\tessdata\eng.cube.word-freq" />
+    <None Include="Tesseract-OCR\tessdata\eng.tesseract_cube.nn" />
+    <None Include="Tesseract-OCR\tessdata\eng.traineddata" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\batch" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\batch.nochop" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\matdemo" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\msdemo" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\nobatch" />
+    <None Include="Tesseract-OCR\tessdata\tessconfigs\segdemo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="OCR_HelpRef.txt" />
+    <Content Include="ReadMe-AspriseOCR.txt" />
+    <Content Include="Tesseract-OCR\ambiguous_words.exe" />
+    <Content Include="Tesseract-OCR\classifier_tester.exe" />
+    <Content Include="Tesseract-OCR\cntraining.exe" />
+    <Content Include="Tesseract-OCR\combine_tessdata.exe" />
+    <Content Include="Tesseract-OCR\dawg2wordlist.exe" />
+    <Content Include="Tesseract-OCR\doc\eurotext.tif" />
+    <Content Include="Tesseract-OCR\doc\phototest.tif" />
+    <Content Include="Tesseract-OCR\java\ScrollView.jar" />
+    <Content Include="Tesseract-OCR\mftraining.exe" />
+    <Content Include="Tesseract-OCR\output\ocr_output_buffer.txt" />
+    <Content Include="Tesseract-OCR\shapeclustering.exe" />
+    <Content Include="Tesseract-OCR\tesseract.exe" />
+    <Content Include="Tesseract-OCR\unicharset_extractor.exe" />
+    <Content Include="Tesseract-OCR\wordlist2dawg.exe" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
