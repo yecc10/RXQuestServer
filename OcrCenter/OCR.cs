@@ -95,16 +95,15 @@ namespace OcrCenter
                 return;
             }
             XWPFDocument doc = new XWPFDocument();
-            XWPFParagraph P1 = doc.CreateParagraph();
-            P1.Alignment = ParagraphAlignment.LEFT;
-            XWPFRun P1Text = P1.CreateRun();
-            string[] Plist = ResultTest.Text.Split(new string[] { "/r/n" }, StringSplitOptions.None);
+            string[] Plist = ResultTest.Text.Split(Environment.NewLine.ToCharArray());
             Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
             for (int i = 0; i < Plist.Length; i++)
             {
-                return;
+                XWPFParagraph P1 = doc.CreateParagraph();
+                P1.Alignment = ParagraphAlignment.LEFT;
+                XWPFRun P1Text = P1.CreateRun();
+                P1Text.SetText(Plist[i]);
             }
-            P1Text.SetText( ResultTest.Text);
             PBOCR.Value = 50;
             string Path = "C:\\Users\\Administrator\\Desktop\\瑞祥OCR转译系统_" + System.DateTime.Now.ToString("yyyymmddHHmmssffff") + ".doc";
             FileStream newfile = new FileStream(Path, FileMode.Create);
