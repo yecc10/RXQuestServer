@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-using asprise_ocr_api;
+//using asprise_ocr_api;
 using NPOI;
 using NPOI.Util;
 using NPOI.XWPF;
@@ -17,6 +17,7 @@ using NPOI.XWPF.UserModel;
 using NPOI.OpenXmlFormats.Wordprocessing;
 using System.IO;
 using System.Web;
+using Baidu.Aip.Ocr;
 namespace OcrCenter
 {
     public partial class OCR : Form
@@ -39,7 +40,7 @@ namespace OcrCenter
         {
             CheckForIllegalCrossThreadCalls = false;
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "图片 文件(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|PDF文件(*.PDF)|*.PDF|All files (*.*)|*.*";
+            openFileDialog.Filter = "图片 文件(*.BMP;*.JPG;*.GIF;PNG)|*.BMP;*.JPG;*.GIF;*PNG|PDF文件(*.PDF)|*.PDF|All files (*.*)|*.*";
             openFileDialog.CheckFileExists = true;
             openFileDialog.CheckPathExists = true;
             openFileDialog.InitialDirectory = "C:\\Users\\Administrator\\Desktop";
@@ -58,22 +59,23 @@ namespace OcrCenter
         }
         private void TranslateFile()
         {
-            AspriseOCR.SetUp();
-            AspriseOCR ocr = new AspriseOCR();
+            string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
+            string api_key=null, secret_key=null;
+            api_key = Properties.Resources.apikey;
+            secret_key = Properties.Resources.SecretKey;
             PBOCR.Value = 30;
             try
             {
-                ocr.StartEngine("eng", AspriseOCR.SPEED_FASTEST);
-                string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
-                string Result = ocr.Recognize(file, -1, -1, -1, -1, -1, AspriseOCR.RECOGNIZE_TYPE_ALL, AspriseOCR.OUTPUT_FORMAT_PLAINTEXT);
-                Console.WriteLine("Result: " + Result);
-                ocr.StopEngine();
+                var client = new Baidu.Aip.Ocr.Ocr(api_key, secret_key);
+                client.Timeout = 6000;
+                var image = File.ReadAllBytes(file);
+                var result = client.GeneralBasic(image).ToString();
                 PBOCR.Value = 90;
-                ResultTest.Text = Result;
+                ResultTest.Text = result;
             }
             catch (Exception)
             {
-                throw;
+                ResultTest.Text = "链接超时！本程序采用百度OCR引擎，需要联网应用，请检查网络是否正常！";
             }
             PBOCR.Value = 100;
         }
