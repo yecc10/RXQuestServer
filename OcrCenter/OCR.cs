@@ -67,7 +67,7 @@ namespace OcrCenter
             try
             {
                 var client = new Baidu.Aip.Ocr.Ocr(api_key, secret_key);
-                client.Timeout = 6000;
+                client.Timeout = 10000;
                 var image = File.ReadAllBytes(file);
                 var result = client.GeneralBasic(image).ToString();
                 PBOCR.Value = 90;
@@ -96,6 +96,14 @@ namespace OcrCenter
             Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
             for (int i = 0; i < Plist.Length; i++)
             {
+                if (!Plist[i].Contains("words")|| Plist[i].Contains("words_result_num")|| Plist[i].Contains("words_result"))
+                {
+                    continue;
+                }
+                else
+                {
+                    Plist[i].Replace("'words':", "");
+                }
                 XWPFParagraph P1 = doc.CreateParagraph();
                 P1.Alignment = ParagraphAlignment.LEFT;
                 XWPFRun P1Text = P1.CreateRun();

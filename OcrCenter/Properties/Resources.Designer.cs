@@ -61,7 +61,7 @@ namespace OcrCenter.Properties {
         }
         
         /// <summary>
-        ///   查找类似 lG8KzcA411mpKLNayPtmbK8n 的本地化字符串。
+        ///   查找类似 AmLyqc2T6aZDv4w3Gm4oWF6G 的本地化字符串。
         /// </summary>
         internal static string apikey {
             get {
@@ -70,7 +70,7 @@ namespace OcrCenter.Properties {
         }
         
         /// <summary>
-        ///   查找类似 15498376 的本地化字符串。
+        ///   查找类似 21592253 的本地化字符串。
         /// </summary>
         internal static string AppID {
             get {
@@ -79,7 +79,7 @@ namespace OcrCenter.Properties {
         }
         
         /// <summary>
-        ///   查找类似 RXData 的本地化字符串。
+        ///   查找类似 RXOCR 的本地化字符串。
         /// </summary>
         internal static string AppName {
             get {
@@ -88,7 +88,7 @@ namespace OcrCenter.Properties {
         }
         
         /// <summary>
-        ///   查找类似 GurrEGP5yZKXvCi2HTsDNVGWZxIIKuqV 的本地化字符串。
+        ///   查找类似 uXfS66yiou02I4MGMF1KqnrG4OgBwe9Y 的本地化字符串。
         /// </summary>
         internal static string SecretKey {
             get {
