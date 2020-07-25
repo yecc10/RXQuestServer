@@ -404,7 +404,7 @@ namespace RXQuestServer.Delmia
                 Path = Path + Tproduct.get_PartNumber() + "\\";
             }
             CreatePath(Path);
-            Path = Path + Name + ".CATProduct";
+            Path = Path + Tproduct.get_PartNumber()+ ".CATProduct";
             DSPD.SaveAs(Path);
             DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
