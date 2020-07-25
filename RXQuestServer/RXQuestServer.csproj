@@ -29,7 +29,7 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>3.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -258,15 +258,6 @@
     </COMReference>
     <COMReference Include="CATDataExch">
       <Guid>{737CBEE1-8395-4A53-818C-FE7BFE900297}</Guid>
-      <VersionMajor>0</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CATDrmRmsSettings">
-      <Guid>{4C919743-B7D7-463C-9A61-B0797E2D4D8E}</Guid>
       <VersionMajor>0</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
