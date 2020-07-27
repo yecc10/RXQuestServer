@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-//using asprise_ocr_api;
+using IronOcr;
 using NPOI;
 using NPOI.Util;
 using NPOI.XWPF;
@@ -50,7 +50,18 @@ namespace OcrCenter
             {
                 FilePath.Text = openFileDialog.FileName;
                 PBOCR.Value = 20;
-                TranslateFileBaiduEngener();
+                if (ByBaiduEngner.Checked)
+                {
+                    TranslateFileBaiduEngener();
+                }
+                else if (ByInnerEngner.Checked)
+                {
+                    TranslateFileInnerEngener();
+                }
+                else
+                {
+                    ResultTest.Text = "读取失败！你未选中任何OCR引擎，无法执行分析！";
+                }
             }
             else
             {
@@ -61,7 +72,7 @@ namespace OcrCenter
         private void TranslateFileBaiduEngener()
         {
             string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
-            string api_key=null, secret_key=null;
+            string api_key = null, secret_key = null;
             api_key = Properties.Resources.apikey;
             secret_key = Properties.Resources.SecretKey;
             PBOCR.Value = 30;
@@ -84,12 +95,46 @@ namespace OcrCenter
         {
             string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
             PBOCR.Value = 30;
+            var Ocr = new IronOcr.AdvancedOcr();
             try
             {
+                Ocr.CleanBackgroundNoise = true;
+                Ocr.EnhanceContrast = true;
+                Ocr.EnhanceResolution = true;
+                Ocr.Language = IronOcr.Languages.MultiLanguage.OcrLanguagePack(
+                    IronOcr.Languages.English.OcrLanguagePack,
+                    IronOcr.Languages.ChineseSimplified.OcrLanguagePack,
+                    IronOcr.Languages.ChineseTraditional.OcrLanguagePack
+                    //IronOcr.Languages.German.OcrLanguagePack,
+                    //IronOcr.Languages.Arabic.OcrLanguagePack,
+                    //IronOcr.Languages.Finnish.OcrLanguagePack,
+                    //IronOcr.Languages.Hebrew.OcrLanguagePack,
+                    //IronOcr.Languages.Italian.OcrLanguagePack,
+                    //IronOcr.Languages.Japanese.OcrLanguagePack,
+                    //IronOcr.Languages.Korean.OcrLanguagePack,
+                    //IronOcr.Languages.Norwegian.OcrLanguagePack,
+                    //IronOcr.Languages.Portuguese.OcrLanguagePack,
+                    //IronOcr.Languages.Russian.OcrLanguagePack,
+                    //IronOcr.Languages.Spanish.OcrLanguagePack
+                );
+                PBOCR.Value = 40;
+                Ocr.Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced;
+                Ocr.ColorSpace = AdvancedOcr.OcrColorSpace.Color;
+                Ocr.DetectWhiteTextOnDarkBackgrounds = true;
+                Ocr.InputImageType = AdvancedOcr.InputTypes.AutoDetect;
+                Ocr.RotateAndStraighten = true;
+                Ocr.ReadBarCodes = true;
+                Ocr.ColorDepth = 4;
+                var testDocument = file;
+                PBOCR.Value = 45;
+                var Results = Ocr.Read(testDocument);
+                PBOCR.Value = 80;
+                ResultTest.Text = Results.Text;
+                PBOCR.Value = 90;
             }
             catch (Exception)
             {
-                ResultTest.Text = "链接超时！本程序采用百度OCR引擎，需要联网应用，请检查网络是否正常！";
+                ResultTest.Text = "本地引擎在分析是出错，请联系管理员！";
             }
             PBOCR.Value = 100;
         }
@@ -110,14 +155,14 @@ namespace OcrCenter
             Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
             for (int i = 0; i < Plist.Length; i++)
             {
-                if (!Plist[i].Contains("words")|| Plist[i].Contains("words_result_num")|| Plist[i].Contains("words_result"))
+                if (!Plist[i].Contains("words") || Plist[i].Contains("words_result_num") || Plist[i].Contains("words_result"))
                 {
                     continue;
                 }
                 else
                 {
                     string value = Plist[i];
-                    value=value.Replace("words", "").Replace("''","").Replace(":","");
+                    value = value.Replace("words", "").Replace("''", "").Replace(":", "");
                 }
                 XWPFParagraph P1 = doc.CreateParagraph();
                 P1.Alignment = ParagraphAlignment.LEFT;
@@ -173,7 +218,7 @@ namespace OcrCenter
             runTitle.SetText("军检验收单");
             runTitle.FontSize = 16;
             runTitle.SetFontFamily("宋体", FontCharRange.None); //设置雅黑字体
-            //创建段落对象2
+                                                              //创建段落对象2
             var p2 = doc.CreateParagraph();
             var run1 = p2.CreateRun();
             run1.SetText(" 军检项目号：");

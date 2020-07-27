@@ -71,8 +71,76 @@
       <HintPath>..\packages\Portable.BouncyCastle.1.8.6.7\lib\net40\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ChineseTraditional, Version=4.0.0.20746, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.ChineseTraditional.4.4.4.1\lib\net40\ChineseTraditional.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr, Version=4.4.0.21181, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.4.4.0\lib\net40\IronOcr.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Arabic, Version=4.4.4.18393, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Arabic.4.4.4.11\lib\net40\IronOcr.Arabic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.ChineseSimplified, Version=4.0.0.20746, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.ChineseSimplified.4.4.4.1\lib\net40\IronOcr.ChineseSimplified.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Danish, Version=4.0.0.20749, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Danish.4.4.4.1\lib\net40\IronOcr.Danish.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Finnish, Version=4.0.0.20748, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Finnish.4.4.4.1\lib\net40\IronOcr.Finnish.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.French, Version=4.0.0.20729, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.French.4.4.4.2\lib\net40\IronOcr.French.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.German, Version=4.0.0.18757, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.German.4.4.4.11\lib\net40\IronOcr.German.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Hebrew, Version=4.0.0.20748, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Hebrew.4.4.4.1\lib\net40\IronOcr.Hebrew.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.International, Version=4.4.4.22148, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ocr.4.4.4.11\lib\net40\IronOcr.International.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Italian, Version=4.0.0.26600, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Italian.4.4.4.11\lib\net40\IronOcr.Italian.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Japanese, Version=4.0.0.20747, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Japanese.4.4.4.1\lib\net40\IronOcr.Japanese.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Korean, Version=4.0.0.20746, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Korean.4.4.4.1\lib\net40\IronOcr.Korean.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Norwegian, Version=4.0.0.20748, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Norwegian.4.4.4.1\lib\net40\IronOcr.Norwegian.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Portuguese, Version=4.0.0.15217, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Portuguese.4.4.4.1\lib\net40\IronOcr.Portuguese.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Russian, Version=4.0.0.20748, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Russian.4.4.4.1\lib\net40\IronOcr.Russian.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IronOcr.Spanish, Version=4.0.0.20747, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Spanish.4.4.4.1\lib\net40\IronOcr.Spanish.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
