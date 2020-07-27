@@ -18,6 +18,7 @@ using NPOI.OpenXmlFormats.Wordprocessing;
 using System.IO;
 using System.Web;
 using Baidu.Aip.Ocr;
+
 namespace OcrCenter
 {
     public partial class OCR : Form
@@ -49,7 +50,7 @@ namespace OcrCenter
             {
                 FilePath.Text = openFileDialog.FileName;
                 PBOCR.Value = 20;
-                TranslateFile();
+                TranslateFileBaiduEngener();
             }
             else
             {
@@ -57,7 +58,7 @@ namespace OcrCenter
                 PBOCR.Value = 100;
             }
         }
-        private void TranslateFile()
+        private void TranslateFileBaiduEngener()
         {
             string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
             string api_key=null, secret_key=null;
@@ -66,12 +67,25 @@ namespace OcrCenter
             PBOCR.Value = 30;
             try
             {
-                var client = new Baidu.Aip.Ocr.Ocr(api_key, secret_key);
+                var client = new Ocr(api_key, secret_key);
                 client.Timeout = 10000;
                 var image = File.ReadAllBytes(file);
                 var result = client.GeneralBasic(image).ToString();
                 PBOCR.Value = 90;
                 ResultTest.Text = result;
+            }
+            catch (Exception)
+            {
+                ResultTest.Text = "链接超时！本程序采用百度OCR引擎，需要联网应用，请检查网络是否正常！";
+            }
+            PBOCR.Value = 100;
+        }
+        private void TranslateFileInnerEngener()
+        {
+            string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
+            PBOCR.Value = 30;
+            try
+            {
             }
             catch (Exception)
             {
@@ -102,7 +116,8 @@ namespace OcrCenter
                 }
                 else
                 {
-                    Plist[i].Replace("'words':", "");
+                    string value = Plist[i];
+                    value=value.Replace("words", "").Replace("''","").Replace(":","");
                 }
                 XWPFParagraph P1 = doc.CreateParagraph();
                 P1.Alignment = ParagraphAlignment.LEFT;

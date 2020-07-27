@@ -146,9 +146,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OCR_HelpRef.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 和 x64%29</ProductName>
@@ -161,6 +158,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Leadtools.Kernel.20.0.0.8\build\net40\Leadtools.Kernel.targets" Condition="Exists('..\packages\Leadtools.Kernel.20.0.0.8\build\net40\Leadtools.Kernel.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Leadtools.Kernel.20.0.0.8\build\net40\Leadtools.Kernel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Leadtools.Kernel.20.0.0.8\build\net40\Leadtools.Kernel.targets'))" />
+    <Error Condition="!Exists('..\packages\Leadtools.Formats.Raster.Common.20.0.0.8\build\net40\Leadtools.Formats.Raster.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Leadtools.Formats.Raster.Common.20.0.0.8\build\net40\Leadtools.Formats.Raster.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\Leadtools.Image.Processing.20.0.0.8\build\net40\Leadtools.Image.Processing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Leadtools.Image.Processing.20.0.0.8\build\net40\Leadtools.Image.Processing.targets'))" />
+    <Error Condition="!Exists('..\packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.8\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.8\build\net40\Leadtools.Ocr.Languages.Main.NET.targets'))" />
+    <Error Condition="!Exists('..\packages\Leadtools.Ocr.20.0.0.8\build\net40\Leadtools.Ocr.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Leadtools.Ocr.20.0.0.8\build\net40\Leadtools.Ocr.targets'))" />
+  </Target>
+  <Import Project="..\packages\Leadtools.Formats.Raster.Common.20.0.0.8\build\net40\Leadtools.Formats.Raster.Common.targets" Condition="Exists('..\packages\Leadtools.Formats.Raster.Common.20.0.0.8\build\net40\Leadtools.Formats.Raster.Common.targets')" />
+  <Import Project="..\packages\Leadtools.Image.Processing.20.0.0.8\build\net40\Leadtools.Image.Processing.targets" Condition="Exists('..\packages\Leadtools.Image.Processing.20.0.0.8\build\net40\Leadtools.Image.Processing.targets')" />
+  <Import Project="..\packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.8\build\net40\Leadtools.Ocr.Languages.Main.NET.targets" Condition="Exists('..\packages\Leadtools.Ocr.Languages.Main.NET.20.0.0.8\build\net40\Leadtools.Ocr.Languages.Main.NET.targets')" />
+  <Import Project="..\packages\Leadtools.Ocr.20.0.0.8\build\net40\Leadtools.Ocr.targets" Condition="Exists('..\packages\Leadtools.Ocr.20.0.0.8\build\net40\Leadtools.Ocr.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

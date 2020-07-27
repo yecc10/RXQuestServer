@@ -35,6 +35,8 @@
             this.ResultTest = new System.Windows.Forms.TextBox();
             this.PBOCR = new System.Windows.Forms.ProgressBar();
             this.savetoword = new System.Windows.Forms.Button();
+            this.ByBaiduEngner = new System.Windows.Forms.CheckBox();
+            this.ByInnerEngner = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ReadTarget
@@ -74,7 +76,7 @@
             // 
             // PBOCR
             // 
-            this.PBOCR.Location = new System.Drawing.Point(13, 399);
+            this.PBOCR.Location = new System.Drawing.Point(13, 391);
             this.PBOCR.Name = "PBOCR";
             this.PBOCR.Size = new System.Drawing.Size(264, 23);
             this.PBOCR.TabIndex = 4;
@@ -89,11 +91,33 @@
             this.savetoword.UseVisualStyleBackColor = true;
             this.savetoword.Click += new System.EventHandler(this.savetoword_Click);
             // 
+            // ByBaiduEngner
+            // 
+            this.ByBaiduEngner.AutoSize = true;
+            this.ByBaiduEngner.Location = new System.Drawing.Point(13, 421);
+            this.ByBaiduEngner.Name = "ByBaiduEngner";
+            this.ByBaiduEngner.Size = new System.Drawing.Size(114, 16);
+            this.ByBaiduEngner.TabIndex = 5;
+            this.ByBaiduEngner.Text = "使用百度OCR引擎";
+            this.ByBaiduEngner.UseVisualStyleBackColor = true;
+            // 
+            // ByInnerEngner
+            // 
+            this.ByInnerEngner.AutoSize = true;
+            this.ByInnerEngner.Location = new System.Drawing.Point(133, 421);
+            this.ByInnerEngner.Name = "ByInnerEngner";
+            this.ByInnerEngner.Size = new System.Drawing.Size(114, 16);
+            this.ByInnerEngner.TabIndex = 5;
+            this.ByInnerEngner.Text = "使用内置OCR引擎";
+            this.ByInnerEngner.UseVisualStyleBackColor = true;
+            // 
             // OCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 441);
+            this.Controls.Add(this.ByInnerEngner);
+            this.Controls.Add(this.ByBaiduEngner);
             this.Controls.Add(this.PBOCR);
             this.Controls.Add(this.ResultTest);
             this.Controls.Add(this.label1);
@@ -117,6 +141,8 @@
         private System.Windows.Forms.TextBox ResultTest;
         private System.Windows.Forms.ProgressBar PBOCR;
         private System.Windows.Forms.Button savetoword;
+        private System.Windows.Forms.CheckBox ByBaiduEngner;
+        private System.Windows.Forms.CheckBox ByInnerEngner;
     }
 }
 

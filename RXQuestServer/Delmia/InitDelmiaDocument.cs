@@ -833,7 +833,13 @@ namespace RXQuestServer.Delmia
                         }
                         if (GunStand.Checked)
                         {
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_PickAndPlace";
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Pick";
+                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                            {
+                                Rtf.CreateRobotTask(RobotTaskName, null);
+                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            }
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Drop";
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
@@ -872,7 +878,13 @@ namespace RXQuestServer.Delmia
                         }
                         if (GrpStand.Checked)
                         {
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Pick&Drop";
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Pick";
+                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                            {
+                                Rtf.CreateRobotTask(RobotTaskName, null);
+                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            }
+                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Drop";
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
