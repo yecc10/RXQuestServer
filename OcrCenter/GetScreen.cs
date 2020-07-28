@@ -7,268 +7,290 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace OcrCenter
 {
     class GetScreen
     {
         //截取全屏图象
-        public void GetWholeScreen()
+        private void GetCurrentScreen()
         {
             //创建图象，保存将来截取的图象
             Bitmap image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             Graphics imgGraphics = Graphics.FromImage(image);
             //设置截屏区域
             imgGraphics.CopyFromScreen(0, 0, 0, 0, new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
-            //保存
-
+            //保存;
             SaveImage(image);
         }
-
+        public void GetWholeScreen()
+        {
+            System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetCurrentScreen));
+            importThread.SetApartmentState(ApartmentState.STA); //重点
+            importThread.Start();
+        }
         //保存图象文件
-        public void SaveImage(Image image)
+        private void SaveImage(Image image)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.AddExtension=true;
+            saveFileDialog.Filter = "*.BMP| *.BMP|*.JPG|*.JPG |*.PNG|*.PNG| PDF文件(*.PDF) | *.PDF | All files(*.*) | *.* ";
+            string fileName = string.Empty;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string fileName = saveFileDialog.FileName;
+                 fileName = saveFileDialog.FileName;
                 string extension = Path.GetExtension(fileName);
-                if (extension == ".jpg")
+                if (!String.IsNullOrEmpty(extension))
                 {
-                    image.Save(fileName, ImageFormat.Jpeg);
+                    image.Save(fileName);
                 }
                 else
                 {
                     image.Save(fileName, ImageFormat.Bmp);
                 }
             }
+            OpenFileDialog openfiledialog = new OpenFileDialog();
+            openfiledialog.FileName = fileName;
         }
     }
-    class SaveAsNewDoc
+    public class API
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetDesktopWindow();
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SetWindowsHookEx(int hookid, HookProc pfnhook, IntPtr hinst, int threadid);
+        public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+        [DllImport("kernel32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern int GetCurrentThreadId();
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern bool UnhookWindowsHookEx(IntPtr hhook);
+        public enum WindowsHookCodes
+        {
+            WH_MSGFILTER = (-1),
+            WH_JOURNALRECORD = 0,
+            WH_JOURNALPLAYBACK = 1,
+            WH_KEYBOARD = 2,
+            WH_GETMESSAGE = 3,
+            WH_CALLWNDPROC = 4,
+            WH_CBT = 5,
+            WH_SYSMSGFILTER = 6,
+            WH_MOUSE = 7,
+            WH_HARDWARE = 8,
+            WH_DEBUG = 9,
+            WH_SHELL = 10,
+            WH_FOREGROUNDIDLE = 11,
+            WH_CALLWNDPROCRET = 12,
+            WH_KEYBOARD_LL = 13,
+            WH_MOUSE_LL = 14
+        }
+    }
+    /// <summary>
+    /// 一个根据矩形截图类
+    /// zgke@Sina.com
+    /// qq:116149
+    /// </summary>
+    public class CopyScreen
     {
         /// <summary>
-        /// 设置字体格式
+        /// 屏幕大小
         /// </summary>
-        /// <param name="doc"></param>
-        /// <param name="table"></param>
-        /// <param name="setText"></param>
-        /// <returns></returns>
-        public XWPFParagraph SetCellText(XWPFDocument doc, XWPFTable table, string setText)
-        {
-            //table中的文字格式设置
-            var para = new CT_P();
-            var pCell = new XWPFParagraph(para, table.Body);
-            pCell.Alignment = ParagraphAlignment.CENTER; //字体居中
-            pCell.VerticalAlignment = TextAlignment.CENTER; //字体居中
-            var r1c1 = pCell.CreateRun();
-            r1c1.SetText(setText);
-            r1c1.FontSize = 12;
-            r1c1.SetFontFamily("华文楷体", FontCharRange.None); //设置雅黑字体
-            return pCell;
-        }
+        private Size ScreenSize { get { return Screen.PrimaryScreen.Bounds.Size; } }
         /// <summary>
-        /// 新增
+        /// 鼠标位置
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnPrint_Click(object sender, EventArgs e)
+        private Point MousePoint { get { return Cursor.Position; } }
+        /// <summary>
+        /// 私有方法获取屏幕图形(全部图形)
+        /// </summary>
+        public Bitmap ScreenImage
         {
-            //创建document对象
-            var doc = new XWPFDocument();
-            //创建段落对象1
-            var p1 = doc.CreateParagraph();
-            p1.Alignment = ParagraphAlignment.CENTER; //字体居中
-                                                      //创建run对象
-                                                      //本节提到的所有样式都是基于XWPFRun的，
-                                                      //你可以把XWPFRun理解成一小段文字的描述对象，
-                                                      //这也是Word文档的特征，即文本描述性文档。
-                                                      //来自Tony Qu http://tonyqus.sinaapp.com/archives/609
-            var runTitle = p1.CreateRun();
-            runTitle.IsBold = true;
-            runTitle.SetText("军检验收单");
-            runTitle.FontSize = 16;
-            runTitle.SetFontFamily("宋体", FontCharRange.None); //设置雅黑字体
-                                                              //创建段落对象2
-            var p2 = doc.CreateParagraph();
-            var run1 = p2.CreateRun();
-            run1.SetText(" 军检项目号：");
-            run1.FontSize = 12;
-            run1.SetFontFamily("华文楷体", FontCharRange.None); //设置雅黑字体
-            #region 头部(6 rows)
-            //基本row12，列5;头部6行，4列
-            var tableTop = doc.CreateTable(6, 5);
-            tableTop.Width = 1000 * 5;
-            tableTop.SetColumnWidth(0, 1300); /* 设置列宽 */
-            tableTop.SetColumnWidth(1, 500); /* 设置列宽 */
-            tableTop.SetColumnWidth(2, 1000); /* 设置列宽 */
-            tableTop.SetColumnWidth(3, 500); /* 设置列宽 */
-            tableTop.SetColumnWidth(4, 1700); /* 设置列宽 */
-            tableTop.GetRow(0).MergeCells(1, 4); /* 合并行 */
-            tableTop.GetRow(0).GetCell(0).SetParagraph(SetCellText(doc, tableTop, "产品名称"));
-            tableTop.GetRow(0).GetCell(1).SetParagraph(SetCellText(doc, tableTop, " "));
-            tableTop.GetRow(1).MergeCells(1, 4);
-            tableTop.GetRow(1).GetCell(0).SetParagraph(SetCellText(doc, tableTop, "项目名称"));
-            tableTop.GetRow(1).GetCell(1).SetParagraph(SetCellText(doc, tableTop, " "));
-            tableTop.GetRow(2).MergeCells(1, 4);
-            tableTop.GetRow(2)
-            .GetCell(0)
-            .SetParagraph(SetCellText(doc, tableTop, "施工依据", ParagraphAlignment.CENTER, 45));
-            tableTop.GetRow(2)
-            .GetCell(1)
-            .SetParagraph(SetCellText(doc, tableTop, " ", ParagraphAlignment.CENTER, 45));
-            tableTop.GetRow(3).GetCell(0).SetParagraph(SetCellText(doc, tableTop, "检验方式"));
-            tableTop.GetRow(3).GetCell(1).SetParagraph(SetCellText(doc, tableTop, "独立检验"));
-            tableTop.GetRow(3).GetCell(2).SetParagraph(SetCellText(doc, tableTop, " "));
-            tableTop.GetRow(3).GetCell(3).SetParagraph(SetCellText(doc, tableTop, "联合检验"));
-            tableTop.GetRow(3).GetCell(4).SetParagraph(SetCellText(doc, tableTop, " "));
-            tableTop.GetRow(4).MergeCells(3, 4);
-            tableTop.GetRow(4).GetCell(0).SetParagraph(SetCellText(doc, tableTop, "设备名称及编号"));
-            tableTop.GetRow(4).GetCell(1).SetParagraph(SetCellText(doc, tableTop, " "));
-            tableTop.GetRow(4).GetCell(2).SetParagraph(SetCellText(doc, tableTop, "设备制造厂"));
-            tableTop.GetRow(4).GetCell(3).SetParagraph(SetCellText(doc, tableTop, " "));
-            //tableTop.GetRow(4).GetCell(3).SetBorderBottom(XWPFtableTop.XWPFBorderType.NONE,0,0,"");
-            tableTop.GetRow(5).MergeCells(0, 4);
-            var para = new CT_P();
-            var pCell = new XWPFParagraph(para, tableTop.Body);
-            pCell.Alignment = ParagraphAlignment.LEFT; //字体居中
-            var r1c1 = pCell.CreateRun();
-            r1c1.SetText("检验要素共9项");
-            r1c1.FontSize = 12;
-            r1c1.SetFontFamily("华文楷体", FontCharRange.None); //设置雅黑字体
-            tableTop.GetRow(5).GetCell(0).SetParagraph(pCell);
-            //table.GetRow(6).GetCell(0).SetParagraph(SetCellText(doc, table, "序号"));
-            //table.GetRow(6).GetCell(1).SetParagraph(SetCellText(doc, table, "检验要素"));
-            //table.GetRow(6).GetCell(2).SetParagraph(SetCellText(doc, table, "指标要求"));
-            //table.GetRow(6).GetCell(3).SetParagraph(SetCellText(doc, table, "实测值"));
-            //table.GetRow(6).GetCell(4).SetParagraph(SetCellText(doc, table, "测量工具编号及有效期"));
-            #endregion
-            #region 检验要素列表部分(数据库读取循环显示)
-            /* 打印1页:小于8行数据,创建9行；
-            * 打印2页:大于8小于26行数据，创建27行。增加18
-            * 打印3页:大于26小于44行数据，创建45行。增加18
-            */
-            var tableContent = doc.CreateTable(45, 5);
-            tableContent.Width = 1000 * 5;
-            tableContent.SetColumnWidth(0, 300); /* 设置列宽 */
-            tableContent.SetColumnWidth(1, 1000); /* 设置列宽 */
-            tableContent.SetColumnWidth(2, 1000); /* 设置列宽 */
-            tableContent.SetColumnWidth(3, 1000); /* 设置列宽 */
-            tableContent.SetColumnWidth(4, 1700); /* 设置列宽 */
-            tableContent.GetRow(0).GetCell(0).SetParagraph(SetCellText(doc, tableContent, "序号"));
-            tableContent.GetRow(0).GetCell(1).SetParagraph(SetCellText(doc, tableContent, "检验要素"));
-            tableContent.GetRow(0).GetCell(2).SetParagraph(SetCellText(doc, tableContent, "指标要求"));
-            tableContent.GetRow(0).GetCell(3).SetParagraph(SetCellText(doc, tableContent, "实测值"));
-            tableContent.GetRow(0).GetCell(4).SetParagraph(SetCellText(doc, tableContent, "测量工具编号及有效期"));
-            for (var i = 1; i < 45; i++)
+            get
             {
-                tableContent.GetRow(i)
-                .GetCell(0)
-                .SetParagraph(SetCellText(doc, tableContent, i.ToString(), ParagraphAlignment.CENTER, 50));
-                tableContent.GetRow(i)
-                .GetCell(1)
-                .SetParagraph(SetCellText(doc, tableContent, "检验要素", ParagraphAlignment.CENTER, 50));
-                tableContent.GetRow(i)
-                .GetCell(2)
-                .SetParagraph(SetCellText(doc, tableContent, "指标要求", ParagraphAlignment.CENTER, 50));
-                tableContent.GetRow(i)
-                .GetCell(3)
-                .SetParagraph(SetCellText(doc, tableContent, "实测值", ParagraphAlignment.CENTER, 50));
-                tableContent.GetRow(i)
-                .GetCell(4)
-                .SetParagraph(SetCellText(doc, tableContent, "测量工具编号及有效期", ParagraphAlignment.CENTER, 50));
+                Bitmap m_BackBitmap = new Bitmap(ScreenSize.Width, ScreenSize.Height);
+                Graphics _Graphics = Graphics.FromImage(m_BackBitmap);
+                _Graphics.CopyFromScreen(new Point(0, 0), new Point(0, 0), ScreenSize);
+                _Graphics.Dispose();
+                return m_BackBitmap;
             }
-            #endregion
-            #region 底部内容
-            var tableBottom = doc.CreateTable(5, 4);
-            tableBottom.Width = 1000 * 5;
-            tableBottom.SetColumnWidth(0, 1000); /* 设置列宽 */
-            tableBottom.SetColumnWidth(1, 1500); /* 设置列宽 */
-            tableBottom.SetColumnWidth(2, 1000); /* 设置列宽 */
-            tableBottom.SetColumnWidth(3, 1500); /* 设置列宽 */
-            tableBottom.GetRow(0).MergeCells(0, 3); /* 合并行 */
-            tableBottom.GetRow(0)
-            .GetCell(0)
-            .SetParagraph(SetCellText(doc, tableBottom, "附件：", ParagraphAlignment.LEFT, 80));
-            tableBottom.GetRow(0).Height = 30;
-            tableBottom.GetRow(1).MergeCells(0, 3); /* 合并行 */
-            tableBottom.GetRow(1)
-            .GetCell(0)
-            .SetParagraph(SetCellText(doc, tableBottom, "检验结论：", ParagraphAlignment.LEFT, 80));
-            tableBottom.GetRow(1).Height = 30;
-            tableBottom.GetRow(2).GetCell(0).SetParagraph(SetCellText(doc, tableBottom, "施工部门"));
-            tableBottom.GetRow(2).GetCell(1).SetParagraph(SetCellText(doc, tableBottom, " "));
-            tableBottom.GetRow(2).GetCell(2).SetParagraph(SetCellText(doc, tableBottom, "报验日期"));
-            tableBottom.GetRow(2).GetCell(3).SetParagraph(SetCellText(doc, tableBottom, " "));
-            tableBottom.GetRow(3).GetCell(0).SetParagraph(SetCellText(doc, tableBottom, "军检次数"));
-            tableBottom.GetRow(3).GetCell(1).SetParagraph(SetCellText(doc, tableBottom, " "));
-            tableBottom.GetRow(3).GetCell(2).SetParagraph(SetCellText(doc, tableBottom, "军检日期"));
-            tableBottom.GetRow(3).GetCell(3).SetParagraph(SetCellText(doc, tableBottom, " "));
-            tableBottom.GetRow(4).GetCell(0).SetParagraph(SetCellText(doc, tableBottom, "检验员"));
-            tableBottom.GetRow(4).GetCell(1).SetParagraph(SetCellText(doc, tableBottom, " "));
-            tableBottom.GetRow(4).GetCell(2).SetParagraph(SetCellText(doc, tableBottom, "军代表"));
-            tableBottom.GetRow(4).GetCell(3).SetParagraph(SetCellText(doc, tableBottom, " "));
-            #endregion
-            //保存文件到磁盘WinForm
-            //string docPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "DocxWord");
-            //if (!Directory.Exists(docPath)) { Directory.CreateDirectory(docPath); }
-            //string fileName = string.Format("{0}.doc", HttpUtility.UrlEncode("jjysd" + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), System.Text.Encoding.UTF8));
-            //FileStream out1 = new FileStream(Path.Combine(docPath, fileName), FileMode.Create);
-            //doc.Write(out1);
-            //out1.Close();
-            #region 保存导出WebForm
-            //Response.Redirect(ResolveUrl(string.Format(@"~\DocxWord\{0}", fileName)));
-            var ms = new MemoryStream();
-            doc.Write(ms);
-            //Response.AddHeader("Content-Disposition",
-            // string.Format("attachment; filename={0}.doc",
-            // HttpUtility.UrlEncode("文件名" + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
-            // Encoding.UTF8)));
-            //Response.BinaryWrite(ms.ToArray());
-            //Response.End();
-            ms.Close();
-            ms.Dispose();
-            //using (MemoryStream ms = new MemoryStream())
-            //{
-            // doc.Write(ms);
-            // Response.ClearContent();
-            // Response.Buffer = true;
-            // Response.ContentType = "application/octet-stream";
-            // Response.AddHeader("Content-Disposition", string.Format("attachment; filename={0}.doc", HttpUtility.UrlEncode("军检验收单" + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), System.Text.Encoding.UTF8)));
-            // Response.BinaryWrite(ms.ToArray());
-            // //Response.End();
-            // Response.Flush();
-            // doc = null;
-            // ms.Close();
-            // ms.Dispose();
-            //}
-            #endregion
         }
         /// <summary>
-        /// 设置单元格格式
+        /// 钩子
         /// </summary>
-        /// <param name="doc">doc对象</param>
-        /// <param name="table">表格对象</param>
-        /// <param name="setText">要填充的文字</param>
-        /// <param name="align">文字对齐方式</param>
-        /// <param name="textPos">rows行的高度</param>
-        /// <returns></returns>
-        public XWPFParagraph SetCellText(XWPFDocument doc, XWPFTable table, string setText, ParagraphAlignment align,
-        int textPos)
+        private HookMessage m_HookMessage;
+        /// <summary>
+        /// 屏幕句柄
+        /// </summary>
+        private IntPtr m_ScreenForm;
+        /// <summary>
+        /// 图形
+        /// </summary>
+        private Bitmap m_Image;
+        public delegate void GetImage(Image p_Image);
+        /// <summary>
+        /// 获取屏幕截图
+        /// </summary>
+        public event GetImage GetScreenImage;
+        /// <summary>
+        /// 构造
+        /// </summary>
+        public CopyScreen()
         {
-            var para = new CT_P();
-            var pCell = new XWPFParagraph(para, table.Body);
-            //pCell.Alignment = ParagraphAlignment.LEFT;//字体
-            pCell.Alignment = align;
-            var r1c1 = pCell.CreateRun();
-            r1c1.SetText(setText);
-            r1c1.FontSize = 12;
-            r1c1.SetFontFamily("华文楷体", FontCharRange.None); //设置雅黑字体
-            //r1c1.SetTextPosition(textPos); //设置高度
-            return pCell;
+            m_ScreenForm = API.GetDesktopWindow();
+            m_HookMessage = new HookMessage(API.WindowsHookCodes.WH_MOUSE_LL, true);
+            m_HookMessage.GetHook += new HookMessage.GetHookMessage(m_HookMessage_GetHook);
         }
-
+        /// <summary>
+        /// 钩子事件
+        /// </summary>
+        /// <param name="p_Code"></param>
+        /// <param name="p_wParam"></param>
+        /// <param name="p_lParam"></param>
+        /// <param name="p_Send"></param>
+        void m_HookMessage_GetHook(int p_Code, IntPtr p_wParam, IntPtr p_lParam, ref bool p_Send)
+        {
+            if (m_StarMouse)
+            {
+                switch (p_wParam.ToInt32())
+                {
+                    case 512: //Move
+                        MouseMove();
+                        break;
+                    case 513:  //Down
+                        MouseDown();
+                        p_Send = false;
+                        break;
+                    case 514:  //Up
+                        MouseUp();
+                        p_Send = false;
+                        break;
+                    default:
+                        m_StarMouse = false;
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// 根据矩形 如果Width是正直接返回 如果使-会转换成正的矩形 保证大小位置不变
+        /// </summary>
+        /// <param name="p_Rectangle">矩形</param>
+        /// <returns>正矩形</returns>
+        public static Rectangle GetUprightRectangle(Rectangle p_Rectangle)
+        {
+            Rectangle _Rect = p_Rectangle;
+            if (_Rect.Width < 0)
+            {
+                int _X = _Rect.X;
+                _Rect.X = _Rect.Width + _Rect.X;
+                _Rect.Width = _X - _Rect.X;
+            }
+            if (_Rect.Height < 0)
+            {
+                int _Y = _Rect.Y;
+                _Rect.Y = _Rect.Height + _Rect.Y;
+                _Rect.Height = _Y - _Rect.Y;
+            }
+            return _Rect;
+        }
+        private Rectangle m_MouseRectangle = new Rectangle(0, 0, 0, 0);
+        private bool m_DrawStar = false;
+        private void MouseDown()
+        {
+            m_MouseRectangle.X = MousePoint.X;
+            m_MouseRectangle.Y = MousePoint.Y;
+            m_DrawStar = true;
+        }
+        private void MouseMove()
+        {
+            if (m_DrawStar)
+            {
+                ControlPaint.DrawReversibleFrame(m_MouseRectangle, Color.Transparent, FrameStyle.Dashed);
+                m_MouseRectangle.Width = MousePoint.X - m_MouseRectangle.X;
+                m_MouseRectangle.Height = MousePoint.Y - m_MouseRectangle.Y;
+                ControlPaint.DrawReversibleFrame(m_MouseRectangle, Color.White, FrameStyle.Dashed);
+            }
+        }
+        private void MouseUp()
+        {
+            ControlPaint.DrawReversibleFrame(m_MouseRectangle, Color.Transparent, FrameStyle.Dashed);
+            m_DrawStar = false;
+            m_StarMouse = false;
+            Rectangle _ScreenRectangle = GetUprightRectangle(m_MouseRectangle);
+            m_MouseRectangle.X = 0;
+            m_MouseRectangle.Y = 0;
+            m_MouseRectangle.Width = 0;
+            m_MouseRectangle.Height = 0;
+            if (GetScreenImage != null)
+            {
+                if (_ScreenRectangle.Width != 0 && _ScreenRectangle.Height != 0) GetScreenImage(m_Image.Clone(_ScreenRectangle, m_Image.PixelFormat));
+            }
+        }
+        private bool m_StarMouse = false;
+        /// <summary>
+        /// 获取图形
+        /// </summary>
+        public void GerScreenFormRectangle()
+        {
+            m_Image = ScreenImage;
+            m_StarMouse = true;
+        }
+        /// <summary>
+        /// 获取图形
+        /// </summary>
+        public void GetScreen()
+        {
+            if (GetScreenImage != null) GetScreenImage(ScreenImage);
+        }
+    }
+    /// <summary>
+    /// 用钩子获取消息
+    /// zgke@Sina.com
+    /// </summary>
+    public class HookMessage
+    {
+        private IntPtr m_HookEx;
+        /// <summary>
+        /// 设置自己进程的钩子
+        /// </summary>
+        /// <param name="p_HookCodes">钩子类型</param>
+        public HookMessage(API.WindowsHookCodes p_HookCodes)
+        {
+            m_HookEx = API.SetWindowsHookEx((int)p_HookCodes, new API.HookProc(SetHookProc), IntPtr.Zero, API.GetCurrentThreadId());
+        }
+        /// <summary>
+        /// 设置进程的钩子
+        /// </summary>
+        /// <param name="p_HookCodes">钩子类型</param>
+        /// <param name="p_ThreadID">全局钩子</param>
+        public HookMessage(API.WindowsHookCodes p_HookCodes, bool p_Zero)
+        {
+            IntPtr _Value = System.Runtime.InteropServices.Marshal.GetHINSTANCE(System.Reflection.Assembly.GetExecutingAssembly().GetModules()[0]);
+            m_HookEx = API.SetWindowsHookEx((int)p_HookCodes, new API.HookProc(SetHookProc), _Value, 0);
+        }
+        /// <summary>
+        /// 关闭钩子
+        /// </summary>
+        public void UnHookMessage()
+        {
+            if (API.UnhookWindowsHookEx(m_HookEx))
+            {
+                m_HookEx = IntPtr.Zero;
+            }
+        }
+        public delegate void GetHookMessage(int p_Code, IntPtr p_wParam, IntPtr p_lParam, ref bool p_Send);
+        public event GetHookMessage GetHook;
+        private IntPtr SetHookProc(int p_Code, IntPtr p_wParam, IntPtr p_lParam)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            bool _SendMessage = true;
+            if (GetHook != null) GetHook(p_Code, p_wParam, p_lParam, ref _SendMessage);
+            if (!_SendMessage) return new IntPtr(1);
+            return IntPtr.Zero;
+        }
     }
 }
