@@ -177,6 +177,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetScreen.cs" />
     <Compile Include="OCR.cs">
       <SubType>Form</SubType>
     </Compile>
