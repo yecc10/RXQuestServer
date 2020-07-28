@@ -17,7 +17,7 @@ namespace OcrCenter
     class GetScreen
     {
         //截取全屏图象
-        private void GetCurrentScreen()
+        private void GetCurrentScreen(Form cform)
         {
             //创建图象，保存将来截取的图象
             Bitmap image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -25,24 +25,29 @@ namespace OcrCenter
             //设置截屏区域
             imgGraphics.CopyFromScreen(0, 0, 0, 0, new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
             //保存;
-            SaveImage(image);
+            ScreenImage _ScreenImage = new ScreenImage();
+            _ScreenImage.SetPictureBox(image);
+            _ScreenImage.SetCallerForm(cform);
+            _ScreenImage.ShowDialog();
+            //SaveImage(image);
         }
-        public void GetWholeScreen()
+        public void GetWholeScreen(Form cform)
         {
-            System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetCurrentScreen));
+            System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(delegate{ GetCurrentScreen(cform);}));
             importThread.SetApartmentState(ApartmentState.STA); //重点
             importThread.Start();
         }
         //保存图象文件
-        private void SaveImage(Image image)
+        public void SaveImage(Image image)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.AddExtension=true;
+            saveFileDialog.InitialDirectory= System.Environment.GetFolderPath(Environment.SpecialFolder.Recent);//获取桌面位置
+            saveFileDialog.AddExtension = true;
             saveFileDialog.Filter = "*.BMP| *.BMP|*.JPG|*.JPG |*.PNG|*.PNG| PDF文件(*.PDF) | *.PDF | All files(*.*) | *.* ";
             string fileName = string.Empty;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                 fileName = saveFileDialog.FileName;
+                fileName = saveFileDialog.FileName;
                 string extension = Path.GetExtension(fileName);
                 if (!String.IsNullOrEmpty(extension))
                 {
@@ -55,6 +60,14 @@ namespace OcrCenter
             }
             OpenFileDialog openfiledialog = new OpenFileDialog();
             openfiledialog.FileName = fileName;
+        }
+        public string SaveImage(Image image, bool SaveToTemp)
+        {
+            string fileName = string.Empty;
+            fileName = System.Environment.GetEnvironmentVariable("Temp");
+            fileName = fileName + DateTime.Now.ToString("yyyymmddHHmmssffff") +".Png";
+            image.Save(fileName, ImageFormat.Png);
+            return fileName;
         }
     }
     public class API
@@ -90,7 +103,7 @@ namespace OcrCenter
     }
     /// <summary>
     /// 一个根据矩形截图类
-    /// zgke@Sina.com
+    /// Yecc10@live.cn
     /// qq:116149
     /// </summary>
     public class CopyScreen
@@ -247,7 +260,7 @@ namespace OcrCenter
     }
     /// <summary>
     /// 用钩子获取消息
-    /// zgke@Sina.com
+    /// Yecc10@live.cn
     /// </summary>
     public class HookMessage
     {

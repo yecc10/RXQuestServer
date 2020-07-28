@@ -97,8 +97,6 @@
             // ByBaiduEngner
             // 
             this.ByBaiduEngner.AutoSize = true;
-            this.ByBaiduEngner.Checked = true;
-            this.ByBaiduEngner.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ByBaiduEngner.Location = new System.Drawing.Point(13, 421);
             this.ByBaiduEngner.Name = "ByBaiduEngner";
             this.ByBaiduEngner.Size = new System.Drawing.Size(114, 16);
@@ -109,6 +107,8 @@
             // ByInnerEngner
             // 
             this.ByInnerEngner.AutoSize = true;
+            this.ByInnerEngner.Checked = true;
+            this.ByInnerEngner.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ByInnerEngner.Location = new System.Drawing.Point(133, 421);
             this.ByInnerEngner.Name = "ByInnerEngner";
             this.ByInnerEngner.Size = new System.Drawing.Size(114, 16);

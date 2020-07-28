@@ -26,6 +26,8 @@ namespace OcrCenter
         public OCR()
         {
             InitializeComponent();
+            timer.Enabled = true;
+            this.TopMost = true;
         }
         private void ReadTarget_Click(object sender, EventArgs e)
         {
@@ -34,6 +36,7 @@ namespace OcrCenter
                 MessageBox.Show("未选中任意OCR引擎，无法执行当前操作！");
                 return;
             }
+            FilePath.Text = string.Empty;
             ResultTest.Text = string.Empty;
             PBOCR.Value = 0;
             PBOCR.Step = 1;
@@ -44,35 +47,55 @@ namespace OcrCenter
         }
         private void GetFileDocument()
         {
-            CheckForIllegalCrossThreadCalls = false;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "图片 文件(*.BMP;*.JPG;*.GIF;PNG)|*.BMP;*.JPG;*.GIF;*PNG|PDF文件(*.PDF)|*.PDF|All files (*.*)|*.*";
-            openFileDialog.CheckFileExists = true;
-            openFileDialog.CheckPathExists = true;
-            openFileDialog.InitialDirectory = "C:\\Users\\Administrator\\Desktop";
-            var result = openFileDialog.ShowDialog();
-            switch (result)
+            if (string.IsNullOrEmpty(FilePath.Text))
             {
-                case DialogResult.OK:
-                    FilePath.Text = openFileDialog.FileName;
-                    PBOCR.Value = 20;
-                    if (ByBaiduEngner.Checked)
-                    {
-                        TranslateFileBaiduEngener();
-                    }
-                    else if (ByInnerEngner.Checked)
-                    {
-                        TranslateFileInnerEngener();
-                    }
-                    else
-                    {
-                        ResultTest.Text = "读取失败！你未选中任何OCR引擎，无法执行分析！";
-                    }
-                    break;
-                default:
-                    ResultTest.Text = "读取失败！你已放弃文件选择！";
-                    break;
+                CheckForIllegalCrossThreadCalls = false;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "图片 文件(*.BMP;*.JPG;*.GIF;PNG)|*.BMP;*.JPG;*.GIF;*PNG|PDF文件(*.PDF)|*.PDF|All files (*.*)|*.*";
+                openFileDialog.CheckFileExists = true;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);//获取桌面位置
+                var result = openFileDialog.ShowDialog();
+                switch (result)
+                {
+                    case DialogResult.OK:
+                        FilePath.Text = openFileDialog.FileName;
+                        PBOCR.Value = 20;
+                        if (ByBaiduEngner.Checked)
+                        {
+                            TranslateFileBaiduEngener();
+                        }
+                        else if (ByInnerEngner.Checked)
+                        {
+                            TranslateFileInnerEngener();
+                        }
+                        else
+                        {
+                            ResultTest.Text = "读取失败！你未选中任何OCR引擎，无法执行分析！";
+                        }
+                        break;
+                    default:
+                        ResultTest.Text = "读取失败！你已放弃文件选择！";
+                        break;
+                }
             }
+            else
+            {
+                PBOCR.Value = 20;
+                if (ByBaiduEngner.Checked)
+                {
+                    TranslateFileBaiduEngener();
+                }
+                else if (ByInnerEngner.Checked)
+                {
+                    TranslateFileInnerEngener();
+                }
+                else
+                {
+                    ResultTest.Text = "读取失败！你未选中任何OCR引擎，无法执行分析！";
+                }
+            }
+
             PBOCR.Value = 100;
         }
         private void TranslateFileBaiduEngener()
@@ -184,13 +207,19 @@ namespace OcrCenter
         }
         private void GetScreenOprator_Click(object sender, EventArgs e)
         {
-            GetScreen Gs = new GetScreen();
-            Gs.GetWholeScreen();
+            this.Hide();
+            GetScreen _GetScreen = new GetScreen();
+            _GetScreen.GetWholeScreen(this);
         }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             this.Text = "Rx_OCR_System_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
+        }
+        public void TranslateOCRByScreenImage(string ImagePath)
+        {
+            CheckForIllegalCrossThreadCalls = false;
+            FilePath.Text = ImagePath;
+            GetFileDocument();
         }
     }
 }
