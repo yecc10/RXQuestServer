@@ -17,8 +17,8 @@
     <PublishUrl>F:\SystemRoot\PushSoft\01_RXQuesetServer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
@@ -29,8 +29,8 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>31</ApplicationRevision>
-    <ApplicationVersion>3.1.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>3.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -47,6 +47,11 @@ namespace OcrCenter
             _StartPoint.Y = Cursor.Position.Y;
             StartDrawRec = true;
         }
+        /// <summary>
+        /// 鼠标释放，最终运算
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -66,7 +71,6 @@ namespace OcrCenter
             _ocr.MaximizeBox = true;
             _ocr.TopMost = true;
             _ocr.TranslateOCRByScreenImage(Path);
-            MouseHookProcedure = new HookProc(MouseHookProc); //声明钩子 
         }
         private int hMouseHook = 0;
         private MouseEventArgs mea;//鼠标事件参数

@@ -131,20 +131,8 @@ namespace OcrCenter
                 Ocr.EnhanceContrast = true;
                 Ocr.EnhanceResolution = true;
                 Ocr.Language = IronOcr.Languages.MultiLanguage.OcrLanguagePack(
-                    IronOcr.Languages.English.OcrLanguagePack,
                     IronOcr.Languages.ChineseSimplified.OcrLanguagePack,
-                    IronOcr.Languages.ChineseTraditional.OcrLanguagePack
-                //IronOcr.Languages.German.OcrLanguagePack,
-                //IronOcr.Languages.Arabic.OcrLanguagePack,
-                //IronOcr.Languages.Finnish.OcrLanguagePack,
-                //IronOcr.Languages.Hebrew.OcrLanguagePack,
-                //IronOcr.Languages.Italian.OcrLanguagePack,
-                //IronOcr.Languages.Japanese.OcrLanguagePack,
-                //IronOcr.Languages.Korean.OcrLanguagePack,
-                //IronOcr.Languages.Norwegian.OcrLanguagePack,
-                //IronOcr.Languages.Portuguese.OcrLanguagePack,
-                //IronOcr.Languages.Russian.OcrLanguagePack,
-                //IronOcr.Languages.Spanish.OcrLanguagePack
+                    IronOcr.Languages.English.OcrLanguagePack
                 );
                 PBOCR.Value = 40;
                 Ocr.Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced;
