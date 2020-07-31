@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RXQuestServer", "RXQuestServer\RXQuestServer.csproj", "{1492CAB4-375D-4534-9FE9-807C4D318E2D}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrCenter", "OcrCenter\OcrCenter.csproj", "{ED1B3AD1-9387-4C6E-85F1-581991DA347A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrameSetup", "ProgrameSetup\ProgrameSetup.csproj", "{36E2BF07-A1FC-4752-88B5-61D11EA3C8B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionPack", "ExtensionPack\ExtensionPack.csproj", "{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDPSQuickServer", "PDPSQuickServer\PDPSQuickServer.csproj", "{941643D4-363C-4D60-9AAD-7B2418A71724}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,8 +64,31 @@ Global
 		{36E2BF07-A1FC-4752-88B5-61D11EA3C8B0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36E2BF07-A1FC-4752-88B5-61D11EA3C8B0}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{36E2BF07-A1FC-4752-88B5-61D11EA3C8B0}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB3FC29-ED89-49B6-B603-5D6D0275C93F}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{941643D4-363C-4D60-9AAD-7B2418A71724}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {479D3DBB-A559-406C-B921-087A1B6078F2}
 	EndGlobalSection
 EndGlobal
