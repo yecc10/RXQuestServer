@@ -33,6 +33,10 @@ namespace WorkOffice
             importThread.SetApartmentState(ApartmentState.STA); //重点
             importThread.Start();
         }
+        public void SetLabValue(String nValue)
+        {
+            PbarStutus.Text = nValue;
+        }
         public void xlsPath()
         {
             CheckForIllegalCrossThreadCalls = false;

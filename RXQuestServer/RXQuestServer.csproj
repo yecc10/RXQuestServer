@@ -1354,6 +1354,10 @@
       <Project>{ed1b3ad1-9387-4c6e-85f1-581991da347a}</Project>
       <Name>OcrCenter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WorkOffice\WorkOffice.csproj">
+      <Project>{6461fa13-a5e0-40db-a2c5-bb5e4cd4da2d}</Project>
+      <Name>WorkOffice</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

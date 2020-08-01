@@ -17,7 +17,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Label = System.Windows.Forms.Label;
 using System.Runtime.InteropServices;
 
-namespace AutoDeskLine_ToPlant
+namespace YeccAutoCenter
 {
     static public class RxDataOprator
     {

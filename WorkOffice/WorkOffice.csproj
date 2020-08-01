@@ -80,9 +80,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RXQuestServer\RXQuestServer.csproj">
-      <Project>{1492cab4-375d-4534-9fe9-807c4d318e2d}</Project>
-      <Name>RXQuestServer</Name>
+    <ProjectReference Include="..\YeccAutoCenter\YeccAutoCenter.csproj">
+      <Project>{43a8cc55-556b-463c-8ee6-ceac2a0b6b91}</Project>
+      <Name>YeccAutoCenter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
