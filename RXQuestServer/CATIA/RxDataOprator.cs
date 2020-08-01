@@ -14,6 +14,8 @@ using System.Threading;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
+using Label = System.Windows.Forms.Label;
+
 namespace AutoDeskLine_ToPlant
 {
     static public class RxDataOprator
@@ -407,6 +409,8 @@ namespace AutoDeskLine_ToPlant
                         progressBar.Value = 0;
                         progressBar.Maximum = SheetCount;
                         progressBar.Step = 1;
+                        Form form = progressBar.FindForm();
+                        Label label=Form.Label
                     }
                     switch (readXlsType)
                     {

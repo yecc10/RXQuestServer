@@ -33,6 +33,7 @@
             this.ByExcel = new System.Windows.Forms.CheckBox();
             this.DataGrid = new System.Windows.Forms.DataGridView();
             this.pbar = new System.Windows.Forms.ProgressBar();
+            this.PbarStutus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,11 +81,22 @@
             this.pbar.Size = new System.Drawing.Size(753, 23);
             this.pbar.TabIndex = 6;
             // 
+            // PbarStutus
+            // 
+            this.PbarStutus.AutoSize = true;
+            this.PbarStutus.BackColor = System.Drawing.Color.Transparent;
+            this.PbarStutus.Location = new System.Drawing.Point(351, 643);
+            this.PbarStutus.Name = "PbarStutus";
+            this.PbarStutus.Size = new System.Drawing.Size(47, 12);
+            this.PbarStutus.TabIndex = 7;
+            this.PbarStutus.Text = "100/100";
+            // 
             // WorkTimeUpdata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 703);
+            this.Controls.Add(this.PbarStutus);
             this.Controls.Add(this.pbar);
             this.Controls.Add(this.DataGrid);
             this.Controls.Add(this.ByExcel);
@@ -104,6 +116,7 @@
         private System.Windows.Forms.CheckBox ByExcel;
         private System.Windows.Forms.DataGridView DataGrid;
         private System.Windows.Forms.ProgressBar pbar;
+        private System.Windows.Forms.Label PbarStutus;
     }
 }
 
