@@ -625,7 +625,7 @@ namespace AutoDeskLine_ToPlant
                 //RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, DataGrid);
                 if (ByExcel.Checked)
                 {
-                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, true);
+                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint);
                 }
                 else
                 {

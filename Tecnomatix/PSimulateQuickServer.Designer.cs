@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PSimulateQuickServer));
             this.cUiContinuousButton1 = new Tecnomatix.Engineering.Ui.CUiContinuousButton();
+            this.txViewerUserControl1 = new Tecnomatix.Engineering.Ui.TxViewerUserControl();
             this.SuspendLayout();
             // 
             // cUiContinuousButton1
@@ -43,11 +44,19 @@
             this.cUiContinuousButton1.UseVisualStyleBackColor = true;
             this.cUiContinuousButton1.Click += new System.EventHandler(this.cUiContinuousButton1_Click);
             // 
+            // txViewerUserControl1
+            // 
+            this.txViewerUserControl1.Location = new System.Drawing.Point(24, 12);
+            this.txViewerUserControl1.Name = "txViewerUserControl1";
+            this.txViewerUserControl1.Size = new System.Drawing.Size(764, 357);
+            this.txViewerUserControl1.TabIndex = 1;
+            // 
             // PSimulateQuickServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txViewerUserControl1);
             this.Controls.Add(this.cUiContinuousButton1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PSimulateQuickServer";
@@ -59,5 +68,6 @@
         #endregion
 
         private Engineering.Ui.CUiContinuousButton cUiContinuousButton1;
+        private Engineering.Ui.TxViewerUserControl txViewerUserControl1;
     }
 }

@@ -368,7 +368,8 @@ namespace AutoDeskLine_ToPlant
                 }
                 return false;
             }
-            static public bool ReadXlsData(string xlsPath, System.Data.DataTable DG, bool ByExcel)
+            public enum ReadXlsType { ReadWeldPoint, ReadRxWorkTime }
+            static public bool ReadXlsData(string xlsPath, System.Data.DataTable DG, ReadXlsType readXlsType, ProgressBar progressBar)
             {
                 //DataGridView DG = new DataGridView();
                 int ColumnsNum = 0;
@@ -394,142 +395,228 @@ namespace AutoDeskLine_ToPlant
                     {
                         sheet = xlsWorkBook.Worksheets[1];
                     }
-                    RxTypeList.CatPointType CP = new RxTypeList.CatPointType();
-                    bool ChangeGun = false;
-                    int GunNum = 0;
-                    int RowID = 1;
-                    int SheetCount= sheet.UsedRange.Rows.Count;
-                    for (int i = 1; i <= SheetCount; i++)
+                    int SheetCount = sheet.UsedRange.Rows.Count;
+                    if (SheetCount < 2)
                     {
-                        if (SheetCount < 2)
-                        {
-                            MessageBox.Show("您选择的坐标XLS为空或首个Sheet表为空，请保证首个Sheet表为即将导入的坐标集！", "导入错误报告", MessageBoxButtons.OK);
-                            return false;
-                        }
-                        ColumnsNum = sheet.UsedRange.Columns.Count;
-                        if (i == 1) //初始化表头
-                        {
-                            if (ColumnsNum == 3 || ColumnsNum == 4 || ColumnsNum == 7 || ColumnsNum == 8 || ColumnsNum == 21)
-                            {
-                                System.Data.DataColumn dataColum;
-                                if (DG.Columns.Count < 1)
-                                {
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "序号";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "名称";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "X坐标";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "Y坐标";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "Z坐标";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "RX";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "RY";
-                                    DG.Columns.Add(dataColum);
-                                    dataColum = new System.Data.DataColumn();
-                                    dataColum.ColumnName = "RZ";
-                                    DG.Columns.Add(dataColum);
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            string CheckValue = sheet.UsedRange.Cells[i,1].Value;
-                            if (string.IsNullOrEmpty(CheckValue))
-                            {
-                                continue;
-                            }
-                            try
-                            {
-                                switch (ColumnsNum)
-                                {
-                                    case 3:
-                                        {
-                                            DG.Rows.Add(i, "RX_" + (i-1), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, 0, 0, 0);
-                                            break;
-                                        }
-                                    case 4:
-                                        {
-                                            DG.Rows.Add((i - 1), sheet.Cells[i,1].Value, sheet.Cells[i,2].Value, sheet.Cells[i,3].Value, sheet.Cells[i,4].Value, 0, 0, 0);
-                                            break;
-                                        }
-                                    case 7:
-                                        {
-                                            if (string.IsNullOrEmpty(sheet.Cells[i,1].Value) || string.IsNullOrEmpty(sheet.Cells[i,2].Value))
-                                            {
-                                                ChangeGun = true;
-                                                continue;
-                                            }
-                                            if (ChangeGun)
-                                            {
-                                                ChangeGun = false;
-                                                DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
-                                                GunNum++;
-                                            }
-                                            DG.Rows.Add((i - 1), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i,5].Value, sheet.Cells[i,6].Value, sheet.Cells[i,7].Value);
-                                            RowID++;
-                                            break;
-                                        }
-                                    case 8:
-                                        {
-                                            if (string.IsNullOrEmpty(sheet.Cells[i,1].Value) || string.IsNullOrEmpty(sheet.Cells[i,2].Value))
-                                            {
-                                                ChangeGun = true;
-                                                continue;
-                                            }
-                                            if (ChangeGun)
-                                            {
-                                                ChangeGun = false;
-                                                DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
-                                                GunNum++;
-                                            }
-                                            DG.Rows.Add((i - 1), sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value, sheet.Cells[i,8].Value);
-                                            RowID++;
-                                            break;
-                                        }
-                                    case 21:
-                                        {
-                                            if (string.IsNullOrEmpty(sheet.Cells[i,1].Value) || string.IsNullOrEmpty(sheet.Cells[i,4].Value))
-                                            {
-                                                ChangeGun = true;
-                                                continue;
-                                            }
-                                            if (ChangeGun)
-                                            {
-                                                ChangeGun = false;
-                                                DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
-                                                GunNum++;
-                                            }
-                                            DG.Rows.Add(RowID, sheet.Cells[i,1].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value, sheet.Cells[i, 8].Value, sheet.Cells[i,9].Value);
-                                            RowID++;
-                                            break;
-                                        }
-                                    default:
-                                        break;
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
+                        MessageBox.Show("您选择的坐标XLS为空或首个Sheet表为空，请保证首个Sheet表为即将导入的坐标集！", "导入错误报告", MessageBoxButtons.OK);
+                        return false;
                     }
-                    ClosePro(xlApp, xlsWorkBook);
-                    return true;
+                    if (progressBar != null)
+                    {
+                        progressBar.Minimum = 0;
+                        progressBar.Value = 0;
+                        progressBar.Maximum = SheetCount;
+                        progressBar.Step = 1;
+                    }
+                    switch (readXlsType)
+                    {
+                        case ReadXlsType.ReadWeldPoint:
+                            #region Read And Oprate WeldPoint Part
+                            RxTypeList.CatPointType CP = new RxTypeList.CatPointType();
+                            bool ChangeGun = false;
+                            int GunNum = 0;
+                            int RowID = 1;
+                            for (int i = 1; i <= SheetCount; i++)
+                            {
+                                ColumnsNum = sheet.UsedRange.Columns.Count;
+                                if (i == 1) //初始化表头
+                                {
+                                    if (ColumnsNum == 3 || ColumnsNum == 4 || ColumnsNum == 7 || ColumnsNum == 8 || ColumnsNum == 21)
+                                    {
+                                        System.Data.DataColumn dataColum;
+                                        if (DG.Columns.Count < 1)
+                                        {
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "序号";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "名称";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "X坐标";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "Y坐标";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "Z坐标";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "RX";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "RY";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "RZ";
+                                            DG.Columns.Add(dataColum);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    string CheckValue = sheet.UsedRange.Cells[i, 1].Value;
+                                    if (string.IsNullOrEmpty(CheckValue))
+                                    {
+                                        continue;
+                                    }
+                                    try
+                                    {
+                                        switch (ColumnsNum)
+                                        {
+                                            case 3:
+                                                {
+                                                    DG.Rows.Add(i, "RX_" + (i - 1), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, 0, 0, 0);
+                                                    break;
+                                                }
+                                            case 4:
+                                                {
+                                                    DG.Rows.Add((i - 1), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, 0, 0, 0);
+                                                    break;
+                                                }
+                                            case 7:
+                                                {
+                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 2].Value))
+                                                    {
+                                                        ChangeGun = true;
+                                                        continue;
+                                                    }
+                                                    if (ChangeGun)
+                                                    {
+                                                        ChangeGun = false;
+                                                        DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
+                                                        GunNum++;
+                                                    }
+                                                    DG.Rows.Add((i - 1), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value);
+                                                    RowID++;
+                                                    break;
+                                                }
+                                            case 8:
+                                                {
+                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 2].Value))
+                                                    {
+                                                        ChangeGun = true;
+                                                        continue;
+                                                    }
+                                                    if (ChangeGun)
+                                                    {
+                                                        ChangeGun = false;
+                                                        DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
+                                                        GunNum++;
+                                                    }
+                                                    DG.Rows.Add((i - 1), sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value, sheet.Cells[i, 8].Value);
+                                                    RowID++;
+                                                    break;
+                                                }
+                                            case 21:
+                                                {
+                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 4].Value))
+                                                    {
+                                                        ChangeGun = true;
+                                                        continue;
+                                                    }
+                                                    if (ChangeGun)
+                                                    {
+                                                        ChangeGun = false;
+                                                        DG.Rows.Add(0, "ChangeGun", 0, 0, 0, 0, 0);
+                                                        GunNum++;
+                                                    }
+                                                    DG.Rows.Add(RowID, sheet.Cells[i, 1].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value, sheet.Cells[i, 8].Value, sheet.Cells[i, 9].Value);
+                                                    RowID++;
+                                                    break;
+                                                }
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+                                        throw;
+                                    }
+                                }
+                            }
+                            ClosePro(xlApp, xlsWorkBook);
+                            return true;
+                        #endregion
+                        case ReadXlsType.ReadRxWorkTime:
+                            #region Read Xls Data And Updata To DataGard For Rx WorkTime
+                            for (int i = 2; i <= SheetCount; i++)
+                            {
+                                progressBar.PerformStep();
+                                ColumnsNum = sheet.UsedRange.Columns.Count;
+                                if (i == 2) //初始化表头
+                                {
+                                    if (ColumnsNum == 3 || ColumnsNum == 4 || ColumnsNum == 7 || ColumnsNum == 8 || ColumnsNum == 21)
+                                    {
+                                        System.Data.DataColumn dataColum;
+                                        if (DG.Columns.Count < 1)
+                                        {
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "序号";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "人员编号";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "姓名";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "部门";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "考勤时间";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "考勤状态";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "考勤区域";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "设备序列号";
+                                            DG.Columns.Add(dataColum);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("所提供的EXCEL 文件格式不符合默认标准请提供4列(名称、X、Y、Z)、7列(带角度)、8列(多序号)的Xls表!");
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    string CheckValue = sheet.UsedRange.Cells[i, 1].Value;
+                                    if (string.IsNullOrEmpty(CheckValue))
+                                    {
+                                        continue;
+                                    }
+                                    try
+                                    {
+                                        if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 2].Value))
+                                        {
+                                            ChangeGun = true;
+                                            continue;
+                                        }
+                                        DG.Rows.Add((i - 2), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value);
+                                        //break;
+                                    }
+                                    catch (Exception)
+                                    {
+                                        throw;
+                                    }
+                                }
+                            }
+                            ClosePro(xlApp, xlsWorkBook);
+                            #endregion
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (Exception)
                 {
@@ -602,11 +689,11 @@ namespace AutoDeskLine_ToPlant
             xlApp.Quit();
             // 安全回收进程
             System.GC.GetGeneration(xlApp);
-           // IntPtr t = new IntPtr(xlApp.Hwnd);   //获取句柄
+            // IntPtr t = new IntPtr(xlApp.Hwnd);   //获取句柄
             //int k = 0;
             //GetWindowThreadProcessId(t, out k);   //获取进程唯一标志
             //System.Diagnostics.Process p = System.Diagnostics.Process.GetProcessById(k);
-           // p.Kill();     //关闭进程
+            // p.Kill();     //关闭进程
         }
     }
 }
