@@ -29,7 +29,7 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>3.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -139,8 +139,6 @@
     <Compile Include="CATIA\CatiaQuickTool.Designer.cs">
       <DependentUpon>CatiaQuickTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="CATIA\RxDataOprator.cs" />
-    <Compile Include="CATIA\RxTypeList.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="Delmia\InitDelmiaDocument.cs">
       <SubType>Form</SubType>
@@ -1357,6 +1355,10 @@
     <ProjectReference Include="..\WorkOffice\WorkOffice.csproj">
       <Project>{6461fa13-a5e0-40db-a2c5-bb5e4cd4da2d}</Project>
       <Name>WorkOffice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YeccAutoCenter\YeccAutoCenter.csproj">
+      <Project>{43a8cc55-556b-463c-8ee6-ceac2a0b6b91}</Project>
+      <Name>YeccAutoCenter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

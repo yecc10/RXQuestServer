@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoDeskLine_ToPlant;
+using YeccAutoCenter;
 
 namespace WorkOffice
 {
@@ -32,10 +32,6 @@ namespace WorkOffice
             System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(xlsPath));
             importThread.SetApartmentState(ApartmentState.STA); //重点
             importThread.Start();
-        }
-        public void SetLabValue(String nValue)
-        {
-            PbarStutus.Text = nValue;
         }
         public void xlsPath()
         {

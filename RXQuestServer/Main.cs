@@ -42,5 +42,12 @@ namespace RXQuestServer
             this.Hide();
             Socr.Show();
         }
+
+        private void InPutWorkTime_Click(object sender, EventArgs e)
+        {
+            WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
+            this.Hide();
+            workTimeUpdata.Show();
+        }
     }
 }

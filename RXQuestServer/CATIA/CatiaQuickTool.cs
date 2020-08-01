@@ -27,6 +27,8 @@ using DNBPert;
 using CATMat;
 using FittingTypeLib;
 using DNBASY;
+using YeccAutoCenter;
+
 namespace AutoDeskLine_ToPlant
 {
     public partial class CatiaQuickTool : Form
@@ -629,7 +631,7 @@ namespace AutoDeskLine_ToPlant
                 }
                 else
                 {
-                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable);
+                   RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable);
                 }
                 ReadAixPoint.BackColor = Color.Green;
                 SetDataGrid();

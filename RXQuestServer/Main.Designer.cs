@@ -79,7 +79,7 @@
             this.ShowToPlc.Name = "ShowToPlc";
             this.ShowToPlc.Size = new System.Drawing.Size(125, 41);
             this.ShowToPlc.TabIndex = 0;
-            this.ShowToPlc.Text = "PLC通讯";
+            this.ShowToPlc.Text = "办公信息";
             this.ShowToPlc.UseVisualStyleBackColor = true;
             this.ShowToPlc.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
@@ -112,25 +112,26 @@
             // InPutWorkTime
             // 
             this.InPutWorkTime.Name = "InPutWorkTime";
-            this.InPutWorkTime.Size = new System.Drawing.Size(180, 22);
+            this.InPutWorkTime.Size = new System.Drawing.Size(148, 22);
             this.InPutWorkTime.Text = "工时入库";
+            this.InPutWorkTime.Click += new System.EventHandler(this.InPutWorkTime_Click);
             // 
             // 工时查询ToolStripMenuItem
             // 
             this.工时查询ToolStripMenuItem.Name = "工时查询ToolStripMenuItem";
-            this.工时查询ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.工时查询ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.工时查询ToolStripMenuItem.Text = "工时查询";
             // 
             // 加班工时查询ToolStripMenuItem
             // 
             this.加班工时查询ToolStripMenuItem.Name = "加班工时查询ToolStripMenuItem";
-            this.加班工时查询ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.加班工时查询ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.加班工时查询ToolStripMenuItem.Text = "加班工时查询";
             // 
             // 加班单导出ToolStripMenuItem
             // 
             this.加班单导出ToolStripMenuItem.Name = "加班单导出ToolStripMenuItem";
-            this.加班单导出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.加班单导出ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.加班单导出ToolStripMenuItem.Text = "加班单导出";
             // 
             // toolStripButton1
