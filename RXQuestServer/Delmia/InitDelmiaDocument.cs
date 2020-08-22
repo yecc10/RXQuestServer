@@ -246,6 +246,7 @@ namespace RXQuestServer.Delmia
                         NewProduct(CLayoutProduct, "03_Fence", false);
                         NewProduct(CLayoutProduct, "04_Platform", false);
                         NewProduct(CLayoutProduct, "05_Human", false);
+                        NewProduct(CLayoutProduct, "06_SHUTTLE", false);
                     }
                     Pbar.Step = 5;
                     Pbar.PerformStep();
@@ -631,6 +632,7 @@ namespace RXQuestServer.Delmia
             CreatePath(CPath + "//10_Vin");
             CreatePath(CPath + "//11_WaterUnit");
             CreatePath(CPath + "//12_APC");
+            CreatePath(CPath + "//13_SHUTTLE");
         }
         public void CreatePath(string Dpath)
         {

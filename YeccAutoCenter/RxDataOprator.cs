@@ -407,7 +407,7 @@ namespace YeccAutoCenter
                     if (progressBar != null)
                     {
                         progressBar.Minimum = 0;
-                        progressBar.Value = 0;
+                        progressBar.Value = 2;
                         progressBar.Maximum = SheetCount;
                         progressBar.Step = 1;
                         
@@ -573,7 +573,10 @@ namespace YeccAutoCenter
                                             dataColum.ColumnName = "部门";
                                             DG.Columns.Add(dataColum);
                                             dataColum = new System.Data.DataColumn();
-                                            dataColum.ColumnName = "考勤时间";
+                                            dataColum.ColumnName = "上班考勤时间";
+                                            DG.Columns.Add(dataColum);
+                                            dataColum = new System.Data.DataColumn();
+                                            dataColum.ColumnName = "下班考勤时间";
                                             DG.Columns.Add(dataColum);
                                             dataColum = new System.Data.DataColumn();
                                             dataColum.ColumnName = "考勤状态";
@@ -606,7 +609,8 @@ namespace YeccAutoCenter
                                             ChangeGun = true;
                                             continue;
                                         }
-                                        DG.Rows.Add((i - 2), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value);
+                                        Task.Run(DG.Rows.Add((i - 2), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value, 0, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value));
+                                        //DG.Rows.Add((i - 2), sheet.Cells[i, 1].Value, sheet.Cells[i, 2].Value, sheet.Cells[i, 3].Value, sheet.Cells[i, 4].Value,0, sheet.Cells[i, 5].Value, sheet.Cells[i, 6].Value, sheet.Cells[i, 7].Value);
                                         //break;
                                     }
                                     catch (Exception)

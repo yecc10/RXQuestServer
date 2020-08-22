@@ -42,7 +42,7 @@
             // ReadData
             // 
             this.ReadData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ReadData.Location = new System.Drawing.Point(844, 637);
+            this.ReadData.Location = new System.Drawing.Point(986, 637);
             this.ReadData.Name = "ReadData";
             this.ReadData.Size = new System.Drawing.Size(118, 44);
             this.ReadData.TabIndex = 3;
@@ -55,7 +55,7 @@
             this.ByExcel.AutoSize = true;
             this.ByExcel.Checked = true;
             this.ByExcel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ByExcel.Location = new System.Drawing.Point(771, 644);
+            this.ByExcel.Location = new System.Drawing.Point(986, 687);
             this.ByExcel.Name = "ByExcel";
             this.ByExcel.Size = new System.Drawing.Size(66, 16);
             this.ByExcel.TabIndex = 4;
@@ -96,22 +96,21 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGrid.RowTemplate.Height = 23;
-            this.DataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataGrid.Size = new System.Drawing.Size(950, 619);
+            this.DataGrid.Size = new System.Drawing.Size(1092, 619);
             this.DataGrid.TabIndex = 5;
             // 
             // pbar
             // 
             this.pbar.Location = new System.Drawing.Point(12, 637);
             this.pbar.Name = "pbar";
-            this.pbar.Size = new System.Drawing.Size(753, 23);
+            this.pbar.Size = new System.Drawing.Size(968, 23);
             this.pbar.TabIndex = 6;
             // 
             // WorkTimeUpdata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 703);
+            this.ClientSize = new System.Drawing.Size(1116, 711);
             this.Controls.Add(this.pbar);
             this.Controls.Add(this.DataGrid);
             this.Controls.Add(this.ByExcel);
@@ -119,6 +118,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorkTimeUpdata";
             this.Text = "WorkTimeUpdata";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkTimeUpdata_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

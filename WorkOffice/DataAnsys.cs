@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -82,6 +83,12 @@ namespace WorkOffice
             DataGrid.Update();
         }
         private delegate void InvokeHandler();
+
+        private void WorkTimeUpdata_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+            System.Environment.Exit(0);
+        }
         //子线程中
     }
 }
