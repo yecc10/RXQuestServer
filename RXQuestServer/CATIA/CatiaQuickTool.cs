@@ -617,7 +617,7 @@ namespace AutoDeskLine_ToPlant
             CheckForIllegalCrossThreadCalls = false;
             string Path = string.Empty;
             OpenFileDialog XlsFile = new OpenFileDialog();
-            XlsFile.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            XlsFile.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Recent);
             XlsFile.Filter = "EXCEL files (*.xls,*.xlsx,*.csv)|*.xls;*.xlsx;*.csv";
             XlsFile.FilterIndex = 2;
             XlsFile.RestoreDirectory = true;
