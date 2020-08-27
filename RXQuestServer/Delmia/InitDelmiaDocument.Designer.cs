@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitDelmiaDocument));
-            this.SM_Group = new System.Windows.Forms.GroupBox();
             this.LayoutGroup = new System.Windows.Forms.GroupBox();
             this.ST = new System.Windows.Forms.CheckBox();
             this.UB = new System.Windows.Forms.CheckBox();
@@ -51,50 +50,43 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.InitRobot = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.type1020 = new System.Windows.Forms.RadioButton();
+            this.Type1015 = new System.Windows.Forms.RadioButton();
             this.Tipdress = new System.Windows.Forms.CheckBox();
             this.GrpStand = new System.Windows.Forms.CheckBox();
             this.GunStand = new System.Windows.Forms.CheckBox();
-            this.ELEREMOVE = new System.Windows.Forms.Button();
-            this.ELEADD = new System.Windows.Forms.Button();
             this.StudWeld = new System.Windows.Forms.CheckBox();
             this.Glue = new System.Windows.Forms.CheckBox();
             this.PickAndUp = new System.Windows.Forms.CheckBox();
             this.RPWeld = new System.Windows.Forms.CheckBox();
             this.GPWeld = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.ELEID = new System.Windows.Forms.TextBox();
-            this.RobotID = new System.Windows.Forms.TextBox();
             this.ModelName = new System.Windows.Forms.TextBox();
             this.RobotCtrlNum = new System.Windows.Forms.TextBox();
+            this.ELEREMOVE = new System.Windows.Forms.Button();
+            this.ELEADD = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ELEID = new System.Windows.Forms.TextBox();
+            this.RobotID = new System.Windows.Forms.TextBox();
             this.BackForm = new System.Windows.Forms.Button();
             this.ManuleInit = new System.Windows.Forms.Button();
             this.BallToRobotList = new System.Windows.Forms.Button();
             this.Pbar = new System.Windows.Forms.ProgressBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.StationNumAdd = new System.Windows.Forms.Button();
+            this.RobotRemove = new System.Windows.Forms.Button();
             this.StationNumRemove = new System.Windows.Forms.Button();
             this.RobotAdd = new System.Windows.Forms.Button();
-            this.RobotRemove = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.Type1015 = new System.Windows.Forms.RadioButton();
-            this.type1020 = new System.Windows.Forms.RadioButton();
+            this.StationNumAdd = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // SM_Group
-            // 
-            this.SM_Group.Location = new System.Drawing.Point(12, 12);
-            this.SM_Group.Name = "SM_Group";
-            this.SM_Group.Size = new System.Drawing.Size(814, 48);
-            this.SM_Group.TabIndex = 0;
-            this.SM_Group.TabStop = false;
-            this.SM_Group.Text = "SM_Group";
             // 
             // LayoutGroup
             // 
@@ -309,6 +301,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Robot_Group";
             // 
+            // type1020
+            // 
+            this.type1020.AutoSize = true;
+            this.type1020.Location = new System.Drawing.Point(632, 21);
+            this.type1020.Name = "type1020";
+            this.type1020.Size = new System.Drawing.Size(59, 16);
+            this.type1020.TabIndex = 19;
+            this.type1020.Text = "10->20";
+            this.type1020.UseVisualStyleBackColor = true;
+            // 
+            // Type1015
+            // 
+            this.Type1015.AutoSize = true;
+            this.Type1015.Checked = true;
+            this.Type1015.Location = new System.Drawing.Point(559, 21);
+            this.Type1015.Name = "Type1015";
+            this.Type1015.Size = new System.Drawing.Size(59, 16);
+            this.Type1015.TabIndex = 19;
+            this.Type1015.TabStop = true;
+            this.Type1015.Text = "10->15";
+            this.Type1015.UseVisualStyleBackColor = true;
+            // 
             // Tipdress
             // 
             this.Tipdress.AutoSize = true;
@@ -338,26 +352,6 @@
             this.GunStand.TabIndex = 18;
             this.GunStand.Text = "焊枪存放";
             this.GunStand.UseVisualStyleBackColor = true;
-            // 
-            // ELEREMOVE
-            // 
-            this.ELEREMOVE.Location = new System.Drawing.Point(275, 55);
-            this.ELEREMOVE.Name = "ELEREMOVE";
-            this.ELEREMOVE.Size = new System.Drawing.Size(50, 23);
-            this.ELEREMOVE.TabIndex = 9;
-            this.ELEREMOVE.Text = "-1";
-            this.ELEREMOVE.UseVisualStyleBackColor = true;
-            this.ELEREMOVE.Click += new System.EventHandler(this.ELEREMOVE_Click);
-            // 
-            // ELEADD
-            // 
-            this.ELEADD.Location = new System.Drawing.Point(207, 55);
-            this.ELEADD.Name = "ELEADD";
-            this.ELEADD.Size = new System.Drawing.Size(50, 23);
-            this.ELEADD.TabIndex = 8;
-            this.ELEADD.Text = "+1";
-            this.ELEADD.UseVisualStyleBackColor = true;
-            this.ELEADD.Click += new System.EventHandler(this.ELEADD_Click);
             // 
             // StudWeld
             // 
@@ -415,23 +409,14 @@
             this.GPWeld.Text = "定位焊";
             this.GPWeld.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 60);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 12);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "设备编号:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 12);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "机器人编号:";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(491, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 12);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "编号类型:";
             // 
             // label4
             // 
@@ -450,6 +435,63 @@
             this.label3.Size = new System.Drawing.Size(125, 12);
             this.label3.TabIndex = 1;
             this.label3.Text = "RobotController数量:";
+            // 
+            // ModelName
+            // 
+            this.ModelName.Location = new System.Drawing.Point(356, 19);
+            this.ModelName.Name = "ModelName";
+            this.ModelName.Size = new System.Drawing.Size(100, 21);
+            this.ModelName.TabIndex = 0;
+            this.ModelName.Text = "T15";
+            this.ModelName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ModelName.TextChanged += new System.EventHandler(this.ModelName_TextChanged);
+            // 
+            // RobotCtrlNum
+            // 
+            this.RobotCtrlNum.Location = new System.Drawing.Point(141, 19);
+            this.RobotCtrlNum.Name = "RobotCtrlNum";
+            this.RobotCtrlNum.Size = new System.Drawing.Size(100, 21);
+            this.RobotCtrlNum.TabIndex = 16;
+            this.RobotCtrlNum.Text = "10";
+            this.RobotCtrlNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ELEREMOVE
+            // 
+            this.ELEREMOVE.Location = new System.Drawing.Point(275, 55);
+            this.ELEREMOVE.Name = "ELEREMOVE";
+            this.ELEREMOVE.Size = new System.Drawing.Size(50, 23);
+            this.ELEREMOVE.TabIndex = 9;
+            this.ELEREMOVE.Text = "-1";
+            this.ELEREMOVE.UseVisualStyleBackColor = true;
+            this.ELEREMOVE.Click += new System.EventHandler(this.ELEREMOVE_Click);
+            // 
+            // ELEADD
+            // 
+            this.ELEADD.Location = new System.Drawing.Point(207, 55);
+            this.ELEADD.Name = "ELEADD";
+            this.ELEADD.Size = new System.Drawing.Size(50, 23);
+            this.ELEADD.TabIndex = 8;
+            this.ELEADD.Text = "+1";
+            this.ELEADD.UseVisualStyleBackColor = true;
+            this.ELEADD.Click += new System.EventHandler(this.ELEADD_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 12);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "设备编号:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "机器人编号:";
             // 
             // ELEID
             // 
@@ -471,25 +513,6 @@
             this.RobotID.Text = "R11";
             this.RobotID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RobotID.TextChanged += new System.EventHandler(this.RobotID_TextChanged);
-            // 
-            // ModelName
-            // 
-            this.ModelName.Location = new System.Drawing.Point(356, 19);
-            this.ModelName.Name = "ModelName";
-            this.ModelName.Size = new System.Drawing.Size(100, 21);
-            this.ModelName.TabIndex = 0;
-            this.ModelName.Text = "T15";
-            this.ModelName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ModelName.TextChanged += new System.EventHandler(this.ModelName_TextChanged);
-            // 
-            // RobotCtrlNum
-            // 
-            this.RobotCtrlNum.Location = new System.Drawing.Point(141, 19);
-            this.RobotCtrlNum.Name = "RobotCtrlNum";
-            this.RobotCtrlNum.Size = new System.Drawing.Size(100, 21);
-            this.RobotCtrlNum.TabIndex = 16;
-            this.RobotCtrlNum.Text = "10";
-            this.RobotCtrlNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BackForm
             // 
@@ -548,17 +571,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "ExtentCtrol";
             // 
-            // StationNumAdd
+            // RobotRemove
             // 
-            this.StationNumAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.StationNumAdd.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.StationNumAdd.Location = new System.Drawing.Point(207, 17);
-            this.StationNumAdd.Name = "StationNumAdd";
-            this.StationNumAdd.Size = new System.Drawing.Size(50, 23);
-            this.StationNumAdd.TabIndex = 8;
-            this.StationNumAdd.Text = "+1";
-            this.StationNumAdd.UseVisualStyleBackColor = false;
-            this.StationNumAdd.Click += new System.EventHandler(this.StationNumAdd_Click);
+            this.RobotRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.RobotRemove.Location = new System.Drawing.Point(411, 16);
+            this.RobotRemove.Name = "RobotRemove";
+            this.RobotRemove.Size = new System.Drawing.Size(50, 23);
+            this.RobotRemove.TabIndex = 9;
+            this.RobotRemove.Text = "-1";
+            this.RobotRemove.UseVisualStyleBackColor = false;
+            this.RobotRemove.Click += new System.EventHandler(this.RobotRemove_Click);
             // 
             // StationNumRemove
             // 
@@ -584,47 +606,26 @@
             this.RobotAdd.UseVisualStyleBackColor = false;
             this.RobotAdd.Click += new System.EventHandler(this.RobotAdd_Click);
             // 
-            // RobotRemove
+            // StationNumAdd
             // 
-            this.RobotRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.RobotRemove.Location = new System.Drawing.Point(411, 16);
-            this.RobotRemove.Name = "RobotRemove";
-            this.RobotRemove.Size = new System.Drawing.Size(50, 23);
-            this.RobotRemove.TabIndex = 9;
-            this.RobotRemove.Text = "-1";
-            this.RobotRemove.UseVisualStyleBackColor = false;
-            this.RobotRemove.Click += new System.EventHandler(this.RobotRemove_Click);
+            this.StationNumAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.StationNumAdd.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StationNumAdd.Location = new System.Drawing.Point(207, 17);
+            this.StationNumAdd.Name = "StationNumAdd";
+            this.StationNumAdd.Size = new System.Drawing.Size(50, 23);
+            this.StationNumAdd.TabIndex = 8;
+            this.StationNumAdd.Text = "+1";
+            this.StationNumAdd.UseVisualStyleBackColor = false;
+            this.StationNumAdd.Click += new System.EventHandler(this.StationNumAdd_Click);
             // 
-            // label7
+            // pictureBox1
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(491, 23);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 12);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "编号类型:";
-            // 
-            // Type1015
-            // 
-            this.Type1015.AutoSize = true;
-            this.Type1015.Checked = true;
-            this.Type1015.Location = new System.Drawing.Point(559, 21);
-            this.Type1015.Name = "Type1015";
-            this.Type1015.Size = new System.Drawing.Size(59, 16);
-            this.Type1015.TabIndex = 19;
-            this.Type1015.TabStop = true;
-            this.Type1015.Text = "10->15";
-            this.Type1015.UseVisualStyleBackColor = true;
-            // 
-            // type1020
-            // 
-            this.type1020.AutoSize = true;
-            this.type1020.Location = new System.Drawing.Point(632, 21);
-            this.type1020.Name = "type1020";
-            this.type1020.Size = new System.Drawing.Size(59, 16);
-            this.type1020.TabIndex = 19;
-            this.type1020.Text = "10->20";
-            this.type1020.UseVisualStyleBackColor = true;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(814, 48);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
             // 
             // InitDelmiaDocument
             // 
@@ -632,6 +633,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(838, 429);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Pbar);
             this.Controls.Add(this.BallToRobotList);
@@ -646,7 +648,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Station_Group);
             this.Controls.Add(this.LayoutGroup);
-            this.Controls.Add(this.SM_Group);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(854, 468);
@@ -662,14 +663,13 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox SM_Group;
         private System.Windows.Forms.GroupBox LayoutGroup;
         private System.Windows.Forms.GroupBox Station_Group;
         private System.Windows.Forms.Button Fullint;
@@ -720,5 +720,6 @@
         private System.Windows.Forms.RadioButton type1020;
         private System.Windows.Forms.RadioButton Type1015;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
