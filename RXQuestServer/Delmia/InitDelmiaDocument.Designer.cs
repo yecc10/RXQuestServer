@@ -73,9 +73,18 @@
             this.ManuleInit = new System.Windows.Forms.Button();
             this.BallToRobotList = new System.Windows.Forms.Button();
             this.Pbar = new System.Windows.Forms.ProgressBar();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.StationNumAdd = new System.Windows.Forms.Button();
+            this.StationNumRemove = new System.Windows.Forms.Button();
+            this.RobotAdd = new System.Windows.Forms.Button();
+            this.RobotRemove = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Type1015 = new System.Windows.Forms.RadioButton();
+            this.type1020 = new System.Windows.Forms.RadioButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // SM_Group
@@ -182,7 +191,7 @@
             this.Station_Group.Controls.Add(this.NSTagGroup);
             this.Station_Group.Location = new System.Drawing.Point(12, 120);
             this.Station_Group.Name = "Station_Group";
-            this.Station_Group.Size = new System.Drawing.Size(814, 86);
+            this.Station_Group.Size = new System.Drawing.Size(287, 86);
             this.Station_Group.TabIndex = 0;
             this.Station_Group.TabStop = false;
             this.Station_Group.Text = "Station_Group";
@@ -278,22 +287,19 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.type1020);
+            this.groupBox1.Controls.Add(this.Type1015);
             this.groupBox1.Controls.Add(this.Tipdress);
             this.groupBox1.Controls.Add(this.GrpStand);
             this.groupBox1.Controls.Add(this.GunStand);
-            this.groupBox1.Controls.Add(this.ELEREMOVE);
-            this.groupBox1.Controls.Add(this.ELEADD);
             this.groupBox1.Controls.Add(this.StudWeld);
             this.groupBox1.Controls.Add(this.Glue);
             this.groupBox1.Controls.Add(this.PickAndUp);
             this.groupBox1.Controls.Add(this.RPWeld);
             this.groupBox1.Controls.Add(this.GPWeld);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.ELEID);
-            this.groupBox1.Controls.Add(this.RobotID);
             this.groupBox1.Controls.Add(this.ModelName);
             this.groupBox1.Controls.Add(this.RobotCtrlNum);
             this.groupBox1.Location = new System.Drawing.Point(12, 212);
@@ -335,7 +341,7 @@
             // 
             // ELEREMOVE
             // 
-            this.ELEREMOVE.Location = new System.Drawing.Point(752, 51);
+            this.ELEREMOVE.Location = new System.Drawing.Point(275, 55);
             this.ELEREMOVE.Name = "ELEREMOVE";
             this.ELEREMOVE.Size = new System.Drawing.Size(50, 23);
             this.ELEREMOVE.TabIndex = 9;
@@ -345,7 +351,7 @@
             // 
             // ELEADD
             // 
-            this.ELEADD.Location = new System.Drawing.Point(702, 51);
+            this.ELEADD.Location = new System.Drawing.Point(207, 55);
             this.ELEADD.Name = "ELEADD";
             this.ELEADD.Size = new System.Drawing.Size(50, 23);
             this.ELEADD.TabIndex = 8;
@@ -412,7 +418,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(621, 23);
+            this.label6.Location = new System.Drawing.Point(12, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 12);
             this.label6.TabIndex = 1;
@@ -421,7 +427,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(430, 23);
+            this.label5.Location = new System.Drawing.Point(6, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 12);
             this.label5.TabIndex = 1;
@@ -430,7 +436,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(251, 23);
+            this.label4.Location = new System.Drawing.Point(287, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 1;
@@ -447,7 +453,7 @@
             // 
             // ELEID
             // 
-            this.ELEID.Location = new System.Drawing.Point(702, 19);
+            this.ELEID.Location = new System.Drawing.Point(89, 56);
             this.ELEID.Name = "ELEID";
             this.ELEID.ReadOnly = true;
             this.ELEID.Size = new System.Drawing.Size(100, 21);
@@ -458,7 +464,7 @@
             // 
             // RobotID
             // 
-            this.RobotID.Location = new System.Drawing.Point(511, 19);
+            this.RobotID.Location = new System.Drawing.Point(89, 18);
             this.RobotID.Name = "RobotID";
             this.RobotID.Size = new System.Drawing.Size(100, 21);
             this.RobotID.TabIndex = 1;
@@ -468,7 +474,7 @@
             // 
             // ModelName
             // 
-            this.ModelName.Location = new System.Drawing.Point(320, 19);
+            this.ModelName.Location = new System.Drawing.Point(356, 19);
             this.ModelName.Name = "ModelName";
             this.ModelName.Size = new System.Drawing.Size(100, 21);
             this.ModelName.TabIndex = 0;
@@ -523,12 +529,110 @@
             this.Pbar.Step = 1;
             this.Pbar.TabIndex = 17;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.RobotID);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.RobotRemove);
+            this.groupBox2.Controls.Add(this.StationNumRemove);
+            this.groupBox2.Controls.Add(this.RobotAdd);
+            this.groupBox2.Controls.Add(this.ELEREMOVE);
+            this.groupBox2.Controls.Add(this.StationNumAdd);
+            this.groupBox2.Controls.Add(this.ELEID);
+            this.groupBox2.Controls.Add(this.ELEADD);
+            this.groupBox2.Location = new System.Drawing.Point(305, 120);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(521, 86);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "ExtentCtrol";
+            // 
+            // StationNumAdd
+            // 
+            this.StationNumAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.StationNumAdd.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StationNumAdd.Location = new System.Drawing.Point(207, 17);
+            this.StationNumAdd.Name = "StationNumAdd";
+            this.StationNumAdd.Size = new System.Drawing.Size(50, 23);
+            this.StationNumAdd.TabIndex = 8;
+            this.StationNumAdd.Text = "+1";
+            this.StationNumAdd.UseVisualStyleBackColor = false;
+            this.StationNumAdd.Click += new System.EventHandler(this.StationNumAdd_Click);
+            // 
+            // StationNumRemove
+            // 
+            this.StationNumRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.StationNumRemove.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StationNumRemove.Location = new System.Drawing.Point(275, 17);
+            this.StationNumRemove.Margin = new System.Windows.Forms.Padding(0);
+            this.StationNumRemove.Name = "StationNumRemove";
+            this.StationNumRemove.Size = new System.Drawing.Size(50, 23);
+            this.StationNumRemove.TabIndex = 9;
+            this.StationNumRemove.Text = "-1";
+            this.StationNumRemove.UseVisualStyleBackColor = false;
+            this.StationNumRemove.Click += new System.EventHandler(this.StationNumRemove_Click);
+            // 
+            // RobotAdd
+            // 
+            this.RobotAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.RobotAdd.Location = new System.Drawing.Point(343, 16);
+            this.RobotAdd.Name = "RobotAdd";
+            this.RobotAdd.Size = new System.Drawing.Size(50, 23);
+            this.RobotAdd.TabIndex = 8;
+            this.RobotAdd.Text = "+1";
+            this.RobotAdd.UseVisualStyleBackColor = false;
+            this.RobotAdd.Click += new System.EventHandler(this.RobotAdd_Click);
+            // 
+            // RobotRemove
+            // 
+            this.RobotRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.RobotRemove.Location = new System.Drawing.Point(411, 16);
+            this.RobotRemove.Name = "RobotRemove";
+            this.RobotRemove.Size = new System.Drawing.Size(50, 23);
+            this.RobotRemove.TabIndex = 9;
+            this.RobotRemove.Text = "-1";
+            this.RobotRemove.UseVisualStyleBackColor = false;
+            this.RobotRemove.Click += new System.EventHandler(this.RobotRemove_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(491, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 12);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "编号类型:";
+            // 
+            // Type1015
+            // 
+            this.Type1015.AutoSize = true;
+            this.Type1015.Checked = true;
+            this.Type1015.Location = new System.Drawing.Point(559, 21);
+            this.Type1015.Name = "Type1015";
+            this.Type1015.Size = new System.Drawing.Size(59, 16);
+            this.Type1015.TabIndex = 19;
+            this.Type1015.TabStop = true;
+            this.Type1015.Text = "10->15";
+            this.Type1015.UseVisualStyleBackColor = true;
+            // 
+            // type1020
+            // 
+            this.type1020.AutoSize = true;
+            this.type1020.Location = new System.Drawing.Point(632, 21);
+            this.type1020.Name = "type1020";
+            this.type1020.Size = new System.Drawing.Size(59, 16);
+            this.type1020.TabIndex = 19;
+            this.type1020.Text = "10->20";
+            this.type1020.UseVisualStyleBackColor = true;
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(838, 429);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Pbar);
             this.Controls.Add(this.BallToRobotList);
             this.Controls.Add(this.label1);
@@ -556,6 +660,8 @@
             this.Station_Group.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -606,5 +712,13 @@
         private System.Windows.Forms.Button ManuleInit;
         private System.Windows.Forms.Button BallToRobotList;
         private System.Windows.Forms.ProgressBar Pbar;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button RobotRemove;
+        private System.Windows.Forms.Button StationNumRemove;
+        private System.Windows.Forms.Button RobotAdd;
+        private System.Windows.Forms.Button StationNumAdd;
+        private System.Windows.Forms.RadioButton type1020;
+        private System.Windows.Forms.RadioButton Type1015;
+        private System.Windows.Forms.Label label7;
     }
 }

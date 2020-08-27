@@ -201,16 +201,25 @@ namespace RXQuestServer.Delmia
             Pbar.PerformStep();
             if (PPRSM.Count < 1 || PPRS.Count < 1) //初始化产品数模
             {
+                int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2: Convert.ToInt16(StationNum.Text);
                 try
                 {
                     Pbar.Step = 80 / ZeroList.Count;
-                    Pbar.Step = Pbar.Step / Convert.ToInt16(StationNum.Text);
+                    Pbar.Step = Pbar.Step / NumStation;
                     for (int i = 0; i < ZeroList.Count; i++)
                     {
                         Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i] + "_SM"); //初始化产品数模
-                        for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                        for (int j = 1; j <= NumStation; j++)
                         {
-                            NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
+                            if (type1020.Checked)
+                            {
+                                NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
+                            }
+                            else
+                            {
+                                string Str = (j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5);
+                                NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
+                            }
                         }
                         Product CNewProduct = null;
                         if (ZeroList[i] == "ST")
@@ -221,10 +230,18 @@ namespace RXQuestServer.Delmia
                         {
                             CNewProduct = NewPPRProduct(PPRS, ZeroList[i]);
                         }
-                        for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                        for (int j = 1; j <= NumStation; j++)
                         {
                             Pbar.PerformStep();
-                            String NWTP = ZeroList[i] + j * 10;
+                            String NWTP;
+                            if (type1020.Checked)
+                            {
+                                NWTP = ZeroList[i] + j * 10;
+                            }
+                            else
+                            {
+                                NWTP = ZeroList[i] + ((j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5));
+                            }
                             if (CheckRepeatByPartNumber(CNewProduct, NWTP))
                             {
                                 continue;
@@ -995,6 +1012,58 @@ namespace RXQuestServer.Delmia
         }
         private void BallToRobotList_Click(object sender, EventArgs e)
         {
+            int CV = Convert.ToInt16(RobotID.Text);
+            CV += 1;
+            CV = CV < 1 ? 1 : CV;
+            String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
+            ELEID.Text = TV;
+        }
+
+        private void StationNumAdd_Click(object sender, EventArgs e)
+        {
+            char[] ValueStr = RobotID.Text.ToCharArray();
+            int CV = Convert.ToInt16(ValueStr[1].ToString());
+            int RV = Convert.ToInt16(ValueStr[2].ToString());
+            //CV += 1;
+            CV = CV < 9 ? CV += 1 : 9;
+            CV = CV < 1 ? 1 : CV;
+            String TV = "R" + CV.ToString()+ RV;
+            RobotID.Text = TV;
+        }
+
+        private void StationNumRemove_Click(object sender, EventArgs e)
+        {
+            char[] ValueStr = RobotID.Text.ToCharArray();
+            int CV = Convert.ToInt16(ValueStr[1].ToString());
+            int RV = Convert.ToInt16(ValueStr[2].ToString());
+            CV -= 1;
+            CV = CV < 1 ? 1 : CV;
+            String TV = "R" + CV.ToString() + RV;
+            RobotID.Text = TV;
+
+        }
+
+        private void RobotAdd_Click(object sender, EventArgs e)
+        {
+            char[] ValueStr = RobotID.Text.ToCharArray();
+            int RV = Convert.ToInt16(ValueStr[1].ToString());
+            int CV = Convert.ToInt16(ValueStr[2].ToString());
+            //CV += 1;
+            CV = CV < 9 ? CV += 1 : 9;
+            CV = CV < 1 ? 1 : CV;
+            String TV = "R" + RV + CV.ToString();
+            RobotID.Text = TV;
+        }
+
+        private void RobotRemove_Click(object sender, EventArgs e)
+        {
+            char[] ValueStr = RobotID.Text.ToCharArray();
+            int RV = Convert.ToInt16(ValueStr[1].ToString());
+            int CV = Convert.ToInt16(ValueStr[2].ToString());
+            CV -= 1;
+            CV = CV < 1 ? 1 : CV;
+            String TV = "R" + RV + CV.ToString();
+            RobotID.Text = TV;
         }
     }
 }
