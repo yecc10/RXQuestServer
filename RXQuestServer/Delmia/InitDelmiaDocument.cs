@@ -987,12 +987,12 @@ namespace RXQuestServer.Delmia
                 {
                     //throw;
                     this.TopMost = true;
-                    Pbar.Value = 100;
                     MessageBox.Show("您选择的不是一个运动机构！");
                 }
+                SethomePositiion(Usp);
             }
-            SethomePositiion(Usp);
             Pbar.PerformStep();
+            Pbar.Value = 100;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.TopMost = true;
@@ -1004,6 +1004,7 @@ namespace RXQuestServer.Delmia
         /// <returns></returns>
         private bool SethomePositiion(Product product)
         {
+            return true; // Not Support Again
             try
             {
                 BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");

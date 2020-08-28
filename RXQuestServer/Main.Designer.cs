@@ -86,9 +86,6 @@
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2,
-            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(304, 25);
@@ -98,12 +95,7 @@
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.InPutWorkTime,
-            this.工时查询ToolStripMenuItem,
-            this.加班工时查询ToolStripMenuItem,
-            this.加班单导出ToolStripMenuItem});
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.Image = global::RXQuestServer.Properties.Resources.Address_book;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(29, 22);
@@ -112,32 +104,32 @@
             // InPutWorkTime
             // 
             this.InPutWorkTime.Name = "InPutWorkTime";
-            this.InPutWorkTime.Size = new System.Drawing.Size(148, 22);
+            this.InPutWorkTime.Size = new System.Drawing.Size(180, 22);
             this.InPutWorkTime.Text = "工时入库";
             this.InPutWorkTime.Click += new System.EventHandler(this.InPutWorkTime_Click);
             // 
             // 工时查询ToolStripMenuItem
             // 
             this.工时查询ToolStripMenuItem.Name = "工时查询ToolStripMenuItem";
-            this.工时查询ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.工时查询ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.工时查询ToolStripMenuItem.Text = "工时查询";
             // 
             // 加班工时查询ToolStripMenuItem
             // 
             this.加班工时查询ToolStripMenuItem.Name = "加班工时查询ToolStripMenuItem";
-            this.加班工时查询ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.加班工时查询ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.加班工时查询ToolStripMenuItem.Text = "加班工时查询";
             // 
             // 加班单导出ToolStripMenuItem
             // 
             this.加班单导出ToolStripMenuItem.Name = "加班单导出ToolStripMenuItem";
-            this.加班单导出ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.加班单导出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.加班单导出ToolStripMenuItem.Text = "加班单导出";
             // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.Image = global::RXQuestServer.Properties.Resources.Archive;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(29, 22);
