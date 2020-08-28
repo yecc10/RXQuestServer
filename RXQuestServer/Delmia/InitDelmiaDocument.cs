@@ -33,6 +33,8 @@ using DNBDevice;
 using DNBRobot;
 using DNBIgpTagPath;
 using MANUFACTURING;
+using KinTypeLib;
+
 namespace RXQuestServer.Delmia
 {
     public partial class InitDelmiaDocument : Form
@@ -201,7 +203,7 @@ namespace RXQuestServer.Delmia
             Pbar.PerformStep();
             if (PPRSM.Count < 1 || PPRS.Count < 1) //初始化产品数模
             {
-                int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2: Convert.ToInt16(StationNum.Text);
+                int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2 : Convert.ToInt16(StationNum.Text);
                 try
                 {
                     Pbar.Step = 80 / ZeroList.Count;
@@ -422,7 +424,7 @@ namespace RXQuestServer.Delmia
                 Path = Path + Tproduct.get_PartNumber() + "\\";
             }
             CreatePath(Path);
-            Path = Path + Tproduct.get_PartNumber()+ ".CATProduct";
+            Path = Path + Tproduct.get_PartNumber() + ".CATProduct";
             DSPD.SaveAs(Path);
             DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
@@ -484,7 +486,7 @@ namespace RXQuestServer.Delmia
         /// </summary>
         /// <param name="PD">TagGroup Product父级</param>
         /// <param name="Name">TagGroup名称</param>
-        public void NwSingleTagGroup(Product PD, String Name)
+        public Tag NwSingleTagGroup(Product PD, String Name)
         {
             Product NPD = null;
             NPD = GetProductByPartNumber(PD, PD.get_PartNumber() + "_TagList");
@@ -492,12 +494,16 @@ namespace RXQuestServer.Delmia
             {
                 NPD = PD.Products.AddNewProduct(Name + "_TagList");
                 SetAttrValue(PD);
+                return null;
             }
             else
             {
                 TagGroupFactory TGF = (TagGroupFactory)NPD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
                 TagGroup NwTagGroup = null; //创建TagGroup指针
                 TGF.CreateTagGroup(Name, true, NPD, out NwTagGroup);//创建TagGroupFactory
+                Tag tag;
+                NwTagGroup.CreateTag(out tag);
+                return tag;
             }
         }
         public void GetDocument()
@@ -742,16 +748,18 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetIRobotMotion(this, DStype);
+            Product Usp = null;
             if (Uselect != null && Uselect.Count > 0)
             {
                 try
                 {
                     String GetName = string.Empty;
-                    Product Usp = (Product)Uselect.Item2(1).Value;
+                    Usp = (Product)Uselect.Item2(1).Value;
                     GetName = Usp.get_Name();
                     RobGenericController Rgcr = (RobGenericController)Usp.GetTechnologicalObject("RobGenericController");
                     RobControllerFactory CRM = (RobControllerFactory)Usp.GetTechnologicalObject("RobControllerFactory");
                     GetName = CRM.get_Name();
+                    #region 机器人基本TCP Motion初始化
                     for (int i = 1; i <= Convert.ToInt16(RobotCtrlNum.Text); i++)
                     {
                         GenericAccuracyProfile GP;
@@ -772,6 +780,7 @@ namespace RXQuestServer.Delmia
                             Rgcr.AddAccuracyProfile(GP);
                         }
                         Pbar.PerformStep();
+                        /////////////////////////////////////////////////////////////////////
                         CRM.CreateGenericObjFrameProfile(out GOP);
                         GOP.SetObjectFrame(0, 0, 0, 0, 0, 0);
                         GOP.SetName("Object_0" + i);
@@ -781,6 +790,7 @@ namespace RXQuestServer.Delmia
                             Rgcr.AddObjFrameProfile(GOP);
                         }
                         Pbar.PerformStep();
+                        /////////////////////////////////////////////////////////////////////
                         CRM.CreateGenericMotionProfile(out GMP);
                         GMP.SetSpeedValue(i * 0.1);
                         GMP.SetName(i * 10 + "%");
@@ -791,6 +801,7 @@ namespace RXQuestServer.Delmia
                             Rgcr.AddMotionProfile(GMP);
                         }
                         Pbar.PerformStep();
+                        /////////////////////////////////////////////////////////////////////
                         // NwName = i < 9 ? ("Tool_0" + i) : ("Tool_" + i);
                         string NwName = "Tool_0" + i;
                         Rgcr.HasToolProfile(NwName, out ExistsObject);
@@ -831,6 +842,32 @@ namespace RXQuestServer.Delmia
                         }
                         Pbar.PerformStep();
                     }
+                    #endregion
+                    #region 机器人默认值设置
+                    //Init Current Motion Profile \accuracy \ Tool Profile \Object
+                    bool ExistsObj;
+                    Rgcr.HasAccuracyProfile((100 + "%"), out ExistsObj);
+                    if (ExistsObj)
+                    {
+                        Rgcr.SetCurrentAccuracyProfile((100 + "%"));
+                    }
+                    Rgcr.HasObjFrameProfile("Object_01", out ExistsObj);
+                    if (ExistsObj)
+                    {
+                        Rgcr.SetCurrentObjFrameProfile("Object_01");
+                    }
+                    Rgcr.HasMotionProfile((100 + "%"), out ExistsObj);
+                    if (ExistsObj)
+                    {
+                        Rgcr.SetCurrentMotionProfile((100 + "%"));
+                    }
+                    Rgcr.HasToolProfile("Tool_01", out ExistsObj);
+                    if (ExistsObj)
+                    {
+                        Rgcr.SetCurrentToolProfile("Tool_01");
+                    }
+                    #endregion
+                    #region 机器日Taglist目录及RobotTask批量设置
                     RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
                     object[] RobotTaskLists = new object[99];
                     try
@@ -848,7 +885,8 @@ namespace RXQuestServer.Delmia
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
                             Rtf.CreateRobotTask(RobotTaskName, null);
-                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                         if (GunStand.Checked)
                         {
@@ -856,13 +894,15 @@ namespace RXQuestServer.Delmia
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
                             }
                             RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Drop";
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
                             }
                         }
                     }
@@ -873,7 +913,8 @@ namespace RXQuestServer.Delmia
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
                             Rtf.CreateRobotTask(RobotTaskName, null);
-                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                     }
                     Pbar.PerformStep();
@@ -883,7 +924,8 @@ namespace RXQuestServer.Delmia
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
                             Rtf.CreateRobotTask(RobotTaskName, null);
-                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                     }
                     Pbar.PerformStep();
@@ -893,7 +935,8 @@ namespace RXQuestServer.Delmia
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
                             Rtf.CreateRobotTask(RobotTaskName, null);
-                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                         if (GrpStand.Checked)
                         {
@@ -901,13 +944,15 @@ namespace RXQuestServer.Delmia
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
                             }
                             RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Drop";
                             if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                             {
                                 Rtf.CreateRobotTask(RobotTaskName, null);
-                                NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
                             }
                         }
                     }
@@ -918,10 +963,12 @@ namespace RXQuestServer.Delmia
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
                             Rtf.CreateRobotTask(RobotTaskName, null);
-                            NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                     }
                     Pbar.PerformStep();
+                    #endregion
                     object[] RTask = new object[50];
                     Rtf.GetAllRobotTasks(RTask);
                     foreach (RobotTask item in RTask)
@@ -944,10 +991,63 @@ namespace RXQuestServer.Delmia
                     MessageBox.Show("您选择的不是一个运动机构！");
                 }
             }
+            SethomePositiion(Usp);
             Pbar.PerformStep();
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.TopMost = true;
+        }
+        /// <summary>
+        ///设置机器人小Home位置并初始化
+        /// </summary>
+        /// <param name="product">机器人</param>
+        /// <returns></returns>
+        private bool SethomePositiion(Product product)
+        {
+            try
+            {
+                BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
+                DeviceSim deviceSim = (DeviceSim)product.GetTechnologicalObject("DeviceSim");
+                Mechanisms mechanisms = (Mechanisms)product.GetTechnologicalObject("Mechanisms");
+                //Mechanism deviceSim1 = null;
+                //try
+                //{
+                //    int cnt = mechanisms.Count;
+                //    string str = mechanisms.Name;
+                //    object msobj = 1;
+                //    mechanisms.Item(ref msobj);
+                //}
+                //catch (Exception e)
+                //{
+                //    throw e;
+                //    //If there are no mechanisms (i.e. D5 devices), use the device handle instead
+                //    string  s = mechanisms.Item(1).get_Name();
+                //}
+                Array HomePosition = new object[] { };
+                basicDevice.GetHomePositions(out HomePosition);
+                bool exithome = false;
+                foreach (HomePosition item in HomePosition)
+                {
+                    //Array DofValue0 = new object[] { };
+                    //item.GetDOFValues(out DofValue0);
+                    if (item.get_Name() == "home_1")
+                    {
+                        exithome = true;
+                    }
+                }
+                if (!exithome)
+                {
+                    Array DofValue = new object[] { 0, 0, 0, 0, -1.5707963267949054, 0 };
+                    basicDevice.SetHomePosition("home_1", DofValue);
+                    //deviceSim.SetDOFValues(deviceSim1, DofValue, true);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         /// <summary>
         /// 检查机器人程序是否重复
@@ -973,6 +1073,43 @@ namespace RXQuestServer.Delmia
                 }
             }
             return false;
+        }
+        private bool AddTagToRobotTask(RobotTaskFactory robotTaskFactory, String RobotTaskName, Tag tag)
+        {
+            object[] RobotTaskLists = new object[99];
+            try
+            {
+                robotTaskFactory.GetAllRobotTasks(RobotTaskLists);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            foreach (RobotTask item in RobotTaskLists)
+            {
+                if (item != null)
+                {
+                    String taskName = item.get_Name();
+                    if (taskName == RobotTaskName)
+                    {
+                        RobotTask robotTask = item;
+                        Operation objoperation;
+                        objoperation = null;
+                        robotTask.CreateOperation(null, null, ref objoperation);
+                        AnyObject ObjRM = null;
+                        RobotMotion robotMotion = null;
+                        objoperation.CreateRobotMotion(ObjRM, true, ref robotMotion);
+                        //Object[] RMobj = new object[6] { 0, 0, 0, 0, -1.5707963267949054, 0 };
+                        robotMotion.SetTagTarget(tag);
+                        //robotMotion.GetJointTarget(RMobj);
+                        //robotMotion.SetJointTarget(RMobj);
+                        //robotMotion.GetCartesianTarget(RMobj);
+                        robotMotion.SetTagTarget(tag);
+                        return true;
+                    }
+                }
+            }
+            return true;
         }
         private void ModelName_TextChanged(object sender, EventArgs e)
         {
@@ -1027,7 +1164,7 @@ namespace RXQuestServer.Delmia
             //CV += 1;
             CV = CV < 9 ? CV += 1 : 9;
             CV = CV < 1 ? 1 : CV;
-            String TV = "R" + CV.ToString()+ RV;
+            String TV = "R" + CV.ToString() + RV;
             RobotID.Text = TV;
         }
 
