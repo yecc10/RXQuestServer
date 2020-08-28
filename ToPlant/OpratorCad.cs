@@ -11,9 +11,7 @@ using Autodesk.AutoCAD.Windows;
 using Autodesk.AutoCAD.Geometry;
 using System.Data;
 using System.Reflection;
-
-
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     /// <summary>
     /// 读取单条直线

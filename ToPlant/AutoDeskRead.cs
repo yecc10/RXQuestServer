@@ -19,7 +19,7 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Diagnostics;
 using Autodesk.AutoCAD.Interop.Common;
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     public partial class AutoDesKToPlant : Form
     {

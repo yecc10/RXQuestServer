@@ -11,7 +11,7 @@ using NPOI.Util;
 using System.IO;
 using System.Windows.Forms;
 
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     static public class RxDataOprator
     {

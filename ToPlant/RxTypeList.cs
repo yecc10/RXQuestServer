@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     public class RxTypeList
     {

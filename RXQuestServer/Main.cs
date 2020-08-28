@@ -49,5 +49,19 @@ namespace RXQuestServer
             this.Hide();
             workTimeUpdata.Show();
         }
+
+        private void PlantDTrack_Click(object sender, EventArgs e)
+        {
+            ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
+            this.Hide();
+            autoDesKToPlant.Show();
+        }
+
+        private void PlantDFence_Click(object sender, EventArgs e)
+        {
+            ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
+            this.Hide();
+            autoDesKToPlant.Show();
+        }
     }
 }

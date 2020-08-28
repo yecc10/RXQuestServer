@@ -39,11 +39,13 @@
             this.加班工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加班单导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.PlantDTrack = new System.Windows.Forms.Button();
+            this.PlantDFence = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
             // 
-            this.InitDelmiaDocument.Location = new System.Drawing.Point(12, 63);
+            this.InitDelmiaDocument.Location = new System.Drawing.Point(12, 12);
             this.InitDelmiaDocument.Name = "InitDelmiaDocument";
             this.InitDelmiaDocument.Size = new System.Drawing.Size(125, 41);
             this.InitDelmiaDocument.TabIndex = 0;
@@ -53,7 +55,7 @@
             // 
             // WeldSportTool
             // 
-            this.WeldSportTool.Location = new System.Drawing.Point(167, 63);
+            this.WeldSportTool.Location = new System.Drawing.Point(167, 12);
             this.WeldSportTool.Name = "WeldSportTool";
             this.WeldSportTool.Size = new System.Drawing.Size(125, 41);
             this.WeldSportTool.TabIndex = 0;
@@ -63,7 +65,7 @@
             // 
             // GotoOCR
             // 
-            this.GotoOCR.Location = new System.Drawing.Point(12, 125);
+            this.GotoOCR.Location = new System.Drawing.Point(12, 158);
             this.GotoOCR.Name = "GotoOCR";
             this.GotoOCR.Size = new System.Drawing.Size(125, 41);
             this.GotoOCR.TabIndex = 0;
@@ -73,7 +75,7 @@
             // 
             // ShowToPlc
             // 
-            this.ShowToPlc.Location = new System.Drawing.Point(167, 125);
+            this.ShowToPlc.Location = new System.Drawing.Point(167, 158);
             this.ShowToPlc.Name = "ShowToPlc";
             this.ShowToPlc.Size = new System.Drawing.Size(125, 41);
             this.ShowToPlc.TabIndex = 0;
@@ -124,14 +126,36 @@
             this.toolStripButton1.Size = new System.Drawing.Size(29, 22);
             this.toolStripButton1.Text = "办公";
             // 
+            // PlantDTrack
+            // 
+            this.PlantDTrack.Location = new System.Drawing.Point(12, 90);
+            this.PlantDTrack.Name = "PlantDTrack";
+            this.PlantDTrack.Size = new System.Drawing.Size(125, 41);
+            this.PlantDTrack.TabIndex = 0;
+            this.PlantDTrack.Text = "Plant创建路径";
+            this.PlantDTrack.UseVisualStyleBackColor = true;
+            this.PlantDTrack.Click += new System.EventHandler(this.PlantDTrack_Click);
+            // 
+            // PlantDFence
+            // 
+            this.PlantDFence.Location = new System.Drawing.Point(167, 90);
+            this.PlantDFence.Name = "PlantDFence";
+            this.PlantDFence.Size = new System.Drawing.Size(125, 41);
+            this.PlantDFence.TabIndex = 0;
+            this.PlantDFence.Text = "Plant创建围栏";
+            this.PlantDFence.UseVisualStyleBackColor = true;
+            this.PlantDFence.Click += new System.EventHandler(this.PlantDFence_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(304, 211);
+            this.Controls.Add(this.PlantDFence);
             this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.ShowToPlc);
+            this.Controls.Add(this.PlantDTrack);
             this.Controls.Add(this.GotoOCR);
             this.Controls.Add(this.InitDelmiaDocument);
             this.HelpButton = true;
@@ -156,6 +180,8 @@
         private System.Windows.Forms.ToolStripMenuItem 加班工时查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 加班单导出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
+        private System.Windows.Forms.Button PlantDTrack;
+        private System.Windows.Forms.Button PlantDFence;
     }
 }
 

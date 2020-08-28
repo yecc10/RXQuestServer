@@ -1,31 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Windows;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.Interop;
-using System.Reflection;
-using System.Security.Permissions;
-using System.Diagnostics;
-using Autodesk.AutoCAD.Interop.Common;
-using eMPlantLib;
-using System.Data.SQLite;
-using System.Security.Principal;
-using System.IO.MemoryMappedFiles;
-using System.IO;
-
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     class PlantOnline
     {

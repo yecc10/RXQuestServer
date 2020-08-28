@@ -1584,6 +1584,10 @@
       <Project>{ed1b3ad1-9387-4c6e-85f1-581991da347a}</Project>
       <Name>OcrCenter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ToPlant\ToPlant.csproj">
+      <Project>{37ac02fd-43e4-41b8-8638-21d78c0a82d8}</Project>
+      <Name>ToPlant</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorkOffice\WorkOffice.csproj">
       <Project>{6461fa13-a5e0-40db-a2c5-bb5e4cd4da2d}</Project>
       <Name>WorkOffice</Name>

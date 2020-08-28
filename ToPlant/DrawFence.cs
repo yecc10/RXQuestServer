@@ -19,14 +19,10 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Diagnostics;
 using Autodesk.AutoCAD.Interop.Common;
-using System.Data.SQLite;
-using System.Security.Principal;
-using System.IO.MemoryMappedFiles;
-using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
-namespace AutoDeskLine_ToPlant
+namespace ToPlant
 {
     public partial class DrawFence : Form
     {
