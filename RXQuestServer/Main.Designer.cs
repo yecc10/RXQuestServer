@@ -33,14 +33,12 @@
             this.WeldSportTool = new System.Windows.Forms.Button();
             this.GotoOCR = new System.Windows.Forms.Button();
             this.ShowToPlc = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InPutWorkTime = new System.Windows.Forms.ToolStripMenuItem();
             this.工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加班工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加班单导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
@@ -82,15 +80,6 @@
             this.ShowToPlc.Text = "办公信息";
             this.ShowToPlc.UseVisualStyleBackColor = true;
             this.ShowToPlc.Click += new System.EventHandler(this.GotoOCR_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(304, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButton2
             // 
@@ -139,9 +128,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(304, 211);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.ShowToPlc);
             this.Controls.Add(this.GotoOCR);
@@ -152,10 +140,7 @@
             this.MinimumSize = new System.Drawing.Size(320, 250);
             this.Name = "Main";
             this.Text = "主入口";
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -165,7 +150,6 @@
         private System.Windows.Forms.Button WeldSportTool;
         private System.Windows.Forms.Button GotoOCR;
         private System.Windows.Forms.Button ShowToPlc;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
         private System.Windows.Forms.ToolStripMenuItem InPutWorkTime;
         private System.Windows.Forms.ToolStripMenuItem 工时查询ToolStripMenuItem;
