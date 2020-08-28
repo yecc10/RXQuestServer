@@ -96,10 +96,10 @@ namespace ToPlant
             string[] subkeyNames;
             RegistryKey hkml = Registry.LocalMachine;
             RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
-            RegistryKey Tecnomatix = software.OpenSubKey("Tecnomatix\\eM-Plant\\15.1", true);
-            if (Tecnomatix!=null)
+            RegistryKey Tecnomatix = software.OpenSubKey("Tecnomatix\\eM-Plant\\", true);
+            if (software != null)
             {
-                subkeyNames = Tecnomatix.GetValueNames();
+                //subkeyNames = Tecnomatix.GetValueNames();
                 _exit = true;
             }
             return _exit;

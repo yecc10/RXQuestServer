@@ -456,7 +456,7 @@
             // 
             // ClearData
             // 
-            this.ClearData.Location = new System.Drawing.Point(231, 648);
+            this.ClearData.Location = new System.Drawing.Point(234, 648);
             this.ClearData.Name = "ClearData";
             this.ClearData.Size = new System.Drawing.Size(90, 30);
             this.ClearData.TabIndex = 0;
@@ -466,7 +466,7 @@
             // 
             // DeleteData
             // 
-            this.DeleteData.Location = new System.Drawing.Point(444, 648);
+            this.DeleteData.Location = new System.Drawing.Point(450, 648);
             this.DeleteData.Name = "DeleteData";
             this.DeleteData.Size = new System.Drawing.Size(90, 30);
             this.DeleteData.TabIndex = 0;
@@ -476,7 +476,7 @@
             // 
             // OutToPlant
             // 
-            this.OutToPlant.Location = new System.Drawing.Point(657, 648);
+            this.OutToPlant.Location = new System.Drawing.Point(666, 648);
             this.OutToPlant.Name = "OutToPlant";
             this.OutToPlant.Size = new System.Drawing.Size(90, 30);
             this.OutToPlant.TabIndex = 0;
