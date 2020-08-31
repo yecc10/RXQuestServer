@@ -1105,6 +1105,7 @@ namespace RXQuestServer.Delmia
                         //robotMotion.GetJointTarget(RMobj);
                         //robotMotion.SetJointTarget(RMobj);
                         //robotMotion.GetCartesianTarget(RMobj);
+                        tag.SetName("RefPoint");
                         robotMotion.SetTagTarget(tag);
                         return true;
                     }

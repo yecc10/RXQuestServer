@@ -63,5 +63,12 @@ namespace RXQuestServer
             this.Hide();
             autoDesKToPlant.Show();
         }
+
+        private void WorkData_Click(object sender, EventArgs e)
+        {
+            RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
+            this.Hide();
+            uLogin.Show();
+        }
     }
 }

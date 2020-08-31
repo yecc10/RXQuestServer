@@ -32,7 +32,7 @@
             this.InitDelmiaDocument = new System.Windows.Forms.Button();
             this.WeldSportTool = new System.Windows.Forms.Button();
             this.GotoOCR = new System.Windows.Forms.Button();
-            this.ShowToPlc = new System.Windows.Forms.Button();
+            this.WorkData = new System.Windows.Forms.Button();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InPutWorkTime = new System.Windows.Forms.ToolStripMenuItem();
             this.工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,15 +73,15 @@
             this.GotoOCR.UseVisualStyleBackColor = true;
             this.GotoOCR.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
-            // ShowToPlc
+            // WorkData
             // 
-            this.ShowToPlc.Location = new System.Drawing.Point(167, 158);
-            this.ShowToPlc.Name = "ShowToPlc";
-            this.ShowToPlc.Size = new System.Drawing.Size(125, 41);
-            this.ShowToPlc.TabIndex = 0;
-            this.ShowToPlc.Text = "办公信息";
-            this.ShowToPlc.UseVisualStyleBackColor = true;
-            this.ShowToPlc.Click += new System.EventHandler(this.GotoOCR_Click);
+            this.WorkData.Location = new System.Drawing.Point(167, 158);
+            this.WorkData.Name = "WorkData";
+            this.WorkData.Size = new System.Drawing.Size(125, 41);
+            this.WorkData.TabIndex = 0;
+            this.WorkData.Text = "办公信息";
+            this.WorkData.UseVisualStyleBackColor = true;
+            this.WorkData.Click += new System.EventHandler(this.WorkData_Click);
             // 
             // toolStripButton2
             // 
@@ -154,7 +154,7 @@
             this.ClientSize = new System.Drawing.Size(304, 211);
             this.Controls.Add(this.PlantDFence);
             this.Controls.Add(this.WeldSportTool);
-            this.Controls.Add(this.ShowToPlc);
+            this.Controls.Add(this.WorkData);
             this.Controls.Add(this.PlantDTrack);
             this.Controls.Add(this.GotoOCR);
             this.Controls.Add(this.InitDelmiaDocument);
@@ -173,7 +173,7 @@
         private System.Windows.Forms.Button InitDelmiaDocument;
         private System.Windows.Forms.Button WeldSportTool;
         private System.Windows.Forms.Button GotoOCR;
-        private System.Windows.Forms.Button ShowToPlc;
+        private System.Windows.Forms.Button WorkData;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
         private System.Windows.Forms.ToolStripMenuItem InPutWorkTime;
         private System.Windows.Forms.ToolStripMenuItem 工时查询ToolStripMenuItem;

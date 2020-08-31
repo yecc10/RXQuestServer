@@ -112,7 +112,9 @@
       <HintPath>..\packages\NPOI.2.5.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
@@ -1580,6 +1582,10 @@
     <Content Include="YI.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\03 RX_DataUpdata\RX_DataUpdata\RX_DataCenter.csproj">
+      <Project>{a0824ee8-ad38-4f64-9f47-050e5464d190}</Project>
+      <Name>RX_DataCenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OcrCenter\OcrCenter.csproj">
       <Project>{ed1b3ad1-9387-4c6e-85f1-581991da347a}</Project>
       <Name>OcrCenter</Name>
