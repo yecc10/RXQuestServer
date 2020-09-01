@@ -27,6 +27,7 @@ namespace ToPlant
             /// <returns></returns>
             static public bool SaveExcelForLvSport(DataGridView dataGridView, string SportName)
             {
+                dataGridView.AllowUserToAddRows = false;
                 if (dataGridView.Rows.Count > 1)
                 {
                     HSSFWorkbook wkb = new HSSFWorkbook();
@@ -37,7 +38,7 @@ namespace ToPlant
                     ICellStyle CST = wkb.CreateCellStyle();
                     CST.VerticalAlignment = VerticalAlignment.Center;
                     CST.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
-                    for (int i = 0; i <dataGridView.Rows[1].Cells.Count; i++) //初始化表头
+                    for (int i = 0; i < dataGridView.Rows[1].Cells.Count; i++) //初始化表头
                     {
                         ICell HeadCell = HeadRow.CreateCell(i);
                         HeadCell.SetCellValue(dataGridView.Columns[i].HeaderText);
@@ -45,7 +46,7 @@ namespace ToPlant
                     }
                     for (int i = 0; i < dataGridView.Rows.Count; i++) //依次遍历全部行
                     {
-                        IRow DataRow = sheet.CreateRow(i+1);
+                        IRow DataRow = sheet.CreateRow(i + 1);
                         DataRow.RowStyle = CST;
                         DataRow.Height = 400;
                         for (int j = 0; j < dataGridView.Rows[i].Cells.Count; j++) //读取每行中所有列
@@ -55,11 +56,10 @@ namespace ToPlant
                             DataCell.CellStyle = CST;
                         }
                     }
-
                     string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
                     string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
-                    string path = strDesktopPath+"\\瑞祥工业工厂仿真组" + datatime + ".xls";
+                    string path = strDesktopPath + "\\瑞祥工业工厂仿真组" + datatime + ".xls";
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     wkb.Write(file);
                     file.Flush();

@@ -608,6 +608,7 @@
             this.MinimumSize = new System.Drawing.Size(790, 735);
             this.Name = "DrawTrack";
             this.Text = "DrawTrack";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DrawTrack_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

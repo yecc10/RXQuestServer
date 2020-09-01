@@ -56,6 +56,7 @@ namespace ToPlant
         public AutoDesKToPlant()
         {
             InitializeComponent();
+            DataGrid.AllowUserToAddRows = false;
             timer.Enabled = true;
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "序号";

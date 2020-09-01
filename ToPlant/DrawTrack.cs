@@ -22,6 +22,7 @@ using Autodesk.AutoCAD.Interop.Common;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace ToPlant
 {
@@ -47,7 +48,7 @@ namespace ToPlant
         /// 全局变量 保存上一个读取的Cad对象
         /// </summary>
         object AcadObj;
-        int index = 0;
+        int index = 1;
         /// <summary>
         /// 参考点
         /// </summary>
@@ -61,6 +62,7 @@ namespace ToPlant
         public DrawTrack()
         {
             InitializeComponent();
+            DataGrid.AllowUserToAddRows = false;
             CheckForIllegalCrossThreadCalls = false;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -271,9 +273,10 @@ namespace ToPlant
             this.WindowState = FormWindowState.Minimized;
             if (OnlineModel.Checked != true | SX_AIX.Text == string.Empty | SX_AIX.Text == "")
             {
-                MessageBox.Show("当前未切换到在线设计模式或未设置参考点坐标！，无法继续后续操作！请选择在线模式!");
                 this.WindowState = FormWindowState.Normal;
                 this.StartPosition = FormStartPosition.CenterScreen;
+                this.TopMost = true;
+                MessageBox.Show("当前未切换到在线设计模式或未设置参考点坐标！，无法继续后续操作！请选择在线模式!");
                 return;
             }
         Reset:
@@ -337,11 +340,6 @@ namespace ToPlant
                                 double Tangle = (180 / Math.PI) * RT.FwAngle;
                                 RT.FwAngle = Math.Round(Tangle, 1);
                                 OprateFormData(RT);
-                                string str = PlantOnline.WriteFence(RT.Length, RT.CenterPoint, RT.FwAngle, RefPoint);
-                                if (str != string.Empty)
-                                {
-                                    SendDataToSocket(str);
-                                }
                                 break;
                             }
                         case "AcDbArc":
@@ -414,15 +412,7 @@ namespace ToPlant
                                         continue;
                                     }
                                     Cline += 1;
-                                    string str = PlantOnline.WriteFence(Aline.Length, Aline.CenterPoint, Aline.FwAngle, RefPoint);
-                                    if (str != string.Empty)
-                                    {
-                                        SendDataToSocket(str);
-                                    }
-                                    //if (Cline== NumberLine)
-                                    //{
-                                    //    continue;
-                                    //}
+
                                     i += 1;
                                 }
                                 break;
@@ -472,7 +462,7 @@ namespace ToPlant
             if (SX_AIX.Text == string.Empty || SY_AIX.Text == string.Empty)
             {
                 MessageBox.Show("未初始化参考坐标！请先初始化参考坐标系！");
-                return;
+                return ;
             }
             int keepValuePoint = Convert.ToInt16(KeepValue.Text);
             double[] StartPoint = CadOprator.TackAix(arc.StartPoint, RefPoint, ApplyPlantAix.Checked);
@@ -505,7 +495,13 @@ namespace ToPlant
             {
                 //throw;
             }
+            string Res= PlantOnline.WriteTrack("A_"+index, StartPoint, EndPoint, Ttrack, StartAngle, TCenter, EndAngle, 0, Radius, RefPoint);
+            if (Res != string.Empty)
+            {
+                SendDataToSocket(Res);
+            }
             index += 1;
+            return ;
         }
         /// <summary>
         /// 通过从CAD返回的点坐标进行Form中的添加及更新操作
@@ -545,6 +541,11 @@ namespace ToPlant
             catch (System.Exception)
             {
                 //throw;
+            }
+            string Res = PlantOnline.WriteTrack("A_" + index,StartPoint, EndPoint, Ttrack, 0, new double[]{ 0,0,0},0,Line.FwAngle,0, RefPoint);
+            if (Res != string.Empty)
+            {
+                SendDataToSocket(Res);
             }
             index += 1;
         }
@@ -831,7 +832,7 @@ namespace ToPlant
         }
         private void DeleteLastFence_Click(object sender, EventArgs e)
         {
-            SendDataToSocket("DeleteLastFence");
+            SendDataToSocket("DeleteLastTrack");
         }
         private void ExploreJT_Click(object sender, EventArgs e)
         {
