@@ -277,6 +277,7 @@ namespace ToPlant
                 return;
             }
         Reset:
+            #region InitEnv
             AcadDocument caddocument = null;
             tAcadApplication.Visible = true;
             try
@@ -291,8 +292,10 @@ namespace ToPlant
                 //throw;
             }
             object obj, pickedObj = null;
+            #endregion
             try
             {
+                #region InitEnv_2
                 int JS = 0;
                 do
                 {
@@ -311,6 +314,7 @@ namespace ToPlant
                         }
                         continue;
                     }
+                    #endregion
                     var db = caddocument.Database;
                     dynamic NlineTaype = ((dynamic)obj).EntityName;
                     string NlineT = Convert.ToString(NlineTaype);
@@ -835,9 +839,9 @@ namespace ToPlant
         }
         private void ClearModel_Click(object sender, EventArgs e)
         {
-            SendDataToSocket("DeleteAllFence");
+            SendDataToSocket("DeleteAllTrack");
         }
-        private void DrawFence_FormClosed(object sender, FormClosedEventArgs e)
+        private void DrawTrack_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
@@ -855,146 +859,6 @@ namespace ToPlant
         private void timer_Tick_1(object sender, EventArgs e)
         {
             this.FindForm().Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
-        }
-
-        private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MannuSetFW_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AutoSetFW_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox4_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LishanRoad_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ContinuRoad_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DoubleRoadSelected_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SingeRoadSelected_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Sscale_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ServerPort_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ServerIP_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void KeepValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ApplyPlantAix_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ChangeXY_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AutoRead_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SX_AIX_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SY_AIX_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SocketLogs_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 
