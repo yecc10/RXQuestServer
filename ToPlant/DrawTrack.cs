@@ -22,9 +22,10 @@ using Autodesk.AutoCAD.Interop.Common;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+
 namespace ToPlant
 {
-    public partial class DrawFence : Form
+    public partial class DrawTrack : Form
     {
         [STAThreadAttribute]
         [DllImportAttribute("kernel32.dll", EntryPoint = "OpenProcess")]
@@ -57,7 +58,7 @@ namespace ToPlant
         string CBEP = string.Empty;
         Thread ThreadClient = null;
         Socket SocketClient = null;
-        public DrawFence()  //Init Global data
+        public DrawTrack()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -65,7 +66,7 @@ namespace ToPlant
             this.StartPosition = FormStartPosition.CenterScreen;
             SocketLogs.Text = string.Empty;
             ServerIP.Text = "127.0.0.1";
-            ServerPort.Text = "30000";
+            ServerPort.Text = "40000";
             timer.Enabled = true;
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "序号";
@@ -104,6 +105,7 @@ namespace ToPlant
             dataColum.ColumnName = "FwAngle";
             datatable.Columns.Add(dataColum);
         }
+        #region GetRefPoint
         private void SetRefPoint_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -148,6 +150,7 @@ namespace ToPlant
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
+        #endregion
         private void ManulInputPoint_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -273,7 +276,7 @@ namespace ToPlant
                 this.StartPosition = FormStartPosition.CenterScreen;
                 return;
             }
-            Reset:
+        Reset:
             AcadDocument caddocument = null;
             tAcadApplication.Visible = true;
             try
@@ -994,4 +997,5 @@ namespace ToPlant
 
         }
     }
+
 }

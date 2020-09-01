@@ -111,6 +111,7 @@
             this.DataGrid.RowTemplate.Height = 23;
             this.DataGrid.Size = new System.Drawing.Size(747, 208);
             this.DataGrid.TabIndex = 8;
+            this.DataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellContentClick);
             // 
             // mIndex
             // 
@@ -200,6 +201,7 @@
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "路径方向设定";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // MannuSetFW
             // 
@@ -212,6 +214,7 @@
             this.MannuSetFW.TabStop = true;
             this.MannuSetFW.Text = "顺序设定";
             this.MannuSetFW.UseVisualStyleBackColor = true;
+            this.MannuSetFW.CheckedChanged += new System.EventHandler(this.MannuSetFW_CheckedChanged);
             // 
             // AutoSetFW
             // 
@@ -222,6 +225,7 @@
             this.AutoSetFW.TabIndex = 4;
             this.AutoSetFW.Text = "自动设定";
             this.AutoSetFW.UseVisualStyleBackColor = true;
+            this.AutoSetFW.CheckedChanged += new System.EventHandler(this.AutoSetFW_CheckedChanged);
             // 
             // label1
             // 
@@ -231,6 +235,7 @@
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 3;
             this.label1.Text = "小数位数";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // groupBox4
             // 
@@ -243,6 +248,7 @@
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "路径类型设定";
+            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
             // LishanRoad
             // 
@@ -253,6 +259,7 @@
             this.LishanRoad.TabIndex = 4;
             this.LishanRoad.Text = "分散路径";
             this.LishanRoad.UseVisualStyleBackColor = true;
+            this.LishanRoad.CheckedChanged += new System.EventHandler(this.LishanRoad_CheckedChanged);
             // 
             // ContinuRoad
             // 
@@ -265,6 +272,7 @@
             this.ContinuRoad.TabStop = true;
             this.ContinuRoad.Text = "连续路径";
             this.ContinuRoad.UseVisualStyleBackColor = true;
+            this.ContinuRoad.CheckedChanged += new System.EventHandler(this.ContinuRoad_CheckedChanged);
             // 
             // OutExcel
             // 
@@ -287,6 +295,7 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "路径类型设定";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // DoubleRoadSelected
             // 
@@ -297,6 +306,7 @@
             this.DoubleRoadSelected.TabIndex = 4;
             this.DoubleRoadSelected.Text = "双向通道";
             this.DoubleRoadSelected.UseVisualStyleBackColor = true;
+            this.DoubleRoadSelected.CheckedChanged += new System.EventHandler(this.DoubleRoadSelected_CheckedChanged);
             // 
             // SingeRoadSelected
             // 
@@ -309,6 +319,7 @@
             this.SingeRoadSelected.TabStop = true;
             this.SingeRoadSelected.Text = "单向通道";
             this.SingeRoadSelected.UseVisualStyleBackColor = true;
+            this.SingeRoadSelected.CheckedChanged += new System.EventHandler(this.SingeRoadSelected_CheckedChanged);
             // 
             // DeleteLastFence
             // 
@@ -339,6 +350,7 @@
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "比例";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // timer
             // 
@@ -352,6 +364,7 @@
             this.Sscale.TabIndex = 2;
             this.Sscale.Text = "1";
             this.Sscale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Sscale.TextChanged += new System.EventHandler(this.Sscale_TextChanged);
             // 
             // groupBox2
             // 
@@ -375,6 +388,7 @@
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "基本设置";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // label6
             // 
@@ -384,6 +398,7 @@
             this.label6.Size = new System.Drawing.Size(35, 12);
             this.label6.TabIndex = 8;
             this.label6.Text = "Port:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
@@ -393,6 +408,7 @@
             this.label5.Size = new System.Drawing.Size(59, 12);
             this.label5.TabIndex = 8;
             this.label5.Text = "ServerIP:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // ServerPort
             // 
@@ -400,6 +416,7 @@
             this.ServerPort.Name = "ServerPort";
             this.ServerPort.Size = new System.Drawing.Size(171, 21);
             this.ServerPort.TabIndex = 7;
+            this.ServerPort.TextChanged += new System.EventHandler(this.ServerPort_TextChanged);
             // 
             // ServerIP
             // 
@@ -407,6 +424,7 @@
             this.ServerIP.Name = "ServerIP";
             this.ServerIP.Size = new System.Drawing.Size(171, 21);
             this.ServerIP.TabIndex = 7;
+            this.ServerIP.TextChanged += new System.EventHandler(this.ServerIP_TextChanged);
             // 
             // OnlineModel
             // 
@@ -427,6 +445,7 @@
             this.KeepValue.TabIndex = 2;
             this.KeepValue.Text = "1";
             this.KeepValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.KeepValue.TextChanged += new System.EventHandler(this.KeepValue_TextChanged);
             // 
             // ApplyPlantAix
             // 
@@ -439,6 +458,7 @@
             this.ApplyPlantAix.TabIndex = 0;
             this.ApplyPlantAix.Text = "应用Plant坐标规则";
             this.ApplyPlantAix.UseVisualStyleBackColor = true;
+            this.ApplyPlantAix.CheckedChanged += new System.EventHandler(this.ApplyPlantAix_CheckedChanged);
             // 
             // ChangeXY
             // 
@@ -449,6 +469,7 @@
             this.ChangeXY.TabIndex = 0;
             this.ChangeXY.Text = "X\\Y坐标互换";
             this.ChangeXY.UseVisualStyleBackColor = true;
+            this.ChangeXY.CheckedChanged += new System.EventHandler(this.ChangeXY_CheckedChanged);
             // 
             // label4
             // 
@@ -458,6 +479,7 @@
             this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 3;
             this.label4.Text = "Y坐标";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // TestSocket
             // 
@@ -478,6 +500,7 @@
             this.AutoRead.TabIndex = 0;
             this.AutoRead.Text = "自动全部读取";
             this.AutoRead.UseVisualStyleBackColor = true;
+            this.AutoRead.Click += new System.EventHandler(this.AutoRead_Click_1);
             // 
             // label3
             // 
@@ -487,6 +510,7 @@
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 3;
             this.label3.Text = "X坐标";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // ManulInputPoint
             // 
@@ -515,6 +539,7 @@
             this.SY_AIX.Name = "SY_AIX";
             this.SY_AIX.Size = new System.Drawing.Size(272, 21);
             this.SY_AIX.TabIndex = 2;
+            this.SY_AIX.TextChanged += new System.EventHandler(this.SY_AIX_TextChanged);
             // 
             // SX_AIX
             // 
@@ -522,6 +547,7 @@
             this.SX_AIX.Name = "SX_AIX";
             this.SX_AIX.Size = new System.Drawing.Size(272, 21);
             this.SX_AIX.TabIndex = 2;
+            this.SX_AIX.TextChanged += new System.EventHandler(this.SX_AIX_TextChanged);
             // 
             // SetRefPoint
             // 
@@ -549,6 +575,7 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "拾取对象";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // SocketLogs
             // 
@@ -560,6 +587,7 @@
             this.SocketLogs.Size = new System.Drawing.Size(747, 235);
             this.SocketLogs.TabIndex = 9;
             this.SocketLogs.Text = "SocketLogs:";
+            this.SocketLogs.TextChanged += new System.EventHandler(this.SocketLogs_TextChanged);
             // 
             // ClearLogs
             // 

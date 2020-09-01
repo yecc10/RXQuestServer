@@ -41,6 +41,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.PlantDTrack = new System.Windows.Forms.Button();
             this.PlantDFence = new System.Windows.Forms.Button();
+            this.CreateTrackOnLine = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
@@ -65,7 +66,7 @@
             // 
             // GotoOCR
             // 
-            this.GotoOCR.Location = new System.Drawing.Point(12, 158);
+            this.GotoOCR.Location = new System.Drawing.Point(12, 153);
             this.GotoOCR.Name = "GotoOCR";
             this.GotoOCR.Size = new System.Drawing.Size(125, 41);
             this.GotoOCR.TabIndex = 0;
@@ -75,7 +76,7 @@
             // 
             // WorkData
             // 
-            this.WorkData.Location = new System.Drawing.Point(167, 158);
+            this.WorkData.Location = new System.Drawing.Point(167, 153);
             this.WorkData.Name = "WorkData";
             this.WorkData.Size = new System.Drawing.Size(125, 41);
             this.WorkData.TabIndex = 0;
@@ -128,7 +129,7 @@
             // 
             // PlantDTrack
             // 
-            this.PlantDTrack.Location = new System.Drawing.Point(12, 90);
+            this.PlantDTrack.Location = new System.Drawing.Point(12, 59);
             this.PlantDTrack.Name = "PlantDTrack";
             this.PlantDTrack.Size = new System.Drawing.Size(125, 41);
             this.PlantDTrack.TabIndex = 0;
@@ -138,13 +139,23 @@
             // 
             // PlantDFence
             // 
-            this.PlantDFence.Location = new System.Drawing.Point(167, 90);
+            this.PlantDFence.Location = new System.Drawing.Point(12, 106);
             this.PlantDFence.Name = "PlantDFence";
             this.PlantDFence.Size = new System.Drawing.Size(125, 41);
             this.PlantDFence.TabIndex = 0;
             this.PlantDFence.Text = "Plant创建围栏";
             this.PlantDFence.UseVisualStyleBackColor = true;
             this.PlantDFence.Click += new System.EventHandler(this.PlantDFence_Click);
+            // 
+            // CreateTrackOnLine
+            // 
+            this.CreateTrackOnLine.Location = new System.Drawing.Point(167, 59);
+            this.CreateTrackOnLine.Name = "CreateTrackOnLine";
+            this.CreateTrackOnLine.Size = new System.Drawing.Size(125, 41);
+            this.CreateTrackOnLine.TabIndex = 0;
+            this.CreateTrackOnLine.Text = "Plant在线路径";
+            this.CreateTrackOnLine.UseVisualStyleBackColor = true;
+            this.CreateTrackOnLine.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
             // 
             // Main
             // 
@@ -155,6 +166,7 @@
             this.Controls.Add(this.PlantDFence);
             this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.WorkData);
+            this.Controls.Add(this.CreateTrackOnLine);
             this.Controls.Add(this.PlantDTrack);
             this.Controls.Add(this.GotoOCR);
             this.Controls.Add(this.InitDelmiaDocument);
@@ -182,6 +194,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
         private System.Windows.Forms.Button PlantDTrack;
         private System.Windows.Forms.Button PlantDFence;
+        private System.Windows.Forms.Button CreateTrackOnLine;
     }
 }
 

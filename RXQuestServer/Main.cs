@@ -70,5 +70,12 @@ namespace RXQuestServer
             this.Hide();
             uLogin.Show();
         }
+
+        private void CreateTrackOnLine_Click(object sender, EventArgs e)
+        {
+            ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
+            this.Hide();
+            autoDesKToPlant.Show();
+        }
     }
 }

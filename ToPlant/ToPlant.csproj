@@ -85,6 +85,12 @@
     <Compile Include="AutoDeskRead.Designer.cs">
       <DependentUpon>AutoDeskRead.cs</DependentUpon>
     </Compile>
+    <Compile Include="DrawTrack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawTrack.Designer.cs">
+      <DependentUpon>DrawTrack.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawFence.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DrawFence.resx">
       <DependentUpon>DrawFence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawTrack.resx">
+      <DependentUpon>DrawTrack.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
