@@ -180,7 +180,8 @@ namespace RXQuestServer
             }
             else
             {
-                RegOprate.WriteRegdit("SetUpTime", dateTime.ToString());
+                DateTime dateTime1 = dateTime.AddDays(30);
+                RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
                 HasAccessToRun = true;
                 return;
             }
