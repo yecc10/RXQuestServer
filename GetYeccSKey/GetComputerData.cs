@@ -60,14 +60,26 @@ namespace GetYeccSKey
            // int HashComputerId=ComputerId.GetHashCode();
             return ComputerId;
         }
+        public string GetHashProtectComputerID(String UserCode)
+        {
+            string NewUserCode = UserCode + "yeccdesignforruixiang2020";
+            // int HashComputerId=ComputerId.GetHashCode();
+            PasswordHasher passwordHasher = new PasswordHasher();
+            string ComputerId = passwordHasher.HashPassword(NewUserCode);
+            var Str = passwordHasher.VerifyHashedPassword(ComputerId, NewUserCode);  // 使用PASSWORDHASH 数值进行对比
+            if (!Convert.ToBoolean(Str))
+            {
+                ComputerId = null;
+            }
+            return ComputerId;
+        }
         public bool CheckUsrKey(string UserKey)
         {
             DateTime dateTime = DateTime.Now;
             var Psh = new PasswordHasher();
             //检查注册信息,如果未注册设定30天试用
             PasswordHasher passwordHasher = new PasswordHasher();
-            GetComputerData getComputerData = new GetComputerData();
-            string protectid = getComputerData.GetHashProtectComputerID();
+            string protectid =GetHashProtectComputerID();
             var Str = Psh.VerifyHashedPassword(UserKey, protectid);  // 使用PASSWORDHASH 数值进行对比
             if (Convert.ToBoolean(Str))
             {
@@ -78,6 +90,11 @@ namespace GetYeccSKey
             {
                 return false;
             }
+        }
+        public string GetUsrRegKey(string UserKey)
+        {
+            string Res= GetHashProtectComputerID(UserKey);
+            return Res;
         }
         #region 注册操作集
         class RegOprate

@@ -154,11 +154,10 @@ namespace RXQuestServer
             PasswordHasher passwordHasher = new PasswordHasher();
             GetComputerData getComputerData = new GetComputerData();
             string protectid = getComputerData.GetHashProtectComputerID();
-            string hashp= passwordHasher.HashPassword(protectid);
             if (RegOprate.IsRegeditExit("RegKey"))
             {
                 string RegWord = RegOprate.GetRegValue("Regkey");
-                var Str = Psh.VerifyHashedPassword(hashp, RegWord);  // 使用PASSWORDHASH 数值进行对比
+                var Str = Psh.VerifyHashedPassword(RegWord, protectid);  // 使用PASSWORDHASH 数值进行对比
                 if (Convert.ToBoolean(Str))
                 {
                     HasAccessToRun = true;
@@ -204,16 +203,17 @@ namespace RXQuestServer
                 string[] subkeyName;
                 RegistryKey hkml = Registry.LocalMachine;
                 RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+                RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 RegistryKey admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 if (admindir == null)
                 {
                     software.CreateSubKey("RXYFYECHAOCHENG");
+                    admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 }
-                admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 subkeyName = admindir.GetValueNames();
-                foreach (var KeyName in subkeyName)
+                foreach (string KeyName in subkeyName)
                 {
-                    if (KeyName == name)
+                    if (KeyName.Trim().ToUpper() == name.Trim().ToUpper())
                     {
                         _exit = true;
                         hkml.Close();
@@ -236,7 +236,18 @@ namespace RXQuestServer
             {
                 RegistryKey hklm = Registry.LocalMachine;
                 RegistryKey software = hklm.OpenSubKey("SOFTWARE", true);
-                RegistryKey admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                if (YeMainKey == null)
+                {
+                    software.CreateSubKey("RXYFYECHAOCHENG");
+                    YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                }
+                RegistryKey admindir = YeMainKey.OpenSubKey(name, true);
+                if (admindir == null)
+                {
+                    YeMainKey.CreateSubKey(name);
+                    admindir = YeMainKey.OpenSubKey(name, true);
+                }
                 admindir.SetValue(name, value);
                 hklm.Close();
                 software.Close();
@@ -246,7 +257,13 @@ namespace RXQuestServer
             {
                 RegistryKey hklm = Registry.LocalMachine;
                 RegistryKey software = hklm.OpenSubKey("SOFTWARE", true);
-                RegistryKey admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                if (YeMainKey == null)
+                {
+                    software.CreateSubKey("RXYFYECHAOCHENG");
+                    YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                }
+                RegistryKey admindir = YeMainKey.OpenSubKey(str, true);
                 object str1 = admindir.GetValue(str);
                 hklm.Close();
                 software.Close();

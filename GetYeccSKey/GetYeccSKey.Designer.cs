@@ -49,6 +49,7 @@
             this.KeyCode.Location = new System.Drawing.Point(16, 208);
             this.KeyCode.Multiline = true;
             this.KeyCode.Name = "KeyCode";
+            this.KeyCode.ReadOnly = true;
             this.KeyCode.Size = new System.Drawing.Size(645, 121);
             this.KeyCode.TabIndex = 0;
             // 
@@ -86,6 +87,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(673, 417);
             this.Controls.Add(this.GetUserKey);
             this.Controls.Add(this.label1);
@@ -93,6 +95,8 @@
             this.Controls.Add(this.KeyCode);
             this.Controls.Add(this.UserApplicatCode);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(689, 456);
+            this.MinimumSize = new System.Drawing.Size(689, 456);
             this.Name = "GetYeccSKey";
             this.Text = "GetYeccSKey";
             this.ResumeLayout(false);

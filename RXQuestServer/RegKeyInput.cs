@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,13 @@ namespace RXQuestServer
         public RegKeyInput()
         {
             InitializeComponent();
+            GetComputerData getComputerData = new GetComputerData();
+            AppliCode.Text = getComputerData.GetComputerID();
         }
 
         private void RegRxSoft_Click(object sender, EventArgs e)
         {
-            if (RegKey.Text.Trim() != string.Empty && RegKey.Text.Trim().Length==64)
+            if (RegKey.Text.Trim() != string.Empty && RegKey.Text.Trim().Length==68)
             {
                 GetComputerData getComputerData = new GetComputerData();
                var res= getComputerData.CheckUsrKey(RegKey.Text.Trim());
@@ -31,6 +34,8 @@ namespace RXQuestServer
                 else
                 {
                     MessageBox.Show("注册码输入成功，请重启软件进行使用!");
+                    Process.GetCurrentProcess().Kill();
+                    System.Environment.Exit(0);
                 }
             }
             else
