@@ -132,6 +132,7 @@
             // 
             this.ServerPort.Location = new System.Drawing.Point(249, 76);
             this.ServerPort.Name = "ServerPort";
+            this.ServerPort.PasswordChar = '*';
             this.ServerPort.Size = new System.Drawing.Size(171, 21);
             this.ServerPort.TabIndex = 7;
             this.ServerPort.Text = "40000";
@@ -406,7 +407,7 @@
             this.DeleteLastFence.Name = "DeleteLastFence";
             this.DeleteLastFence.Size = new System.Drawing.Size(90, 30);
             this.DeleteLastFence.TabIndex = 13;
-            this.DeleteLastFence.Text = "删除最后围栏";
+            this.DeleteLastFence.Text = "删除最后路径";
             this.DeleteLastFence.UseVisualStyleBackColor = true;
             this.DeleteLastFence.Click += new System.EventHandler(this.DeleteLastFence_Click);
             // 
@@ -577,12 +578,11 @@
             // 
             // ClearData
             // 
-            this.ClearData.Enabled = false;
             this.ClearData.Location = new System.Drawing.Point(121, 657);
             this.ClearData.Name = "ClearData";
             this.ClearData.Size = new System.Drawing.Size(90, 30);
             this.ClearData.TabIndex = 14;
-            this.ClearData.Text = "清空";
+            this.ClearData.Text = "清空列表";
             this.ClearData.UseVisualStyleBackColor = true;
             this.ClearData.Click += new System.EventHandler(this.ClearData_Click);
             // 

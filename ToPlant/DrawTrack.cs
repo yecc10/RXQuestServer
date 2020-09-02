@@ -68,7 +68,7 @@ namespace ToPlant
             this.StartPosition = FormStartPosition.CenterScreen;
             SocketLogs.Text = string.Empty;
             ServerIP.Text = "127.0.0.1";
-            ServerPort.Text = "40000";
+            ServerPort.Text = "42092";
             timer.Enabled = true;
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "序号";
@@ -244,7 +244,7 @@ namespace ToPlant
             dataview = new DataView(datatable);
             DataGrid.DataSource = dataview;
             DataGrid.Update();
-            index = 0;
+            index = 1;
         }
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -495,7 +495,7 @@ namespace ToPlant
             {
                 //throw;
             }
-            string Res= PlantOnline.WriteTrack("A_"+index, StartPoint, EndPoint, Ttrack, StartAngle, TCenter, EndAngle, 0, Radius, RefPoint);
+            string Res= PlantOnline.WriteTrack("A_"+(index<10?("0"+index):Convert.ToString(index)), StartPoint, EndPoint, Ttrack, StartAngle, TCenter, EndAngle, 0, Radius, RefPoint);
             if (Res != string.Empty)
             {
                 SendDataToSocket(Res);
@@ -542,7 +542,7 @@ namespace ToPlant
             {
                 //throw;
             }
-            string Res = PlantOnline.WriteTrack("A_" + index,StartPoint, EndPoint, Ttrack, 0, new double[]{ 0,0,0},0,Line.FwAngle,0, RefPoint);
+            string Res = PlantOnline.WriteTrack("A_" + (index < 10 ? ("0" + index) : Convert.ToString(index)), StartPoint, EndPoint, Ttrack, 0, new double[]{ 0,0,0},0,Line.FwAngle,0, RefPoint);
             if (Res != string.Empty)
             {
                 SendDataToSocket(Res);
@@ -736,12 +736,12 @@ namespace ToPlant
                     {
                         SocketClient.Connect(Point);
                         OnlineModel.Checked = true;
-                        SocketLogs.AppendText("服务器：" + ServerIP.Text + ":" + ServerPort.Text + "连接成功！" + DateTime.Now.ToString() + "\r\n\n");
+                        SocketLogs.AppendText("服务器：" + ServerIP.Text + ":" +ServerPort.Text.GetHashCode() + "连接成功！" + DateTime.Now.ToString() + "\r\n\n");
                     }
                     catch (System.Exception)
                     {
                         Debug.WriteLine("连接失败！");
-                        SocketLogs.AppendText("服务器：" + ServerIP.Text + ":" + ServerPort.Text + "连接失败！！！" + DateTime.Now.ToString() + "\r\n\n");
+                        SocketLogs.AppendText("服务器：" + ServerIP.Text + ":" + ServerPort.Text.GetHashCode() + "连接失败！！！" + DateTime.Now.ToString() + "\r\n\n");
                         OnlineModel.Checked = false;
                         //throw;
                     }

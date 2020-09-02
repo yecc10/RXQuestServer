@@ -42,6 +42,8 @@
             this.PlantDTrack = new System.Windows.Forms.Button();
             this.PlantDFence = new System.Windows.Forms.Button();
             this.CreateTrackOnLine = new System.Windows.Forms.Button();
+            this.Yecc_Help = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.SuspendLayout();
             // 
             // InitDelmiaDocument
@@ -66,7 +68,7 @@
             // 
             // GotoOCR
             // 
-            this.GotoOCR.Location = new System.Drawing.Point(12, 153);
+            this.GotoOCR.Location = new System.Drawing.Point(12, 106);
             this.GotoOCR.Name = "GotoOCR";
             this.GotoOCR.Size = new System.Drawing.Size(125, 41);
             this.GotoOCR.TabIndex = 0;
@@ -76,7 +78,7 @@
             // 
             // WorkData
             // 
-            this.WorkData.Location = new System.Drawing.Point(167, 153);
+            this.WorkData.Location = new System.Drawing.Point(12, 153);
             this.WorkData.Name = "WorkData";
             this.WorkData.Size = new System.Drawing.Size(125, 41);
             this.WorkData.TabIndex = 0;
@@ -139,7 +141,7 @@
             // 
             // PlantDFence
             // 
-            this.PlantDFence.Location = new System.Drawing.Point(12, 106);
+            this.PlantDFence.Location = new System.Drawing.Point(167, 106);
             this.PlantDFence.Name = "PlantDFence";
             this.PlantDFence.Size = new System.Drawing.Size(125, 41);
             this.PlantDFence.TabIndex = 0;
@@ -157,12 +159,23 @@
             this.CreateTrackOnLine.UseVisualStyleBackColor = true;
             this.CreateTrackOnLine.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
             // 
+            // Yecc_Help
+            // 
+            this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
+            this.Yecc_Help.Location = new System.Drawing.Point(167, 153);
+            this.Yecc_Help.Name = "Yecc_Help";
+            this.Yecc_Help.Size = new System.Drawing.Size(125, 41);
+            this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Yecc_Help.TabIndex = 1;
+            this.Yecc_Help.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(304, 211);
+            this.Controls.Add(this.Yecc_Help);
             this.Controls.Add(this.PlantDFence);
             this.Controls.Add(this.WeldSportTool);
             this.Controls.Add(this.WorkData);
@@ -176,6 +189,7 @@
             this.MinimumSize = new System.Drawing.Size(320, 250);
             this.Name = "Main";
             this.Text = "主入口";
+            ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,6 +209,7 @@
         private System.Windows.Forms.Button PlantDTrack;
         private System.Windows.Forms.Button PlantDFence;
         private System.Windows.Forms.Button CreateTrackOnLine;
+        private System.Windows.Forms.PictureBox Yecc_Help;
     }
 }
 
