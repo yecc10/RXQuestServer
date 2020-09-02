@@ -161,6 +161,7 @@
             // 
             // Yecc_Help
             // 
+            this.Yecc_Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
             this.Yecc_Help.Location = new System.Drawing.Point(167, 153);
             this.Yecc_Help.Name = "Yecc_Help";
