@@ -145,6 +145,7 @@
     <Compile Include="CATIA\CatiaQuickTool.Designer.cs">
       <DependentUpon>CatiaQuickTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="CATIA\CATIA_Class.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="Delmia\InitDelmiaDocument.cs">
       <SubType>Form</SubType>

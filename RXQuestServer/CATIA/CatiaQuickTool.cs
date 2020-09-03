@@ -41,6 +41,7 @@ namespace AutoDeskLine_ToPlant
         DataView dataview;
         Part PartID;
         AnyObject[] GetRepeatRef = new AnyObject[99];
+        CATIA_Class CATIA_Class = new CATIA_Class();
         int RepeatNum = 0;
         /// <summary>
         /// Value=1->Read Point;Value=2->AnyPoint
@@ -51,6 +52,7 @@ namespace AutoDeskLine_ToPlant
             InitializeComponent();
             timer.Enabled = true;
             InitDataTable();
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
         }
         private void TryRead_Click(object sender, EventArgs e)
         {
@@ -104,23 +106,6 @@ namespace AutoDeskLine_ToPlant
         {
             Process.GetCurrentProcess().Kill();
         }
-        [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
-        public object[] InputObjectType()
-        {
-            switch (ReadType)
-            {
-                case 1: //GetPoint
-                    {
-                        return new object[] { "Point", "Symmetry", "Translate" };
-                    }
-                case 2: //GetAnyObject
-                    {
-                        return new object[] { "AnyObject" };
-                    }
-                default:
-                    return new object[] { "AnyObject" };
-            }
-        }
         private void OutToEXcel_Click(object sender, EventArgs e)
         {
             RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, "Cad路径坐标值");
@@ -129,7 +114,8 @@ namespace AutoDeskLine_ToPlant
         {
             this.WindowState = FormWindowState.Minimized;
             ReadType = 2;
-            Selection SelectArc = GetSelect();
+            Selection SelectArc = null;
+            CATIA_Class.GetSelect(CatDocument,ref SelectArc,this);
             if (SelectArc == null || SelectArc.Count2 == 0)
             {
                 return;
@@ -241,7 +227,8 @@ namespace AutoDeskLine_ToPlant
             RepeatNum = 0;
             Array.Clear(GetRepeatRef, 0, GetRepeatRef.Length);
             ReadType = 2;
-            Selection SelectArc = GetSelect();
+            Selection SelectArc = null;
+            CATIA_Class.GetSelect(CatDocument, ref SelectArc, this);
             if (SelectArc == null || SelectArc.Count2 == 0)
             {
                 this.WindowState = FormWindowState.Normal;
@@ -379,7 +366,8 @@ namespace AutoDeskLine_ToPlant
             RepeatNum = 0;
             Array.Clear(GetRepeatRef, 0, GetRepeatRef.Length);
             ReadType = 1;
-            Selection SelectArc = GetSelect();
+            Selection SelectArc = null;
+            CATIA_Class.GetSelect(CatDocument, ref SelectArc, this);
             if (SelectArc == null || SelectArc.Count2 == 0)
             {
                 this.WindowState = FormWindowState.Normal;
@@ -412,194 +400,6 @@ namespace AutoDeskLine_ToPlant
             {
                 CheckRepeat(SelectArc);
             }
-        }
-        /// <summary>
-        /// 连接CATIA COM 并获得选择集
-        /// </summary>
-        /// <returns></returns>
-        private Selection GetSelect()
-        {
-            this.WindowState = FormWindowState.Minimized;
-            try
-            {
-                CatApplication = (INFITF.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Catia.Application");
-            }
-            catch (Exception)
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
-                return null;
-            }
-            CatApplication.set_Caption("正在运行瑞祥快速建模工具！");
-            // 获取当前活动ProductDocument
-            try
-            {
-                CatDocument = (ProductDocument)CatApplication.ActiveDocument;
-            }
-            catch (Exception)
-            {
-                CatDocument = (ProductDocument)CatApplication.Documents.Add("Product");
-                try
-                {
-                    CatDocument.Product.set_PartNumber("RxProduct");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("未检测到活动Product,正在为您创建，请手动辅助完成！");
-                    return null;
-                }
-                //MessageBox.Show("未检测到活动Product,已自动为您创建对象！");
-            }
-            // 添加一个新零件
-            string Name = "RXFastDesignTool";
-            try
-            {
-                //PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-                //PartID = ((PartDocument)CatApplication.Documents.Item(Name)).Part;
-                Selection FindPart = CatApplication.ActiveDocument.Selection;
-                FindPart.Search("Name=RXFastDesignTool,all");
-                if (FindPart.Count2 > 0)
-                {
-                    PartID = (Part)FindPart.Item2(1).Value; //仅拾取带个并对第一个进行操作
-                }
-                else
-                {
-                    try
-                    {
-                        CatDocument.Product.Products.AddNewComponent("Part", Name);
-                    }
-                    catch (Exception)
-                    {
-                        return null;
-                        // throw;
-                    }
-                    PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-                    OriginElements Tpart = PartID.OriginElements;
-                    AnyObject dxy = Tpart.PlaneXY;
-                    AnyObject dyz = Tpart.PlaneYZ;
-                    AnyObject dzx = Tpart.PlaneZX;
-                    Selection SelectT = CatDocument.Selection;
-                    VisPropertySet VP = SelectT.VisProperties;
-                    SelectT.Add(dxy);
-                    SelectT.Add(dyz);
-                    SelectT.Add(dzx);
-                    VP = (VisPropertySet)VP.Parent;
-                    VP.SetShow(CatVisPropertyShow.catVisPropertyNoShowAttr);
-                    SelectT.Clear();
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            try
-            {
-                CatDocument.Product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Change Design Model Faild!");
-            }
-            Selection SelectArc = CatDocument.Selection;
-            SelectArc.Clear();
-            var Result = SelectArc.SelectElement3(InputObjectType(), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
-            if (Result == "Cancel")
-            {
-                return null;
-            }
-            if (SelectArc.Count < 1)
-            {
-                MessageBox.Show("请先选择对象后再点此命令！");
-                return null;
-            }
-            this.WindowState = FormWindowState.Normal;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            return SelectArc;
-        }
-        private bool GetSelect(bool InitFrame)
-        {
-            this.WindowState = FormWindowState.Minimized;
-            try
-            {
-                CatApplication = (INFITF.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Catia.Application");
-            }
-            catch (Exception)
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
-                return false;
-                //throw;
-            }
-            CatApplication.set_Caption("正在运行瑞祥快速建模工具！");
-            // 获取当前活动ProductDocument
-            try
-            {
-                CatDocument = (ProductDocument)CatApplication.ActiveDocument;
-            }
-            catch (Exception)
-            {
-                CatDocument = (ProductDocument)CatApplication.Documents.Add("Product");
-                try
-                {
-                    CatDocument.Product.set_PartNumber("RxProduct");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("未检测到活动Product,正在为您创建，请手动辅助完成！");
-                    return false;
-                }
-                //MessageBox.Show("未检测到活动Product,已自动为您创建对象！");
-            }
-            // 添加一个新零件
-            string Name = "RXFastDesignTool";
-            try
-            {
-                PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    CatDocument.Product.Products.AddNewComponent("Part", Name);
-                }
-                catch (Exception)
-                {
-                    return false;
-                    // throw;
-                }
-                PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-                HybridBodies HBS = PartID.HybridBodies;
-                if (HBS.Count<1)
-                {
-                   HybridBody HB= HBS.Add();
-                   HB.set_Name("Geometrical Set.1");
-                }
-                OriginElements Tpart = PartID.OriginElements;
-                AnyObject dxy = Tpart.PlaneXY;
-                AnyObject dyz = Tpart.PlaneYZ;
-                AnyObject dzx = Tpart.PlaneZX;
-                Selection SelectT = CatDocument.Selection;
-                VisPropertySet VP = SelectT.VisProperties;
-                SelectT.Add(dxy);
-                SelectT.Add(dyz);
-                SelectT.Add(dzx);
-                VP = (VisPropertySet)VP.Parent;
-                VP.SetShow(CatVisPropertyShow.catVisPropertyNoShowAttr);
-                SelectT.Clear();
-            }
-            try
-            {
-                CatDocument.Product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Change Design Model Faild!");
-            }
-            this.WindowState = FormWindowState.Normal;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            return true;
         }
         [STAThread]
         private void Aix_To_Ball_Click(object sender, EventArgs e)
@@ -663,13 +463,14 @@ namespace AutoDeskLine_ToPlant
         //子线程中
         private void Creat3dBall_Click(object sender, EventArgs e)//Creat3dPoint_Click
         {
-            Creat3dBall.BackColor = SystemColors.ActiveCaption;
-            ReadType = 2;
-            bool SelectArc = GetSelect(false);
-            if (SelectArc == false)
+            DataGrid.AllowUserToAddRows = false;
+            if (PartID==null)
             {
+                MessageBox.Show("仿真环境未初始化！请先用工具栏初始化命令初始化运行环境!");
                 return;
             }
+            Creat3dBall.BackColor = SystemColors.ActiveCaption;
+            ReadType = 2;
             int ERR = 0;
             if (DataGrid.RowCount < 1)
             {
@@ -742,11 +543,12 @@ namespace AutoDeskLine_ToPlant
         }
         private void Creat3dPoint_Click(object sender, EventArgs e)//Creat3dBall_Click
         {
+            DataGrid.AllowUserToAddRows = false;
             Creat3dPoint.BackColor = SystemColors.ActiveCaption;
             ReadType = 2;
-            bool SelectArc = GetSelect(false);
-            if (SelectArc == false)
+            if (PartID == null)
             {
+                MessageBox.Show("仿真环境未初始化！请先用工具栏初始化命令初始化运行环境!");
                 return;
             }
             int ERR = 0;
@@ -781,7 +583,7 @@ namespace AutoDeskLine_ToPlant
                     NewPoint.set_Name("Rx_" + (i + 1));
                 }
                 HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = Hybs.Item("几何图形集.1");
+                HybridBody Hyb = Hybs.Item(1);
                 Hyb.AppendHybridShape(NewPoint);
                 PartID.InWorkObject = NewPoint;
                 try
@@ -820,7 +622,7 @@ namespace AutoDeskLine_ToPlant
             }
             if (CatDocument == null)
             {
-                InitCatEnv();
+                CATIA_Class.InitCatEnv(ref CatApplication, ref  CatDocument, ref PartID, this);
             }
             Product Cproduct;
             try
@@ -829,7 +631,7 @@ namespace AutoDeskLine_ToPlant
             }
             catch (Exception)
             {
-                InitCatEnv();
+                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
                 Cproduct = CatDocument.Product;
             }
             Products Cps = Cproduct.Products;
@@ -934,65 +736,6 @@ namespace AutoDeskLine_ToPlant
             }
             ShowCenter();
         }
-        /// <summary>
-        /// 初始化CATIA环境并获取信息到全局变量 
-        /// </summary>
-        /// <returns></returns>
-        private bool InitCatEnv()
-        {
-            try
-            {
-                CatApplication = (INFITF.Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Catia.Application");
-            }
-            catch (Exception)
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
-                return false;
-                //throw;
-            }
-            CatApplication.set_Caption("正在运行瑞祥快速建模工具！");
-            // 获取当前活动ProductDocument
-            try
-            {
-                CatDocument = (ProductDocument)CatApplication.ActiveDocument;
-            }
-            catch (Exception)
-            {
-                CatDocument = (ProductDocument)CatApplication.Documents.Add("Product");
-                try
-                {
-                    CatDocument.Product.set_PartNumber("RxProduct");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("未检测到活动Product,正在为您创建，请手动辅助完成！");
-                    return false;
-                }
-                //MessageBox.Show("未检测到活动Product,已自动为您创建对象！");
-            }
-            // 添加一个新零件
-            string Name = "RXFastDesignTool";
-            try
-            {
-                PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    CatDocument.Product.Products.AddNewComponent("Part", Name);
-                }
-                catch (Exception)
-                {
-                    return false;
-                    // throw;
-                }
-                PartID = ((PartDocument)CatApplication.Documents.Item(Name + ".CATPart")).Part;
-            }
-            return true;
-        }
         private Product AddProduct(Products TargetProduct, string Name)
         {
             try
@@ -1042,7 +785,7 @@ namespace AutoDeskLine_ToPlant
 
         private void InitCatia_Click(object sender, EventArgs e)
         {
-            InitCatEnv();
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
         }
     }
 }
