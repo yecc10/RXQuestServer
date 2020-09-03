@@ -129,5 +129,29 @@ namespace RXQuestServer.Properties {
                 this["AccessTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string VisionType {
+            get {
+                return ((string)(this["VisionType"]));
+            }
+            set {
+                this["VisionType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Vision {
+            get {
+                return ((string)(this["Vision"]));
+            }
+            set {
+                this["Vision"] = value;
+            }
+        }
     }
 }

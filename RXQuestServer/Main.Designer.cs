@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.InitDelmiaDocument = new System.Windows.Forms.Button();
             this.WeldSportTool = new System.Windows.Forms.Button();
@@ -43,6 +44,7 @@
             this.PlantDFence = new System.Windows.Forms.Button();
             this.CreateTrackOnLine = new System.Windows.Forms.Button();
             this.Yecc_Help = new System.Windows.Forms.PictureBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.SuspendLayout();
             // 
@@ -169,6 +171,7 @@
             this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Yecc_Help.TabIndex = 1;
             this.Yecc_Help.TabStop = false;
+            this.Yecc_Help.Click += new System.EventHandler(this.Yecc_Help_Click);
             // 
             // Main
             // 
@@ -211,6 +214,7 @@
         private System.Windows.Forms.Button PlantDFence;
         private System.Windows.Forms.Button CreateTrackOnLine;
         private System.Windows.Forms.PictureBox Yecc_Help;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

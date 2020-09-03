@@ -838,7 +838,10 @@ namespace ToPlant
         {
             try
             {
-                SocketClient.Close();
+                if (SocketClient!=null)
+                {
+                    SocketClient.Close();
+                }
                 //System.Environment.Exit(0);
                 ThreadClient.DisableComObjectEagerCleanup();
                 Process.GetCurrentProcess().Kill();

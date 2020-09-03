@@ -25,6 +25,7 @@ namespace RXQuestServer
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
+            timer.Enabled = true;
         }
 
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
@@ -161,6 +162,7 @@ namespace RXQuestServer
                 if (Convert.ToBoolean(Str))
                 {
                     HasAccessToRun = true;
+                    Properties.Settings.Default.VisionType = "正式授权版";
                     return;
                 }
             }
@@ -168,21 +170,26 @@ namespace RXQuestServer
             if (RegOprate.IsRegeditExit("SetUpTime"))
             {
                 DateTime RegWord =Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
-                if (dateTime> RegWord)
+                DateTime dateTime1 = dateTime.AddDays(30);
+                if (dateTime1 < RegWord)
                 {
+                    Properties.Settings.Default.VisionType = "30天试用版";
                     MessageBox.Show("当前试用30天已过期，请申请正式版本！");
                 }
                 else
                 {
+                    Properties.Settings.Default.VisionType = "30天试用版";
                     HasAccessToRun = true;
+                    Yecc_Help.Enabled = true;
                     return;
                 }
             }
             else
             {
-                DateTime dateTime1 = dateTime.AddDays(30);
+                DateTime dateTime1 = dateTime;
                 RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
                 HasAccessToRun = true;
+                Properties.Settings.Default.VisionType = "30天试用版";
                 return;
             }
             //非注册用户并超期试用，强制退出
@@ -214,7 +221,8 @@ namespace RXQuestServer
                 subkeyName = admindir.GetValueNames();
                 foreach (string KeyName in subkeyName)
                 {
-                    if (KeyName.Trim().ToUpper() == name.Trim().ToUpper())
+                    RegistryKey registryKey = admindir.OpenSubKey(name, true);
+                    if (KeyName.Trim().ToUpper() == name.Trim().ToUpper() && registryKey != null)
                     {
                         _exit = true;
                         hkml.Close();
@@ -274,5 +282,10 @@ namespace RXQuestServer
 
         }
         #endregion
+
+        private void Yecc_Help_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

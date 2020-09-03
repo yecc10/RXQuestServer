@@ -33,7 +33,8 @@ namespace YeccAutoCenter
             /// <returns></returns>
             static public bool SaveExcelForLvSport(DataGridView dataGridView, string SportName)
             {
-                if (dataGridView.Rows.Count > 1)
+                dataGridView.AllowUserToAddRows = false;
+                if (dataGridView.Rows.Count > 0)
                 {
                     HSSFWorkbook wkb = new HSSFWorkbook();
                     ISheet sheet = wkb.CreateSheet("瑞祥工业物流组");
@@ -43,7 +44,7 @@ namespace YeccAutoCenter
                     ICellStyle CST = wkb.CreateCellStyle();
                     CST.VerticalAlignment = VerticalAlignment.Center;
                     CST.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
-                    for (int i = 0; i < dataGridView.Rows[1].Cells.Count; i++) //初始化表头
+                    for (int i = 0; i < dataGridView.Rows[0].Cells.Count; i++) //初始化表头
                     {
                         ICell HeadCell = HeadRow.CreateCell(i);
                         HeadCell.SetCellValue(dataGridView.Columns[i].HeaderText);
