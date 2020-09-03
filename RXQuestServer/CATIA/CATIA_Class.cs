@@ -28,6 +28,7 @@ using CATMat;
 using FittingTypeLib;
 using DNBASY;
 using YeccAutoCenter;
+using NPOI.XWPF.UserModel;
 
 namespace AutoDeskLine_ToPlant
 {
@@ -150,7 +151,7 @@ namespace AutoDeskLine_ToPlant
             form.WindowState = FormWindowState.Minimized;
             SelectArc = CatDocument.Selection;
             SelectArc.Clear();
-            var Result = SelectArc.SelectElement3(InputObjectType(2), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
+            var Result = SelectArc.SelectElement3(InputObjectType(4), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
             if (Result == "Cancel")
             {
                 return ;
@@ -160,31 +161,6 @@ namespace AutoDeskLine_ToPlant
                 MessageBox.Show("请先选择对象后再点此命令！");
                 return ;
             }
-            form.WindowState = FormWindowState.Normal;
-            form.StartPosition = FormStartPosition.CenterScreen;
-            return;
-        }
-        public void GetSelect(bool InitFrame, ProductDocument CatDocument, ref Selection SelectArc, Form form)
-        {
-            if (CatDocument==null)
-            {
-                MessageBox.Show("仿真环境未初始化！请先用工具栏初始化命令初始化运行环境!");
-                return;
-            }
-            form.WindowState = FormWindowState.Minimized;
-            SelectArc = CatDocument.Selection;
-            SelectArc.Clear();
-            var Result = SelectArc.SelectElement3(InputObjectType(2), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
-            if (Result == "Cancel")
-            {
-                return ;
-            }
-            if (SelectArc.Count < 1)
-            {
-                MessageBox.Show("请先选择对象后再点此命令！");
-                return ;
-            }
-            form.WindowState = FormWindowState.Minimized;
             form.WindowState = FormWindowState.Normal;
             form.StartPosition = FormStartPosition.CenterScreen;
             return;
@@ -201,6 +177,18 @@ namespace AutoDeskLine_ToPlant
                 case 2: //GetAnyObject
                     {
                         return new object[] { "AnyObject" };
+                    }
+                case 3: //SketchBasedShape 
+                    {
+                        return new object[] { "Sweep", "prisms", "holes", "revolutions"};
+                    }
+                case 4: //BooleanShape  
+                    {
+                        return new object[] { "HybridShape", "Shape"};
+                    }
+                case 5: //BooleanShape  
+                    {
+                        return new object[] { "HybridShape", "Shape", "Body" };
                     }
                 default:
                     return new object[] { "AnyObject" };

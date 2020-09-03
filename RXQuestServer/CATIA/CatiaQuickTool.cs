@@ -115,7 +115,7 @@ namespace AutoDeskLine_ToPlant
             this.WindowState = FormWindowState.Minimized;
             ReadType = 2;
             Selection SelectArc = null;
-            CATIA_Class.GetSelect(CatDocument,ref SelectArc,this);
+            CATIA_Class.GetSelect(CatDocument, ref SelectArc, this);
             if (SelectArc == null || SelectArc.Count2 == 0)
             {
                 return;
@@ -237,55 +237,83 @@ namespace AutoDeskLine_ToPlant
                 return;
             }
             int ERR = 0;
-            for (int i = 1; i <= SelectArc.Count2; i++)
+            for (int i = 1; i < SelectArc.Count2 + 1; i++)
             {
                 object[] PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
                 SPAWorkbench TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench");
                 Reference referenceObject;
-                try
+                String ObjType = SelectArc.Item(i).Type;
+                Boolean LeafProductProcessed;
+                switch (ObjType)
                 {
-                    //Temp = PartID.CreateReferenceFromGeometry((AnyObject)SelectArc.Item(i).Value);
-                    referenceObject = SelectArc.Item(i).Reference;//!=null? SelectArc.Item(i).Reference: Temp;
-                }
-                catch (Exception)
-                {
-                    Boolean LeafProductProcessed;
-                    AnyObject Feature = (AnyObject)SelectArc.Item(i).Value;
-                    try
-                    {
-                        String Name=string.Empty;
-                        Shape GE = (Shape)SelectArc.Item(i).Value;
-                        //Name = GE.get_Name();
-                        //Pad Spad = (Pad)GE.GetItem("Face1");
-                        //Name = Spad.get_Name();
-                        referenceObject = PartID.CreateReferenceFromObject(Feature);
-                        PartHyb.AddNewPointCenter(referenceObject);
-                    }
-                    catch (Exception)
-                    {
-                        ERR += 1;
-                        var LeafProduct = SelectArc.Item(i).LeafProduct;
-                        LeafProductProcessed = true;
-                        if (LeafProduct.get_Name() == "InvalidLeafProduct")
+                    case "HybridShape":
                         {
-                            LeafProductProcessed = false;
+                            referenceObject = SelectArc.Item(i).Reference;//!=null? SelectArc.Item(i).Reference: Temp;
+                            break;
                         }
-                        if (LeafProductProcessed)
+                    case "Shape":
                         {
-                            String ShapeName = Feature.get_Name();
-                            VisPropertySet VPS = SelectArc.VisProperties;
-                            VPS.SetVisibleColor(255, 0, 0, 0);
-                            continue;
+                            PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
+                            Shape shape = (Shape)SelectArc.Item(i).Value;
+                            SelectArc.Clear();
+                            SelectArc.Add(shape);
+                            referenceObject = SelectArc.Item(1).Reference;
+                            Name = shape.get_Name();
+                            UserPattern userPattern= shape;
+                            userPattern.ActivatePosition(0, 0);
+                            userPattern.AddFeatureToLocatePositions(shape);
+                            //FeatureToLocatePositions
+                            Product product = (Product)SelectArc.Item(i).LeafProduct;
+                            HybridShapeExtract hybridShapeExtract = PartHyb.AddNewExtract(referenceObject);
+                            hybridShapeExtract.PropagationType = 3;
+                            hybridShapeExtract.Compute();
+                            HybridBodies Hybs = PartID.HybridBodies;
+                            HybridBody Hyb = Hybs.Item(1);
+                            Hyb.AppendHybridShape(hybridShapeExtract);
+                            PartID.InWorkObject = hybridShapeExtract;
+                            PartID.Update();
+                            break;
                         }
-                        else
+                    default:
                         {
-                            String ShapeName = Feature.get_Name();
-                            VisPropertySet VPS = SelectArc.VisProperties;
-                            VPS.SetVisibleColor(255, 0, 0, 0);
-                            continue;
+                            AnyObject Feature = (AnyObject)SelectArc.Item(i).Value;
+                            try
+                            {
+                                String Name = string.Empty;
+                                Shape GE = (Shape)SelectArc.Item(i).Value;
+                                //Name = GE.get_Name();
+                                //Pad Spad = (Pad)GE.GetItem("Face1");
+                                //Name = Spad.get_Name();
+                                referenceObject = PartID.CreateReferenceFromObject(Feature);
+                                PartHyb.AddNewPointCenter(referenceObject);
+                            }
+                            catch (Exception)
+                            {
+                                ERR += 1;
+                                var LeafProduct = SelectArc.Item(i).LeafProduct;
+                                LeafProductProcessed = true;
+                                if (LeafProduct.get_Name() == "InvalidLeafProduct")
+                                {
+                                    LeafProductProcessed = false;
+                                }
+                                if (LeafProductProcessed)
+                                {
+                                    String ShapeName = Feature.get_Name();
+                                    VisPropertySet VPS = SelectArc.VisProperties;
+                                    VPS.SetVisibleColor(255, 0, 0, 0);
+                                    continue;
+                                }
+                                else
+                                {
+                                    String ShapeName = Feature.get_Name();
+                                    VisPropertySet VPS = SelectArc.VisProperties;
+                                    VPS.SetVisibleColor(255, 0, 0, 0);
+                                    continue;
+                                }
+                            }
                         }
-                    }
+                        break;
                 }
                 Measurable TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
                 var TName = referenceObject.get_Name(); //读取选择的曲面名称
@@ -427,11 +455,11 @@ namespace AutoDeskLine_ToPlant
                 //RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, DataGrid);
                 if (ByExcel.Checked)
                 {
-                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint,null);
+                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint, null);
                 }
                 else
                 {
-                   RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable);
+                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable);
                 }
                 ReadAixPoint.BackColor = Color.Green;
                 SetDataGrid();
@@ -464,7 +492,7 @@ namespace AutoDeskLine_ToPlant
         private void Creat3dBall_Click(object sender, EventArgs e)//Creat3dPoint_Click
         {
             DataGrid.AllowUserToAddRows = false;
-            if (PartID==null)
+            if (PartID == null)
             {
                 MessageBox.Show("仿真环境未初始化！请先用工具栏初始化命令初始化运行环境!");
                 return;
@@ -622,7 +650,7 @@ namespace AutoDeskLine_ToPlant
             }
             if (CatDocument == null)
             {
-                CATIA_Class.InitCatEnv(ref CatApplication, ref  CatDocument, ref PartID, this);
+                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
             }
             Product Cproduct;
             try
@@ -649,7 +677,7 @@ namespace AutoDeskLine_ToPlant
                     String GunName = DataGrid.Rows[i + 1].Cells[1].Value.ToString();
                     if (TName == "ChangeGun")
                     {
-                        A: GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+                    A: GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
                         if (string.IsNullOrEmpty(GunPath))
                         {
                             var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
