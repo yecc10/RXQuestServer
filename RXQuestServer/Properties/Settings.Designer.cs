@@ -132,7 +132,7 @@ namespace RXQuestServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("试用版")]
         public string VisionType {
             get {
                 return ((string)(this["VisionType"]));

@@ -173,6 +173,10 @@
             this.Yecc_Help.TabStop = false;
             this.Yecc_Help.Click += new System.EventHandler(this.Yecc_Help_Click);
             // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);

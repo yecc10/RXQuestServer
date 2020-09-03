@@ -26,6 +26,7 @@ namespace RXQuestServer
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
             timer.Enabled = true;
+            CheckUserAccess();
         }
 
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
@@ -162,6 +163,7 @@ namespace RXQuestServer
                 if (Convert.ToBoolean(Str))
                 {
                     HasAccessToRun = true;
+                    Yecc_Help.Enabled = false;
                     Properties.Settings.Default.VisionType = "正式授权版";
                     return;
                 }
@@ -285,7 +287,14 @@ namespace RXQuestServer
 
         private void Yecc_Help_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            RegKeyInput regKeyInput = new RegKeyInput();
+            regKeyInput.Show();
+        }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            this.Text = "YECC_SYS_"+Properties.Settings.Default.VisionType.ToString();
         }
     }
 }

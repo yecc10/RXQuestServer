@@ -843,7 +843,10 @@ namespace ToPlant
                     SocketClient.Close();
                 }
                 //System.Environment.Exit(0);
-                ThreadClient.DisableComObjectEagerCleanup();
+                if (ThreadClient!=null)
+                {
+                    ThreadClient.DisableComObjectEagerCleanup();
+                }
                 Process.GetCurrentProcess().Kill();
             }
             catch (System.Exception)

@@ -30,7 +30,7 @@
       <Value Profile="(Default)">1900-01-01</Value>
     </Setting>
     <Setting Name="VisionType" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">试用版</Value>
     </Setting>
     <Setting Name="Vision" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
