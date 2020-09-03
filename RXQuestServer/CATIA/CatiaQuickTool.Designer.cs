@@ -52,6 +52,8 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.SportOprator = new System.Windows.Forms.ToolStripDropDownButton();
             this.ExtraSport = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.InitCatia = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -254,7 +256,8 @@
             // 
             this.toolStrip.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SportOprator});
+            this.SportOprator,
+            this.toolStripDropDownButton1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(880, 25);
@@ -279,6 +282,25 @@
             this.ExtraSport.Size = new System.Drawing.Size(180, 22);
             this.ExtraSport.Text = "实体焊点转几何";
             this.ExtraSport.Click += new System.EventHandler(this.ExtraSport_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.InitCatia});
+            this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Gear;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "CATIA操作";
+            // 
+            // InitCatia
+            // 
+            this.InitCatia.Image = global::RXQuestServer.Properties.Resources.Health;
+            this.InitCatia.Name = "InitCatia";
+            this.InitCatia.Size = new System.Drawing.Size(180, 22);
+            this.InitCatia.Text = "初始化CATIA";
+            this.InitCatia.Click += new System.EventHandler(this.InitCatia_Click);
             // 
             // CatiaQuickTool
             // 
@@ -343,5 +365,7 @@
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripDropDownButton SportOprator;
         private System.Windows.Forms.ToolStripMenuItem ExtraSport;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem InitCatia;
     }
 }

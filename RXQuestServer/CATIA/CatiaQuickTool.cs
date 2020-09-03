@@ -1039,5 +1039,10 @@ namespace AutoDeskLine_ToPlant
         {
 
         }
+
+        private void InitCatia_Click(object sender, EventArgs e)
+        {
+            InitCatEnv();
+        }
     }
 }
