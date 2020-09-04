@@ -258,8 +258,9 @@ namespace AutoDeskLine_ToPlant
                             string Name = string.Empty;
                             Shape shape = (Shape)SelectArc.Item(i).Value;
                             Product product = (Product)SelectArc.Item(i).LeafProduct;
-                            TName = product.get_Name(); //读取选择的曲面名称
-                            Part RefPart = ((PartDocument)CatApplication.Documents.Item(TName + ".CATPart")).Part;
+                            TName = product.get_PartNumber(); //读取选择的曲面名称
+                            String RefStr = product.GetMasterShapeRepresentationPathName();
+                            Part RefPart = ((PartDocument)CatApplication.Documents.Item(RefStr)).Part;
                             referenceObject = RefPart.CreateReferenceFromObject(shape);
                             break;
                         }
