@@ -28,6 +28,7 @@ using CATMat;
 using FittingTypeLib;
 using DNBASY;
 using YeccAutoCenter;
+using CATSchematicTypeLib;
 
 namespace AutoDeskLine_ToPlant
 {
@@ -147,10 +148,8 @@ namespace AutoDeskLine_ToPlant
                 }
                 catch (Exception)
                 {
-
                     Hyb = Hybs.Item("Geometrical Set.1");
                 }
-
                 Hyb.AppendHybridShape(NewPoint);
                 PartID.InWorkObject = NewPoint;
                 try
@@ -245,34 +244,23 @@ namespace AutoDeskLine_ToPlant
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;
+                string TName = string.Empty; 
                 switch (ObjType)
                 {
                     case "HybridShape":
                         {
                             referenceObject = SelectArc.Item(i).Reference;//!=null? SelectArc.Item(i).Reference: Temp;
+                            TName = referenceObject.get_Name(); //读取选择的曲面名称
                             break;
                         }
                     case "Shape":
                         {
-                            PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
+                            string Name = string.Empty;
                             Shape shape = (Shape)SelectArc.Item(i).Value;
-                            SelectArc.Clear();
-                            SelectArc.Add(shape);
-                            referenceObject = SelectArc.Item(1).Reference;
-                            Name = shape.get_Name();
-                            UserPattern userPattern= shape;
-                            userPattern.ActivatePosition(0, 0);
-                            userPattern.AddFeatureToLocatePositions(shape);
-                            //FeatureToLocatePositions
                             Product product = (Product)SelectArc.Item(i).LeafProduct;
-                            HybridShapeExtract hybridShapeExtract = PartHyb.AddNewExtract(referenceObject);
-                            hybridShapeExtract.PropagationType = 3;
-                            hybridShapeExtract.Compute();
-                            HybridBodies Hybs = PartID.HybridBodies;
-                            HybridBody Hyb = Hybs.Item(1);
-                            Hyb.AppendHybridShape(hybridShapeExtract);
-                            PartID.InWorkObject = hybridShapeExtract;
-                            PartID.Update();
+                            TName = product.get_Name(); //读取选择的曲面名称
+                            Part RefPart = ((PartDocument)CatApplication.Documents.Item(TName + ".CATPart")).Part;
+                            referenceObject = RefPart.CreateReferenceFromObject(shape);
                             break;
                         }
                     default:
@@ -316,7 +304,6 @@ namespace AutoDeskLine_ToPlant
                         break;
                 }
                 Measurable TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
-                var TName = referenceObject.get_Name(); //读取选择的曲面名称
                 try
                 {
                     TheMeasurable.GetPoint(PointCoord); //读取选择的曲面坐标
@@ -347,6 +334,7 @@ namespace AutoDeskLine_ToPlant
             {
                 CheckRepeat(SelectArc);
             }
+            DataGrid.AllowUserToAddRows = false;
         }
         private void CheckRepeat(Selection SelectArc)
         {

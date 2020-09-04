@@ -85,6 +85,8 @@ namespace AutoDeskLine_ToPlant
             {
                 Console.WriteLine("Change Design Model Faild!");
             }
+            Selection selection = CatDocument.Selection;
+            selection.Clear();
             CreatWorkPart(CatApplication, CatDocument, ref PartID); //Get New Part For Work
             return true;
         }
