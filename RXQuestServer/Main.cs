@@ -25,7 +25,7 @@ namespace RXQuestServer
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
-            timer.Enabled = false;
+            timer.Enabled = true;
             this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
             CheckUserAccess();
         }
@@ -214,7 +214,6 @@ namespace RXQuestServer
                 string[] subkeyName;
                 RegistryKey hkml = Registry.LocalMachine;
                 RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
-                RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 RegistryKey admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 if (admindir == null)
                 {
@@ -237,6 +236,37 @@ namespace RXQuestServer
                 hkml.Close();
                 software.Close();
                 admindir.Close();
+                return _exit;
+            }
+            static public bool DeleteRegedit(string name)
+            {
+                bool _exit = false;
+                string[] subkeyName;
+                RegistryKey hkml = Registry.LocalMachine;
+                RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+                RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                if (YeMainKey == null)
+                {
+                    software.CreateSubKey("RXYFYECHAOCHENG");
+                    YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
+                }
+                subkeyName = YeMainKey.GetValueNames();
+                foreach (string KeyName in subkeyName)
+                {
+                    RegistryKey registryKey = YeMainKey.OpenSubKey(name, true);
+                    if (KeyName.Trim().ToUpper() == name.Trim().ToUpper() && registryKey != null)
+                    {
+                        YeMainKey.DeleteSubKey(name);
+                        _exit = true;
+                        hkml.Close();
+                        software.Close();
+                        registryKey.Close();
+                        return _exit;
+                    }
+                }
+                hkml.Close();
+                software.Close();
+                YeMainKey.Close();
                 return _exit;
             }
             /// <summary>
@@ -297,7 +327,7 @@ namespace RXQuestServer
         {
             //this.Text = "YECC_SYS_"+Application.ProductVersion.ToString()+Properties.Settings.Default.VisionType.ToString();
             //this.Text = "YECC_SYS_" + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
-            //this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
+            this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
         }
     }
 }
