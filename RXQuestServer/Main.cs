@@ -25,7 +25,8 @@ namespace RXQuestServer
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
-            timer.Enabled = true;
+            timer.Enabled = false;
+            this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
             CheckUserAccess();
         }
 
@@ -294,7 +295,9 @@ namespace RXQuestServer
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = "YECC_SYS_"+Properties.Settings.Default.VisionType.ToString();
+            //this.Text = "YECC_SYS_"+Application.ProductVersion.ToString()+Properties.Settings.Default.VisionType.ToString();
+            //this.Text = "YECC_SYS_" + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
+            //this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
         }
     }
 }

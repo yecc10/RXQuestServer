@@ -60,7 +60,7 @@
             // 
             // WeldSportTool
             // 
-            this.WeldSportTool.Location = new System.Drawing.Point(167, 12);
+            this.WeldSportTool.Location = new System.Drawing.Point(177, 12);
             this.WeldSportTool.Name = "WeldSportTool";
             this.WeldSportTool.Size = new System.Drawing.Size(125, 41);
             this.WeldSportTool.TabIndex = 0;
@@ -143,7 +143,7 @@
             // 
             // PlantDFence
             // 
-            this.PlantDFence.Location = new System.Drawing.Point(167, 106);
+            this.PlantDFence.Location = new System.Drawing.Point(177, 106);
             this.PlantDFence.Name = "PlantDFence";
             this.PlantDFence.Size = new System.Drawing.Size(125, 41);
             this.PlantDFence.TabIndex = 0;
@@ -153,7 +153,7 @@
             // 
             // CreateTrackOnLine
             // 
-            this.CreateTrackOnLine.Location = new System.Drawing.Point(167, 59);
+            this.CreateTrackOnLine.Location = new System.Drawing.Point(177, 59);
             this.CreateTrackOnLine.Name = "CreateTrackOnLine";
             this.CreateTrackOnLine.Size = new System.Drawing.Size(125, 41);
             this.CreateTrackOnLine.TabIndex = 0;
@@ -165,7 +165,7 @@
             // 
             this.Yecc_Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
-            this.Yecc_Help.Location = new System.Drawing.Point(167, 153);
+            this.Yecc_Help.Location = new System.Drawing.Point(177, 153);
             this.Yecc_Help.Name = "Yecc_Help";
             this.Yecc_Help.Size = new System.Drawing.Size(125, 41);
             this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -182,7 +182,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(304, 211);
+            this.ClientSize = new System.Drawing.Size(314, 211);
             this.Controls.Add(this.Yecc_Help);
             this.Controls.Add(this.PlantDFence);
             this.Controls.Add(this.WeldSportTool);
@@ -193,8 +193,8 @@
             this.Controls.Add(this.InitDelmiaDocument);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(320, 250);
-            this.MinimumSize = new System.Drawing.Size(320, 250);
+            this.MaximumSize = new System.Drawing.Size(330, 250);
+            this.MinimumSize = new System.Drawing.Size(330, 250);
             this.Name = "Main";
             this.Text = "主入口";
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).EndInit();
