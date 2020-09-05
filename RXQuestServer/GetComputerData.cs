@@ -49,9 +49,21 @@ namespace RXQuestServer
             }
             return BIOSID;
         }
+        private string GetDiskID()
+        {
+            ManagementClass managClass = new ManagementClass("win32_logicaldisk");
+            ManagementObjectCollection moc = managClass.GetInstances();
+            string DiskID = null;
+            foreach (ManagementObject item in moc)
+            {
+                DiskID = item.Properties["VolumeSerialNumber"].Value.ToString();
+                break;
+            }
+            return DiskID;
+        }
         public string GetComputerID()
         {
-            string ComputerId = GetBoardID() + GetBoardID() + GetCPUID();
+            string ComputerId = GetBoardID() + GetBoardID() + GetCPUID()+ GetDiskID();
             return ComputerId;
         }
         public string GetHashProtectComputerID()

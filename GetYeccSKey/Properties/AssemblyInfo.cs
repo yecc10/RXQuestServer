@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("GetYeccSKey")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("安徽瑞祥工业_数字化程序秘钥生成器")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("安徽瑞祥工业")]
 [assembly: AssemblyProduct("GetYeccSKey")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
