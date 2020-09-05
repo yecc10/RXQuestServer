@@ -260,8 +260,21 @@ namespace AutoDeskLine_ToPlant
                             Product product = (Product)SelectArc.Item(i).LeafProduct;
                             TName = product.get_PartNumber(); //读取选择的曲面名称
                             String RefStr = product.GetMasterShapeRepresentationPathName(); //获取零件路径地址
+                            string[] RefStrArry = RefStr.Split('\\');
+                            if (RefStrArry.Length>1)
+                            {
+                                RefStr = RefStrArry.Last();
+                            }
                             Part RefPart = ((PartDocument)CatApplication.Documents.Item(RefStr)).Part;//通过总文档将当前零件转换成PartDocumet
-                            referenceObject = RefPart.CreateReferenceFromObject(shape);
+                            try
+                            {
+                                referenceObject = RefPart.CreateReferenceFromObject(shape);
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("请确认当前是否打开了多个窗口，软件识别的零件和您选择的零件不在一个集合!");
+                                return;
+                            }
                             break;
                         }
                     default:
