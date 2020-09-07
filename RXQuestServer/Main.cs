@@ -220,7 +220,7 @@ namespace RXQuestServer
                     software.CreateSubKey("RXYFYECHAOCHENG");
                     admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 }
-                subkeyName = admindir.GetValueNames();
+                subkeyName = admindir.GetSubKeyNames();
                 foreach (string KeyName in subkeyName)
                 {
                     RegistryKey registryKey = admindir.OpenSubKey(name, true);
@@ -250,7 +250,7 @@ namespace RXQuestServer
                     software.CreateSubKey("RXYFYECHAOCHENG");
                     YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
                 }
-                subkeyName = YeMainKey.GetValueNames();
+                subkeyName = YeMainKey.GetSubKeyNames();
                 foreach (string KeyName in subkeyName)
                 {
                     RegistryKey registryKey = YeMainKey.OpenSubKey(name, true);

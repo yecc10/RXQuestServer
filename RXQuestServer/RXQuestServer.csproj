@@ -1597,13 +1597,13 @@
     <Content Include="YI.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\03 RX_DataUpdata\RX_DataUpdata\RX_DataCenter.csproj">
-      <Project>{a0824ee8-ad38-4f64-9f47-050e5464d190}</Project>
-      <Name>RX_DataCenter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OcrCenter\OcrCenter.csproj">
       <Project>{ed1b3ad1-9387-4c6e-85f1-581991da347a}</Project>
       <Name>OcrCenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RX_DataUpdata\RX_DataUpdata\RX_DataCenter.csproj">
+      <Project>{a0824ee8-ad38-4f64-9f47-050e5464d190}</Project>
+      <Name>RX_DataCenter</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToPlant\ToPlant.csproj">
       <Project>{37ac02fd-43e4-41b8-8638-21d78c0a82d8}</Project>

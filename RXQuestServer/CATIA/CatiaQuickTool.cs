@@ -808,14 +808,14 @@ namespace AutoDeskLine_ToPlant
             datatable.Columns.Add(dataColum);
         }
 
-        private void ExtraSport_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void InitCatia_Click(object sender, EventArgs e)
         {
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
+        }
+
+        private void ExtraPadToSurface_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
