@@ -40,9 +40,9 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.MainTool = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InitDelmia = new System.Windows.Forms.ToolStripMenuItem();
             this.WeldSport = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.plant离线创建路径ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plant在线创建路径ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plant创建围栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +52,7 @@
             this.oCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.办公ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReadHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.信息反馈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpProvider = new System.Windows.Forms.HelpProvider();
@@ -146,6 +146,20 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 36);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
+            // InitDelmia
+            // 
+            this.InitDelmia.Name = "InitDelmia";
+            this.InitDelmia.Size = new System.Drawing.Size(140, 22);
+            this.InitDelmia.Text = "Delmia仿真";
+            this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
+            // 
+            // WeldSport
+            // 
+            this.WeldSport.Name = "WeldSport";
+            this.WeldSport.Size = new System.Drawing.Size(140, 22);
+            this.WeldSport.Text = "焊点处理";
+            this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
+            // 
             // toolStripDropDownButton2
             // 
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -160,45 +174,31 @@
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(45, 36);
             this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
             // 
-            // InitDelmia
-            // 
-            this.InitDelmia.Name = "InitDelmia";
-            this.InitDelmia.Size = new System.Drawing.Size(180, 22);
-            this.InitDelmia.Text = "Delmia仿真";
-            this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
-            // 
-            // WeldSport
-            // 
-            this.WeldSport.Name = "WeldSport";
-            this.WeldSport.Size = new System.Drawing.Size(180, 22);
-            this.WeldSport.Text = "焊点处理";
-            this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
-            // 
             // plant离线创建路径ToolStripMenuItem
             // 
             this.plant离线创建路径ToolStripMenuItem.Name = "plant离线创建路径ToolStripMenuItem";
-            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant离线创建路径ToolStripMenuItem.Text = "Plant离线创建路径";
             this.plant离线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.PlantDTrack_Click);
             // 
             // plant在线创建路径ToolStripMenuItem
             // 
             this.plant在线创建路径ToolStripMenuItem.Name = "plant在线创建路径ToolStripMenuItem";
-            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant在线创建路径ToolStripMenuItem.Text = "Plant在线创建路径";
             this.plant在线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
             // 
             // plant创建围栏ToolStripMenuItem
             // 
             this.plant创建围栏ToolStripMenuItem.Name = "plant创建围栏ToolStripMenuItem";
-            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant创建围栏ToolStripMenuItem.Text = "Plant创建围栏";
             this.plant创建围栏ToolStripMenuItem.Click += new System.EventHandler(this.PlantDFence_Click);
             // 
             // WordToAixForPlant
             // 
             this.WordToAixForPlant.Name = "WordToAixForPlant";
-            this.WordToAixForPlant.Size = new System.Drawing.Size(180, 22);
+            this.WordToAixForPlant.Size = new System.Drawing.Size(176, 22);
             this.WordToAixForPlant.Text = "Plant文字仓储";
             this.WordToAixForPlant.Click += new System.EventHandler(this.WordToAixForPlant_Click);
             // 
@@ -218,20 +218,20 @@
             // 经验库登记ToolStripMenuItem
             // 
             this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
-            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.经验库登记ToolStripMenuItem.Text = "经验库登记";
             // 
             // oCRToolStripMenuItem
             // 
             this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
-            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.oCRToolStripMenuItem.Text = "OCR";
             this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // 办公ToolStripMenuItem
             // 
             this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
-            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.办公ToolStripMenuItem.Text = "办公";
             this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
             // 
@@ -239,7 +239,7 @@
             // 
             this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.帮助ToolStripMenuItem,
+            this.ReadHelp,
             this.信息反馈ToolStripMenuItem,
             this.注册永久授权ToolStripMenuItem});
             this.toolStripDropDownButton3.Image = global::RXQuestServer.Properties.Resources.Help;
@@ -248,11 +248,12 @@
             this.toolStripDropDownButton3.Size = new System.Drawing.Size(45, 36);
             this.toolStripDropDownButton3.Text = "toolStripDropDownButton3";
             // 
-            // 帮助ToolStripMenuItem
+            // ReadHelp
             // 
-            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.帮助ToolStripMenuItem.Text = "帮助";
+            this.ReadHelp.Name = "ReadHelp";
+            this.ReadHelp.Size = new System.Drawing.Size(180, 22);
+            this.ReadHelp.Text = "帮助";
+            this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
             // 
             // 信息反馈ToolStripMenuItem
             // 
@@ -312,7 +313,7 @@
         private System.Windows.Forms.ToolStripMenuItem oCRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 办公ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
-        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ReadHelp;
         private System.Windows.Forms.ToolStripMenuItem 信息反馈ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 注册永久授权ToolStripMenuItem;
         private System.Windows.Forms.HelpProvider helpProvider;

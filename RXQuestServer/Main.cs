@@ -337,5 +337,12 @@ namespace RXQuestServer
             wordToAix.Show();
 
         }
+
+        private void ReadHelp_Click(object sender, EventArgs e)
+        {
+            this.TopMost=false;
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
     }
 }

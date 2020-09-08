@@ -260,6 +260,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordToAix", "WordToAix\Word
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YeDassaultSystemDev", "YeDassaultSystemDev\YeDassaultSystemDev.csproj", "{6B3A8A3C-A2FD-4AB8-A3FE-A612BDDA98A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51AC47F6-D546-4846-865D-7AF653E1837F}"
+	ProjectSection(SolutionItems) = preProject
+		软件协议.rtf = 软件协议.rtf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU

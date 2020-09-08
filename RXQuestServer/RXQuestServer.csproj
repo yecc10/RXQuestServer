@@ -139,6 +139,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="CATIA\CatiaQuickTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     <Compile Include="RegKeyInput.Designer.cs">
       <DependentUpon>RegKeyInput.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CATIA\CatiaQuickTool.resx">
       <DependentUpon>CatiaQuickTool.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +212,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="RXQuestServer_TemporaryKey.pfx" />
+    <None Include="Resourse\软件协议.rtf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -1346,7 +1356,6 @@
   <ItemGroup>
     <Folder Include="AutoCad\" />
     <Folder Include="PDPS\" />
-    <Folder Include="Resourse\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -1593,6 +1602,7 @@
     <None Include="Resources\Window_arrange_horizontal.ico" />
     <None Include="Resources\Window_arrange_vertical.ico" />
     <None Include="Resources\Window_create.ico" />
+    <Content Include="URLResuse\Help.html" />
     <Content Include="UI_02.ico" />
     <Content Include="YI.ico" />
   </ItemGroup>
