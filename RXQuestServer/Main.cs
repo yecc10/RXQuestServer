@@ -362,5 +362,18 @@ namespace RXQuestServer
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
+
+        private void OpenApplicationdoc_Click(object sender, EventArgs e)
+        {
+            string Path = Environment.CurrentDirectory;
+            try
+            {
+                Process.Start(Path);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Environment.CurrentDirectory+"路径打卡失败，请手动打开!");
+            }
+        }
     }
 }

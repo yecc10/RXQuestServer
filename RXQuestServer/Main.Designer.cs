@@ -55,7 +55,7 @@
             this.ReadHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.信息反馈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpProvider = new System.Windows.Forms.HelpProvider();
+            this.OpenApplicationdoc = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.MainTool.SuspendLayout();
             this.SuspendLayout();
@@ -218,20 +218,20 @@
             // 经验库登记ToolStripMenuItem
             // 
             this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
-            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.经验库登记ToolStripMenuItem.Text = "经验库登记";
             // 
             // oCRToolStripMenuItem
             // 
             this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
-            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.oCRToolStripMenuItem.Text = "OCR";
             this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // 办公ToolStripMenuItem
             // 
             this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
-            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.办公ToolStripMenuItem.Text = "办公";
             this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
             // 
@@ -241,7 +241,8 @@
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ReadHelp,
             this.信息反馈ToolStripMenuItem,
-            this.注册永久授权ToolStripMenuItem});
+            this.注册永久授权ToolStripMenuItem,
+            this.OpenApplicationdoc});
             this.toolStripDropDownButton3.Image = global::RXQuestServer.Properties.Resources.Help;
             this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
@@ -267,6 +268,13 @@
             this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.注册永久授权ToolStripMenuItem.Text = "注册永久授权";
             this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
+            // 
+            // OpenApplicationdoc
+            // 
+            this.OpenApplicationdoc.Name = "OpenApplicationdoc";
+            this.OpenApplicationdoc.Size = new System.Drawing.Size(180, 22);
+            this.OpenApplicationdoc.Text = "打开软件安装目录";
+            this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
             // 
             // Main
             // 
@@ -318,7 +326,7 @@
         private System.Windows.Forms.ToolStripMenuItem ReadHelp;
         private System.Windows.Forms.ToolStripMenuItem 信息反馈ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 注册永久授权ToolStripMenuItem;
-        private System.Windows.Forms.HelpProvider helpProvider;
+        private System.Windows.Forms.ToolStripMenuItem OpenApplicationdoc;
     }
 }
 
