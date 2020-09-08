@@ -1005,50 +1005,50 @@ namespace RXQuestServer.Delmia
         private bool SethomePositiion(Product product)
         {
             return true; // Not Support Again
-            try
-            {
-                BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
-                DeviceSim deviceSim = (DeviceSim)product.GetTechnologicalObject("DeviceSim");
-                Mechanisms mechanisms = (Mechanisms)product.GetTechnologicalObject("Mechanisms");
-                //Mechanism deviceSim1 = null;
-                //try
-                //{
-                //    int cnt = mechanisms.Count;
-                //    string str = mechanisms.Name;
-                //    object msobj = 1;
-                //    mechanisms.Item(ref msobj);
-                //}
-                //catch (Exception e)
-                //{
-                //    throw e;
-                //    //If there are no mechanisms (i.e. D5 devices), use the device handle instead
-                //    string  s = mechanisms.Item(1).get_Name();
-                //}
-                Array HomePosition = new object[] { };
-                basicDevice.GetHomePositions(out HomePosition);
-                bool exithome = false;
-                foreach (HomePosition item in HomePosition)
-                {
-                    //Array DofValue0 = new object[] { };
-                    //item.GetDOFValues(out DofValue0);
-                    if (item.get_Name() == "home_1")
-                    {
-                        exithome = true;
-                    }
-                }
-                if (!exithome)
-                {
-                    Array DofValue = new object[] { 0, 0, 0, 0, -1.5707963267949054, 0 };
-                    basicDevice.SetHomePosition("home_1", DofValue);
-                    //deviceSim.SetDOFValues(deviceSim1, DofValue, true);
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //try
+            //{
+            //    BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
+            //    DeviceSim deviceSim = (DeviceSim)product.GetTechnologicalObject("DeviceSim");
+            //    Mechanisms mechanisms = (Mechanisms)product.GetTechnologicalObject("Mechanisms");
+            //    //Mechanism deviceSim1 = null;
+            //    //try
+            //    //{
+            //    //    int cnt = mechanisms.Count;
+            //    //    string str = mechanisms.Name;
+            //    //    object msobj = 1;
+            //    //    mechanisms.Item(ref msobj);
+            //    //}
+            //    //catch (Exception e)
+            //    //{
+            //    //    throw e;
+            //    //    //If there are no mechanisms (i.e. D5 devices), use the device handle instead
+            //    //    string  s = mechanisms.Item(1).get_Name();
+            //    //}
+            //    Array HomePosition = new object[] { };
+            //    basicDevice.GetHomePositions(out HomePosition);
+            //    bool exithome = false;
+            //    foreach (HomePosition item in HomePosition)
+            //    {
+            //        //Array DofValue0 = new object[] { };
+            //        //item.GetDOFValues(out DofValue0);
+            //        if (item.get_Name() == "home_1")
+            //        {
+            //            exithome = true;
+            //        }
+            //    }
+            //    if (!exithome)
+            //    {
+            //        Array DofValue = new object[] { 0, 0, 0, 0, -1.5707963267949054, 0 };
+            //        basicDevice.SetHomePosition("home_1", DofValue);
+            //        //deviceSim.SetDOFValues(deviceSim1, DofValue, true);
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            //catch (Exception)
+            //{
+            //    return false;
+            //}
         }
         /// <summary>
         /// 检查机器人程序是否重复

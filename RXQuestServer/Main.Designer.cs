@@ -30,63 +30,35 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.InitDelmiaDocument = new System.Windows.Forms.Button();
-            this.WeldSportTool = new System.Windows.Forms.Button();
-            this.GotoOCR = new System.Windows.Forms.Button();
-            this.WorkData = new System.Windows.Forms.Button();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InPutWorkTime = new System.Windows.Forms.ToolStripMenuItem();
             this.工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加班工时查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加班单导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.PlantDTrack = new System.Windows.Forms.Button();
-            this.PlantDFence = new System.Windows.Forms.Button();
-            this.CreateTrackOnLine = new System.Windows.Forms.Button();
             this.Yecc_Help = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.MainTool = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.InitDelmia = new System.Windows.Forms.ToolStripMenuItem();
+            this.WeldSport = new System.Windows.Forms.ToolStripMenuItem();
+            this.plant离线创建路径ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plant在线创建路径ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plant创建围栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.WordToAixForPlant = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.经验库登记ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.办公ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.信息反馈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpProvider = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
+            this.MainTool.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // InitDelmiaDocument
-            // 
-            this.InitDelmiaDocument.Location = new System.Drawing.Point(12, 12);
-            this.InitDelmiaDocument.Name = "InitDelmiaDocument";
-            this.InitDelmiaDocument.Size = new System.Drawing.Size(125, 41);
-            this.InitDelmiaDocument.TabIndex = 0;
-            this.InitDelmiaDocument.Text = "Delmia初始化工具";
-            this.InitDelmiaDocument.UseVisualStyleBackColor = true;
-            this.InitDelmiaDocument.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
-            // 
-            // WeldSportTool
-            // 
-            this.WeldSportTool.Location = new System.Drawing.Point(177, 12);
-            this.WeldSportTool.Name = "WeldSportTool";
-            this.WeldSportTool.Size = new System.Drawing.Size(125, 41);
-            this.WeldSportTool.TabIndex = 0;
-            this.WeldSportTool.Text = "焊点快捷工具";
-            this.WeldSportTool.UseVisualStyleBackColor = true;
-            this.WeldSportTool.Click += new System.EventHandler(this.WeldSportTool_Click);
-            // 
-            // GotoOCR
-            // 
-            this.GotoOCR.Location = new System.Drawing.Point(12, 106);
-            this.GotoOCR.Name = "GotoOCR";
-            this.GotoOCR.Size = new System.Drawing.Size(125, 41);
-            this.GotoOCR.TabIndex = 0;
-            this.GotoOCR.Text = "OCR工具";
-            this.GotoOCR.UseVisualStyleBackColor = true;
-            this.GotoOCR.Click += new System.EventHandler(this.GotoOCR_Click);
-            // 
-            // WorkData
-            // 
-            this.WorkData.Location = new System.Drawing.Point(12, 153);
-            this.WorkData.Name = "WorkData";
-            this.WorkData.Size = new System.Drawing.Size(125, 41);
-            this.WorkData.TabIndex = 0;
-            this.WorkData.Text = "办公信息";
-            this.WorkData.UseVisualStyleBackColor = true;
-            this.WorkData.Click += new System.EventHandler(this.WorkData_Click);
             // 
             // toolStripButton2
             // 
@@ -131,41 +103,11 @@
             this.toolStripButton1.Size = new System.Drawing.Size(29, 22);
             this.toolStripButton1.Text = "办公";
             // 
-            // PlantDTrack
-            // 
-            this.PlantDTrack.Location = new System.Drawing.Point(12, 59);
-            this.PlantDTrack.Name = "PlantDTrack";
-            this.PlantDTrack.Size = new System.Drawing.Size(125, 41);
-            this.PlantDTrack.TabIndex = 0;
-            this.PlantDTrack.Text = "Plant创建路径";
-            this.PlantDTrack.UseVisualStyleBackColor = true;
-            this.PlantDTrack.Click += new System.EventHandler(this.PlantDTrack_Click);
-            // 
-            // PlantDFence
-            // 
-            this.PlantDFence.Location = new System.Drawing.Point(177, 106);
-            this.PlantDFence.Name = "PlantDFence";
-            this.PlantDFence.Size = new System.Drawing.Size(125, 41);
-            this.PlantDFence.TabIndex = 0;
-            this.PlantDFence.Text = "Plant创建围栏";
-            this.PlantDFence.UseVisualStyleBackColor = true;
-            this.PlantDFence.Click += new System.EventHandler(this.PlantDFence_Click);
-            // 
-            // CreateTrackOnLine
-            // 
-            this.CreateTrackOnLine.Location = new System.Drawing.Point(177, 59);
-            this.CreateTrackOnLine.Name = "CreateTrackOnLine";
-            this.CreateTrackOnLine.Size = new System.Drawing.Size(125, 41);
-            this.CreateTrackOnLine.TabIndex = 0;
-            this.CreateTrackOnLine.Text = "Plant在线路径";
-            this.CreateTrackOnLine.UseVisualStyleBackColor = true;
-            this.CreateTrackOnLine.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
-            // 
             // Yecc_Help
             // 
             this.Yecc_Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
-            this.Yecc_Help.Location = new System.Drawing.Point(177, 153);
+            this.Yecc_Help.Location = new System.Drawing.Point(1047, 558);
             this.Yecc_Help.Name = "Yecc_Help";
             this.Yecc_Help.Size = new System.Drawing.Size(125, 41);
             this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -177,48 +119,203 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // MainTool
+            // 
+            this.MainTool.BackColor = System.Drawing.Color.Transparent;
+            this.MainTool.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.MainTool.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.toolStripDropDownButton2,
+            this.toolStripDropDownButton4,
+            this.toolStripDropDownButton3});
+            this.MainTool.Location = new System.Drawing.Point(0, 0);
+            this.MainTool.Name = "MainTool";
+            this.MainTool.Size = new System.Drawing.Size(1184, 39);
+            this.MainTool.TabIndex = 2;
+            this.MainTool.Text = "MainTool";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.InitDelmia,
+            this.WeldSport});
+            this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Address_book;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 36);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.plant离线创建路径ToolStripMenuItem,
+            this.plant在线创建路径ToolStripMenuItem,
+            this.plant创建围栏ToolStripMenuItem,
+            this.WordToAixForPlant});
+            this.toolStripDropDownButton2.Image = global::RXQuestServer.Properties.Resources.Home;
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(45, 36);
+            this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
+            // 
+            // InitDelmia
+            // 
+            this.InitDelmia.Name = "InitDelmia";
+            this.InitDelmia.Size = new System.Drawing.Size(180, 22);
+            this.InitDelmia.Text = "Delmia仿真";
+            this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
+            // 
+            // WeldSport
+            // 
+            this.WeldSport.Name = "WeldSport";
+            this.WeldSport.Size = new System.Drawing.Size(180, 22);
+            this.WeldSport.Text = "焊点处理";
+            this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
+            // 
+            // plant离线创建路径ToolStripMenuItem
+            // 
+            this.plant离线创建路径ToolStripMenuItem.Name = "plant离线创建路径ToolStripMenuItem";
+            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant离线创建路径ToolStripMenuItem.Text = "Plant离线创建路径";
+            this.plant离线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.PlantDTrack_Click);
+            // 
+            // plant在线创建路径ToolStripMenuItem
+            // 
+            this.plant在线创建路径ToolStripMenuItem.Name = "plant在线创建路径ToolStripMenuItem";
+            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant在线创建路径ToolStripMenuItem.Text = "Plant在线创建路径";
+            this.plant在线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
+            // 
+            // plant创建围栏ToolStripMenuItem
+            // 
+            this.plant创建围栏ToolStripMenuItem.Name = "plant创建围栏ToolStripMenuItem";
+            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant创建围栏ToolStripMenuItem.Text = "Plant创建围栏";
+            this.plant创建围栏ToolStripMenuItem.Click += new System.EventHandler(this.PlantDFence_Click);
+            // 
+            // WordToAixForPlant
+            // 
+            this.WordToAixForPlant.Name = "WordToAixForPlant";
+            this.WordToAixForPlant.Size = new System.Drawing.Size(180, 22);
+            this.WordToAixForPlant.Text = "Plant文字仓储";
+            this.WordToAixForPlant.Click += new System.EventHandler(this.WordToAixForPlant_Click);
+            // 
+            // toolStripDropDownButton4
+            // 
+            this.toolStripDropDownButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.经验库登记ToolStripMenuItem,
+            this.oCRToolStripMenuItem,
+            this.办公ToolStripMenuItem});
+            this.toolStripDropDownButton4.Image = global::RXQuestServer.Properties.Resources.Phone;
+            this.toolStripDropDownButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton4.Name = "toolStripDropDownButton4";
+            this.toolStripDropDownButton4.Size = new System.Drawing.Size(45, 36);
+            this.toolStripDropDownButton4.Text = "toolStripDropDownButton4";
+            // 
+            // 经验库登记ToolStripMenuItem
+            // 
+            this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.经验库登记ToolStripMenuItem.Text = "经验库登记";
+            // 
+            // oCRToolStripMenuItem
+            // 
+            this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oCRToolStripMenuItem.Text = "OCR";
+            this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
+            // 
+            // 办公ToolStripMenuItem
+            // 
+            this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.办公ToolStripMenuItem.Text = "办公";
+            this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
+            // 
+            // toolStripDropDownButton3
+            // 
+            this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.帮助ToolStripMenuItem,
+            this.信息反馈ToolStripMenuItem,
+            this.注册永久授权ToolStripMenuItem});
+            this.toolStripDropDownButton3.Image = global::RXQuestServer.Properties.Resources.Help;
+            this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
+            this.toolStripDropDownButton3.Size = new System.Drawing.Size(45, 36);
+            this.toolStripDropDownButton3.Text = "toolStripDropDownButton3";
+            // 
+            // 帮助ToolStripMenuItem
+            // 
+            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.帮助ToolStripMenuItem.Text = "帮助";
+            // 
+            // 信息反馈ToolStripMenuItem
+            // 
+            this.信息反馈ToolStripMenuItem.Name = "信息反馈ToolStripMenuItem";
+            this.信息反馈ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.信息反馈ToolStripMenuItem.Text = "信息反馈";
+            // 
+            // 注册永久授权ToolStripMenuItem
+            // 
+            this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
+            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.注册永久授权ToolStripMenuItem.Text = "注册永久授权";
+            this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(314, 211);
+            this.ClientSize = new System.Drawing.Size(1184, 611);
+            this.Controls.Add(this.MainTool);
             this.Controls.Add(this.Yecc_Help);
-            this.Controls.Add(this.PlantDFence);
-            this.Controls.Add(this.WeldSportTool);
-            this.Controls.Add(this.WorkData);
-            this.Controls.Add(this.CreateTrackOnLine);
-            this.Controls.Add(this.PlantDTrack);
-            this.Controls.Add(this.GotoOCR);
-            this.Controls.Add(this.InitDelmiaDocument);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(330, 250);
-            this.MinimumSize = new System.Drawing.Size(330, 250);
+            this.MaximumSize = new System.Drawing.Size(1200, 650);
+            this.MinimumSize = new System.Drawing.Size(1200, 650);
             this.Name = "Main";
             this.Text = "主入口";
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).EndInit();
+            this.MainTool.ResumeLayout(false);
+            this.MainTool.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button InitDelmiaDocument;
-        private System.Windows.Forms.Button WeldSportTool;
-        private System.Windows.Forms.Button GotoOCR;
-        private System.Windows.Forms.Button WorkData;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
         private System.Windows.Forms.ToolStripMenuItem InPutWorkTime;
         private System.Windows.Forms.ToolStripMenuItem 工时查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 加班工时查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 加班单导出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
-        private System.Windows.Forms.Button PlantDTrack;
-        private System.Windows.Forms.Button PlantDFence;
-        private System.Windows.Forms.Button CreateTrackOnLine;
         private System.Windows.Forms.PictureBox Yecc_Help;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStrip MainTool;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem InitDelmia;
+        private System.Windows.Forms.ToolStripMenuItem WeldSport;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem plant离线创建路径ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plant在线创建路径ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plant创建围栏ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem WordToAixForPlant;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton4;
+        private System.Windows.Forms.ToolStripMenuItem 经验库登记ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oCRToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 办公ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
+        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 信息反馈ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 注册永久授权ToolStripMenuItem;
+        private System.Windows.Forms.HelpProvider helpProvider;
     }
 }
 

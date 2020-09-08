@@ -29,7 +29,7 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>4.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -1609,6 +1609,10 @@
       <Project>{37ac02fd-43e4-41b8-8638-21d78c0a82d8}</Project>
       <Name>ToPlant</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WordToAix\WordToAix.csproj">
+      <Project>{da746820-a93a-40ab-8b6b-590ae8659a8d}</Project>
+      <Name>WordToAix</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorkOffice\WorkOffice.csproj">
       <Project>{6461fa13-a5e0-40db-a2c5-bb5e4cd4da2d}</Project>
       <Name>WorkOffice</Name>
@@ -1616,6 +1620,10 @@
     <ProjectReference Include="..\YeccAutoCenter\YeccAutoCenter.csproj">
       <Project>{43a8cc55-556b-463c-8ee6-ceac2a0b6b91}</Project>
       <Name>YeccAutoCenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YeDassaultSystemDev\YeDassaultSystemDev.csproj">
+      <Project>{6b3a8a3c-a2fd-4ab8-a3fe-a612bdda98a5}</Project>
+      <Name>YeDassaultSystemDev</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

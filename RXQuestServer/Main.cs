@@ -329,5 +329,13 @@ namespace RXQuestServer
             //this.Text = "YECC_SYS_" + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
             this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
         }
+
+        private void WordToAixForPlant_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            WordToAix.WordToAix wordToAix = new WordToAix.WordToAix();
+            wordToAix.Show();
+
+        }
     }
 }
