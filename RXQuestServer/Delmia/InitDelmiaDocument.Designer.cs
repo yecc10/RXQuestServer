@@ -648,6 +648,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Station_Group);
             this.Controls.Add(this.LayoutGroup);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(854, 468);

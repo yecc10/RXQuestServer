@@ -54,9 +54,7 @@ namespace RXQuestServer
         {
             get
             {
-                string strDesktopPath = Environment.CurrentDirectory;
-                string Path = strDesktopPath+"\\软件协议.rtf";
-                string text = File.ReadAllText(Path);
+                string text = Properties.Resources.SoftAccess;
                 return text;
             }
         }

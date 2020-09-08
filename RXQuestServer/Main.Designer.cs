@@ -107,7 +107,7 @@
             // 
             this.Yecc_Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
-            this.Yecc_Help.Location = new System.Drawing.Point(1047, 558);
+            this.Yecc_Help.Location = new System.Drawing.Point(1066, 601);
             this.Yecc_Help.Name = "Yecc_Help";
             this.Yecc_Help.Size = new System.Drawing.Size(125, 41);
             this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -130,7 +130,7 @@
             this.toolStripDropDownButton3});
             this.MainTool.Location = new System.Drawing.Point(0, 0);
             this.MainTool.Name = "MainTool";
-            this.MainTool.Size = new System.Drawing.Size(1184, 39);
+            this.MainTool.Size = new System.Drawing.Size(1203, 39);
             this.MainTool.TabIndex = 2;
             this.MainTool.Text = "MainTool";
             // 
@@ -273,14 +273,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1184, 611);
+            this.ClientSize = new System.Drawing.Size(1203, 654);
             this.Controls.Add(this.MainTool);
             this.Controls.Add(this.Yecc_Help);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1200, 650);
-            this.MinimumSize = new System.Drawing.Size(1200, 650);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "主入口";
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).EndInit();
             this.MainTool.ResumeLayout(false);

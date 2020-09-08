@@ -144,6 +144,7 @@
             this.ClientSize = new System.Drawing.Size(723, 631);
             this.Controls.Add(this.OpratorZero);
             this.Controls.Add(this.TextPicture);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(739, 670);
             this.MinimumSize = new System.Drawing.Size(739, 670);

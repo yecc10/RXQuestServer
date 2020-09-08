@@ -58,6 +58,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txViewerUserControl1);
             this.Controls.Add(this.cUiContinuousButton1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PSimulateQuickServer";
             this.Text = "PSimulateQuickServer";

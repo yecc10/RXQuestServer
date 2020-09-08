@@ -279,7 +279,7 @@
             // 
             this.ExtraPadToSurface.Image = global::RXQuestServer.Properties.Resources.Arrow_upload;
             this.ExtraPadToSurface.Name = "ExtraPadToSurface";
-            this.ExtraPadToSurface.Size = new System.Drawing.Size(180, 22);
+            this.ExtraPadToSurface.Size = new System.Drawing.Size(160, 22);
             this.ExtraPadToSurface.Text = "实体焊点转几何";
             this.ExtraPadToSurface.Click += new System.EventHandler(this.ExtraPadToSurface_Click);
             // 
@@ -327,6 +327,7 @@
             this.Controls.Add(this.RepeatCheck);
             this.Controls.Add(this.KeepName);
             this.Controls.Add(this.TryRead);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(896, 550);
             this.MinimumSize = new System.Drawing.Size(896, 550);

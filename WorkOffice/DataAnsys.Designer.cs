@@ -115,6 +115,7 @@
             this.Controls.Add(this.DataGrid);
             this.Controls.Add(this.ByExcel);
             this.Controls.Add(this.ReadData);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorkTimeUpdata";
             this.Text = "WorkTimeUpdata";

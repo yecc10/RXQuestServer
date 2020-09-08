@@ -636,6 +636,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.TestSocket);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(786, 729);
             this.MinimumSize = new System.Drawing.Size(786, 729);

@@ -96,6 +96,7 @@
             this.Controls.Add(this.regValue);
             this.Controls.Add(this.AppliCode);
             this.Controls.Add(this.RegKey);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(606, 187);
             this.MinimumSize = new System.Drawing.Size(606, 187);
