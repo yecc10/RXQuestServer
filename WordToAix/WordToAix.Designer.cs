@@ -150,6 +150,7 @@
             this.MinimumSize = new System.Drawing.Size(739, 670);
             this.Name = "WordToAix";
             this.Text = "文字转点阵";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WordToAix_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.TextPicture)).EndInit();
             this.OpratorZero.ResumeLayout(false);
             this.OpratorZero.PerformLayout();

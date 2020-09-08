@@ -148,7 +148,6 @@
             this.okButton.Size = new System.Drawing.Size(75, 21);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "确定(&O)";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AboutBox
             // 

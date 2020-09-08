@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.AspNet.Identity;
 using System.Management;
+using System.Diagnostics;
 
 namespace RXQuestServer
 {
@@ -181,6 +182,7 @@ namespace RXQuestServer
                 }
                 else
                 {
+                    //临时授权未过期 授权通过使用
                     Properties.Settings.Default.VisionType = "30天试用版";
                     HasAccessToRun = true;
                     Yecc_Help.Enabled = true;
@@ -189,13 +191,29 @@ namespace RXQuestServer
             }
             else
             {
-                DateTime dateTime1 = dateTime;
-                RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
-                HasAccessToRun = true;
-                Properties.Settings.Default.VisionType = "30天试用版";
-                return;
+                //首次安装使用
+                string message = Properties.Resources.SoftAccess;
+                string caption = "首次使用授权说明:";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    DateTime dateTime1 = dateTime;
+                    RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
+                    HasAccessToRun = true;
+                    Properties.Settings.Default.VisionType = "30天试用版";
+                    return;
+                }
+                else
+                {
+                    Process.GetCurrentProcess().Kill();
+                    return;
+                }
+
             }
-            //非注册用户并超期试用，强制退出
+            //非注册用户并试用时间已过期，强制退出
             this.Hide();
             RegKeyInput regKeyInput = new RegKeyInput();
             regKeyInput.Show();
@@ -327,7 +345,7 @@ namespace RXQuestServer
         {
             //this.Text = "YECC_SYS_"+Application.ProductVersion.ToString()+Properties.Settings.Default.VisionType.ToString();
             //this.Text = "YECC_SYS_" + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
-            this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
+            this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString() +"_"+ DateTime.Now.ToString();
         }
 
         private void WordToAixForPlant_Click(object sender, EventArgs e)

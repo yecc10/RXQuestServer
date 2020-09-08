@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,19 @@ namespace WordToAix
         private void timer_Tick(object sender, EventArgs e)
         {
             this.Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
+        }
+
+        private void WordToAix_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                Process.GetCurrentProcess().Kill();
+            }
+            catch (System.Exception)
+            {
+                Process.GetCurrentProcess().Kill();
+                Debug.WriteLine("Close Faild!");
+            }
         }
     }
 }
