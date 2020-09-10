@@ -245,6 +245,8 @@
             // ARCChange
             // 
             this.ARCChange.AutoSize = true;
+            this.ARCChange.Checked = true;
+            this.ARCChange.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ARCChange.Location = new System.Drawing.Point(12, 483);
             this.ARCChange.Name = "ARCChange";
             this.ARCChange.Size = new System.Drawing.Size(108, 16);

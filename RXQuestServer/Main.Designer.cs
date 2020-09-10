@@ -149,14 +149,14 @@
             // InitDelmia
             // 
             this.InitDelmia.Name = "InitDelmia";
-            this.InitDelmia.Size = new System.Drawing.Size(140, 22);
+            this.InitDelmia.Size = new System.Drawing.Size(180, 22);
             this.InitDelmia.Text = "Delmia仿真";
             this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
             // 
             // WeldSport
             // 
             this.WeldSport.Name = "WeldSport";
-            this.WeldSport.Size = new System.Drawing.Size(140, 22);
+            this.WeldSport.Size = new System.Drawing.Size(180, 22);
             this.WeldSport.Text = "焊点处理";
             this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
             // 
@@ -218,20 +218,20 @@
             // 经验库登记ToolStripMenuItem
             // 
             this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
-            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.经验库登记ToolStripMenuItem.Text = "经验库登记";
             // 
             // oCRToolStripMenuItem
             // 
             this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
-            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.oCRToolStripMenuItem.Text = "OCR";
             this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // 办公ToolStripMenuItem
             // 
             this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
-            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.办公ToolStripMenuItem.Text = "办公";
             this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
             // 
@@ -252,27 +252,27 @@
             // ReadHelp
             // 
             this.ReadHelp.Name = "ReadHelp";
-            this.ReadHelp.Size = new System.Drawing.Size(180, 22);
+            this.ReadHelp.Size = new System.Drawing.Size(172, 22);
             this.ReadHelp.Text = "帮助";
             this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
             // 
             // 信息反馈ToolStripMenuItem
             // 
             this.信息反馈ToolStripMenuItem.Name = "信息反馈ToolStripMenuItem";
-            this.信息反馈ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.信息反馈ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.信息反馈ToolStripMenuItem.Text = "信息反馈";
             // 
             // 注册永久授权ToolStripMenuItem
             // 
             this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
-            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.注册永久授权ToolStripMenuItem.Text = "注册永久授权";
             this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
             // 
             // OpenApplicationdoc
             // 
             this.OpenApplicationdoc.Name = "OpenApplicationdoc";
-            this.OpenApplicationdoc.Size = new System.Drawing.Size(180, 22);
+            this.OpenApplicationdoc.Size = new System.Drawing.Size(172, 22);
             this.OpenApplicationdoc.Text = "打开软件安装目录";
             this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
             // 
@@ -288,7 +288,6 @@
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "主入口";

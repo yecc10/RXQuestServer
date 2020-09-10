@@ -55,6 +55,7 @@ namespace RXQuestServer
             if (HasAccessToRun)
             {
                 AutoDeskLine_ToPlant.CatiaQuickTool CQT = new AutoDeskLine_ToPlant.CatiaQuickTool();
+                this.TopMost = false;
                 this.Hide();
                 CQT.Show();
             }
@@ -70,6 +71,7 @@ namespace RXQuestServer
             if (HasAccessToRun)
             {
                 OcrCenter.OCR Socr = new OcrCenter.OCR();
+                this.TopMost = false;
                 this.Hide();
                 Socr.Show();
             }

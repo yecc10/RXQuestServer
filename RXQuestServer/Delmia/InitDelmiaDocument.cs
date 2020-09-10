@@ -628,9 +628,19 @@ namespace RXQuestServer.Delmia
                         break;
                 }
                 CreatePath(CPath);
-                for (int j = 1; j <= Convert.ToInt16(StationNum.Text); j++)
+                int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2 : Convert.ToInt16(StationNum.Text);
+                for (int j = 1; j <= NumStation; j++)
                 {
-                    string StationPath = j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
+                    String NWTP;
+                    if (type1020.Checked)
+                    {
+                        NWTP = ZeroList[i] + j * 10;
+                    }
+                    else
+                    {
+                        NWTP = ZeroList[i] + ((j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5));
+                    }
+                    string StationPath = CPath + "//"+NWTP; //j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
                     CreatePath(StationPath);
                     CreatePath(StationPath + "//01_Fixture");
                     CreatePath(StationPath + "//02_Gripper");

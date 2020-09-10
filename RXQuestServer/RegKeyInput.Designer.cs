@@ -34,6 +34,7 @@
             this.RegRxSoft = new System.Windows.Forms.Button();
             this.AppliCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // RegKey
@@ -49,7 +50,7 @@
             // 
             this.regValue.AutoSize = true;
             this.regValue.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.regValue.Location = new System.Drawing.Point(12, 12);
+            this.regValue.Location = new System.Drawing.Point(12, 42);
             this.regValue.Name = "regValue";
             this.regValue.Size = new System.Drawing.Size(94, 24);
             this.regValue.TabIndex = 1;
@@ -57,7 +58,7 @@
             // 
             // RegRxSoft
             // 
-            this.RegRxSoft.Location = new System.Drawing.Point(12, 50);
+            this.RegRxSoft.Location = new System.Drawing.Point(485, 187);
             this.RegRxSoft.Name = "RegRxSoft";
             this.RegRxSoft.Size = new System.Drawing.Size(93, 47);
             this.RegRxSoft.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             // AppliCode
             // 
-            this.AppliCode.Location = new System.Drawing.Point(111, 103);
+            this.AppliCode.Location = new System.Drawing.Point(112, 133);
             this.AppliCode.Multiline = true;
             this.AppliCode.Name = "AppliCode";
             this.AppliCode.ReadOnly = true;
@@ -79,18 +80,30 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(12, 115);
+            this.label1.Location = new System.Drawing.Point(12, 140);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 24);
             this.label1.TabIndex = 1;
             this.label1.Text = "申请码:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(16, 187);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(463, 47);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.Text = "请将申请码邮件发送yecc10@live.cn获取注册码";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RegKeyInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(590, 148);
+            this.ClientSize = new System.Drawing.Size(594, 246);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.RegRxSoft);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.regValue);
@@ -98,8 +111,6 @@
             this.Controls.Add(this.RegKey);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(606, 187);
-            this.MinimumSize = new System.Drawing.Size(606, 187);
             this.Name = "RegKeyInput";
             this.Text = "RegKeyInput";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegKeyInput_FormClosed);
@@ -115,5 +126,6 @@
         private System.Windows.Forms.Button RegRxSoft;
         private System.Windows.Forms.TextBox AppliCode;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

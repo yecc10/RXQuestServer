@@ -34,6 +34,33 @@ namespace AutoDeskLine_ToPlant
 {
     class CATIA_Class
     {
+        #region GetObj
+        static void GetObj(int i, String progID)
+        {
+            Object obj = null;
+
+            Console.WriteLine("\n" + i + ") Object obj = GetActiveObject(\"" + progID + "\")");
+            try
+            { obj = Marshal.GetActiveObject(progID); }
+            catch (Exception e)
+            {
+                Write2Console("\n   Failure: obj did not get initialized\n" +
+                              "   Exception = " + e.ToString().Substring(0, 43), 0);
+            }
+
+            if (obj != null)
+            { Write2Console("\n   Success: obj = " + obj.ToString(), 1); }
+        }
+        static void Write2Console(String s, int color)
+        {
+            Console.ForegroundColor = color == 1 ? ConsoleColor.Green : ConsoleColor.Red;
+            Console.WriteLine(s);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        #endregion
+
+
         #region 初始化CATIA环境并获取信息到全局变量 
         /// <summary>
         /// 初始化CATIA环境并获取信息到全局变量 
@@ -45,6 +72,28 @@ namespace AutoDeskLine_ToPlant
         /// <returns></returns>
         public bool InitCatEnv(ref INFITF.Application CatApplication, ref ProductDocument CatDocument, ref Part PartID, Form form)
         {
+            Process[] AllProcess = Process.GetProcessesByName("CNEXT");
+            if (AllProcess.Length > 1)
+            {
+                try
+                {
+                    MessageBox.Show("当前打开超过1个CATIA,可能操控的CATIA非您需要的对象，请核实！");
+                    GetObj(1, "Catia.Application");
+                    GetObj(2, "Delmia.Application");
+                    // IntPtr Ptr = AllProcess[2].MainWindowHandle;
+                    // string Pname = AllProcess[2].MainWindowTitle;
+                    //  int progid=  AllProcess[2].;
+                    // object Pobj = Marshal.GetActiveObject("Delmia.Application");
+                    //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
+                    // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
+                    // DSApplication = (INFITF.Application)Pobj;
+                    // String tn = DSApplication.get_Caption();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
             try
             {
                 CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
@@ -143,7 +192,7 @@ namespace AutoDeskLine_ToPlant
         /// 获得用户选择集
         /// </summary>
         /// <returns></returns>
-        public void GetSelect(ProductDocument CatDocument,ref Selection SelectArc, Form form)
+        public void GetSelect(ProductDocument CatDocument, ref Selection SelectArc, Form form)
         {
             if (CatDocument == null)
             {
@@ -156,12 +205,12 @@ namespace AutoDeskLine_ToPlant
             var Result = SelectArc.SelectElement3(InputObjectType(4), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
             if (Result == "Cancel")
             {
-                return ;
+                return;
             }
             if (SelectArc.Count < 1)
             {
                 MessageBox.Show("请先选择对象后再点此命令！");
-                return ;
+                return;
             }
             form.WindowState = FormWindowState.Normal;
             form.StartPosition = FormStartPosition.CenterScreen;
@@ -182,11 +231,11 @@ namespace AutoDeskLine_ToPlant
                     }
                 case 3: //SketchBasedShape 
                     {
-                        return new object[] { "Sweep", "prisms", "holes", "revolutions"};
+                        return new object[] { "Sweep", "prisms", "holes", "revolutions" };
                     }
                 case 4: //BooleanShape  
                     {
-                        return new object[] { "HybridShape", "Shape"};
+                        return new object[] { "HybridShape", "Shape" };
                     }
                 case 5: //BooleanShape  
                     {
