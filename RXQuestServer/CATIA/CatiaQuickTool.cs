@@ -405,7 +405,7 @@ namespace AutoDeskLine_ToPlant
             CheckForIllegalCrossThreadCalls = false;
             string Path = string.Empty;
             OpenFileDialog XlsFile = new OpenFileDialog();
-            XlsFile.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Recent);
+            XlsFile.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             XlsFile.Filter = "EXCEL files (*.xls,*.xlsx,*.csv)|*.xls;*.xlsx;*.csv";
             XlsFile.FilterIndex = 2;
             XlsFile.RestoreDirectory = true;
@@ -465,6 +465,17 @@ namespace AutoDeskLine_ToPlant
                 MessageBox.Show("数据为空，无法建立3D模型！");
                 return;
             }
+            HybridBodies Hybs = PartID.HybridBodies;
+            HybridBody Hyb = null;
+            //try
+            //{
+            //    Hyb = Hybs.Item("几何图形集.1");
+            //}
+            //catch (Exception)
+            //{
+            //    Hyb = Hybs.Item("Geometrical Set.1");
+            //}
+            Hyb = Hybs.Add();
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
@@ -494,16 +505,6 @@ namespace AutoDeskLine_ToPlant
                 {
                     NewPoint.set_Name("Rx_" + (i + 1));
                     NewShape.set_Name("Rx_" + (i + 1));
-                }
-                HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = null;
-                try
-                {
-                    Hyb = Hybs.Item("几何图形集.1");
-                }
-                catch (Exception)
-                {
-                    Hyb = Hybs.Item("Geometrical Set.1");
                 }
                 // Hyb.AppendHybridShape(NewPoint);
                 Hyb.AppendHybridShape(NewShape);
@@ -545,6 +546,9 @@ namespace AutoDeskLine_ToPlant
                 MessageBox.Show("数据为空，无法建立3D模型！");
                 return;
             }
+            HybridBodies Hybs = PartID.HybridBodies;
+            //HybridBody Hyb = Hybs.Item(1);
+            HybridBody Hyb = Hybs.Add();
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
@@ -570,8 +574,6 @@ namespace AutoDeskLine_ToPlant
                 {
                     NewPoint.set_Name("Rx_" + (i + 1));
                 }
-                HybridBodies Hybs = PartID.HybridBodies;
-                HybridBody Hyb = Hybs.Item(1);
                 Hyb.AppendHybridShape(NewPoint);
                 PartID.InWorkObject = NewPoint;
                 try
