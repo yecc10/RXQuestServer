@@ -29,6 +29,8 @@ using FittingTypeLib;
 using DNBASY;
 using YeccAutoCenter;
 using NPOI.XWPF.UserModel;
+using WindowsAPI_Interface;
+using System.Web.Management;
 
 namespace AutoDeskLine_ToPlant
 {
@@ -72,14 +74,26 @@ namespace AutoDeskLine_ToPlant
         /// <returns></returns>
         public bool InitCatEnv(ref INFITF.Application CatApplication, ref ProductDocument CatDocument, ref Part PartID, Form form)
         {
-            Process[] AllProcess = Process.GetProcessesByName("CNEXT");
+            Process[] AllProcess = Process.GetProcessesByName("CNEXT"); //Only When Get CATIA Process
+            //Process[] AllProcess = Process.GetProcessesByName("Delmia");
             if (AllProcess.Length > 1)
             {
                 try
                 {
-                    MessageBox.Show("当前打开超过1个CATIA,可能操控的CATIA非您需要的对象，请核实！");
-                    GetObj(1, "Catia.Application");
-                    GetObj(2, "Delmia.Application");
+                    FindWindow findWindow 
+                    AllProcess[0].WaitForInputIdle();
+                    string MainWintitle=AllProcess[0].ProcessName;
+                    int MainPID = AllProcess[0].Id;
+                    IntPtr intPtr = AllProcess[0].MainWindowHandle;
+                    CatApplication = (INFITF.Application)Marshal.GetObjectForIUnknown(intPtr);
+                    string CapName1=CatApplication.get_Caption();
+                    AllProcess[1].WaitForInputIdle();
+                    IntPtr ProgHandle = AllProcess[1].Handle;
+                    //CatApplication = (INFITF.Application)Marshal.GetObjectForNativeVariant(ProgId);
+                    string CapName2 = CatApplication.get_Caption();
+                    //MessageBox.Show("当前打开超过1个CATIA,可能操控的CATIA非您需要的对象，请核实！");
+                    //GetObj(1, "Catia.Application");
+                    //GetObj(2, "Delmia.Application");
                     // IntPtr Ptr = AllProcess[2].MainWindowHandle;
                     // string Pname = AllProcess[2].MainWindowTitle;
                     //  int progid=  AllProcess[2].;

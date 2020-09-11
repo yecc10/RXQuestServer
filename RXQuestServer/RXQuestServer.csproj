@@ -29,7 +29,7 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>4.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -1619,6 +1619,10 @@
     <ProjectReference Include="..\ToPlant\ToPlant.csproj">
       <Project>{37ac02fd-43e4-41b8-8638-21d78c0a82d8}</Project>
       <Name>ToPlant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsAPI_Interface\WindowsAPI_Interface.csproj">
+      <Project>{ea12e695-bec7-4ed0-bb22-77e3fa2b69b5}</Project>
+      <Name>WindowsAPI_Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\WordToAix\WordToAix.csproj">
       <Project>{da746820-a93a-40ab-8b6b-590ae8659a8d}</Project>
