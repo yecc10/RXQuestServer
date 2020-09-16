@@ -81,6 +81,7 @@
             this.RobotAdd = new System.Windows.Forms.Button();
             this.StationNumAdd = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -282,6 +283,7 @@
             this.groupBox1.Controls.Add(this.type1020);
             this.groupBox1.Controls.Add(this.Type1015);
             this.groupBox1.Controls.Add(this.Tipdress);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.GrpStand);
             this.groupBox1.Controls.Add(this.GunStand);
             this.groupBox1.Controls.Add(this.StudWeld);
@@ -627,6 +629,16 @@
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(706, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 38);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "刷焊接动作";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BallToRobotList_Click);
+            // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -651,7 +663,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(854, 468);
             this.MinimumSize = new System.Drawing.Size(854, 468);
             this.Name = "InitDelmiaDocument";
             this.Text = "InitDelmiaDocument";
@@ -722,5 +733,6 @@
         private System.Windows.Forms.RadioButton Type1015;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

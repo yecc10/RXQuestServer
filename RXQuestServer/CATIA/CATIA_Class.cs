@@ -76,38 +76,39 @@ namespace AutoDeskLine_ToPlant
         {
             Process[] AllProcess = Process.GetProcessesByName("CNEXT"); //Only When Get CATIA Process
             //Process[] AllProcess = Process.GetProcessesByName("Delmia");
-            if (AllProcess.Length > 1)
-            {
-                try
-                {
-                    FindWindow findWindow 
-                    AllProcess[0].WaitForInputIdle();
-                    string MainWintitle=AllProcess[0].ProcessName;
-                    int MainPID = AllProcess[0].Id;
-                    IntPtr intPtr = AllProcess[0].MainWindowHandle;
-                    CatApplication = (INFITF.Application)Marshal.GetObjectForIUnknown(intPtr);
-                    string CapName1=CatApplication.get_Caption();
-                    AllProcess[1].WaitForInputIdle();
-                    IntPtr ProgHandle = AllProcess[1].Handle;
-                    //CatApplication = (INFITF.Application)Marshal.GetObjectForNativeVariant(ProgId);
-                    string CapName2 = CatApplication.get_Caption();
-                    //MessageBox.Show("当前打开超过1个CATIA,可能操控的CATIA非您需要的对象，请核实！");
-                    //GetObj(1, "Catia.Application");
-                    //GetObj(2, "Delmia.Application");
-                    // IntPtr Ptr = AllProcess[2].MainWindowHandle;
-                    // string Pname = AllProcess[2].MainWindowTitle;
-                    //  int progid=  AllProcess[2].;
-                    // object Pobj = Marshal.GetActiveObject("Delmia.Application");
-                    //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
-                    // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
-                    // DSApplication = (INFITF.Application)Pobj;
-                    // String tn = DSApplication.get_Caption();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+            //if (AllProcess.Length > 1)
+            //{
+            //    try
+            //    {
+            //        WAPI wAPI = new WAPI();
+            //        AllProcess[0].WaitForInputIdle();
+            //        string MainWintitle=AllProcess[0].MainWindowTitle;
+            //        int MainPID = AllProcess[0].Id;
+            //        IntPtr intPtr = AllProcess[0].MainWindowHandle;
+            //        IntPtr intPtr2 = WAPI.FindWindow(null, MainWintitle);
+            //        CatApplication = (INFITF.Application)Marshal.GetObjectForIUnknown(intPtr2);
+            //        string CapName1=CatApplication.get_Caption();
+            //        AllProcess[1].WaitForInputIdle();
+            //        IntPtr ProgHandle = AllProcess[1].Handle;
+            //        //CatApplication = (INFITF.Application)Marshal.GetObjectForNativeVariant(ProgId);
+            //        string CapName2 = CatApplication.get_Caption();
+            //        //MessageBox.Show("当前打开超过1个CATIA,可能操控的CATIA非您需要的对象，请核实！");
+            //        //GetObj(1, "Catia.Application");
+            //        //GetObj(2, "Delmia.Application");
+            //        // IntPtr Ptr = AllProcess[2].MainWindowHandle;
+            //        // string Pname = AllProcess[2].MainWindowTitle;
+            //        //  int progid=  AllProcess[2].;
+            //        // object Pobj = Marshal.GetActiveObject("Delmia.Application");
+            //        //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
+            //        // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
+            //        // DSApplication = (INFITF.Application)Pobj;
+            //        // String tn = DSApplication.get_Caption();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        throw;
+            //    }
+            //}
             try
             {
                 CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
@@ -249,7 +250,7 @@ namespace AutoDeskLine_ToPlant
                     }
                 case 4: //BooleanShape  
                     {
-                        return new object[] { "HybridShape", "Shape" };
+                        return new object[] { "HybridShape", "Shape"};
                     }
                 case 5: //BooleanShape  
                     {

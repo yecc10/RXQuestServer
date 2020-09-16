@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsAPI_Interface
 {
-    internal class WAPI
+    public class WAPI
     {
         [DllImport("User32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
