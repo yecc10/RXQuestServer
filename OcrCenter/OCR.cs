@@ -123,7 +123,7 @@ namespace OcrCenter
                 var image = File.ReadAllBytes(file);
                 var result = client.GeneralBasic(image).ToString();
                 PBOCR.Value = 90;
-                ResultTest.Text = result;
+                ResultTest.Text = TranslateBaiduResult(result);
             }
             catch (Exception)
             {
@@ -203,6 +203,36 @@ namespace OcrCenter
             doc.Write(newfile);
             newfile.Close();
             PBOCR.Value = 100;
+        }
+        private string TranslateBaiduResult(string ResultTest)
+        {
+            if (string.IsNullOrEmpty(ResultTest))
+            {
+                return null;
+            }
+            string ResultStr = string.Empty;
+            XWPFDocument doc = new XWPFDocument();
+            string[] Plist = ResultTest.Split(Environment.NewLine.ToCharArray());
+            Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            XWPFRun P1Text = null;
+            for (int i = 0; i < Plist.Length; i++)
+            {
+                if (!Plist[i].Contains("words") || Plist[i].Contains("words_result_num") || Plist[i].Contains("words_result"))
+                {
+                    continue;
+                }
+                else
+                {
+                    string value = Plist[i];
+                    value = value.Replace("words", "").Replace("''", "").Replace(":", "");
+                }
+                XWPFParagraph P1 = doc.CreateParagraph();
+                P1.Alignment = ParagraphAlignment.LEFT;
+                P1Text = P1.CreateRun();
+                P1Text.SetText(Plist[i]);
+            }
+            ResultStr = P1Text.Text;
+            return ResultStr;
         }
         private void GetScreenOprator_Click(object sender, EventArgs e)
         {
