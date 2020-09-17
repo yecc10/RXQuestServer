@@ -18,7 +18,7 @@ using NPOI.OpenXmlFormats.Wordprocessing;
 using System.IO;
 using System.Web;
 using Baidu.Aip.Ocr;
-
+using WindowsAPI_Interface;
 namespace OcrCenter
 {
     public partial class OCR : Form
@@ -28,6 +28,17 @@ namespace OcrCenter
             InitializeComponent();
             timer.Enabled = true;
             this.TopMost = true;
+            CheckNetWork checkNet = new CheckNetWork();
+            if (checkNet.IsConnectNetwork())
+            {
+                ByBaiduEngner.Checked = true;
+                ByInnerEngner.Checked = false;
+            }
+            else
+            {
+                ByBaiduEngner.Checked = false;
+                ByInnerEngner.Checked = true;
+            }
         }
         private void ReadTarget_Click(object sender, EventArgs e)
         {

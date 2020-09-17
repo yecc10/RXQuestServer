@@ -68,7 +68,7 @@ namespace RXQuestServer
         }
         public string GetHashProtectComputerID()
         {
-            string ComputerId = GetComputerID()+ "yeccdesignforruixiang2020";
+            string ComputerId = GetComputerID();
            // int HashComputerId=ComputerId.GetHashCode();
             return ComputerId;
         }
