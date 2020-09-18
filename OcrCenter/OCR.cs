@@ -19,10 +19,13 @@ using System.IO;
 using System.Web;
 using Baidu.Aip.Ocr;
 using WindowsAPI_Interface;
+using NPOI.SS.Formula.Functions;
+
 namespace OcrCenter
 {
     public partial class OCR : Form
     {
+        XWPFDocument Globaldoc = new XWPFDocument();
         public OCR()
         {
             InitializeComponent();
@@ -111,6 +114,7 @@ namespace OcrCenter
         }
         private void TranslateFileBaiduEngener()
         {
+            this.TopMost = false;
             string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
             string api_key = null, secret_key = null;
             api_key = Properties.Resources.apikey;
@@ -174,33 +178,33 @@ namespace OcrCenter
         private void savetoword_Click(object sender, EventArgs e)
         {
             PBOCR.Value = 0;
-            if (string.IsNullOrEmpty(ResultTest.Text))
+            if (Globaldoc==null)
             {
                 return;
             }
-            XWPFDocument doc = new XWPFDocument();
-            string[] Plist = ResultTest.Text.Split(Environment.NewLine.ToCharArray());
-            Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-            for (int i = 0; i < Plist.Length; i++)
-            {
-                if (!Plist[i].Contains("words") || Plist[i].Contains("words_result_num") || Plist[i].Contains("words_result"))
-                {
-                    continue;
-                }
-                else
-                {
-                    string value = Plist[i];
-                    value = value.Replace("words", "").Replace("''", "").Replace(":", "");
-                }
-                XWPFParagraph P1 = doc.CreateParagraph();
-                P1.Alignment = ParagraphAlignment.LEFT;
-                XWPFRun P1Text = P1.CreateRun();
-                P1Text.SetText(Plist[i]);
-            }
+            //XWPFDocument doc = new XWPFDocument();
+            //string[] Plist = ResultTest.Text.Split(Environment.NewLine.ToCharArray());
+            //Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            //for (int i = 0; i < Plist.Length; i++)
+            //{
+            //    if (!Plist[i].Contains("words") || Plist[i].Contains("words_result_num") || Plist[i].Contains("words_result"))
+            //    {
+            //        continue;
+            //    }
+            //    else
+            //    {
+            //        string value = Plist[i];
+            //        value = value.Replace("words", "").Replace("''", "").Replace(":", "");
+            //    }
+            //    XWPFParagraph P1 = doc.CreateParagraph();
+            //    P1.Alignment = ParagraphAlignment.LEFT;
+            //    XWPFRun P1Text = P1.CreateRun();
+            //    P1Text.SetText(Plist[i]);
+            //}
             PBOCR.Value = 50;
             string Path = "C:\\Users\\Administrator\\Desktop\\瑞祥OCR转译系统_" + System.DateTime.Now.ToString("yyyymmddHHmmssffff") + ".doc";
             FileStream newfile = new FileStream(Path, FileMode.Create);
-            doc.Write(newfile);
+            Globaldoc.Write(newfile);
             newfile.Close();
             PBOCR.Value = 100;
         }
@@ -214,7 +218,7 @@ namespace OcrCenter
             XWPFDocument doc = new XWPFDocument();
             string[] Plist = ResultTest.Split(Environment.NewLine.ToCharArray());
             Plist = Plist.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-            XWPFRun P1Text = null;
+            string value = string.Empty;
             for (int i = 0; i < Plist.Length; i++)
             {
                 if (!Plist[i].Contains("words") || Plist[i].Contains("words_result_num") || Plist[i].Contains("words_result"))
@@ -223,15 +227,21 @@ namespace OcrCenter
                 }
                 else
                 {
-                    string value = Plist[i];
-                    value = value.Replace("words", "").Replace("''", "").Replace(":", "");
+                    value = Plist[i];
+                    value = value.Replace("words", "").Replace("\"", "").Replace(":", "");
+                    value = value.Replace("\"words\": \"", "").Trim();
                 }
                 XWPFParagraph P1 = doc.CreateParagraph();
                 P1.Alignment = ParagraphAlignment.LEFT;
-                P1Text = P1.CreateRun();
-                P1Text.SetText(Plist[i]);
+                XWPFRun P1Text = P1.CreateRun();
+                P1Text.SetText(value);
             }
-            ResultStr = P1Text.Text;
+            Globaldoc = doc;
+            foreach (XWPFParagraph xWPF in doc.Paragraphs)
+            {
+                ResultStr += xWPF.Text;
+                ResultStr += "\r\n";
+            }
             return ResultStr;
         }
         private void GetScreenOprator_Click(object sender, EventArgs e)
