@@ -31,6 +31,7 @@ using YeccAutoCenter;
 using NPOI.XWPF.UserModel;
 using WindowsAPI_Interface;
 using System.Web.Management;
+using DNBFastener;
 
 namespace AutoDeskLine_ToPlant
 {
@@ -75,19 +76,23 @@ namespace AutoDeskLine_ToPlant
         public bool InitCatEnv(ref INFITF.Application CatApplication, ref ProductDocument CatDocument, ref Part PartID, Form form)
         {
             Process[] AllProcess = Process.GetProcessesByName("CNEXT"); //Only When Get CATIA Process
-            //Process[] AllProcess = Process.GetProcessesByName("Delmia");
+            form.TopMost = false;
+           // Process[] AllProcess = Process.GetProcessesByName("Delmia");
             //if (AllProcess.Length > 1)
             //{
             //    try
             //    {
             //        WAPI wAPI = new WAPI();
             //        AllProcess[0].WaitForInputIdle();
-            //        string MainWintitle=AllProcess[0].MainWindowTitle;
+            //        string MainWintitle = AllProcess[0].MainWindowTitle;
             //        int MainPID = AllProcess[0].Id;
             //        IntPtr intPtr = AllProcess[0].MainWindowHandle;
             //        IntPtr intPtr2 = WAPI.FindWindow(null, MainWintitle);
-            //        CatApplication = (INFITF.Application)Marshal.GetObjectForIUnknown(intPtr2);
-            //        string CapName1=CatApplication.get_Caption();
+            //        // CatApplication = (INFITF.Application)AllProcess[0].CreateObjRef(INFITF.Application);
+            //        var application = Marshal.GetObjectForNativeVariant(intPtr);
+            //        CatApplication = (INFITF.Application)application;
+            //        string CapName1 = CatApplication.get_Caption();
+            //        CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
             //        AllProcess[1].WaitForInputIdle();
             //        IntPtr ProgHandle = AllProcess[1].Handle;
             //        //CatApplication = (INFITF.Application)Marshal.GetObjectForNativeVariant(ProgId);
@@ -229,7 +234,9 @@ namespace AutoDeskLine_ToPlant
             }
             form.WindowState = FormWindowState.Normal;
             form.StartPosition = FormStartPosition.CenterScreen;
+
             return;
+            
         }
         [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
         private object[] InputObjectType(int ReadType)
@@ -250,7 +257,7 @@ namespace AutoDeskLine_ToPlant
                     }
                 case 4: //BooleanShape  
                     {
-                        return new object[] { "HybridShape", "Shape"};
+                        return new object[] {"Fastener", "FastenerGroup", "HybridShape", "Shape" };
                     }
                 case 5: //BooleanShape  
                     {

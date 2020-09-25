@@ -329,7 +329,9 @@ namespace RXQuestServer.Delmia
                     return Pitem;
                 }
             }
-            return null;
+            Product NPD = FatherList.Products.AddNewProduct(PartNumber);
+            SetAttrValue(NPD);
+            return NPD;
         }
         /// <summary>
         /// 保存StationProduct 到文件夹
@@ -492,11 +494,9 @@ namespace RXQuestServer.Delmia
             NPD = GetProductByPartNumber(PD, PD.get_PartNumber() + "_TagList");
             if (NPD == null)
             {
-                NPD = PD.Products.AddNewProduct(Name + "_TagList");
-                SetAttrValue(PD);
                 return null;
             }
-            else
+            try
             {
                 TagGroupFactory TGF = (TagGroupFactory)NPD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
                 TagGroup NwTagGroup = null; //创建TagGroup指针
@@ -504,6 +504,10 @@ namespace RXQuestServer.Delmia
                 Tag tag;
                 NwTagGroup.CreateTag(out tag);
                 return tag;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         public void GetDocument()
@@ -1110,13 +1114,16 @@ namespace RXQuestServer.Delmia
                         AnyObject ObjRM = null;
                         RobotMotion robotMotion = null;
                         objoperation.CreateRobotMotion(ObjRM, true, ref robotMotion);
-                        //Object[] RMobj = new object[6] { 0, 0, 0, 0, -1.5707963267949054, 0 };
-                        robotMotion.SetTagTarget(tag);
-                        //robotMotion.GetJointTarget(RMobj);
-                        //robotMotion.SetJointTarget(RMobj);
-                        //robotMotion.GetCartesianTarget(RMobj);
-                        tag.SetName("RefPoint");
-                        robotMotion.SetTagTarget(tag);
+                        if (tag!=null)
+                        {
+                            //Object[] RMobj = new object[6] { 0, 0, 0, 0, -1.5707963267949054, 0 };
+                            robotMotion.SetTagTarget(tag);
+                            //robotMotion.GetJointTarget(RMobj);
+                            //robotMotion.SetJointTarget(RMobj);
+                            //robotMotion.GetCartesianTarget(RMobj);
+                            tag.SetName("RefPoint");
+                            robotMotion.SetTagTarget(tag);
+                        }
                         return true;
                     }
                 }
