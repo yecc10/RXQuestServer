@@ -83,8 +83,8 @@
             this.StationNumAdd = new System.Windows.Forms.Button();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.newproductToProductlist = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.newStationToResList = new System.Windows.Forms.ToolStripMenuItem();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
@@ -657,6 +657,14 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
+            // newproductToProductlist
+            // 
+            this.newproductToProductlist.Image = global::RXQuestServer.Properties.Resources.Add_button;
+            this.newproductToProductlist.Name = "newproductToProductlist";
+            this.newproductToProductlist.Size = new System.Drawing.Size(184, 22);
+            this.newproductToProductlist.Text = "添加产品至产品目录";
+            this.newproductToProductlist.Click += new System.EventHandler(this.newproductToProductlist_Click);
+            // 
             // toolStripDropDownButton2
             // 
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -668,20 +676,13 @@
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
             this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
             // 
-            // newproductToProductlist
-            // 
-            this.newproductToProductlist.Image = global::RXQuestServer.Properties.Resources.Add_button;
-            this.newproductToProductlist.Name = "newproductToProductlist";
-            this.newproductToProductlist.Size = new System.Drawing.Size(184, 22);
-            this.newproductToProductlist.Text = "添加产品至产品目录";
-            this.newproductToProductlist.Click += new System.EventHandler(this.newproductToProductlist_Click);
-            // 
             // newStationToResList
             // 
             this.newStationToResList.Image = global::RXQuestServer.Properties.Resources.Add;
             this.newStationToResList.Name = "newStationToResList";
             this.newStationToResList.Size = new System.Drawing.Size(184, 22);
             this.newStationToResList.Text = "添加工位至资源目录";
+            this.newStationToResList.Click += new System.EventHandler(this.newStationToResList_Click);
             // 
             // InitDelmiaDocument
             // 

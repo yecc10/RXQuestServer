@@ -100,16 +100,21 @@ namespace RXQuestServer.Delmia
             DStype = GFD.InitCatEnv(this);
             if (DStype.Revalue == -1)
             {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
                 return;
             }
             Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
-            if (Uselect.Count < 1)
+            if (Uselect==null||Uselect.Count < 1)
             {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
                 return;
             }
             try
             {
                 Product Usp = (Product)Uselect.Item2(1).Value;
+                SetAttrValue(Usp);
                 NewStationInit(Usp);
             }
             catch (Exception)
@@ -217,6 +222,7 @@ namespace RXQuestServer.Delmia
                     Pbar.Step = Pbar.Step / NumStation;
                     for (int i = 0; i < ZeroList.Count; i++)
                     {
+                        #region Cancered And By Mannule Create In Button 20200928
                         //Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i] + "_SM"); //初始化产品数模
                         //for (int j = 1; j <= NumStation; j++)
                         //{
@@ -230,6 +236,7 @@ namespace RXQuestServer.Delmia
                         //        NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
                         //    }
                         //}
+                        #endregion
                         Product CNewProduct = null;
                         if (ZeroList[i] == "ST")
                         {
@@ -344,7 +351,7 @@ namespace RXQuestServer.Delmia
         /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
-        public void SaveProduct(Product Tproduct, String DLayouType, String MPath=null)
+        public void SaveProduct(Product Tproduct, String DLayouType, String MPath=null,bool IsStation=false)
         {
             if (DStype.DSActiveDocument == null)
             {
@@ -441,8 +448,13 @@ namespace RXQuestServer.Delmia
                 Path = Path + Tproduct.get_PartNumber() + "\\";
             }
             CreatePath(Path);
+            if (IsStation)
+            {
+                CreateStationPath(Path);
+            }
             Path = Path + Tproduct.get_PartNumber() + ".CATProduct";
             DSPD.SaveAs(Path);
+
             DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
         public void SetAttrValue(Product Prodt)
@@ -661,17 +673,25 @@ namespace RXQuestServer.Delmia
                     }
                     string StationPath = CPath + "//"+NWTP; //j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
                     CreatePath(StationPath);
-                    CreatePath(StationPath + "//01_Fixture");
-                    CreatePath(StationPath + "//02_Gripper");
-                    CreatePath(StationPath + "//03_GripperStander");
-                    CreatePath(StationPath + "//04_GunStander");
-                    CreatePath(StationPath + "//05_Buffer");
-                    CreatePath(StationPath + "//06_ROBOTSLIDE&Stander");
+                    CreateStationPath(StationPath);
                 }
                 StationID += 1;
             }
             CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_Resourse";
             CreatePath(CPath);
+            CreateResoursePath(CPath);
+        }
+        private void CreateStationPath(String StationPath)
+        {
+            CreatePath(StationPath + "//01_Fixture");
+            CreatePath(StationPath + "//02_Gripper");
+            CreatePath(StationPath + "//03_GripperStander");
+            CreatePath(StationPath + "//04_GunStander");
+            CreatePath(StationPath + "//05_Buffer");
+            CreatePath(StationPath + "//06_ROBOTSLIDE&Stander");
+        }
+        private void CreateResoursePath(String CPath)
+        {
             CreatePath(CPath + "//01_Robot");
             CreatePath(CPath + "//02_RobotBase");
             CreatePath(CPath + "//03_Gun");
@@ -1282,6 +1302,52 @@ namespace RXQuestServer.Delmia
         private void newproductToProductlist_Click(object sender, EventArgs e)
         {
             NewProductToProductList();
+        }
+
+        private void newStationToResList_Click(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            List<string> ZeroList = GetZeroList();
+            if (ZeroList.Count!=1)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                MessageBox.Show("当前选择的区域类型不等于1个，无法执行指定初始化!请取消非期望的区域类型！");
+                return;
+            }
+            InitSimDocument();
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
+            if (Uselect.Count < 1)
+            {
+                return;
+            }
+            try
+            {
+                Product Usp = (Product)Uselect.Item2(1).Value;
+                int StationCount = Usp.Products.Count;
+                StationCount += 1;
+                String StationName = ZeroList[0] +Convert.ToString(StationCount*10);
+                Product CNewProduct = Usp.Products.AddNewComponent("Product", StationName);
+                CNewProduct.Update();
+                SetAttrValue(CNewProduct);
+                NewStationInit(CNewProduct);
+                SaveProduct(CNewProduct, ZeroList[0],null,true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }
