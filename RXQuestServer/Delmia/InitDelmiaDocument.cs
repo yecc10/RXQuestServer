@@ -141,7 +141,7 @@ namespace RXQuestServer.Delmia
             }
             return NwP;
         }
-        public Product NewPPRProduct(PPRProducts Product, string Name)
+        public Product NewPPRProduct(PPRProducts Product, string Name, String SavePath=null)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
@@ -151,7 +151,14 @@ namespace RXQuestServer.Delmia
             Product NWResProduct = Product.Item(Product.Count);
             NWResProduct.set_Name(Name);
             NWResProduct.set_PartNumber(Name);
-            SaveProduct(NWResProduct, null);
+            if (string.IsNullOrEmpty(SavePath))
+            {
+                SaveProduct(NWResProduct, null);
+            }
+            else
+            {
+                SaveProduct(NWResProduct, null, SavePath);
+            }
             return NWResProduct;
         }
         /// <summary>
@@ -337,7 +344,7 @@ namespace RXQuestServer.Delmia
         /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
-        public void SaveProduct(Product Tproduct, String DLayouType)
+        public void SaveProduct(Product Tproduct, String DLayouType, String MPath=null)
         {
             if (DStype.DSActiveDocument == null)
             {
@@ -357,6 +364,14 @@ namespace RXQuestServer.Delmia
             ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
             if (DSPD.Saved)
             {
+                return;
+            }
+            if (!string.IsNullOrEmpty(MPath))
+            {
+                CreatePath(MPath);
+                MPath = MPath + "\\" + Tproduct.get_PartNumber() + ".CATProduct";
+                DSPD.SaveAs(MPath);
+                DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
                 return;
             }
             //string FN = DSPD.FullName; //读取零件全名称 如果没有保存则为Name+.Product
@@ -728,6 +743,45 @@ namespace RXQuestServer.Delmia
             }
             Pbar.PerformStep();
             NewResourseInit();
+            Pbar.Value = 100;
+        }
+        private void NewProductToProductList()
+        {
+            Pbar.Value = 0;
+            Pbar.Step = 5;
+            CheckForIllegalCrossThreadCalls = false;
+            if (string.IsNullOrEmpty(SavePath.Text))
+            {
+                MessageBox.Show("请设置工作目录或保存Process后重试,请勿向默认Process中添加任何元素！");
+                System.Threading.Thread importThread = new System.Threading.Thread(new ThreadStart(GetDocument));
+                importThread.SetApartmentState(ApartmentState.STA); //重点
+                importThread.Start();
+                return;
+            }
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            PPRProducts PPRSM = (PPRProducts)PPRD.Products;//读取产品列表
+            PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
+            List<string> ZeroList = GetZeroList();
+            int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2 : Convert.ToInt16(StationNum.Text);
+            for (int i = 0; i < ZeroList.Count; i++)
+            {
+                String NewSavePath = SavePath.Text + "\\01_SM\\" + ModelName.Text + "_SM";
+                Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text+"_SM", NewSavePath); //初始化产品数模
+                for (int j = 1; j <= NumStation; j++)
+                {
+                    Pbar.PerformStep();
+                    if (type1020.Checked)
+                    {
+                        NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
+                    }
+                    else
+                    {
+                        string Str = (j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5);
+                        NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
+                    }
+                }
+            }
             Pbar.Value = 100;
         }
         private void InitDelmiaDocument_FormClosed(object sender, FormClosedEventArgs e)
@@ -1220,6 +1274,11 @@ namespace RXQuestServer.Delmia
             CV = CV < 1 ? 1 : CV;
             String TV = "R" + RV + CV.ToString();
             RobotID.Text = TV;
+        }
+
+        private void newproductToProductlist_Click(object sender, EventArgs e)
+        {
+            NewProductToProductList();
         }
     }
 }

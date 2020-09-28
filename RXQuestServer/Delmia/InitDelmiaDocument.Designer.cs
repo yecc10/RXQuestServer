@@ -53,6 +53,7 @@
             this.type1020 = new System.Windows.Forms.RadioButton();
             this.Type1015 = new System.Windows.Forms.RadioButton();
             this.Tipdress = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.GrpStand = new System.Windows.Forms.CheckBox();
             this.GunStand = new System.Windows.Forms.CheckBox();
             this.StudWeld = new System.Windows.Forms.CheckBox();
@@ -80,13 +81,16 @@
             this.StationNumRemove = new System.Windows.Forms.Button();
             this.RobotAdd = new System.Windows.Forms.Button();
             this.StationNumAdd = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.newproductToProductlist = new System.Windows.Forms.ToolStripMenuItem();
+            this.newStationToResList = new System.Windows.Forms.ToolStripMenuItem();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayoutGroup
@@ -98,7 +102,7 @@
             this.LayoutGroup.Controls.Add(this.SBR);
             this.LayoutGroup.Controls.Add(this.SBL);
             this.LayoutGroup.Controls.Add(this.MB);
-            this.LayoutGroup.Location = new System.Drawing.Point(12, 66);
+            this.LayoutGroup.Location = new System.Drawing.Point(12, 33);
             this.LayoutGroup.Name = "LayoutGroup";
             this.LayoutGroup.Size = new System.Drawing.Size(814, 48);
             this.LayoutGroup.TabIndex = 0;
@@ -182,7 +186,7 @@
             this.Station_Group.Controls.Add(this.label2);
             this.Station_Group.Controls.Add(this.StationNum);
             this.Station_Group.Controls.Add(this.NSTagGroup);
-            this.Station_Group.Location = new System.Drawing.Point(12, 120);
+            this.Station_Group.Location = new System.Drawing.Point(12, 87);
             this.Station_Group.Name = "Station_Group";
             this.Station_Group.Size = new System.Drawing.Size(287, 86);
             this.Station_Group.TabIndex = 0;
@@ -219,7 +223,7 @@
             // 
             // Fullint
             // 
-            this.Fullint.Location = new System.Drawing.Point(12, 353);
+            this.Fullint.Location = new System.Drawing.Point(12, 320);
             this.Fullint.Name = "Fullint";
             this.Fullint.Size = new System.Drawing.Size(102, 38);
             this.Fullint.TabIndex = 11;
@@ -229,7 +233,7 @@
             // 
             // SelectInit
             // 
-            this.SelectInit.Location = new System.Drawing.Point(120, 353);
+            this.SelectInit.Location = new System.Drawing.Point(120, 320);
             this.SelectInit.Name = "SelectInit";
             this.SelectInit.Size = new System.Drawing.Size(102, 38);
             this.SelectInit.TabIndex = 12;
@@ -239,7 +243,7 @@
             // 
             // SavePath
             // 
-            this.SavePath.Location = new System.Drawing.Point(101, 313);
+            this.SavePath.Location = new System.Drawing.Point(101, 280);
             this.SavePath.Name = "SavePath";
             this.SavePath.Size = new System.Drawing.Size(725, 21);
             this.SavePath.TabIndex = 10;
@@ -247,7 +251,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 313);
+            this.label1.Location = new System.Drawing.Point(12, 280);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 12);
             this.label1.TabIndex = 3;
@@ -256,7 +260,7 @@
             // FolderInit
             // 
             this.FolderInit.Enabled = false;
-            this.FolderInit.Location = new System.Drawing.Point(228, 353);
+            this.FolderInit.Location = new System.Drawing.Point(228, 320);
             this.FolderInit.Name = "FolderInit";
             this.FolderInit.Size = new System.Drawing.Size(102, 38);
             this.FolderInit.TabIndex = 13;
@@ -270,7 +274,7 @@
             // 
             // InitRobot
             // 
-            this.InitRobot.Location = new System.Drawing.Point(336, 353);
+            this.InitRobot.Location = new System.Drawing.Point(336, 320);
             this.InitRobot.Name = "InitRobot";
             this.InitRobot.Size = new System.Drawing.Size(102, 38);
             this.InitRobot.TabIndex = 14;
@@ -296,7 +300,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.ModelName);
             this.groupBox1.Controls.Add(this.RobotCtrlNum);
-            this.groupBox1.Location = new System.Drawing.Point(12, 212);
+            this.groupBox1.Location = new System.Drawing.Point(12, 179);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(814, 86);
             this.groupBox1.TabIndex = 0;
@@ -306,22 +310,22 @@
             // type1020
             // 
             this.type1020.AutoSize = true;
+            this.type1020.Checked = true;
             this.type1020.Location = new System.Drawing.Point(632, 21);
             this.type1020.Name = "type1020";
             this.type1020.Size = new System.Drawing.Size(59, 16);
             this.type1020.TabIndex = 19;
+            this.type1020.TabStop = true;
             this.type1020.Text = "10->20";
             this.type1020.UseVisualStyleBackColor = true;
             // 
             // Type1015
             // 
             this.Type1015.AutoSize = true;
-            this.Type1015.Checked = true;
             this.Type1015.Location = new System.Drawing.Point(559, 21);
             this.Type1015.Name = "Type1015";
             this.Type1015.Size = new System.Drawing.Size(59, 16);
             this.Type1015.TabIndex = 19;
-            this.Type1015.TabStop = true;
             this.Type1015.Text = "10->15";
             this.Type1015.UseVisualStyleBackColor = true;
             // 
@@ -334,6 +338,16 @@
             this.Tipdress.TabIndex = 18;
             this.Tipdress.Text = "修磨";
             this.Tipdress.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(706, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 38);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "刷焊接动作";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BallToRobotList_Click);
             // 
             // GrpStand
             // 
@@ -518,7 +532,7 @@
             // 
             // BackForm
             // 
-            this.BackForm.Location = new System.Drawing.Point(724, 353);
+            this.BackForm.Location = new System.Drawing.Point(724, 320);
             this.BackForm.Name = "BackForm";
             this.BackForm.Size = new System.Drawing.Size(102, 38);
             this.BackForm.TabIndex = 15;
@@ -528,7 +542,7 @@
             // 
             // ManuleInit
             // 
-            this.ManuleInit.Location = new System.Drawing.Point(616, 353);
+            this.ManuleInit.Location = new System.Drawing.Point(616, 320);
             this.ManuleInit.Name = "ManuleInit";
             this.ManuleInit.Size = new System.Drawing.Size(102, 38);
             this.ManuleInit.TabIndex = 14;
@@ -538,7 +552,7 @@
             // 
             // BallToRobotList
             // 
-            this.BallToRobotList.Location = new System.Drawing.Point(444, 353);
+            this.BallToRobotList.Location = new System.Drawing.Point(444, 320);
             this.BallToRobotList.Name = "BallToRobotList";
             this.BallToRobotList.Size = new System.Drawing.Size(102, 38);
             this.BallToRobotList.TabIndex = 16;
@@ -548,7 +562,7 @@
             // 
             // Pbar
             // 
-            this.Pbar.Location = new System.Drawing.Point(12, 397);
+            this.Pbar.Location = new System.Drawing.Point(12, 364);
             this.Pbar.Name = "Pbar";
             this.Pbar.Size = new System.Drawing.Size(814, 23);
             this.Pbar.Step = 1;
@@ -566,7 +580,7 @@
             this.groupBox2.Controls.Add(this.StationNumAdd);
             this.groupBox2.Controls.Add(this.ELEID);
             this.groupBox2.Controls.Add(this.ELEADD);
-            this.groupBox2.Location = new System.Drawing.Point(305, 120);
+            this.groupBox2.Location = new System.Drawing.Point(305, 87);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(521, 86);
             this.groupBox2.TabIndex = 18;
@@ -620,32 +634,62 @@
             this.StationNumAdd.UseVisualStyleBackColor = false;
             this.StationNumAdd.Click += new System.EventHandler(this.StationNumAdd_Click);
             // 
-            // pictureBox1
+            // toolStrip
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(814, 48);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
+            this.toolStrip.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.toolStripDropDownButton2});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(836, 25);
+            this.toolStrip.TabIndex = 20;
+            this.toolStrip.Text = "toolStrip";
             // 
-            // button1
+            // toolStripDropDownButton1
             // 
-            this.button1.Location = new System.Drawing.Point(706, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 38);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "刷焊接动作";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BallToRobotList_Click);
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newproductToProductlist});
+            this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Add_button;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newStationToResList});
+            this.toolStripDropDownButton2.Image = global::RXQuestServer.Properties.Resources.Add;
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
+            // 
+            // newproductToProductlist
+            // 
+            this.newproductToProductlist.Image = global::RXQuestServer.Properties.Resources.Add_button;
+            this.newproductToProductlist.Name = "newproductToProductlist";
+            this.newproductToProductlist.Size = new System.Drawing.Size(184, 22);
+            this.newproductToProductlist.Text = "添加产品至产品目录";
+            this.newproductToProductlist.Click += new System.EventHandler(this.newproductToProductlist_Click);
+            // 
+            // newStationToResList
+            // 
+            this.newStationToResList.Image = global::RXQuestServer.Properties.Resources.Add;
+            this.newStationToResList.Name = "newStationToResList";
+            this.newStationToResList.Size = new System.Drawing.Size(184, 22);
+            this.newStationToResList.Text = "添加工位至资源目录";
             // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(838, 429);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(836, 403);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Pbar);
             this.Controls.Add(this.BallToRobotList);
@@ -663,7 +707,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(854, 468);
             this.Name = "InitDelmiaDocument";
             this.Text = "InitDelmiaDocument";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InitDelmiaDocument_FormClosed);
@@ -675,7 +718,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,7 +776,11 @@
         private System.Windows.Forms.RadioButton type1020;
         private System.Windows.Forms.RadioButton Type1015;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem newproductToProductlist;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem newStationToResList;
     }
 }
