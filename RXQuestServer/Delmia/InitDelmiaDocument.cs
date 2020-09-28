@@ -582,9 +582,9 @@ namespace RXQuestServer.Delmia
             SimulationDir.SMPath = CPath + "\\";
             CreatePath(CPath);
             CreatePath(CPath + "\\01_Model");
-            CreatePath(CPath + "\\02_Model");
-            CreatePath(CPath + "\\03_Model");
-            CreatePath(CPath + "\\04_Model");
+            //CreatePath(CPath + "\\02_Model");
+            //CreatePath(CPath + "\\03_Model");
+            //CreatePath(CPath + "\\04_Model");
             CPath = MPath + "\\02_Layout";
             SimulationDir.LayoutPath = CPath + "\\";
             CreatePath(CPath);
@@ -766,7 +766,9 @@ namespace RXQuestServer.Delmia
             int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2 : Convert.ToInt16(StationNum.Text);
             for (int i = 0; i < ZeroList.Count; i++)
             {
-                String NewSavePath = SavePath.Text + "\\01_SM\\" + ModelName.Text + "_SM";
+                string[] Dirst = Directory.GetDirectories(SavePath.Text+ "\\01_SM\\");
+                string FID = Dirst.Length < 10 ? "0" + Convert.ToString(Dirst.Length+1) : Convert.ToString(Dirst.Length+1);
+                String NewSavePath = SavePath.Text + "\\01_SM\\" + FID+"_"+ ModelName.Text + "_SM";
                 Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text+"_SM", NewSavePath); //初始化产品数模
                 for (int j = 1; j <= NumStation; j++)
                 {
