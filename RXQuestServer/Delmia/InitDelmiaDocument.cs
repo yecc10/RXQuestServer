@@ -217,19 +217,19 @@ namespace RXQuestServer.Delmia
                     Pbar.Step = Pbar.Step / NumStation;
                     for (int i = 0; i < ZeroList.Count; i++)
                     {
-                        Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i] + "_SM"); //初始化产品数模
-                        for (int j = 1; j <= NumStation; j++)
-                        {
-                            if (type1020.Checked)
-                            {
-                                NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
-                            }
-                            else
-                            {
-                                string Str = (j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5);
-                                NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
-                            }
-                        }
+                        //Product PPRSMProduct = NewPPRProduct(PPRSM, ZeroList[i] + "_SM"); //初始化产品数模
+                        //for (int j = 1; j <= NumStation; j++)
+                        //{
+                        //    if (type1020.Checked)
+                        //    {
+                        //        NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
+                        //    }
+                        //    else
+                        //    {
+                        //        string Str = (j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5);
+                        //        NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
+                        //    }
+                        //}
                         Product CNewProduct = null;
                         if (ZeroList[i] == "ST")
                         {
@@ -581,7 +581,7 @@ namespace RXQuestServer.Delmia
             String CPath = MPath + "\\01_SM";
             SimulationDir.SMPath = CPath + "\\";
             CreatePath(CPath);
-            CreatePath(CPath + "\\01_Model");
+            //CreatePath(CPath + "\\01_Model");
             //CreatePath(CPath + "\\02_Model");
             //CreatePath(CPath + "\\03_Model");
             //CreatePath(CPath + "\\04_Model");
