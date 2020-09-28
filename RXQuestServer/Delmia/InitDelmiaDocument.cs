@@ -764,6 +764,7 @@ namespace RXQuestServer.Delmia
             PPRProducts PPRS = (PPRProducts)PPRD.Resources;//读取资源列表
             List<string> ZeroList = GetZeroList();
             int NumStation = Type1015.Checked ? Convert.ToInt16(StationNum.Text) * 2 : Convert.ToInt16(StationNum.Text);
+            Pbar.Step = (100 - Pbar.Value) / ZeroList.Count;
             for (int i = 0; i < ZeroList.Count; i++)
             {
                 string[] Dirst = Directory.GetDirectories(SavePath.Text+ "\\01_SM\\");
@@ -772,7 +773,6 @@ namespace RXQuestServer.Delmia
                 Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text+"_SM", NewSavePath); //初始化产品数模
                 for (int j = 1; j <= NumStation; j++)
                 {
-                    Pbar.PerformStep();
                     if (type1020.Checked)
                     {
                         NewProduct(PPRSMProduct, ZeroList[i] + j * 10 + "_SM", false);
@@ -782,6 +782,7 @@ namespace RXQuestServer.Delmia
                         string Str = (j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5);
                         NewProduct(PPRSMProduct, ZeroList[i] + Str + "_SM", false);
                     }
+                    Pbar.PerformStep();
                 }
             }
             Pbar.Value = 100;
