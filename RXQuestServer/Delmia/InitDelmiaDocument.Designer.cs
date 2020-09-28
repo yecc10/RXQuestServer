@@ -53,7 +53,6 @@
             this.type1020 = new System.Windows.Forms.RadioButton();
             this.Type1015 = new System.Windows.Forms.RadioButton();
             this.Tipdress = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.GrpStand = new System.Windows.Forms.CheckBox();
             this.GunStand = new System.Windows.Forms.CheckBox();
             this.StudWeld = new System.Windows.Forms.CheckBox();
@@ -86,6 +85,8 @@
             this.newproductToProductlist = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.newStationToResList = new System.Windows.Forms.ToolStripMenuItem();
+            this.PackageTarget = new System.Windows.Forms.ToolStripButton();
+            this.InsertNewPart = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -102,7 +103,7 @@
             this.LayoutGroup.Controls.Add(this.SBR);
             this.LayoutGroup.Controls.Add(this.SBL);
             this.LayoutGroup.Controls.Add(this.MB);
-            this.LayoutGroup.Location = new System.Drawing.Point(12, 33);
+            this.LayoutGroup.Location = new System.Drawing.Point(12, 43);
             this.LayoutGroup.Name = "LayoutGroup";
             this.LayoutGroup.Size = new System.Drawing.Size(814, 48);
             this.LayoutGroup.TabIndex = 0;
@@ -186,7 +187,7 @@
             this.Station_Group.Controls.Add(this.label2);
             this.Station_Group.Controls.Add(this.StationNum);
             this.Station_Group.Controls.Add(this.NSTagGroup);
-            this.Station_Group.Location = new System.Drawing.Point(12, 87);
+            this.Station_Group.Location = new System.Drawing.Point(12, 97);
             this.Station_Group.Name = "Station_Group";
             this.Station_Group.Size = new System.Drawing.Size(287, 86);
             this.Station_Group.TabIndex = 0;
@@ -223,7 +224,7 @@
             // 
             // Fullint
             // 
-            this.Fullint.Location = new System.Drawing.Point(12, 320);
+            this.Fullint.Location = new System.Drawing.Point(12, 330);
             this.Fullint.Name = "Fullint";
             this.Fullint.Size = new System.Drawing.Size(102, 38);
             this.Fullint.TabIndex = 11;
@@ -233,7 +234,7 @@
             // 
             // SelectInit
             // 
-            this.SelectInit.Location = new System.Drawing.Point(120, 320);
+            this.SelectInit.Location = new System.Drawing.Point(120, 330);
             this.SelectInit.Name = "SelectInit";
             this.SelectInit.Size = new System.Drawing.Size(102, 38);
             this.SelectInit.TabIndex = 12;
@@ -243,7 +244,7 @@
             // 
             // SavePath
             // 
-            this.SavePath.Location = new System.Drawing.Point(101, 280);
+            this.SavePath.Location = new System.Drawing.Point(101, 290);
             this.SavePath.Name = "SavePath";
             this.SavePath.Size = new System.Drawing.Size(725, 21);
             this.SavePath.TabIndex = 10;
@@ -251,7 +252,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 280);
+            this.label1.Location = new System.Drawing.Point(12, 290);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 12);
             this.label1.TabIndex = 3;
@@ -260,7 +261,7 @@
             // FolderInit
             // 
             this.FolderInit.Enabled = false;
-            this.FolderInit.Location = new System.Drawing.Point(228, 320);
+            this.FolderInit.Location = new System.Drawing.Point(228, 330);
             this.FolderInit.Name = "FolderInit";
             this.FolderInit.Size = new System.Drawing.Size(102, 38);
             this.FolderInit.TabIndex = 13;
@@ -274,7 +275,7 @@
             // 
             // InitRobot
             // 
-            this.InitRobot.Location = new System.Drawing.Point(336, 320);
+            this.InitRobot.Location = new System.Drawing.Point(336, 330);
             this.InitRobot.Name = "InitRobot";
             this.InitRobot.Size = new System.Drawing.Size(102, 38);
             this.InitRobot.TabIndex = 14;
@@ -287,7 +288,6 @@
             this.groupBox1.Controls.Add(this.type1020);
             this.groupBox1.Controls.Add(this.Type1015);
             this.groupBox1.Controls.Add(this.Tipdress);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.GrpStand);
             this.groupBox1.Controls.Add(this.GunStand);
             this.groupBox1.Controls.Add(this.StudWeld);
@@ -300,7 +300,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.ModelName);
             this.groupBox1.Controls.Add(this.RobotCtrlNum);
-            this.groupBox1.Location = new System.Drawing.Point(12, 179);
+            this.groupBox1.Location = new System.Drawing.Point(12, 189);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(814, 86);
             this.groupBox1.TabIndex = 0;
@@ -338,16 +338,6 @@
             this.Tipdress.TabIndex = 18;
             this.Tipdress.Text = "修磨";
             this.Tipdress.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(706, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 38);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "刷焊接动作";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BallToRobotList_Click);
             // 
             // GrpStand
             // 
@@ -532,7 +522,7 @@
             // 
             // BackForm
             // 
-            this.BackForm.Location = new System.Drawing.Point(724, 320);
+            this.BackForm.Location = new System.Drawing.Point(724, 330);
             this.BackForm.Name = "BackForm";
             this.BackForm.Size = new System.Drawing.Size(102, 38);
             this.BackForm.TabIndex = 15;
@@ -542,7 +532,7 @@
             // 
             // ManuleInit
             // 
-            this.ManuleInit.Location = new System.Drawing.Point(616, 320);
+            this.ManuleInit.Location = new System.Drawing.Point(616, 330);
             this.ManuleInit.Name = "ManuleInit";
             this.ManuleInit.Size = new System.Drawing.Size(102, 38);
             this.ManuleInit.TabIndex = 14;
@@ -552,7 +542,7 @@
             // 
             // BallToRobotList
             // 
-            this.BallToRobotList.Location = new System.Drawing.Point(444, 320);
+            this.BallToRobotList.Location = new System.Drawing.Point(444, 330);
             this.BallToRobotList.Name = "BallToRobotList";
             this.BallToRobotList.Size = new System.Drawing.Size(102, 38);
             this.BallToRobotList.TabIndex = 16;
@@ -562,7 +552,7 @@
             // 
             // Pbar
             // 
-            this.Pbar.Location = new System.Drawing.Point(12, 364);
+            this.Pbar.Location = new System.Drawing.Point(12, 374);
             this.Pbar.Name = "Pbar";
             this.Pbar.Size = new System.Drawing.Size(814, 23);
             this.Pbar.Step = 1;
@@ -580,7 +570,7 @@
             this.groupBox2.Controls.Add(this.StationNumAdd);
             this.groupBox2.Controls.Add(this.ELEID);
             this.groupBox2.Controls.Add(this.ELEADD);
-            this.groupBox2.Location = new System.Drawing.Point(305, 87);
+            this.groupBox2.Location = new System.Drawing.Point(305, 97);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(521, 86);
             this.groupBox2.TabIndex = 18;
@@ -637,12 +627,15 @@
             // toolStrip
             // 
             this.toolStrip.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
-            this.toolStripDropDownButton2});
+            this.toolStripDropDownButton2,
+            this.PackageTarget,
+            this.InsertNewPart});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(836, 25);
+            this.toolStrip.Size = new System.Drawing.Size(838, 31);
             this.toolStrip.TabIndex = 20;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -654,14 +647,14 @@
             this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Add_button;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(37, 28);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
             // newproductToProductlist
             // 
             this.newproductToProductlist.Image = global::RXQuestServer.Properties.Resources.Add_button;
             this.newproductToProductlist.Name = "newproductToProductlist";
-            this.newproductToProductlist.Size = new System.Drawing.Size(184, 22);
+            this.newproductToProductlist.Size = new System.Drawing.Size(192, 30);
             this.newproductToProductlist.Text = "添加产品至产品目录";
             this.newproductToProductlist.Click += new System.EventHandler(this.newproductToProductlist_Click);
             // 
@@ -670,26 +663,46 @@
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newStationToResList});
-            this.toolStripDropDownButton2.Image = global::RXQuestServer.Properties.Resources.Add;
+            this.toolStripDropDownButton2.Image = global::RXQuestServer.Properties.Resources.Add_button;
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(37, 28);
             this.toolStripDropDownButton2.Text = "toolStripDropDownButton2";
             // 
             // newStationToResList
             // 
             this.newStationToResList.Image = global::RXQuestServer.Properties.Resources.Add;
             this.newStationToResList.Name = "newStationToResList";
-            this.newStationToResList.Size = new System.Drawing.Size(184, 22);
+            this.newStationToResList.Size = new System.Drawing.Size(192, 30);
             this.newStationToResList.Text = "添加工位至资源目录";
             this.newStationToResList.Click += new System.EventHandler(this.newStationToResList_Click);
+            // 
+            // PackageTarget
+            // 
+            this.PackageTarget.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.PackageTarget.Image = global::RXQuestServer.Properties.Resources.Tree;
+            this.PackageTarget.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PackageTarget.Name = "PackageTarget";
+            this.PackageTarget.Size = new System.Drawing.Size(28, 28);
+            this.PackageTarget.Text = "封装对象";
+            this.PackageTarget.Click += new System.EventHandler(this.PackageTarget_Click);
+            // 
+            // InsertNewPart
+            // 
+            this.InsertNewPart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.InsertNewPart.Image = global::RXQuestServer.Properties.Resources.Install;
+            this.InsertNewPart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.InsertNewPart.Name = "InsertNewPart";
+            this.InsertNewPart.Size = new System.Drawing.Size(28, 28);
+            this.InsertNewPart.Text = "插入新对象";
+            this.InsertNewPart.Click += new System.EventHandler(this.InsertNewPart_Click);
             // 
             // InitDelmiaDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(836, 403);
+            this.ClientSize = new System.Drawing.Size(838, 414);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Pbar);
@@ -777,11 +790,12 @@
         private System.Windows.Forms.RadioButton type1020;
         private System.Windows.Forms.RadioButton Type1015;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem newproductToProductlist;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripMenuItem newStationToResList;
+        private System.Windows.Forms.ToolStripButton PackageTarget;
+        private System.Windows.Forms.ToolStripButton InsertNewPart;
     }
 }

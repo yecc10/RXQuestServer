@@ -105,7 +105,7 @@ namespace RXQuestServer.Delmia
                 return;
             }
             Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
-            if (Uselect==null||Uselect.Count < 1)
+            if (Uselect == null || Uselect.Count < 1)
             {
                 this.WindowState = FormWindowState.Normal;
                 this.StartPosition = FormStartPosition.CenterScreen;
@@ -146,7 +146,7 @@ namespace RXQuestServer.Delmia
             }
             return NwP;
         }
-        public Product NewPPRProduct(PPRProducts Product, string Name, String SavePath=null)
+        public Product NewPPRProduct(PPRProducts Product, string Name, String SavePath = null)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
@@ -351,7 +351,7 @@ namespace RXQuestServer.Delmia
         /// 保存StationProduct 到文件夹
         /// </summary>
         /// <param name="Tproduct">需要保存的Product</param>
-        public void SaveProduct(Product Tproduct, String DLayouType, String MPath=null,bool IsStation=false)
+        public void SaveProduct(Product Tproduct, String DLayouType, String MPath = null, bool IsStation = false)
         {
             if (DStype.DSActiveDocument == null)
             {
@@ -395,6 +395,11 @@ namespace RXQuestServer.Delmia
                         break;
                     }
                 case "Station":
+                    {
+                        Path = SimulationDir.STPath;
+                        break;
+                    }
+                case "StationRes":
                     {
                         Path = SimulationDir.STPath;
                         break;
@@ -671,7 +676,7 @@ namespace RXQuestServer.Delmia
                     {
                         NWTP = ZeroList[i] + ((j * 5) < 10 ? "0" + Convert.ToString(j * 5) : Convert.ToString(j * 5));
                     }
-                    string StationPath = CPath + "//"+NWTP; //j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
+                    string StationPath = CPath + "//" + NWTP; //j > 10 ? CPath + "//" + ZeroList[i] + j * 10 : CPath + "//" + ZeroList[i] + j * 10;
                     CreatePath(StationPath);
                     CreateStationPath(StationPath);
                 }
@@ -787,10 +792,10 @@ namespace RXQuestServer.Delmia
             Pbar.Step = (100 - Pbar.Value) / ZeroList.Count;
             for (int i = 0; i < ZeroList.Count; i++)
             {
-                string[] Dirst = Directory.GetDirectories(SavePath.Text+ "\\01_SM\\");
-                string FID = Dirst.Length < 10 ? "0" + Convert.ToString(Dirst.Length+1) : Convert.ToString(Dirst.Length+1);
-                String NewSavePath = SavePath.Text + "\\01_SM\\" + FID+"_"+ ModelName.Text + "_SM";
-                Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text+"_SM", NewSavePath); //初始化产品数模
+                string[] Dirst = Directory.GetDirectories(SavePath.Text + "\\01_SM\\");
+                string FID = Dirst.Length < 10 ? "0" + Convert.ToString(Dirst.Length + 1) : Convert.ToString(Dirst.Length + 1);
+                String NewSavePath = SavePath.Text + "\\01_SM\\" + FID + "_" + ModelName.Text + "_SM";
+                Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text + "_SM", NewSavePath); //初始化产品数模
                 for (int j = 1; j <= NumStation; j++)
                 {
                     if (type1020.Checked)
@@ -1191,7 +1196,7 @@ namespace RXQuestServer.Delmia
                         AnyObject ObjRM = null;
                         RobotMotion robotMotion = null;
                         objoperation.CreateRobotMotion(ObjRM, true, ref robotMotion);
-                        if (tag!=null)
+                        if (tag != null)
                         {
                             //Object[] RMobj = new object[6] { 0, 0, 0, 0, -1.5707963267949054, 0 };
                             robotMotion.SetTagTarget(tag);
@@ -1308,7 +1313,7 @@ namespace RXQuestServer.Delmia
         {
             this.TopMost = false;
             List<string> ZeroList = GetZeroList();
-            if (ZeroList.Count!=1)
+            if (ZeroList.Count != 1)
             {
                 this.WindowState = FormWindowState.Normal;
                 this.StartPosition = FormStartPosition.CenterScreen;
@@ -1335,12 +1340,12 @@ namespace RXQuestServer.Delmia
                 Product Usp = (Product)Uselect.Item2(1).Value;
                 int StationCount = Usp.Products.Count;
                 StationCount += 1;
-                String StationName = ZeroList[0] +Convert.ToString(StationCount*10);
+                String StationName = ZeroList[0] + Convert.ToString(StationCount * 10);
                 Product CNewProduct = Usp.Products.AddNewComponent("Product", StationName);
                 CNewProduct.Update();
                 SetAttrValue(CNewProduct);
                 NewStationInit(CNewProduct);
-                SaveProduct(CNewProduct, ZeroList[0],null,true);
+                SaveProduct(CNewProduct, ZeroList[0], null, true);
             }
             catch (Exception)
             {
@@ -1348,6 +1353,130 @@ namespace RXQuestServer.Delmia
             }
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void PackageTarget_Click(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            InitSimDocument();
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
+            if (Uselect.Count < 1)
+            {
+                return;
+            }
+            try
+            {
+                Selection selection = DStype.DSActiveDocument.Selection;
+                Product Usp = (Product)Uselect.Item2(1).Value;
+                String PartName = Usp.get_PartNumber();
+                Product Fatherproduct = (Product)Usp.Parent;
+                string ten = Fatherproduct.get_PartNumber();
+                Product Packageproduct = Fatherproduct.Products.AddNewComponent("Product", PartName + "_Pr");
+                selection.Clear();
+                SetAttrValue(Packageproduct);
+                //Packageproduct.Products.AddComponent(Usp); //Insert Selected Product To Package Product
+                selection.Add(Usp); //Add Old Product To Selection
+                selection.Cut(); //Delete Old Product
+                selection.Clear(); //Delete Old Product
+                selection.Add(Packageproduct); //Add Old Product To Selection
+                selection.Paste();
+                Fatherproduct.Update();
+                string SavePath, DirPath = string.Empty;
+                Product product = Fatherproduct;
+                product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
+                while (!product.HasAMasterShapeRepresentation())
+                {
+                    product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
+                    string bo = product.get_DescriptionInst();
+                    product = (Product)product.Parent;
+                    ten = product.get_PartNumber();
+
+                }
+                SavePath = Packageproduct.GetMasterShapeRepresentationPathName();
+                SaveProduct(Packageproduct, "StationRes");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("发生无法预测的以外，请联系程序设计者：联系方式见帮助！");
+            }
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+        }
+
+        private void InsertNewPart_Click(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            InitSimDocument();
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            PPRDocument PPRD = (PPRDocument)DSActiveDocument.PPRDocument;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
+            if (Uselect.Count < 1)
+            {
+                return;
+            }
+            try
+            {
+                Product Usp = (Product)Uselect.Item2(1).Value;
+                Usp.Products.AddComponentsFromFiles(GetPartPath(), "All");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
+        private object[] GetPartPath()
+        {
+        A: string GunPath = DStype.DSApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+            if (string.IsNullOrEmpty(GunPath))
+            {
+                var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
+                switch (Result)
+                {
+                    case DialogResult.None:
+                        break;
+                    case DialogResult.OK:
+                        break;
+                    case DialogResult.Cancel:
+                        this.TopMost = true;
+                        this.WindowState = FormWindowState.Normal;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        return null; //终止焊枪导入
+                    case DialogResult.Abort:
+                        break;
+                    case DialogResult.Retry:
+                        break;
+                    case DialogResult.Ignore:
+                        break;
+                    case DialogResult.Yes:
+                        goto A; //回到插入焊枪阶段
+                    case DialogResult.No:
+                        this.TopMost = true;
+                        this.WindowState = FormWindowState.Normal;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        return null; //终止焊枪导入
+                    default:
+                        break;
+                }
+            }
+            object[] arrayOfVariantOfBSTR1 = new object[1] { GunPath };
+            return arrayOfVariantOfBSTR1;
         }
     }
 }
