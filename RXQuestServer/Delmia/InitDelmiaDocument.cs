@@ -34,7 +34,7 @@ using DNBRobot;
 using DNBIgpTagPath;
 using MANUFACTURING;
 using KinTypeLib;
-
+using System.Runtime.Remoting.Messaging;
 namespace RXQuestServer.Delmia
 {
     public partial class InitDelmiaDocument : Form
@@ -347,6 +347,25 @@ namespace RXQuestServer.Delmia
             SetAttrValue(NPD);
             return NPD;
         }
+        public string GetProductPath(Product Tproduct)
+        {
+            Documents CatDocuments = DStype.DSDocument;
+            String Path = string.Empty;
+            String SPath = string.Empty;
+            String Name = Tproduct.get_PartNumber();
+            //String NwProductName = Name + "_Fixture";
+            try
+            {
+                ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
+                string cPath = DSPD.Path;
+                return cPath;
+            }
+            catch (Exception)
+            {
+                //
+            }
+            return null;
+        }
         /// <summary>
         /// 保存StationProduct 到文件夹
         /// </summary>
@@ -459,7 +478,7 @@ namespace RXQuestServer.Delmia
             }
             Path = Path + Tproduct.get_PartNumber() + ".CATProduct";
             DSPD.SaveAs(Path);
-
+            //Tproduct.AddMasterShapeRepresentation(Path);
             DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
         }
         public void SetAttrValue(Product Prodt)
@@ -1256,7 +1275,6 @@ namespace RXQuestServer.Delmia
             String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
             ELEID.Text = TV;
         }
-
         private void StationNumAdd_Click(object sender, EventArgs e)
         {
             char[] ValueStr = RobotID.Text.ToCharArray();
@@ -1268,7 +1286,6 @@ namespace RXQuestServer.Delmia
             String TV = "R" + CV.ToString() + RV;
             RobotID.Text = TV;
         }
-
         private void StationNumRemove_Click(object sender, EventArgs e)
         {
             char[] ValueStr = RobotID.Text.ToCharArray();
@@ -1278,9 +1295,7 @@ namespace RXQuestServer.Delmia
             CV = CV < 1 ? 1 : CV;
             String TV = "R" + CV.ToString() + RV;
             RobotID.Text = TV;
-
         }
-
         private void RobotAdd_Click(object sender, EventArgs e)
         {
             char[] ValueStr = RobotID.Text.ToCharArray();
@@ -1292,7 +1307,6 @@ namespace RXQuestServer.Delmia
             String TV = "R" + RV + CV.ToString();
             RobotID.Text = TV;
         }
-
         private void RobotRemove_Click(object sender, EventArgs e)
         {
             char[] ValueStr = RobotID.Text.ToCharArray();
@@ -1303,12 +1317,10 @@ namespace RXQuestServer.Delmia
             String TV = "R" + RV + CV.ToString();
             RobotID.Text = TV;
         }
-
         private void newproductToProductlist_Click(object sender, EventArgs e)
         {
             NewProductToProductList();
         }
-
         private void newStationToResList_Click(object sender, EventArgs e)
         {
             this.TopMost = false;
@@ -1354,7 +1366,6 @@ namespace RXQuestServer.Delmia
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
-
         private void PackageTarget_Click(object sender, EventArgs e)
         {
             this.TopMost = false;
@@ -1389,19 +1400,24 @@ namespace RXQuestServer.Delmia
                 selection.Add(Packageproduct); //Add Old Product To Selection
                 selection.Paste();
                 Fatherproduct.Update();
-                string SavePath, DirPath = string.Empty;
+                string SavePath=string.Empty, DirPath = string.Empty;
                 Product product = Fatherproduct;
                 product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-                while (!product.HasAMasterShapeRepresentation())
+                while (string.IsNullOrEmpty(SavePath))
                 {
-                    product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-                    string bo = product.get_DescriptionInst();
+                    //product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
+                    //string bo = product.get_DescriptionInst();
+                    //ten = product.get_PartNumber();
+                    SavePath = GetProductPath(product);
                     product = (Product)product.Parent;
-                    ten = product.get_PartNumber();
-
+                    if (product.get_Name()=="InvalidLeafProduct")
+                    {
+                        MessageBox.Show("未成功获取到父级目录地址，请检查目录结构！");
+                        return;
+                    }
                 }
-                SavePath = Packageproduct.GetMasterShapeRepresentationPathName();
-                SaveProduct(Packageproduct, "StationRes");
+                SavePath = SavePath + "\\"+ Fatherproduct.get_PartNumber();
+                SaveProduct(Packageproduct, "StationRes", SavePath);
             }
             catch (Exception)
             {
@@ -1409,9 +1425,7 @@ namespace RXQuestServer.Delmia
             }
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
-
         }
-
         private void InsertNewPart_Click(object sender, EventArgs e)
         {
             this.TopMost = false;

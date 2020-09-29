@@ -644,7 +644,7 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newproductToProductlist});
-            this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Add_button;
+            this.toolStripDropDownButton1.Image = global::RXQuestServer.Properties.Resources.Document_chart;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(37, 28);
@@ -673,7 +673,7 @@
             // 
             this.newStationToResList.Image = global::RXQuestServer.Properties.Resources.Add;
             this.newStationToResList.Name = "newStationToResList";
-            this.newStationToResList.Size = new System.Drawing.Size(192, 30);
+            this.newStationToResList.Size = new System.Drawing.Size(184, 22);
             this.newStationToResList.Text = "添加工位至资源目录";
             this.newStationToResList.Click += new System.EventHandler(this.newStationToResList_Click);
             // 
