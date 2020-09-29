@@ -68,7 +68,7 @@ namespace ToPlant
             this.StartPosition = FormStartPosition.CenterScreen;
             SocketLogs.Text = string.Empty;
             ServerIP.Text = "127.0.0.1";
-            ServerPort.Text = "42092";
+            ServerPort.Text = "40000";
             timer.Enabled = true;
             dataColum = new System.Data.DataColumn();
             dataColum.ColumnName = "序号";

@@ -132,7 +132,6 @@
             // 
             this.ServerPort.Location = new System.Drawing.Point(249, 76);
             this.ServerPort.Name = "ServerPort";
-            this.ServerPort.PasswordChar = '*';
             this.ServerPort.Size = new System.Drawing.Size(171, 21);
             this.ServerPort.TabIndex = 7;
             this.ServerPort.Text = "40000";

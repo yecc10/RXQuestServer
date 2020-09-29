@@ -291,7 +291,7 @@ namespace RXQuestServer.Delmia
                 }
                 // MessageBox.Show("当前环境非标准环境，已执行初始化！");
             }
-            MessageBox.Show("初始化完成！");
+            //MessageBox.Show("初始化完成！");
         }
         /// <summary>
         /// 查询选定的Product中是否存在指定的对象
