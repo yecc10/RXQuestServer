@@ -1385,9 +1385,18 @@ namespace RXQuestServer.Delmia
             }
             try
             {
+                string SavePath = string.Empty, DirPath = string.Empty;
                 Selection selection = DStype.DSActiveDocument.Selection;
                 Product Usp = (Product)Uselect.Item2(1).Value;
                 String PartName = Usp.get_PartNumber();
+                try
+                {
+                    SavePath = Usp.GetMasterShapeRepresentationPathName();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
                 Product Fatherproduct = (Product)Usp.Parent;
                 string ten = Fatherproduct.get_PartNumber();
                 Product Packageproduct = Fatherproduct.Products.AddNewComponent("Product", PartName + "_Pr");
@@ -1399,25 +1408,10 @@ namespace RXQuestServer.Delmia
                 selection.Clear(); //Delete Old Product
                 selection.Add(Packageproduct); //Add Old Product To Selection
                 selection.Paste();
-                Fatherproduct.Update();
-                string SavePath=string.Empty, DirPath = string.Empty;
-                Product product = Fatherproduct;
-                product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-                while (string.IsNullOrEmpty(SavePath))
-                {
-                    //product.ApplyWorkMode(CatWorkModeType.DESIGN_MODE);
-                    //string bo = product.get_DescriptionInst();
-                    //ten = product.get_PartNumber();
-                    SavePath = GetProductPath(product);
-                    product = (Product)product.Parent;
-                    if (product.get_Name()=="InvalidLeafProduct")
-                    {
-                        MessageBox.Show("未成功获取到父级目录地址，请检查目录结构！");
-                        return;
-                    }
-                }
-                SavePath = SavePath + "\\"+ Fatherproduct.get_PartNumber();
+                selection.Clear();
+                SavePath = Path.GetDirectoryName(SavePath);
                 SaveProduct(Packageproduct, "StationRes", SavePath);
+                Fatherproduct.Update();
             }
             catch (Exception)
             {
@@ -1426,6 +1420,40 @@ namespace RXQuestServer.Delmia
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
+        private string GetStationChirdByName(Product Chird)
+        {
+            String FathName = Chird.get_PartNumber();
+            string[] stringSeparators = new string[] { "_" };
+            string[] nameList = FathName.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
+            if (nameList[1] == null)
+            {
+                return null;
+            }
+            switch (nameList[1])
+            {
+                case "Gun":
+                    {
+                        return "04_Resourse\\03_Gun";
+                    }
+                case "Gripper":
+                    {
+                        return "02_Gripper";
+                    }
+                case "RobotSlide":
+                    {
+                        return "06_ROBOTSLIDE&Stander";
+                    }
+                case "GripperStander":
+                    {
+                        return "03_GripperStander";
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+        enum StationChird { Fixture, Robots, Gun, Gripper, Peripheral, RobotSlide, GripperStander, TagList };
         private void InsertNewPart_Click(object sender, EventArgs e)
         {
             this.TopMost = false;
@@ -1438,15 +1466,17 @@ namespace RXQuestServer.Delmia
             {
                 return;
             }
-            Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
-            if (Uselect.Count < 1)
-            {
-                return;
-            }
             try
             {
+                Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
+                object[] mob = GetPartPath();
+                if (Uselect == null || Uselect.Count < 1 || mob == null)
+                {
+                    this.TopLevel = true;
+                    return;
+                }
                 Product Usp = (Product)Uselect.Item2(1).Value;
-                Usp.Products.AddComponentsFromFiles(GetPartPath(), "All");
+                Usp.Products.AddComponentsFromFiles(mob, "All");
             }
             catch (Exception)
             {
@@ -1457,9 +1487,10 @@ namespace RXQuestServer.Delmia
         }
         private object[] GetPartPath()
         {
-        A: string GunPath = DStype.DSApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+        A: string GunPath = DStype.DSApplication.FileSelectionBox("请选择焊枪", "*.CATPart;*.CATProduct;*.cgr", 0);
             if (string.IsNullOrEmpty(GunPath))
             {
+                this.TopMost = true;
                 var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
                 switch (Result)
                 {
@@ -1488,6 +1519,7 @@ namespace RXQuestServer.Delmia
                     default:
                         break;
                 }
+                this.TopMost = false;
             }
             object[] arrayOfVariantOfBSTR1 = new object[1] { GunPath };
             return arrayOfVariantOfBSTR1;
