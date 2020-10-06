@@ -27,6 +27,8 @@ using System.Windows.Forms;
 using PROCESSITF;
 using PPR;
 using NPOI.POIFS.Crypt.Dsig;
+using NPOI.XWPF.UserModel;
+
 namespace YeDassaultSystemDev
 {
     class GloalForDelmia
@@ -39,24 +41,24 @@ namespace YeDassaultSystemDev
         /// <returns></returns>
         public DataType.Dsystem InitCatEnv(Form FM)
         {
-            DataType.Dsystem  Dsvalue= new DataType.Dsystem();
+            DataType.Dsystem Dsvalue = new DataType.Dsystem();
             INFITF.Application DSApplication;
             Documents DSDocument;
             ProcessDocument DSActiveDocument;
             Process[] AllProcess = Process.GetProcessesByName("DELMIA");
-            if (AllProcess.Length>1)
+            if (AllProcess.Length > 1)
             {
                 try
                 {
-                   // MessageBox.Show("当前打开超过1个Delmia,可能操控的Delmia非您需要的对象，请核实！");
-                   // IntPtr Ptr = AllProcess[2].MainWindowHandle;
-                   // string Pname = AllProcess[2].MainWindowTitle;
-                   //  int progid=  AllProcess[2].;
-                   // object Pobj = Marshal.GetActiveObject("Delmia.Application");
-                   //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
-                   // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
-                   // DSApplication = (INFITF.Application)Pobj;
-                   // String tn = DSApplication.get_Caption();
+                    // MessageBox.Show("当前打开超过1个Delmia,可能操控的Delmia非您需要的对象，请核实！");
+                    // IntPtr Ptr = AllProcess[2].MainWindowHandle;
+                    // string Pname = AllProcess[2].MainWindowTitle;
+                    //  int progid=  AllProcess[2].;
+                    // object Pobj = Marshal.GetActiveObject("Delmia.Application");
+                    //// object Tobj = Marshal.GetObjectForIUnknown(ptr2);
+                    // object Pobj0 = Marshal.GetActiveObject(progid.ToString());
+                    // DSApplication = (INFITF.Application)Pobj;
+                    // String tn = DSApplication.get_Caption();
                 }
                 catch (Exception)
                 {
@@ -85,9 +87,9 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
-                    MessageBox.Show("未检测到活动Product,正在为您创建，请手动辅助完成！");
-                    Dsvalue.Revalue = -1;
-                    return Dsvalue;
+                MessageBox.Show("未检测到活动Product,正在为您创建，请手动辅助完成！");
+                Dsvalue.Revalue = -1;
+                return Dsvalue;
                 //MessageBox.Show("未检测到活动Product,已自动为您创建对象！");
             }
             // 添加一个新零件
@@ -100,13 +102,14 @@ namespace YeDassaultSystemDev
         public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem)
         {
             FM.WindowState = FormWindowState.Minimized;
-            INFITF.Application CatApplication=DSystem.DSApplication;
+            INFITF.Application CatApplication = DSystem.DSApplication;
             ProcessDocument PPRP = DSystem.DSActiveDocument;
-            if (PPRP==null)
+            Selection USelect = null;
+            if (PPRP == null)
             {
                 return null;
             }
-            Selection USelect= PPRP.Selection;
+            USelect = PPRP.Selection;
             USelect.Clear();
             var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择初始化对象", true);
             if (Result == "Cancel")

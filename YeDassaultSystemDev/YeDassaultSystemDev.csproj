@@ -69,7 +69,6 @@
       <DependentUpon>CatiaQuickTool.cs</DependentUpon>
     </Compile>
     <Compile Include="CATIA_Class.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="GloalForDelmia.cs" />
     <Compile Include="InitDelmiaDocument.cs">
