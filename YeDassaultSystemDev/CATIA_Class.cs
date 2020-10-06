@@ -32,7 +32,7 @@ using WindowsAPI_Interface;
 using System.Web;
 using DNBFastener;
 
-namespace AutoDeskLine_ToPlant
+namespace YeDassaultSystemDev
 {
     class CATIA_Class
     {

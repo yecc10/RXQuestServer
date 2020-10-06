@@ -35,7 +35,7 @@ using DNBIgpTagPath;
 using MANUFACTURING;
 using KinTypeLib;
 using System.Runtime.Remoting.Messaging;
-namespace RXQuestServer.Delmia
+namespace YeDassaultSystemDev
 {
     public partial class InitDelmiaDocument : Form
     {

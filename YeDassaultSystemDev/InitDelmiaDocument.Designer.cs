@@ -1,4 +1,4 @@
-﻿namespace RXQuestServer.Delmia
+﻿namespace YeDassaultSystemDev
 {
     partial class InitDelmiaDocument
     {

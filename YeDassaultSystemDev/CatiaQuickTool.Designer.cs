@@ -1,4 +1,4 @@
-﻿namespace AutoDeskLine_ToPlant
+﻿namespace YeDassaultSystemDev
 {
     partial class CatiaQuickTool
     {

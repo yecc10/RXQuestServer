@@ -30,7 +30,7 @@ using DNBASY;
 using YeccAutoCenter;
 using CATSchematicTypeLib;
 
-namespace AutoDeskLine_ToPlant
+namespace YeDassaultSystemDev
 {
     public partial class CatiaQuickTool : Form
     {

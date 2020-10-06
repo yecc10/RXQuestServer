@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using NPOI.SS.Formula.Functions;
-using RXQuestServer.Delmia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,9 +39,9 @@ namespace RXQuestServer
             }
             if (HasAccessToRun)
             {
-                InitDelmiaDocument IDM = new InitDelmiaDocument();
+                YeDassaultSystemDev.InitDelmiaDocument initDelmia=new YeDassaultSystemDev.InitDelmiaDocument();
                 this.Hide();
-                IDM.Show();
+                initDelmia.Show();
             }
 
         }
@@ -55,7 +54,7 @@ namespace RXQuestServer
             }
             if (HasAccessToRun)
             {
-                AutoDeskLine_ToPlant.CatiaQuickTool CQT = new AutoDeskLine_ToPlant.CatiaQuickTool();
+                YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
                 this.TopMost = false;
                 this.Hide();
                 CQT.Show();
