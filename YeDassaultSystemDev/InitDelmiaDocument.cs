@@ -1263,9 +1263,9 @@ namespace YeDassaultSystemDev
         }
         private void BackForm_Click(object sender, EventArgs e)
         {
-            Main CMain = new Main();
-            this.Hide();
-            CMain.Show();
+            //Main CMain = new Main();
+            //this.Hide();
+            //CMain.Show();
         }
         private void BallToRobotList_Click(object sender, EventArgs e)
         {
