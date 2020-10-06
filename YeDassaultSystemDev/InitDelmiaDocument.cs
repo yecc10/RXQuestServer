@@ -39,12 +39,16 @@ namespace YeDassaultSystemDev
 {
     public partial class InitDelmiaDocument : Form
     {
+        #region GlobalValue
         DataType.SimulationDir SimulationDir = new DataType.SimulationDir();
         DataType.Dsystem DStype = new DataType.Dsystem();
+        Product MechanismProduct = null;
         /// <summary>
         /// 自动化布局主要区域类型
         /// </summary>
         enum LayoutType { MB, SBL, SBR, FR, RR, UB, ST }
+        #endregion
+
         public InitDelmiaDocument()
         {
             InitializeComponent();
@@ -66,7 +70,7 @@ namespace YeDassaultSystemDev
                 timer.Enabled = true;
                 GloalForDelmia GFD = new GloalForDelmia();
                 DStype = GFD.InitCatEnv(this);
-                if (DStype.Revalue == -1)
+                if (DStype.DSActiveDocument == null)
                 {
                     MessageBox.Show("未检测到已打开的Delmia 自动读取目录失败，请先打开软件后手动选择目录！");
                 }
@@ -1528,26 +1532,42 @@ namespace YeDassaultSystemDev
         private void CreatRobotClub_Click(object sender, EventArgs e)
         {
             GloalForDelmia GFD = new GloalForDelmia();
-            if (DStype.DSActiveDocument==null)
+            Product Usp;
+            if (MechanismProduct == null) //Check is First To InitRobot
             {
-                GFD.InitCatEnv(this);
+                if (DStype.CDSActiveDocument == null)
+                {
+                    GFD.InitCatEnv(this);
+                }
+                Selection Uselect = GFD.GetInitTargetProduct(this, DStype.CDSActiveDocument,"请选择机构对象Product");
+                if (Uselect == null || Uselect.Count < 1)
+                {
+                    this.TopLevel = true;
+                    return;
+                }
+                Usp = (Product)Uselect.Item2(1).Value;
+                MechanismProduct = Usp;
             }
-            Selection Uselect = GFD.GetInitTargetProduct(this, DStype);
-            if (Uselect == null || Uselect.Count < 1)
+            else
             {
-                this.TopLevel = true;
-                return;
+                Usp = MechanismProduct;
             }
             try
             {
-                Product Usp = (Product)Uselect.Item2(1).Value;
                 Mechanisms cTheMechanisms = (Mechanisms)Usp.GetTechnologicalObject("Mechanisms");
-                int joint = cTheMechanisms.Count;
-                cTheMechanisms.Add();
+                Mechanism mechanism;
+                if (cTheMechanisms.Count < 1)
+                {
+                    mechanism = cTheMechanisms.Add();
+                }
+                else
+                {
+                    mechanism = cTheMechanisms.Item(1);
+                }
+                GFD.SetRobotFixMechanism(this, DStype.CDSActiveDocument, mechanism);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

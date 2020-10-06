@@ -31,6 +31,7 @@ namespace YeDassaultSystemDev
             /// </summary>
             public virtual Documents DSDocument { get; set; }
             public virtual ProcessDocument DSActiveDocument { get; set; }
+            public virtual Document CDSActiveDocument { get; set; }
             /// <summary>
             /// 自定义的零件
             /// </summary>

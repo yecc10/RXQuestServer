@@ -28,6 +28,7 @@ using PROCESSITF;
 using PPR;
 using NPOI.POIFS.Crypt.Dsig;
 using NPOI.XWPF.UserModel;
+using KinTypeLib;
 
 namespace YeDassaultSystemDev
 {
@@ -44,6 +45,7 @@ namespace YeDassaultSystemDev
             DataType.Dsystem Dsvalue = new DataType.Dsystem();
             INFITF.Application DSApplication;
             Documents DSDocument;
+            INFITF.Document CDSActiveDocument;
             ProcessDocument DSActiveDocument;
             Process[] AllProcess = Process.GetProcessesByName("DELMIA");
             if (AllProcess.Length > 1)
@@ -83,7 +85,16 @@ namespace YeDassaultSystemDev
             try
             {
                 DSDocument = (Documents)DSApplication.Documents;
-                DSActiveDocument = (ProcessDocument)DSApplication.ActiveDocument;
+                CDSActiveDocument = DSApplication.ActiveDocument;
+                try
+                {
+                    DSActiveDocument = (ProcessDocument)CDSActiveDocument;
+                }
+                catch (Exception)
+                {
+                    DSActiveDocument = null;
+                    //throw;
+                }
             }
             catch (Exception)
             {
@@ -96,13 +107,19 @@ namespace YeDassaultSystemDev
             Dsvalue.DSApplication = DSApplication;
             Dsvalue.DSDocument = DSDocument;
             Dsvalue.DSActiveDocument = DSActiveDocument;
+            Dsvalue.CDSActiveDocument = CDSActiveDocument;
             Dsvalue.Revalue = 0;
             return Dsvalue;
         }
+        /// <summary>
+        /// Delmia 在仿真示教模式下使用
+        /// </summary>
+        /// <param name="FM"></param>
+        /// <param name="DSystem"></param>
+        /// <returns></returns>
         public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem)
         {
             FM.WindowState = FormWindowState.Minimized;
-            INFITF.Application CatApplication = DSystem.DSApplication;
             ProcessDocument PPRP = DSystem.DSActiveDocument;
             Selection USelect = null;
             if (PPRP == null)
@@ -112,6 +129,43 @@ namespace YeDassaultSystemDev
             USelect = PPRP.Selection;
             USelect.Clear();
             var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择初始化对象", true);
+            if (Result == "Cancel")
+            {
+                return null;
+            }
+            if (USelect.Count < 1)
+            {
+                MessageBox.Show("请先选择对象后再点此命令！");
+                return null;
+            }
+            return USelect;
+        }
+        /// <summary>
+        /// Delmia 在非仿真示教模式下使用
+        /// </summary>
+        /// <param name="FM">当前窗口</param>
+        /// <param name="DelmiaDocument">DelmiaDocument</param>
+        /// <returns></returns>
+        public Selection GetInitTargetProduct(Form FM, INFITF.Document DelmiaDocument, string Msg = "请选择初始化对象", bool MultSelect = false)
+        {
+            FM.WindowState = FormWindowState.Minimized;
+            INFITF.Document PPRP = DelmiaDocument;
+            Selection USelect = null;
+            if (PPRP == null)
+            {
+                return null;
+            }
+            USelect = PPRP.Selection;
+            USelect.Clear();
+            string Result;
+            if (MultSelect)
+            {
+                Result = USelect.SelectElement3(DataType.InputObjectType(9), Msg, true, CATMultiSelectionMode.CATMultiSelTriggWhenUserValidatesSelection, false);
+            }
+            else
+            {
+                Result = USelect.SelectElement2(DataType.InputObjectType(9), Msg, true);
+            }
             if (Result == "Cancel")
             {
                 return null;
@@ -141,6 +195,33 @@ namespace YeDassaultSystemDev
                 return null;
             }
             return USelect;
+        }
+        public void SetRobotFixMechanism(Form FM, INFITF.Document document, Mechanism mechanism)
+        {
+            Selection Uselect = GetInitTargetProduct(FM, document, "请选择固定的对象!");
+            if (Uselect == null)
+            {
+                return;
+            }
+            mechanism.FixedPart = (Product)Uselect.Item(1).Value;
+
+            Uselect = GetInitTargetProduct(FM, document, "请选择固联的对象!",true);
+            if (Uselect == null)
+            {
+                return;
+            }
+            try
+            {
+                Reference reference = Uselect.Item(1).Reference;
+                Reference reference1 = Uselect.Item(2).Reference;
+                AnyObject[] RefenceObject = new AnyObject[] { reference, reference1 };
+                Joint joint = mechanism.AddJoint("CATKinRigidJoint", RefenceObject);
+                mechanism.Update();
+            }
+            catch (Exception)
+            {
+                throw;
+            }   
         }
     }
 }
