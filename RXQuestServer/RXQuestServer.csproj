@@ -29,7 +29,7 @@
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>4.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -145,20 +145,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="CATIA\CatiaQuickTool.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CATIA\CatiaQuickTool.Designer.cs">
-      <DependentUpon>CatiaQuickTool.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CATIA\CATIA_Class.cs" />
     <Compile Include="DataType.cs" />
-    <Compile Include="Delmia\InitDelmiaDocument.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Delmia\InitDelmiaDocument.Designer.cs">
-      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
-    </Compile>
     <Compile Include="ExcelOut\OutExcel.cs" />
     <Compile Include="GetComputerData.cs" />
     <Compile Include="GloalForDelmia.cs" />
@@ -178,12 +165,6 @@
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CATIA\CatiaQuickTool.resx">
-      <DependentUpon>CatiaQuickTool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Delmia\InitDelmiaDocument.resx">
-      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

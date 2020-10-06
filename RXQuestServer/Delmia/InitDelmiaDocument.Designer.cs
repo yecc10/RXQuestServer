@@ -87,6 +87,7 @@
             this.newStationToResList = new System.Windows.Forms.ToolStripMenuItem();
             this.PackageTarget = new System.Windows.Forms.ToolStripButton();
             this.InsertNewPart = new System.Windows.Forms.ToolStripButton();
+            this.CreatRobotClub = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -632,7 +633,8 @@
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
             this.PackageTarget,
-            this.InsertNewPart});
+            this.InsertNewPart,
+            this.CreatRobotClub});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(838, 31);
@@ -654,7 +656,7 @@
             // 
             this.newproductToProductlist.Image = global::RXQuestServer.Properties.Resources.Add_button;
             this.newproductToProductlist.Name = "newproductToProductlist";
-            this.newproductToProductlist.Size = new System.Drawing.Size(192, 30);
+            this.newproductToProductlist.Size = new System.Drawing.Size(184, 22);
             this.newproductToProductlist.Text = "添加产品至产品目录";
             this.newproductToProductlist.Click += new System.EventHandler(this.newproductToProductlist_Click);
             // 
@@ -696,6 +698,16 @@
             this.InsertNewPart.Size = new System.Drawing.Size(28, 28);
             this.InsertNewPart.Text = "插入新对象";
             this.InsertNewPart.Click += new System.EventHandler(this.InsertNewPart_Click);
+            // 
+            // CreatRobotClub
+            // 
+            this.CreatRobotClub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CreatRobotClub.Image = global::RXQuestServer.Properties.Resources.Window_wizard;
+            this.CreatRobotClub.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CreatRobotClub.Name = "CreatRobotClub";
+            this.CreatRobotClub.Size = new System.Drawing.Size(28, 28);
+            this.CreatRobotClub.Text = "创建机器人管线包";
+            this.CreatRobotClub.Click += new System.EventHandler(this.CreatRobotClub_Click);
             // 
             // InitDelmiaDocument
             // 
@@ -797,5 +809,6 @@
         private System.Windows.Forms.ToolStripMenuItem newStationToResList;
         private System.Windows.Forms.ToolStripButton PackageTarget;
         private System.Windows.Forms.ToolStripButton InsertNewPart;
+        private System.Windows.Forms.ToolStripButton CreatRobotClub;
     }
 }

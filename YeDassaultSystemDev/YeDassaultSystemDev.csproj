@@ -36,14 +36,1944 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatiaQuickTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatiaQuickTool.Designer.cs">
+      <DependentUpon>CatiaQuickTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CATIA_Class.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DataType.cs" />
+    <Compile Include="GloalForDelmia.cs" />
+    <Compile Include="InitDelmiaDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitDelmiaDocument.Designer.cs">
+      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CatiaQuickTool.resx">
+      <DependentUpon>CatiaQuickTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitDelmiaDocument.resx">
+      <DependentUpon>InitDelmiaDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AECRTypeLib">
+      <Guid>{85CC1867-B083-0000-0280-020CC2000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AnnotationTypeLib">
+      <Guid>{88D26C84-D8E9-0000-0280-020CC3000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AutoCAD">
+      <Guid>{644614D2-93DC-48C6-A061-21ABCE65A4C0}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="BehaviorTypeLib">
+      <Guid>{14F198C2-0761-11D1-A5B1-00A0C9469177}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CAARCHIVEMERGERLib">
+      <Guid>{B48C07C4-CA02-4D5D-9758-87CAE3C4C695}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CACOMPRESSIONLIBLib">
+      <Guid>{746A5B3C-D1D4-41F4-A5DF-A762F87148F5}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CamControlLib">
+      <Guid>{4F595D8F-2F58-4086-B4DE-728C18660BD8}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CamtasiaAddinLib">
+      <Guid>{B70796FC-8EBC-4645-9CA1-8B050291B880}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CAO">
+      <Guid>{46C1A10D-32E4-46F0-9027-92D0E2A07C75}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CAPICOM">
+      <Guid>{BD26B198-EE42-4725-9B23-AFA912434229}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CAT3DXml">
+      <Guid>{0FCBA824-46B4-430B-A3C6-BC8E84D1FB7F}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATArrangementTypeLib">
+      <Guid>{A903D4EA-3932-11D3-8BB3-006094EB5532}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATAssemblyTypeLib">
+      <Guid>{8D5B5690-9551-11D4-9349-006094EB72E6}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATCompositesMat">
+      <Guid>{437A1314-9209-41FA-B546-9214651847FA}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATDataExch">
+      <Guid>{737CBEE1-8395-4A53-818C-FE7BFE900297}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATEdbTypeLib">
+      <Guid>{3C63282E-8D73-4F3E-BF1F-D893F84DE783}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATFunctSystem">
+      <Guid>{66AC8D61-4977-11D3-B2C7-0008C725BE57}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATHumanPackaging">
+      <Guid>{839FB79A-20FA-4F8E-B1B5-999E0AF49745}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATIA_APP_ITF">
+      <Guid>{3D8D0A2A-F2B0-11D4-A3AA-00D0B756AD5D}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATIdeSettings">
+      <Guid>{FE73E3EA-3D1A-450F-833F-DE849066C8B6}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATImm">
+      <Guid>{3AE49352-F009-4B43-B51C-29F6AD62663B}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATInstantCollabItf">
+      <Guid>{96C13590-CBF9-4F0F-9401-973103C58E12}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATMat">
+      <Guid>{4D3F28C0-7790-11D6-8056-0030F113D1BF}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATMultiCAD">
+      <Guid>{2ADBCBC4-7492-490C-8B6D-32CAA716E314}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATOBM">
+      <Guid>{7B131536-75DA-11D5-8551-00D0B7ADDE06}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATPspPlantShipTypeLib">
+      <Guid>{07CD116E-CF88-11D4-8E1B-00D0B7ACB59A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATRdg">
+      <Guid>{AB9D7654-6206-0000-0280-02157B000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATRma">
+      <Guid>{9BE25E70-7167-11D6-8054-0030F113D1BF}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATRpmReporterTypeLib">
+      <Guid>{DFE3EB46-ABAA-11D5-8E54-00D0B7ACB59A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATRsc">
+      <Guid>{D45AD2D0-999B-11D6-805E-0030F113D1BF}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATRsc2">
+      <Guid>{8BE37938-81D6-4804-9C94-2738A2667419}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATSchematicTypeLib">
+      <Guid>{572C20C8-C8A9-11D4-8E3E-00D0B7ACBB09}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATSdeSetting">
+      <Guid>{E6395545-A6F3-4631-8961-2037EC182DF3}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATSfmTypeLib">
+      <Guid>{09E2D098-A612-490A-98C8-B62D8B3B2861}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATSmarTeamInteg">
+      <Guid>{37EB6106-2CBA-4A69-B0F7-185EDF69CFC7}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATSmInterfacesTypeLib">
+      <Guid>{AAE56182-33C6-450A-A9F0-1D0695A25ED1}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATStiWIPBridgeSurrogateCOMExeLib">
+      <Guid>{23EBD294-52FD-4A9B-ACF6-7DFC09A2FE58}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATStk">
+      <Guid>{654C60DF-B2E8-11D3-859E-00108301D61C}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATStrSettingsTypeLib">
+      <Guid>{8AD08B63-AF05-4E2D-A550-2C53FC1EE4D2}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATTooling">
+      <Guid>{B46B5073-7D07-11D6-9F4E-0002B31E9EB0}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATV4IInteropTypeLib">
+      <Guid>{B370B426-EF27-41DD-91EE-852F02C5F0DD}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATVBTRemoteWorkspaceManagerTypeLib">
+      <Guid>{5C2F7060-508D-11D3-B81A-0008C70FC86B}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CD5Integ">
+      <Guid>{5E149A53-EF95-4DDD-8939-FF3F1C838737}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ComponentsCatalogsTypeLib">
+      <Guid>{FE86BC00-D89C-11D2-BE6C-00104B7D1988}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DELPPRNavig">
+      <Guid>{0E8246B8-80F1-44F9-9F39-C16F27551C78}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBASY">
+      <Guid>{9A12E21A-7CAC-11D6-810A-00C04FA145A1}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBBIW">
+      <Guid>{A6BF295D-4BEF-0000-020A-6E0A4F000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBD5I">
+      <Guid>{DEAED728-B6E6-497B-8E8F-8731973175AC}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBDevice">
+      <Guid>{FD1E8709-66BC-44A2-9ADF-0E2A42021926}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBDeviceActivity">
+      <Guid>{10F5E3C1-CFE2-11D5-80DF-0050040CD0C6}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBDpmItf">
+      <Guid>{344C5719-2624-440A-8C71-AF3DA6B691BE}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBEHMItf">
+      <Guid>{1BB1941F-AF6C-43AA-A1DA-98AA0AC80E7A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBEHSItf">
+      <Guid>{BF09BFEA-A136-4026-896D-5F57B7B63A76}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBEKP">
+      <Guid>{7A658408-BF52-4171-83B4-B29558E5E934}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBFastener">
+      <Guid>{7558A44C-B4C5-11D4-80C4-0050040CCFB4}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBHumanSimInterfaces">
+      <Guid>{C2A5C259-5108-4293-BAE2-C9C6BBAE267A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIgpAMPPath">
+      <Guid>{F679E8FF-099A-48DE-A050-735D141CCA63}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIgpOlp">
+      <Guid>{3AA0957E-D319-4150-B5D5-5AE2909D2866}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIgpResourceProgram">
+      <Guid>{6487219A-06D9-4F6D-9352-5AA4D3AA4760}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIgpTagPath">
+      <Guid>{F000CAE4-5E52-11D4-B3D4-00902721A553}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIgripSim">
+      <Guid>{F7D9256B-C1FD-11D3-80AC-00C04FA145A1}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBIPD">
+      <Guid>{0F114DA2-DA60-4037-BE3A-5D7B2EEC71DE}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBManufacturingLayoutItf">
+      <Guid>{0C850845-5B21-42C7-A8DA-C02B7962CCE5}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBMHIItf">
+      <Guid>{F0095CB7-ED36-4DC5-8D36-7BE80D1EAAF8}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBPert">
+      <Guid>{EB4E9CFF-0CC4-11D5-AD27-00B0D078AB86}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBReporting">
+      <Guid>{0C4204AA-0CA1-4599-8652-66D1934E6A35}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBRobot">
+      <Guid>{715642EA-ABF9-410C-90BD-447C0122616C}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBShopViewer">
+      <Guid>{91DB4DB1-4D14-4423-80C8-D921283BF20A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBSimAct">
+      <Guid>{F1978546-69D8-4A96-BCDD-AD943304CBB7}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBSimIO">
+      <Guid>{D01C6413-4925-4F4A-8F5C-EE92778FC184}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBSimulation">
+      <Guid>{D0387336-CB2F-401A-9310-5BD1456B9441}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBSOR">
+      <Guid>{F89B2213-09EA-4253-A2FF-9CA6D6314A41}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBState">
+      <Guid>{655A0376-C6BD-4B8F-9763-AFDDA406B423}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DNBWork">
+      <Guid>{49ADA80F-0DFE-4F00-B762-CE5039C56C4F}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DPMSettings">
+      <Guid>{544B33A3-D62B-49BE-B7FC-52B288650AB5}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DRAFTINGITF">
+      <Guid>{73130905-462A-11D1-A26A-0000F87546A1}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ElecSchematicTypeLib">
+      <Guid>{EE6CDBD0-29FB-11D6-BE35-0002B33E3A92}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ElectricalTypeLib">
+      <Guid>{0249798A-DA3D-11D3-BB2A-006094EB7CE7}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="FittingTypeLib">
+      <Guid>{8D48D2A0-8AE2-11D3-9ED9-0008C719F642}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="GenKwe">
+      <Guid>{00B6EC0E-BCFE-11D2-9B5B-006094EB7ECA}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="HybridShapeTypeLib">
+      <Guid>{87EE735C-DF70-11D1-8556-0060941979CE}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="INFITF">
+      <Guid>{14F197B2-0771-11D1-A5B1-00A0C9575177}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="KinTypeLib">
+      <Guid>{6652FDA0-BA01-11D2-88A1-0008C7194E6A}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="KnowledgewareTypeLib">
+      <Guid>{0770412C-722E-11D2-8378-0060941974FF}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="LAYOUT2DITF">
+      <Guid>{4480F2EC-29DE-443A-A706-3587C3758350}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MANUFACTURING">
+      <Guid>{11D5B9C4-3D84-11D2-8046-00805FC75483}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MECMOD">
+      <Guid>{0D90A5C9-3B08-11D1-A26C-0000F87546FD}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="mxcatiav5integrationTypeLib">
+      <Guid>{ACD81FF4-AC0E-4A64-BD64-488394A81DFA}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="NavigatorTypeLib">
+      <Guid>{E6BCB304-3260-11D4-9465-006094EB3826}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="OSMInterfacesTypeLib">
+      <Guid>{96986334-CF57-11D3-876D-006094EB3996}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="PARTITF">
+      <Guid>{D8431606-E4B5-11D1-A5D3-00A0C95752ED}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="PCBITF">
+      <Guid>{9140106B-CD44-0000-0280-030BBD000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="PPR">
+      <Guid>{D174F8A2-C2B4-11D3-AB2C-0008C7193C4E}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="PRISMATICMACHINING">
+      <Guid>{BC56CA8C-B183-44D1-A01E-1461E3191FCA}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="PROCESSITF">
+      <Guid>{DFB0B450-52DF-11D2-BEBF-006094198597}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ProductStructureTypeLib">
+      <Guid>{5065F8B6-61BB-11D1-9D85-0000F8759F82}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SAMITF">
+      <Guid>{4C57C67F-E66B-11D2-97CA-0008C71933B6}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SHEITF">
+      <Guid>{AEDE231A-8E0E-11D3-827B-006094EB7FE4}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SIM">
+      <Guid>{4D49C2C5-B63B-11D5-85A7-00D0B7ADDE56}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SimulationTypeLib">
+      <Guid>{FDEBBA89-3603-11D3-9E9D-006094B99E67}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SMTypeLib">
+      <Guid>{90D2BC28-DA87-11D1-9557-00805F85878F}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SPATypeLib">
+      <Guid>{9143C8CC-1474-11D4-9461-006094EB3826}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="StrTypeLib">
+      <Guid>{8292D877-D27A-0280-020C-320000000000}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SURFACEMACHINING">
+      <Guid>{35455E82-91D4-41A5-89D7-11C84D4E8D0F}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SWKHumanModelingItf">
+      <Guid>{EB0E290E-E591-11D3-809A-005004D3FE74}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="V6Integ">
+      <Guid>{192AED97-34A4-4BFF-BA65-8EB051914B8C}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsAPI_Interface\WindowsAPI_Interface.csproj">
+      <Project>{ea12e695-bec7-4ed0-bb22-77e3fa2b69b5}</Project>
+      <Name>WindowsAPI_Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YeccAutoCenter\YeccAutoCenter.csproj">
+      <Project>{43a8cc55-556b-463c-8ee6-ceac2a0b6b91}</Project>
+      <Name>YeccAutoCenter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Action Add.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Action Remove.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_button.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Address_book.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Alarm.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Application-help.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Archive.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow Green Left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow Green Right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_download.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Arrow_upload.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Attach.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bin.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bin_full.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bookmark.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Border Download.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Border Trend Down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Border Trend Up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Burn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Button Cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calc.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_selection.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_selection_day.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_selection_month.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_selection_week.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_copy.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_cut.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clip_paste.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clipboard Paste.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_all.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Comment.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Computer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Computer_browse.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Computers.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_button.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Direction Down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Direction Left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Direction Right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Direction Up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_calculus.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_chart.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_color_blue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_color_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_color_red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_flat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_font.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_landscape.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_note.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_spreadsheet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_stack.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_text.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document_text_image.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document-ok.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Download.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Email.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Execute.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Favorite.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Favorite2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag_blue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag_red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flat Goto.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flat Home.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floppy.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_browse.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Follow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Font.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Full_screen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Full_screen2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Games.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gear.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globe_browse.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Glossy 3D Resize.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Glossy Email.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Glossy Favorite.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Glossy Sound.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gradient Cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gradient Ok.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey Info.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey Options.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey Orb Weather.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey Print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grey Refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hard_disk.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Health.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\History.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Info.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Install.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Internet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Internet_browse.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Key.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Light_off.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Light_on.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Link.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\List.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magic_wand.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_blue_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_blue_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_blue_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_blue_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_green_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_green_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_green_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nav_green_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Neon Cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_computer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_database.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_document.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_folder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network_printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Note.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Note_text.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notepad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notepad_open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notes.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Notes_text.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ok.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ok_button.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Options.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Orb Back To Top.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Orb Love.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Orb Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Organization.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Overlay - Add.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Overlay - Pen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pencil.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Phone.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Picture.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictures.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Piece.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pin_blue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pin_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pin_red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Player Pause.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Player Play.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Player stop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print_preview.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print_setup.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Redo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reload_rotate.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove_button.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rename.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Replace.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report_open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rounded Car.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rounded Help.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RSS.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 01.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 02.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 03.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 04.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 05.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 06.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 6.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 07.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 08.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 09.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 10.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 11.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 12.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 13.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 14.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 15.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 17.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 18.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 19.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 20.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 21.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 22.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sample 23.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_all.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_as.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Secure.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Secure_err.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Secure_ok.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Security_lock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Security_unlock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select_all.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select_invert.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Select_none.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shopping_basket.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shopping_cart.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_angry.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_happy.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_kiss.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_laugh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_love.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_sad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Smiley_wink.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Social_facebook.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Social_rss.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Social_share.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Social_twitter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sort.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sort_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sort_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sort2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spell_check.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartPause.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stats.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Symbol.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tab.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tabs.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_blue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_grey.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_horizontal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tag_red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Task.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Text.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tool_brush.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tool_pencil.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tool_ruler.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tool_ruler2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tree.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TV.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Undo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Uninstall.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_group.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_id.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_details.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_large_icons.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_list.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_medium_icons.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_options.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_small_icons.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Views.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warning.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_arrange_horizontal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_arrange_vertical.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_create.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_fonts.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_hide.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_panel_bottom.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_panel_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_panel_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_panel_top.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_picture.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_sel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_separate_horizontal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_separate_vertical.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_settings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_show_hide.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_split.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_spreadsheet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_text.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_wizard.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Window_word_processing.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Windows.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\YECC.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zip.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zip_compress.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom_in.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom_out.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

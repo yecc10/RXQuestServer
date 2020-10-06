@@ -102,6 +102,10 @@ namespace RXQuestServer
             FM.WindowState = FormWindowState.Minimized;
             INFITF.Application CatApplication=DSystem.DSApplication;
             ProcessDocument PPRP = DSystem.DSActiveDocument;
+            if (PPRP==null)
+            {
+                return null;
+            }
             Selection USelect= PPRP.Selection;
             USelect.Clear();
             var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择初始化对象", true);
