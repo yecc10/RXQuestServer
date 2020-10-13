@@ -222,13 +222,59 @@ namespace YeccAutoCenter
                 }
                 return false;
             }
+            static private void CopyStream(Stream input, Stream output)
+            {
+                try
+                {
+                    int bufferSize = 4096;
+                    byte[] buffer = new byte[bufferSize];
+
+                    while (true)
+                    {
+                        int read = input.Read(buffer, 0, buffer.Length);
+                        if (read <= 0)
+                        {
+                            return;
+                        }
+                        output.Write(buffer, 0, read);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
             static public bool ReadXlsData(string xlsPath, System.Data.DataTable DG)
             {
                 //DataGridView DG = new DataGridView();
+                IWorkbook xlsBook = null;
                 int RowNum = 0;
                 try
                 {
-                    IWorkbook xlsBook = WorkbookFactory.Create(xlsPath);
+                     xlsBook = WorkbookFactory.Create(xlsPath);
+                }
+                catch (Exception e)
+                {
+                    ////FileUpload1是 一个FileUpload控件
+                    //FileInfo fileInfo = new FileInfo(xlsPath);
+                    //Stream stream = File.OpenRead(xlsPath);
+                    //InputStream inputStream = new FileInputStream(stream);
+                    //MemoryStream m = new MemoryStream();
+                    ////将文件的流拷贝一份，以内存流的格式保存
+                    //CopyStream(inputStream, m);
+                    //if (fileInfo.Extension.ToLower().Equals(".xls"))
+                    //{
+                    //    xlsBook = new HSSFWorkbook(inputStream);
+                    //}
+                    //else
+                    //{
+                    //    xlsBook = WorkbookFactory.Create(inputStream);
+                    //}
+                    MessageBox.Show("打开失败!错误:"+e.Message.ToString());
+                    return false;
+                }
+                try
+                {
                     ISheet sheet = (xlsBook.GetSheetAt(0).LastRowNum > xlsBook.GetSheetAt(1).LastRowNum) ? xlsBook.GetSheetAt(0) : xlsBook.GetSheetAt(1);
                     RxTypeList.CatPointType CP = new RxTypeList.CatPointType();
                     bool ChangeGun = false;
@@ -629,7 +675,7 @@ namespace YeccAutoCenter
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("打开失败!请确认是否已解密？");
+                    MessageBox.Show("打开失败!使用该软件必须装载有Office 2013或以上版本，如果已安装请确认是否已解密？");
                 }
                 return false;
             }

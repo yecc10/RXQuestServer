@@ -80,7 +80,15 @@ namespace YeDassaultSystemDev
                 return Dsvalue;
                 //throw;
             }
-            DSApplication.set_Caption("正在运行瑞祥快速建模工具！");
+            try
+            {
+                DSApplication.set_Caption("正在运行瑞祥快速建模工具！");
+            }
+            catch (Exception)
+            {
+
+              //  throw;
+            }
             // 获取当前活动ProductDocument
             try
             {

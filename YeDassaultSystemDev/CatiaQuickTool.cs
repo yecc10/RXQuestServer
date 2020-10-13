@@ -202,7 +202,7 @@ namespace YeDassaultSystemDev
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;
-                string TName = string.Empty; 
+                string TName = string.Empty;
                 switch (ObjType)
                 {
                     case "HybridShape":
@@ -219,7 +219,7 @@ namespace YeDassaultSystemDev
                             TName = product.get_PartNumber(); //读取选择的曲面名称
                             String RefStr = product.GetMasterShapeRepresentationPathName(); //获取零件路径地址
                             string[] RefStrArry = RefStr.Split('\\');
-                            if (RefStrArry.Length>1)
+                            if (RefStrArry.Length > 1)
                             {
                                 RefStr = RefStrArry.Last();
                             }
@@ -601,6 +601,51 @@ namespace YeDassaultSystemDev
             this.TopMost = false;
             return false;
         }
+        private string GetTargetByDs(Products Cps)
+        {
+            string GunPath = string.Empty;
+            try
+            {
+                GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+            }
+            catch (Exception e1)
+            {
+                MessageBox.Show("Err: " + e1.Message);
+                return null;
+            }
+            if (string.IsNullOrEmpty(GunPath))
+            {
+            A: var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
+                switch (Result)
+                {
+                    case DialogResult.None:
+                        break;
+                    case DialogResult.OK:
+                        break;
+                    case DialogResult.Cancel:
+                        this.TopMost = true;
+                        this.WindowState = FormWindowState.Normal;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        return null; //终止焊枪导入
+                    case DialogResult.Abort:
+                        break;
+                    case DialogResult.Retry:
+                        break;
+                    case DialogResult.Ignore:
+                        break;
+                    case DialogResult.Yes:
+                        goto A; //回到插入焊枪阶段
+                    case DialogResult.No:
+                        this.TopMost = true;
+                        this.WindowState = FormWindowState.Normal;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        return null; //终止焊枪导入
+                    default:
+                        break;
+                }
+            }
+            return GunPath;
+        }
         private void InsGun_Click(object sender, EventArgs e)
         {
             this.TopMost = false;
@@ -639,37 +684,10 @@ namespace YeDassaultSystemDev
                     String GunName = DataGrid.Rows[i].Cells[1].Value.ToString();
                     if (TName == "ChangeGun")
                     {
-                    A: GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+                        GunPath = GetTargetByDs(Cps);
                         if (string.IsNullOrEmpty(GunPath))
                         {
-                            var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
-                            switch (Result)
-                            {
-                                case DialogResult.None:
-                                    break;
-                                case DialogResult.OK:
-                                    break;
-                                case DialogResult.Cancel:
-                                    this.TopMost = true;
-                                    this.WindowState = FormWindowState.Normal;
-                                    this.StartPosition = FormStartPosition.CenterScreen;
-                                    return; //终止焊枪导入
-                                case DialogResult.Abort:
-                                    break;
-                                case DialogResult.Retry:
-                                    break;
-                                case DialogResult.Ignore:
-                                    break;
-                                case DialogResult.Yes:
-                                    goto A; //回到插入焊枪阶段
-                                case DialogResult.No:
-                                    this.TopMost = true;
-                                    this.WindowState = FormWindowState.Normal;
-                                    this.StartPosition = FormStartPosition.CenterScreen;
-                                    return; //终止焊枪导入
-                                default:
-                                    break;
-                            }
+                            return; //终止焊枪导入
                         }
                         else
                         {
@@ -684,7 +702,18 @@ namespace YeDassaultSystemDev
                         {
                             Cproduct = AddProduct(CatDocument.Product.Products, GunName);
                             Cps = Cproduct.Products;
-                            GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+                            try
+                            {
+                                GunPath = GetTargetByDs(Cps);
+                                if (GunPath == null)
+                                {
+                                    return;
+                                }
+                            }
+                            catch (Exception e1)
+                            {
+                                MessageBox.Show("Err: " + e1.Message);
+                            }
                         }
                     }
                 }

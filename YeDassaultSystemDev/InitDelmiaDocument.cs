@@ -62,7 +62,7 @@ namespace YeDassaultSystemDev
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.TopMost = true;
+            this.TopMost = false;
             try
             {
                 ModelName.Text = Properties.Settings.Default.ModelName;
