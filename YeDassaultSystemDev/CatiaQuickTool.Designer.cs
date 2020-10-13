@@ -54,6 +54,7 @@
             this.ExtraPadToSurface = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InitCatia = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -282,7 +283,7 @@
             // 
             this.ExtraPadToSurface.Image = global::YeDassaultSystemDev.Properties.Resources.Arrow_upload;
             this.ExtraPadToSurface.Name = "ExtraPadToSurface";
-            this.ExtraPadToSurface.Size = new System.Drawing.Size(188, 30);
+            this.ExtraPadToSurface.Size = new System.Drawing.Size(160, 22);
             this.ExtraPadToSurface.Text = "实体焊点转几何";
             this.ExtraPadToSurface.Click += new System.EventHandler(this.ExtraPadToSurface_Click);
             // 
@@ -301,16 +302,24 @@
             // 
             this.InitCatia.Image = global::YeDassaultSystemDev.Properties.Resources.Health;
             this.InitCatia.Name = "InitCatia";
-            this.InitCatia.Size = new System.Drawing.Size(188, 30);
+            this.InitCatia.Size = new System.Drawing.Size(147, 22);
             this.InitCatia.Text = "初始化CATIA";
             this.InitCatia.Click += new System.EventHandler(this.InitCatia_Click);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 521);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(854, 23);
+            this.progressBar.TabIndex = 7;
             // 
             // CatiaQuickTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(878, 528);
+            this.ClientSize = new System.Drawing.Size(878, 554);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BallRadio);
@@ -369,5 +378,6 @@
         private System.Windows.Forms.ToolStripMenuItem ExtraPadToSurface;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem InitCatia;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }

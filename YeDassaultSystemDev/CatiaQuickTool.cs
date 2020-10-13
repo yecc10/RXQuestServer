@@ -415,7 +415,7 @@ namespace YeDassaultSystemDev
                 //RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, DataGrid);
                 if (ByExcel.Checked)
                 {
-                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint, null);
+                    RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint, progressBar);
                 }
                 else
                 {
@@ -601,12 +601,12 @@ namespace YeDassaultSystemDev
             this.TopMost = false;
             return false;
         }
-        private string GetTargetByDs(Products Cps)
+        private string GetTargetByDs(INFITF.Application CatApplication)
         {
             string GunPath = string.Empty;
-            try
+        A: try
             {
-                GunPath = Cps.Application.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
+                GunPath = CatApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", CatFileSelectionMode.CatFileSelectionModeOpen);
             }
             catch (Exception e1)
             {
@@ -615,7 +615,7 @@ namespace YeDassaultSystemDev
             }
             if (string.IsNullOrEmpty(GunPath))
             {
-            A: var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
+             var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
                 switch (Result)
                 {
                     case DialogResult.None:
@@ -675,6 +675,9 @@ namespace YeDassaultSystemDev
             object[] oPositionMatrix = new object[12];
             object[] oPositionSafeMatrix = new object[12] { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1 };
             double oRx, oRy, oRz;
+            progressBar.Value = 0;
+            progressBar.Maximum = DataGrid.RowCount;
+            progressBar.Step = 1;
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
                 string TName;
@@ -684,7 +687,7 @@ namespace YeDassaultSystemDev
                     String GunName = DataGrid.Rows[i].Cells[1].Value.ToString();
                     if (TName == "ChangeGun")
                     {
-                        GunPath = GetTargetByDs(Cps);
+                        GunPath = GetTargetByDs(CatApplication);
                         if (string.IsNullOrEmpty(GunPath))
                         {
                             return; //终止焊枪导入
@@ -704,7 +707,7 @@ namespace YeDassaultSystemDev
                             Cps = Cproduct.Products;
                             try
                             {
-                                GunPath = GetTargetByDs(Cps);
+                                GunPath = GetTargetByDs(CatApplication);
                                 if (GunPath == null)
                                 {
                                     return;
@@ -752,8 +755,11 @@ namespace YeDassaultSystemDev
                 Cps.Item(Cps.Count).Position.SetComponents(oPositionMatrix);// 相对世界坐标设定位置
                 string NewName = DataGrid.Rows[i].Cells[1].Value.ToString();
                 Cps.Item(Cps.Count).set_PartNumber(NewName);
+                progressBar.PerformStep();
             }
             ShowCenter();
+            progressBar.Maximum=100;
+            progressBar.Value = 100;
         }
         private Product AddProduct(Products TargetProduct, string Name)
         {

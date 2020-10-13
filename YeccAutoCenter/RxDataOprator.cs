@@ -457,7 +457,6 @@ namespace YeccAutoCenter
                         progressBar.Value = 2;
                         progressBar.Maximum = SheetCount;
                         progressBar.Step = 1;
-                        
                     }
                     switch (readXlsType)
                     {
@@ -470,6 +469,10 @@ namespace YeccAutoCenter
                             for (int i = 1; i <= SheetCount; i++)
                             {
                                 ColumnsNum = sheet.UsedRange.Columns.Count;
+                                if (progressBar != null)
+                                {
+                                    progressBar.PerformStep();
+                                }
                                 if (i == 1) //初始化表头
                                 {
                                     if (ColumnsNum == 3 || ColumnsNum == 4 || ColumnsNum == 7 || ColumnsNum == 8 || ColumnsNum == 21)
@@ -598,7 +601,10 @@ namespace YeccAutoCenter
                             #region Read Xls Data And Updata To DataGard For Rx WorkTime
                             for (int i = 2; i <= SheetCount; i++)
                             {
-                                progressBar.PerformStep();
+                                if (progressBar != null)
+                                {
+                                    progressBar.PerformStep();
+                                }
                                 ColumnsNum = sheet.UsedRange.Columns.Count;
                                 if (i == 2) //初始化表头
                                 {
