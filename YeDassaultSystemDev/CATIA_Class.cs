@@ -115,7 +115,7 @@ namespace YeDassaultSystemDev
             //}
             try
             {
-                CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
+                CatApplication = (INFITF.Application)Marshal.GetActiveObject("CATIA.Application");
             }
             catch (Exception)
             {
