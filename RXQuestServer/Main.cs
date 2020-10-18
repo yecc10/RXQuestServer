@@ -270,5 +270,10 @@ namespace RXQuestServer
                 MessageBox.Show(Environment.CurrentDirectory+"路径打卡失败，请手动打开!");
             }
         }
+
+        private void 反馈问题建议ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://blog.csdn.net/qingyangwuji/article/details/109142676");
+        }
     }
 }

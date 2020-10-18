@@ -127,9 +127,7 @@ namespace YeDassaultSystemDev
             }
             try
             {
-                string path = CatApplication.SystemService.Environ("CATTemp");
                 CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
-                string GunPath = CatApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", CatFileSelectionMode.CatFileSelectionModeSave);
             }
             catch (Exception)
             {

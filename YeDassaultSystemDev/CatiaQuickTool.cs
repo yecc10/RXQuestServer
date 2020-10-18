@@ -606,7 +606,11 @@ namespace YeDassaultSystemDev
             string GunPath = string.Empty;
         A: try
             {
-                GunPath = CatApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", CatFileSelectionMode.CatFileSelectionModeOpen);
+                string Tst = CatApplication.get_Name();
+                Tst = CatApplication.get_StatusBar();
+                CatApplication.StartWorkbench("Assembly");
+                Tst = CatApplication.GetWorkbenchId();//Assembly
+                GunPath = CatApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", 0);
             }
             catch (Exception e1)
             {
