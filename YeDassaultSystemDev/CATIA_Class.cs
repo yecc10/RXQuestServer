@@ -76,7 +76,7 @@ namespace YeDassaultSystemDev
         {
             Process[] AllProcess = Process.GetProcessesByName("CNEXT"); //Only When Get CATIA Process
             form.TopMost = false;
-           // Process[] AllProcess = Process.GetProcessesByName("Delmia");
+            // Process[] AllProcess = Process.GetProcessesByName("Delmia");
             //if (AllProcess.Length > 1)
             //{
             //    try
@@ -115,7 +115,7 @@ namespace YeDassaultSystemDev
             //}
             try
             {
-                CatApplication = (INFITF.Application)Marshal.GetActiveObject("CATIA.Application");
+                CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
             }
             catch (Exception)
             {
@@ -125,7 +125,16 @@ namespace YeDassaultSystemDev
                 return false;
                 //throw;
             }
-            CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
+            try
+            {
+                string path = CatApplication.SystemService.Environ("CATTemp");
+                CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
+                string GunPath = CatApplication.FileSelectionBox("请选择焊枪", "*.cgr;*.wrl;*.CATPart", CatFileSelectionMode.CatFileSelectionModeSave);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             // 获取当前活动ProductDocument
             try
             {
@@ -235,7 +244,7 @@ namespace YeDassaultSystemDev
             form.StartPosition = FormStartPosition.CenterScreen;
 
             return;
-            
+
         }
         [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
         private object[] InputObjectType(int ReadType)
@@ -256,7 +265,7 @@ namespace YeDassaultSystemDev
                     }
                 case 4: //BooleanShape  
                     {
-                        return new object[] {"Fastener", "FastenerGroup", "HybridShape", "Shape" };
+                        return new object[] { "Fastener", "FastenerGroup", "HybridShape", "Shape" };
                     }
                 case 5: //BooleanShape  
                     {

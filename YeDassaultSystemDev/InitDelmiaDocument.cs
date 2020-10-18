@@ -1491,7 +1491,7 @@ namespace YeDassaultSystemDev
         }
         private object[] GetPartPath()
         {
-        A: string GunPath = DStype.DSApplication.FileSelectionBox("请选择焊枪", "*.CATPart;*.CATProduct;*.cgr", 0);
+        A: string GunPath = DStype.DSApplication.FileSelectionBox("请选择一个有效对象", "*.CATPart;*.CATProduct;*.cgr", 0);
             if (string.IsNullOrEmpty(GunPath))
             {
                 this.TopMost = true;

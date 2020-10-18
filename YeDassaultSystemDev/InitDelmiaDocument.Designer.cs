@@ -88,6 +88,7 @@
             this.PackageTarget = new System.Windows.Forms.ToolStripButton();
             this.InsertNewPart = new System.Windows.Forms.ToolStripButton();
             this.CreatRobotClub = new System.Windows.Forms.ToolStripButton();
+            this.BollToTagList = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -634,7 +635,8 @@
             this.toolStripDropDownButton2,
             this.PackageTarget,
             this.InsertNewPart,
-            this.CreatRobotClub});
+            this.CreatRobotClub,
+            this.BollToTagList});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(838, 31);
@@ -708,6 +710,15 @@
             this.CreatRobotClub.Size = new System.Drawing.Size(28, 28);
             this.CreatRobotClub.Text = "创建机器人管线包";
             this.CreatRobotClub.Click += new System.EventHandler(this.CreatRobotClub_Click);
+            // 
+            // BollToTagList
+            // 
+            this.BollToTagList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BollToTagList.Image = global::YeDassaultSystemDev.Properties.Resources.Burn;
+            this.BollToTagList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BollToTagList.Name = "BollToTagList";
+            this.BollToTagList.Size = new System.Drawing.Size(28, 28);
+            this.BollToTagList.Text = "BollToTagList";
             // 
             // InitDelmiaDocument
             // 
@@ -810,5 +821,6 @@
         private System.Windows.Forms.ToolStripButton PackageTarget;
         private System.Windows.Forms.ToolStripButton InsertNewPart;
         private System.Windows.Forms.ToolStripButton CreatRobotClub;
+        private System.Windows.Forms.ToolStripButton BollToTagList;
     }
 }

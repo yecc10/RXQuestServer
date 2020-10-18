@@ -807,7 +807,6 @@ namespace YeDassaultSystemDev
         {
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
         }
-
         private void ExtraPadToSurface_Click(object sender, EventArgs e)
         {
 
