@@ -515,6 +515,8 @@ namespace YeDassaultSystemDev
             SetAttrValue(PD);
             PD = UserSelectedProduct.Products.AddNewProduct(Name + "_GripperStander");
             SetAttrValue(PD);
+            PD = UserSelectedProduct.Products.AddNewProduct(Name + "_GunStander");
+            SetAttrValue(PD);
             PD = UserSelectedProduct.Products.AddNewProduct(Name + "_TagList");
             SetAttrValue(PD);
             if (NSTagGroup.Checked)
@@ -1495,7 +1497,7 @@ namespace YeDassaultSystemDev
             if (string.IsNullOrEmpty(GunPath))
             {
                 this.TopMost = true;
-                var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
+                var Result = MessageBox.Show("未选择有效对象，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
                 switch (Result)
                 {
                     case DialogResult.None:

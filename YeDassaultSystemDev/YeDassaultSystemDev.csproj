@@ -237,6 +237,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="CATDrmRmsSettings">
+      <Guid>{4C919743-B7D7-463C-9A61-B0797E2D4D8E}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="CATEdbTypeLib">
       <Guid>{3C63282E-8D73-4F3E-BF1F-D893F84DE783}</Guid>
       <VersionMajor>0</VersionMajor>
