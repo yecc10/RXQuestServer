@@ -1584,6 +1584,13 @@ namespace YeDassaultSystemDev
             HybridBody hybridBody = null;
             GloalForDelmia GFD = new GloalForDelmia();
             DStype = GFD.InitCatEnv(this);
+            if (DStype.CDSActiveDocument == null)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                MessageBox.Show("请先激活焊点球所在的Part! 切记不是焊点球!");
+                return;
+            }
             if (DStype.Revalue == -1)
             {
                 this.WindowState = FormWindowState.Normal;
@@ -1666,6 +1673,7 @@ namespace YeDassaultSystemDev
                 Pbar.PerformStep();
                 try
                 {
+                    tag.SetType("WeldPoint");
                     tag.set_Name(TName);
                 }
                 catch (Exception)

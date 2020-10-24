@@ -153,6 +153,7 @@ namespace YeDassaultSystemDev
                     RepeatNum += 1;
                     if (IgRepeat)
                     {
+                        datatable.Rows[datatable.Rows.Count-1].Delete();
                         return true;
                     }
                 }
