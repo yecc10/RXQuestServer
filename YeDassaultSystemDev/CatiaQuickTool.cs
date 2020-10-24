@@ -451,6 +451,7 @@ namespace YeDassaultSystemDev
         //子线程中
         private void Creat3dBall_Click(object sender, EventArgs e)//Creat3dPoint_Click
         {
+            progressBar.Value = 0;
             DataGrid.AllowUserToAddRows = false;
             if (PartID == null)
             {
@@ -475,9 +476,12 @@ namespace YeDassaultSystemDev
             //{
             //    Hyb = Hybs.Item("Geometrical Set.1");
             //}
+            progressBar.Maximum = DataGrid.RowCount;
+            progressBar.Step = 1;
             Hyb = Hybs.Add();
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
+                progressBar.PerformStep();
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
                 //SPAWorkbench TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench");
                 //Reference referenceObject = SelectArc.Item(i).Reference;
@@ -522,6 +526,7 @@ namespace YeDassaultSystemDev
                 VisPropertySet VSet = SetColor.VisProperties;
                 SetColor.Add(NewShape);
                 VSet.SetRealColor(128, 255, 0, 0);
+                SetColor.Clear();
             }
             if (ERR > 0)
             {
@@ -529,6 +534,7 @@ namespace YeDassaultSystemDev
             }
             Creat3dBall.BackColor = Color.Green;
             ShowCenter();
+            progressBar.Value = DataGrid.RowCount;
         }
         private void Creat3dPoint_Click(object sender, EventArgs e)//Creat3dBall_Click
         {

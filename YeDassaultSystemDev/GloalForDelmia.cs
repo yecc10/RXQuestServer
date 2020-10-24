@@ -125,7 +125,7 @@ namespace YeDassaultSystemDev
         /// <param name="FM"></param>
         /// <param name="DSystem"></param>
         /// <returns></returns>
-        public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem)
+        public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem,int dType=9, string Msg = "请选择初始化对象")
         {
             FM.WindowState = FormWindowState.Minimized;
             ProcessDocument PPRP = DSystem.DSActiveDocument;
@@ -136,7 +136,7 @@ namespace YeDassaultSystemDev
             }
             USelect = PPRP.Selection;
             USelect.Clear();
-            var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择初始化对象", true);
+            var Result = USelect.SelectElement2(DataType.InputObjectType(dType), Msg, true);
             if (Result == "Cancel")
             {
                 return null;

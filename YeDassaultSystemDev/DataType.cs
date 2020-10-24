@@ -107,9 +107,17 @@ namespace YeDassaultSystemDev
                     {
                         return new object[] { "RobotTask" };
                     }
-                case 13: //Resource
+                case 13: //Resource TagGroup
                     {
                         return new object[] { "Operation" };
+                    }
+                case 14: //TagGroup
+                    {
+                        return new object[] { "TagGroup" }; 
+                    }
+                case 15: //HybridBodie
+                    {
+                        return new object[] { "HybridBody" };
                     }
                 default:
                     return new object[] { "AnyObject" };

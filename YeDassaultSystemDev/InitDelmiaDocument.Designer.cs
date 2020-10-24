@@ -719,6 +719,7 @@
             this.BollToTagList.Name = "BollToTagList";
             this.BollToTagList.Size = new System.Drawing.Size(28, 28);
             this.BollToTagList.Text = "BollToTagList";
+            this.BollToTagList.Click += new System.EventHandler(this.BollToTagList_Click);
             // 
             // InitDelmiaDocument
             // 

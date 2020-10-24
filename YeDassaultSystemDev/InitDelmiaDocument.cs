@@ -1541,7 +1541,7 @@ namespace YeDassaultSystemDev
                 {
                     GFD.InitCatEnv(this);
                 }
-                Selection Uselect = GFD.GetInitTargetProduct(this, DStype.CDSActiveDocument,"请选择机构对象Product");
+                Selection Uselect = GFD.GetInitTargetProduct(this, DStype.CDSActiveDocument, "请选择机构对象Product");
                 if (Uselect == null || Uselect.Count < 1)
                 {
                     this.TopLevel = true;
@@ -1571,6 +1571,107 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// 焊点球转Tag
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BollToTagList_Click(object sender, EventArgs e)
+        {
+            HybridBody hybridBody = null;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                return;
+            }
+            Selection Uselect = GFD.GetInitTargetProduct(this, DStype, 15, "请选择目标球集合");
+            if (Uselect == null || Uselect.Count < 1)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                return;
+            }
+            try
+            {
+                hybridBody = (HybridBody)Uselect.Item2(1).Value;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            TagGroup NwTagGroup = null; //创建TagGroup指针
+            Tag tag;
+            Uselect = GFD.GetInitTargetProduct(this, DStype, 14, "请选择目标TagGroup集合");
+            if (Uselect == null || Uselect.Count < 1)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                return;
+            }
+            try
+            {
+                NwTagGroup = (TagGroup)Uselect.Item2(1).Value;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            //string Name = hybridBody.get_Name(); //for test
+            int BollNum = hybridBody.HybridShapes.Count;
+            SPAWorkbench TheSPAWorkbench = (SPAWorkbench)DStype.CDSActiveDocument.GetWorkbench("SPAWorkbench");
+            Reference referenceObject;
+            Selection selection = DStype.CDSActiveDocument.Selection;
+            Measurable TheMeasurable = null;
+            object[] PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
+            int Err = 0;
+            string TName = null;
+            Pbar.Value = 0;
+            Pbar.Step = 1;
+            Pbar.Maximum = BollNum;
+            for (int i = 1; i <= BollNum; i++)
+            {
+                try
+                {
+                    selection.Clear();
+                    selection.Add(hybridBody.HybridShapes.Item(i));
+                    PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
+                    referenceObject = selection.Item(1).Reference;//!=null? SelectArc.Item(i).Reference: Temp;
+                    TName = referenceObject.get_Name(); //读取选择的曲面名称
+                    TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        TheMeasurable.GetCOG(PointCoord);
+                    }
+                    catch (Exception)
+                    {
+                        Err += 1;
+                        Pbar.PerformStep();
+                    }
+                }
+                TheMeasurable.GetPoint(PointCoord); //读取选择的曲面坐标
+                NwTagGroup.CreateTag(out tag);
+                tag.SetXYZ(Convert.ToDouble(PointCoord[0]), Convert.ToDouble(PointCoord[1]), Convert.ToDouble(PointCoord[2]));
+                Pbar.PerformStep();
+                try
+                {
+                    tag.set_Name(TName);
+                }
+                catch (Exception)
+                {
+                    //throw;
+                }
             }
         }
     }
