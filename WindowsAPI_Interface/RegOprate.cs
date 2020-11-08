@@ -19,8 +19,9 @@ namespace WindowsAPI_Interface
         {
             bool _exit = false;
             string[] subkeyName;
-            RegistryKey hkml = Registry.LocalMachine;
-            RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+            RegistryKey hkml = Registry.CurrentUser;
+            RegistryKey software = null;
+            software = hkml.OpenSubKey("SOFTWARE", true);
             RegistryKey admindir = software.OpenSubKey("RXYFYECHAOCHENG", true);
             if (admindir == null)
             {
@@ -49,7 +50,7 @@ namespace WindowsAPI_Interface
         {
             bool _exit = false;
             string[] subkeyName;
-            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey hkml = Registry.CurrentUser;
             RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
             RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
             if (YeMainKey == null)
@@ -83,7 +84,7 @@ namespace WindowsAPI_Interface
         /// <param name="value">值</param>
         static public void WriteRegdit(string name, string value)
         {
-            RegistryKey hklm = Registry.LocalMachine;
+            RegistryKey hklm = Registry.CurrentUser;
             RegistryKey software = hklm.OpenSubKey("SOFTWARE", true);
             RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
             if (YeMainKey == null)
@@ -104,7 +105,7 @@ namespace WindowsAPI_Interface
         }
         static public String GetRegValue(string str)
         {
-            RegistryKey hklm = Registry.LocalMachine;
+            RegistryKey hklm = Registry.CurrentUser;
             RegistryKey software = hklm.OpenSubKey("SOFTWARE", true);
             RegistryKey YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
             if (YeMainKey == null)

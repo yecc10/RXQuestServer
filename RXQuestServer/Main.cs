@@ -33,13 +33,16 @@ namespace RXQuestServer
 
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
         {
-            if (! HasAccessToRun)
+            YeDassaultSystemDev.InitDelmiaDocument initDelmia = new YeDassaultSystemDev.InitDelmiaDocument();
+            this.Hide();
+            initDelmia.Show();
+            if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                YeDassaultSystemDev.InitDelmiaDocument initDelmia=new YeDassaultSystemDev.InitDelmiaDocument();
+                //YeDassaultSystemDev.InitDelmiaDocument initDelmia = new YeDassaultSystemDev.InitDelmiaDocument();
                 this.Hide();
                 initDelmia.Show();
             }
@@ -48,13 +51,17 @@ namespace RXQuestServer
 
         private void WeldSportTool_Click(object sender, EventArgs e)
         {
+            YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
+            this.TopMost = false;
+            this.Hide();
+            CQT.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
+                //YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
                 this.TopMost = false;
                 this.Hide();
                 CQT.Show();
@@ -80,13 +87,16 @@ namespace RXQuestServer
 
         private void InPutWorkTime_Click(object sender, EventArgs e)
         {
+            WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
+            this.Hide();
+            workTimeUpdata.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
+                //WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
                 this.Hide();
                 workTimeUpdata.Show();
             }
@@ -95,13 +105,16 @@ namespace RXQuestServer
 
         private void PlantDTrack_Click(object sender, EventArgs e)
         {
+            ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
+            this.Hide();
+            autoDesKToPlant.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
+                //ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
@@ -110,13 +123,16 @@ namespace RXQuestServer
 
         private void PlantDFence_Click(object sender, EventArgs e)
         {
+            ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
+            this.Hide();
+            autoDesKToPlant.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
+                //ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
@@ -125,13 +141,16 @@ namespace RXQuestServer
 
         private void WorkData_Click(object sender, EventArgs e)
         {
+            RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
+            this.Hide();
+            uLogin.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
+                //RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
                 this.Hide();
                 uLogin.Show();
             }
@@ -140,13 +159,16 @@ namespace RXQuestServer
 
         private void CreateTrackOnLine_Click(object sender, EventArgs e)
         {
+            ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
+            this.Hide();
+            autoDesKToPlant.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
+                //ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
