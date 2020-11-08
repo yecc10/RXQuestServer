@@ -41,7 +41,7 @@ namespace YeDassaultSystemDev
         DataRow DataRow;
         DataView dataview;
         Part PartID;
-        AnyObject[] GetRepeatRef = new AnyObject[99];
+        AnyObject[] GetRepeatRef = new AnyObject[9999];
         CATIA_Class CATIA_Class = new CATIA_Class();
         int RepeatNum = 0;
         /// <summary>
