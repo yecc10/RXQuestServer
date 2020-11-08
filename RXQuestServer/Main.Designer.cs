@@ -53,7 +53,6 @@
             this.办公ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.ReadHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.信息反馈ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenApplicationdoc = new System.Windows.Forms.ToolStripMenuItem();
             this.反馈问题建议ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -241,7 +240,6 @@
             this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ReadHelp,
-            this.信息反馈ToolStripMenuItem,
             this.注册永久授权ToolStripMenuItem,
             this.OpenApplicationdoc,
             this.反馈问题建议ToolStripMenuItem});
@@ -257,12 +255,6 @@
             this.ReadHelp.Size = new System.Drawing.Size(180, 22);
             this.ReadHelp.Text = "帮助";
             this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
-            // 
-            // 信息反馈ToolStripMenuItem
-            // 
-            this.信息反馈ToolStripMenuItem.Name = "信息反馈ToolStripMenuItem";
-            this.信息反馈ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.信息反馈ToolStripMenuItem.Text = "信息反馈";
             // 
             // 注册永久授权ToolStripMenuItem
             // 
@@ -332,7 +324,6 @@
         private System.Windows.Forms.ToolStripMenuItem 办公ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
         private System.Windows.Forms.ToolStripMenuItem ReadHelp;
-        private System.Windows.Forms.ToolStripMenuItem 信息反馈ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 注册永久授权ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenApplicationdoc;
         private System.Windows.Forms.ToolStripMenuItem 反馈问题建议ToolStripMenuItem;
