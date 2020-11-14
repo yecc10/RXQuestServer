@@ -72,6 +72,8 @@
             // KeepName
             // 
             this.KeepName.AutoSize = true;
+            this.KeepName.Checked = true;
+            this.KeepName.CheckState = System.Windows.Forms.CheckState.Checked;
             this.KeepName.Location = new System.Drawing.Point(12, 454);
             this.KeepName.Name = "KeepName";
             this.KeepName.Size = new System.Drawing.Size(72, 16);

@@ -35,6 +35,8 @@ using DNBIgpTagPath;
 using MANUFACTURING;
 using KinTypeLib;
 using System.Runtime.Remoting.Messaging;
+using System.Reflection;
+
 namespace YeDassaultSystemDev
 {
     public partial class InitDelmiaDocument : Form
@@ -710,6 +712,9 @@ namespace YeDassaultSystemDev
             CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_Resourse";
             CreatePath(CPath);
             CreateResoursePath(CPath);
+            StationID += 1;
+            CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_RefSimulation";
+            CreatePath(CPath);
         }
         private void CreateStationPath(String StationPath)
         {

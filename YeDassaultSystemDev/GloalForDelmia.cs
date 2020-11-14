@@ -29,6 +29,7 @@ using PPR;
 using NPOI.POIFS.Crypt.Dsig;
 using NPOI.XWPF.UserModel;
 using KinTypeLib;
+using System.Reflection;
 
 namespace YeDassaultSystemDev
 {

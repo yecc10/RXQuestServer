@@ -33,9 +33,6 @@ namespace RXQuestServer
 
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
         {
-            YeDassaultSystemDev.InitDelmiaDocument initDelmia = new YeDassaultSystemDev.InitDelmiaDocument();
-            this.Hide();
-            initDelmia.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
@@ -44,6 +41,7 @@ namespace RXQuestServer
             {
                 //YeDassaultSystemDev.InitDelmiaDocument initDelmia = new YeDassaultSystemDev.InitDelmiaDocument();
                 this.Hide();
+                YeDassaultSystemDev.InitDelmiaDocument initDelmia = new YeDassaultSystemDev.InitDelmiaDocument();
                 initDelmia.Show();
             }
 

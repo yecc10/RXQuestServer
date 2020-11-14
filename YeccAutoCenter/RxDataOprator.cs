@@ -535,7 +535,7 @@ namespace YeccAutoCenter
                                                 }
                                             case 7:
                                                 {
-                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 2].Value))
+                                                    if (string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 1].Value)) || string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 2].Value)))
                                                     {
                                                         ChangeGun = true;
                                                         continue;
@@ -552,7 +552,7 @@ namespace YeccAutoCenter
                                                 }
                                             case 8:
                                                 {
-                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 2].Value))
+                                                    if (string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 1].Value)) || string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 2].Value)))
                                                     {
                                                         ChangeGun = true;
                                                         continue;
@@ -569,7 +569,7 @@ namespace YeccAutoCenter
                                                 }
                                             case 21:
                                                 {
-                                                    if (string.IsNullOrEmpty(sheet.Cells[i, 1].Value) || string.IsNullOrEmpty(sheet.Cells[i, 4].Value))
+                                                    if (string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 1].Value)) || string.IsNullOrEmpty(Convert.ToString(sheet.Cells[i, 4].Value)))
                                                     {
                                                         ChangeGun = true;
                                                         continue;
