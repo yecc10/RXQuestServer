@@ -94,7 +94,7 @@ namespace ToPlant
         {
             bool _exit = false;
             string[] subkeyNames;
-            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey hkml = Registry.LocalMachine; //Need Access to Read
             RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
             RegistryKey Tecnomatix = software.OpenSubKey("Tecnomatix\\eM-Plant\\", true);
             if (software != null)

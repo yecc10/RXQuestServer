@@ -41,6 +41,7 @@ namespace YeDassaultSystemDev
         DataRow DataRow;
         DataView dataview;
         Part PartID;
+        String xlsFileName = null;
         AnyObject[] GetRepeatRef = new AnyObject[9999];
         CATIA_Class CATIA_Class = new CATIA_Class();
         int RepeatNum = 0;
@@ -414,6 +415,7 @@ namespace YeDassaultSystemDev
             if (XlsFile.ShowDialog() == DialogResult.OK)
             {
                 //RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, DataGrid);
+                xlsFileName = System.IO.Path.GetFileNameWithoutExtension(XlsFile.FileName);
                 if (ByExcel.Checked)
                 {
                     RxDataOprator.ExcelOprator.ReadXlsData(XlsFile.FileName, datatable, RxDataOprator.ExcelOprator.ReadXlsType.ReadWeldPoint, progressBar);
@@ -695,7 +697,15 @@ namespace YeDassaultSystemDev
                 try
                 {
                     TName = DataGrid.Rows[i].Cells[1].Value.ToString(); //读取选择的曲面名称
-                    String GunName = DataGrid.Rows[i].Cells[1].Value.ToString();
+                    String GunName = null;
+                    if (xlsFileName!=null)
+                    {
+                        GunName = xlsFileName;
+                    }
+                    else
+                    {
+                        GunName=DataGrid.Rows[i].Cells[1].Value.ToString()+"ASS";
+                    }
                     if (TName == "ChangeGun")
                     {
                         GunPath = GetTargetByDs(CatApplication);
@@ -765,7 +775,19 @@ namespace YeDassaultSystemDev
                 Cps.AddComponentsFromFiles(arrayOfVariantOfBSTR1, "All");
                 Cps.Item(Cps.Count).Position.SetComponents(oPositionMatrix);// 相对世界坐标设定位置
                 string NewName = DataGrid.Rows[i].Cells[1].Value.ToString();
-                Cps.Item(Cps.Count).set_PartNumber(NewName);
+                if (xlsFileName!=null)
+                {
+                    NewName = xlsFileName + "_" + NewName;
+                }
+                try
+                {
+                    Cps.Item(Cps.Count).set_PartNumber(NewName);
+                    Cps.Item(Cps.Count).set_Name(NewName);
+                }
+                catch (Exception)
+                {
+                   //throw;
+                }
                 progressBar.PerformStep();
             }
             ShowCenter();
