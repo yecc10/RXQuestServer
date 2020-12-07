@@ -55,6 +55,8 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.InitCatia = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.skipViaPoint = new System.Windows.Forms.CheckBox();
+            this.getJTCoord = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -310,17 +312,39 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 521);
+            this.progressBar.Location = new System.Drawing.Point(12, 545);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(854, 23);
             this.progressBar.TabIndex = 7;
+            // 
+            // skipViaPoint
+            // 
+            this.skipViaPoint.AutoSize = true;
+            this.skipViaPoint.Checked = true;
+            this.skipViaPoint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.skipViaPoint.Location = new System.Drawing.Point(12, 521);
+            this.skipViaPoint.Name = "skipViaPoint";
+            this.skipViaPoint.Size = new System.Drawing.Size(120, 16);
+            this.skipViaPoint.TabIndex = 1;
+            this.skipViaPoint.Text = "自动跳过ViaPoint";
+            this.skipViaPoint.UseVisualStyleBackColor = true;
+            // 
+            // getJTCoord
+            // 
+            this.getJTCoord.AutoSize = true;
+            this.getJTCoord.Location = new System.Drawing.Point(162, 521);
+            this.getJTCoord.Name = "getJTCoord";
+            this.getJTCoord.Size = new System.Drawing.Size(120, 16);
+            this.getJTCoord.TabIndex = 1;
+            this.getJTCoord.Text = "Read-JT->STP坐标";
+            this.getJTCoord.UseVisualStyleBackColor = true;
             // 
             // CatiaQuickTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(878, 554);
+            this.ClientSize = new System.Drawing.Size(878, 580);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.label1);
@@ -337,6 +361,8 @@
             this.Controls.Add(this.OutToEXcel);
             this.Controls.Add(this.ByExcel);
             this.Controls.Add(this.IgRepeat);
+            this.Controls.Add(this.getJTCoord);
+            this.Controls.Add(this.skipViaPoint);
             this.Controls.Add(this.ARCChange);
             this.Controls.Add(this.RepeatCheck);
             this.Controls.Add(this.KeepName);
@@ -381,5 +407,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem InitCatia;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.CheckBox skipViaPoint;
+        private System.Windows.Forms.CheckBox getJTCoord;
     }
 }
