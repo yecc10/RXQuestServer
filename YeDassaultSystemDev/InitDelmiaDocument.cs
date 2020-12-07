@@ -1005,7 +1005,7 @@ namespace YeDassaultSystemDev
                         RobotTaskLists = null;
                     }
                     GetName = Rtf.get_Name();
-                    if (GPWeld.Checked)
+                    if (GPWeld.Checked)//新增定位焊轨迹
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_GP" + "_" + ELEID.Text;
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
@@ -1014,26 +1014,26 @@ namespace YeDassaultSystemDev
                             Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                             AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
-                        if (GunStand.Checked)
+                    }
+                    if (GunStand.Checked)//新增焊钳存放轨迹
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Pick";
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Pick";
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
-                            }
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Drop";
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
-                            }
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
+                        }
+                        RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_GUN" + "_" + ELEID.Text + "_Drop";
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                        {
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                     }
                     Pbar.PerformStep();
-                    if (RPWeld.Checked)
+                    if (RPWeld.Checked)//新增补焊轨迹
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_RP" + "_" + ELEID.Text;
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
@@ -1044,7 +1044,7 @@ namespace YeDassaultSystemDev
                         }
                     }
                     Pbar.PerformStep();
-                    if (Glue.Checked)
+                    if (Glue.Checked)//新增涂胶轨迹
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Glue" + "_" + ELEID.Text;
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
@@ -1055,7 +1055,7 @@ namespace YeDassaultSystemDev
                         }
                     }
                     Pbar.PerformStep();
-                    if (PickAndUp.Checked)
+                    if (PickAndUp.Checked)//新增抓手存放轨迹
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Gripper" + "_" + ELEID.Text;
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
@@ -1064,26 +1064,26 @@ namespace YeDassaultSystemDev
                             Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
                             AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
-                        if (GrpStand.Checked)
+                    }
+                    if (GrpStand.Checked) //新增焊钳存放轨迹
+                    {
+                        String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Pick";
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
                         {
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Pick";
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
-                            }
-                            RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Drop";
-                            if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
-                            {
-                                Rtf.CreateRobotTask(RobotTaskName, null);
-                                Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
-                                AddTagToRobotTask(Rtf, RobotTaskName, tag);
-                            }
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
+                        }
+                        RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_Grip" + "_" + ELEID.Text + "_Drop";
+                        if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
+                        {
+                            Rtf.CreateRobotTask(RobotTaskName, null);
+                            Tag tag = NwSingleTagGroup(((Product)((Product)Usp.Parent).Parent), RobotTaskName);
+                            AddTagToRobotTask(Rtf, RobotTaskName, tag);
                         }
                     }
                     Pbar.PerformStep();
-                    if (StudWeld.Checked)
+                    if (StudWeld.Checked)//新增螺柱焊接轨迹
                     {
                         String RobotTaskName = ((Product)((Product)Usp.Parent).Parent).get_PartNumber() + "_" + RobotID.Text.ToUpper() + "_" + ModelName.Text.ToUpper() + "_Stud" + "_" + ELEID.Text;
                         if (!CheckTaskExists(RobotTaskLists, RobotTaskName))
@@ -1233,7 +1233,7 @@ namespace YeDassaultSystemDev
                             //robotMotion.GetJointTarget(RMobj);
                             //robotMotion.SetJointTarget(RMobj);
                             //robotMotion.GetCartesianTarget(RMobj);
-                            tag.SetName("RefPoint");
+                            tag.SetName("ViaPoint");
                             robotMotion.SetTagTarget(tag);
                         }
                         return true;
@@ -1679,7 +1679,7 @@ namespace YeDassaultSystemDev
                 try
                 {
                     tag.SetType("WeldPoint");
-                    tag.set_Name(TName);
+                    tag.set_Name(ModelName.Text+TName);
                 }
                 catch (Exception)
                 {

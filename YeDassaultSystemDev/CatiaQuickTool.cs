@@ -154,7 +154,7 @@ namespace YeDassaultSystemDev
                     RepeatNum += 1;
                     if (IgRepeat)
                     {
-                        datatable.Rows[datatable.Rows.Count-1].Delete();
+                        datatable.Rows[datatable.Rows.Count - 1].Delete();
                         return true;
                     }
                 }
@@ -178,6 +178,7 @@ namespace YeDassaultSystemDev
         }
         private void ReadCoord_Click(object sender, EventArgs e)
         {
+            progressBar.Value = 0;
             if (datatable.Columns.Count < 1)
             {
                 InitDataTable();
@@ -196,11 +197,21 @@ namespace YeDassaultSystemDev
                 return;
             }
             int ERR = 0;
+            progressBar.Maximum = SelectArc.Count2;
+            progressBar.Step = 1;
             for (int i = 1; i < SelectArc.Count2 + 1; i++)
             {
                 object[] PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
-                SPAWorkbench TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench");
+                SPAWorkbench TheSPAWorkbench = null;
+                if (getJTCoord.Checked)
+                {
+                    //TheSPAWorkbench = (SPAWorkbench)CatDocument.GetItem("").GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word // Default Get Coordxyz From Pred Product
+                }
+                else
+                {
+                    TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
+                }
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;
@@ -228,6 +239,7 @@ namespace YeDassaultSystemDev
                             Part RefPart = ((PartDocument)CatApplication.Documents.Item(RefStr)).Part;//通过总文档将当前零件转换成PartDocumet
                             try
                             {
+                                //RefPart = (Part)RefPart.Parent;
                                 referenceObject = RefPart.CreateReferenceFromObject(shape);
                             }
                             catch (Exception)
@@ -298,6 +310,15 @@ namespace YeDassaultSystemDev
                     TName = "Rx_" + (datatable.Rows.Count + 1);
                 }
                 WriteObjectToDataGrid(TName, PointCoord, referenceObject, IgRepeat.Checked); //记录数据到DataGridView
+                try
+                {
+                    this.Update(); //Updata Draw
+                }
+                catch (Exception)
+                {
+
+                }
+                progressBar.PerformStep();
             }
             SetDataGrid();
             if (ERR > 0)
@@ -312,6 +333,7 @@ namespace YeDassaultSystemDev
         }
         private void CheckRepeat(Selection SelectArc)
         {
+            bool BoorkRepeart = false;
             if (RepeatNum > 0)
             {
                 VisPropertySet VPS = SelectArc.VisProperties;
@@ -322,10 +344,19 @@ namespace YeDassaultSystemDev
                     {
                         continue;
                     }
-                    SelectArc.Add(item);
+                    try
+                    {
+                        SelectArc.Add(item);// 标记重复点
+                        BoorkRepeart = true;
+                    }
+                    catch (Exception e)
+                    {
+                        // MessageBox.Show("准备为您标记重复焊点，但是基于以下原因操作失败!"+e.Message);
+                        BoorkRepeart = false;
+                    }
                 }
                 VPS.SetRealColor(255, 0, 128, 0);
-                MessageBox.Show("当前选择的对象集中存在: " + RepeatNum + "个重复数据!并已为你进行颜色标记!");
+                MessageBox.Show(BoorkRepeart ? "当前选择的对象集中存在: " + RepeatNum + "个重复数据!并已为你进行颜色标记!" : "当前选择的对象集中存在: " + RepeatNum + "个重复数据!标记失败!");
                 RepeatNum = 0;
                 Array.Clear(GetRepeatRef, 0, GetRepeatRef.Length);
             }
@@ -628,7 +659,7 @@ namespace YeDassaultSystemDev
             }
             if (string.IsNullOrEmpty(GunPath))
             {
-             var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
+                var Result = MessageBox.Show("未选择任何焊枪，是否重新选择？（Y/N/C）", "请做出选择", MessageBoxButtons.YesNoCancel);
                 switch (Result)
                 {
                     case DialogResult.None:
@@ -694,17 +725,26 @@ namespace YeDassaultSystemDev
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
                 string TName;
+                string NewName = DataGrid.Rows[i].Cells[1].Value.ToString();
+                if (NewName.Length > 8)
+                {
+                    string tn = NewName.Substring(0, 8);
+                }
+                if (NewName.Length > 8 && skipViaPoint.Checked && NewName.Substring(0, 8) == "ViaPoint")
+                {
+                    goto Skip;
+                }
                 try
                 {
                     TName = DataGrid.Rows[i].Cells[1].Value.ToString(); //读取选择的曲面名称
                     String GunName = null;
-                    if (xlsFileName!=null)
+                    if (xlsFileName != null)
                     {
                         GunName = xlsFileName;
                     }
                     else
                     {
-                        GunName=DataGrid.Rows[i].Cells[1].Value.ToString()+"ASS";
+                        GunName = DataGrid.Rows[i].Cells[1].Value.ToString() + "ASS";
                     }
                     if (TName == "ChangeGun")
                     {
@@ -774,8 +814,7 @@ namespace YeDassaultSystemDev
                 object[] arrayOfVariantOfBSTR1 = new object[1] { GunPath };
                 Cps.AddComponentsFromFiles(arrayOfVariantOfBSTR1, "All");
                 Cps.Item(Cps.Count).Position.SetComponents(oPositionMatrix);// 相对世界坐标设定位置
-                string NewName = DataGrid.Rows[i].Cells[1].Value.ToString();
-                if (xlsFileName!=null)
+                if (xlsFileName != null)
                 {
                     NewName = xlsFileName + "_" + NewName;
                 }
@@ -786,12 +825,12 @@ namespace YeDassaultSystemDev
                 }
                 catch (Exception)
                 {
-                   //throw;
+                    //throw;
                 }
-                progressBar.PerformStep();
+            Skip: progressBar.PerformStep();
             }
             ShowCenter();
-            progressBar.Maximum=100;
+            progressBar.Maximum = 100;
             progressBar.Value = 100;
         }
         private Product AddProduct(Products TargetProduct, string Name)
