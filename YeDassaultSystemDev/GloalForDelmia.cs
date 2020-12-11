@@ -30,6 +30,9 @@ using NPOI.POIFS.Crypt.Dsig;
 using NPOI.XWPF.UserModel;
 using KinTypeLib;
 using System.Reflection;
+using DNBRobot;
+using DNBDevice;
+using DNBIgpTagPath;
 
 namespace YeDassaultSystemDev
 {
@@ -78,7 +81,7 @@ namespace YeDassaultSystemDev
             {
                 FM.WindowState = FormWindowState.Normal;
                 FM.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的Delmia!,请重新运行Delmia!_"+ AllProcess.Length);
+                MessageBox.Show("未检测到打开的Delmia!,请重新运行Delmia!_" + AllProcess.Length);
                 Dsvalue.Revalue = -1;
                 return Dsvalue;
                 //throw;
@@ -90,7 +93,7 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
 
-              //  throw;
+                //  throw;
             }
             // 获取当前活动ProductDocument
             try
@@ -128,7 +131,7 @@ namespace YeDassaultSystemDev
         /// <param name="FM"></param>
         /// <param name="DSystem"></param>
         /// <returns></returns>
-        public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem,int dType=9, string Msg = "请选择初始化对象")
+        public Selection GetInitTargetProduct(Form FM, DataType.Dsystem DSystem, int dType = 9, string Msg = "请选择初始化对象")
         {
             FM.WindowState = FormWindowState.Minimized;
             ProcessDocument PPRP = DSystem.DSActiveDocument;
@@ -188,14 +191,30 @@ namespace YeDassaultSystemDev
             }
             return USelect;
         }
-        public Selection GetIRobotMotion(Form FM, DataType.Dsystem DSystem)
+        public Selection GetIRobotMotion(Form FM, DataType.Dsystem DSystem, int SelectType = 9, string Mess = "请选择一个机器人")
         {
             FM.WindowState = FormWindowState.Minimized;
             INFITF.Application CatApplication = DSystem.DSApplication;
-            ProcessDocument PPRP = DSystem.DSActiveDocument;
-            Selection USelect = PPRP.Selection;
+            Selection USelect = null;
+            try
+            {
+                ProcessDocument PPRP = DSystem.DSActiveDocument;
+                if (PPRP == null)
+                {
+                    USelect = DSystem.CDSActiveDocument.Selection;
+                }
+                else
+                {
+                    USelect = PPRP.Selection;
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
             USelect.Clear();
-            var Result = USelect.SelectElement2(DataType.InputObjectType(9), "请选择一个机器人", true);
+            var Result = USelect.SelectElement2(DataType.InputObjectType(SelectType), Mess, true);
             if (Result == "Cancel")
             {
                 return null;
@@ -207,6 +226,227 @@ namespace YeDassaultSystemDev
             }
             return USelect;
         }
+        public void CreateRobotMoto(Form FM, DataType.Dsystem DSystem, Product product, String RobotName, ProgressBar progressBar, bool CreateCable = false)
+        {
+            Workbench TheKinWorkbench = DSystem.CDSActiveDocument.GetWorkbench("KinematicsWorkbench");
+            Mechanisms cTheMechanisms = null;
+            try
+            {
+                cTheMechanisms = (Mechanisms)product.GetTechnologicalObject("Mechanisms");
+                if (cTheMechanisms.Count > 1) //当对象运动机构数量>1时 清除全部机构对象
+                {
+                    foreach (Mechanism item in cTheMechanisms)
+                    {
+                        cTheMechanisms.Remove(item); //Clear All Mechanisms 
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //选定的对象不存在任何运动机构
+            }
+            //BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
+            //Mechanisms TheMechanismsList = TheKinWorkbench.Mechanisms;
+            RobGenericController Rgcr = (RobGenericController)product.GetTechnologicalObject("RobGenericController");
+            RobControllerFactory CRM = (RobControllerFactory)product.GetTechnologicalObject("RobControllerFactory");
+            GenericMotionProfile genericMotion = null;
+            int ProfileCount = 0;
+            Rgcr.GetMotionProfileCount(out ProfileCount);
+            if (ProfileCount > 0)
+            {
+                string ProfileName = "DNBRobController";
+                Rgcr.GetMotionProfile(ProfileName, out genericMotion);
+            }
+            InitController(Rgcr, CRM, 10, progressBar);
+            Mechanism mechanism = cTheMechanisms.Add();
+            //mechanism.FixedPart=
+            ///RefDocument//mk:@MSITStore:F:\02%20我的知识库\05%20学习&总结资料\01%20CAA开发资料\V5Automation.chm::/online/CAAScdDmuUseCases/CAAKiiMechanismCreationSource.htm                 
+            //string GetName = CRM.get_Name();
+        }
+        public void ClearRobotHomeList(Form FM, DataType.Dsystem DSystem, Product product, String RobotName, ProgressBar progressBar, bool CreateCable = false)
+        {
+            //Workbench TheKinWorkbench = DSystem.CDSActiveDocument.GetWorkbench("KinematicsWorkbench");
+            Mechanisms cTheMechanisms = null;
+            Selection selection = DSystem.CDSActiveDocument.Selection;
+            selection.Clear();
+            try
+            {
+                BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
+                System.Array homePosition=null;
+                for (int i = 0; i < 100; i++)
+                {
+                    object[] HomePos = {0,0,0,0,0,0 };
+                    basicDevice.SetHomePosition("RobotHome_" + i, HomePos);
+                }
+                basicDevice.GetHomePositions(out homePosition);
+                int HomePosNum = homePosition.Length;
+                if (HomePosNum > 1) //当对象运动机构数量>1时 清除全部机构对象
+                {
+                    foreach (HomePosition item in homePosition)
+                    {
+                        selection.Add(item);
+                    }
+                    selection.Delete();
+                }
+            }
+            catch (Exception)
+            {
+                //选定的对象不存在任何运动机构
+            }
+            //Mechanisms TheMechanismsList = TheKinWorkbench.Mechanisms;
+            RobGenericController Rgcr = (RobGenericController)product.GetTechnologicalObject("RobGenericController");
+            RobControllerFactory CRM = (RobControllerFactory)product.GetTechnologicalObject("RobControllerFactory");
+            GenericMotionProfile genericMotion = null;
+            int ProfileCount = 0;
+            Rgcr.GetMotionProfileCount(out ProfileCount);
+            if (ProfileCount > 0)
+            {
+                string ProfileName = "DNBRobController";
+                Rgcr.GetMotionProfile(ProfileName, out genericMotion);
+            }
+            InitController(Rgcr, CRM, 10, progressBar);
+            Mechanism mechanism = cTheMechanisms.Add();
+            //mechanism.FixedPart=
+            ///RefDocument//mk:@MSITStore:F:\02%20我的知识库\05%20学习&总结资料\01%20CAA开发资料\V5Automation.chm::/online/CAAScdDmuUseCases/CAAKiiMechanismCreationSource.htm                 
+            //string GetName = CRM.get_Name();
+        }
+        private void InitController(RobGenericController Rgcr, RobControllerFactory CRM, int RobotCtrlNum, ProgressBar Pbar)
+        {
+            #region 机器人基本TCP Motion初始化
+            // Rgcr.moti
+            String GetName = string.Empty;
+            GetName = CRM.get_Name();
+            for (int i = 1; i <= RobotCtrlNum; i++)
+            {
+                GenericAccuracyProfile GP;
+                GenericMotionProfile GMP;
+                GenericToolProfile GTP;
+                GenericObjFrameProfile GOP;
+                bool ExistsObject;
+                CRM.CreateGenericAccuracyProfile(out GP);
+                GP.GetName(ref GetName);
+                GetName = CRM.get_Name();
+                GP.SetAccuracyValue(i * 0.1);
+                GP.SetName(i * 10 + "%");
+                GP.SetAccuracyType(AccuracyType.ACCURACY_TYPE_SPEED);
+                GP.SetFlyByMode(false);
+                Rgcr.HasAccuracyProfile((i * 10 + "%"), out ExistsObject);
+                if (!ExistsObject)
+                {
+                    Rgcr.AddAccuracyProfile(GP);
+                }
+                Pbar.PerformStep();
+                /////////////////////////////////////////////////////////////////////
+                CRM.CreateGenericObjFrameProfile(out GOP);
+                GOP.SetObjectFrame(0, 0, 0, 0, 0, 0);
+                GOP.SetName("Object_0" + i);
+                Rgcr.HasObjFrameProfile(("Object_0" + i), out ExistsObject);
+                if (!ExistsObject)
+                {
+                    Rgcr.AddObjFrameProfile(GOP);
+                }
+                Pbar.PerformStep();
+                /////////////////////////////////////////////////////////////////////
+                CRM.CreateGenericMotionProfile(out GMP);
+                GMP.SetSpeedValue(i * 0.1);
+                GMP.SetName(i * 10 + "%");
+                GMP.SetMotionBasis(MotionBasis.MOTION_PERCENT);
+                Rgcr.HasMotionProfile((i * 10 + "%"), out ExistsObject);
+                if (!ExistsObject)
+                {
+                    Rgcr.AddMotionProfile(GMP);
+                }
+                Pbar.PerformStep();
+                /////////////////////////////////////////////////////////////////////
+                // NwName = i < 9 ? ("Tool_0" + i) : ("Tool_" + i);
+                string NwName = "Tool_0" + i;
+                Rgcr.HasToolProfile(NwName, out ExistsObject);
+                if (!ExistsObject)
+                {
+                    try
+                    {
+                        int ToolNum = 0;
+                        Rgcr.GetToolProfileCount(out ToolNum);
+                        string Ctname = string.Empty;
+                        if (ToolNum < 16)
+                        {
+                            CRM.CreateGenericToolProfile(out GTP);
+                            Rgcr.AddToolProfile(GTP);
+                            //Object[] ToolLists = new object[ToolNum];
+                            //Rgcr.GetToolProfiles(ToolLists);
+                            //for (int j = 1; j <= ToolNum; j++)
+                            //{
+                            //    Ctname = ((GenericToolProfile)ToolLists[i]).get_Name();
+                            //    ((GenericToolProfile)ToolLists[i]).set_Name(NwName);
+                            //}
+                            //GTP.GetName(Ctname);
+                            //GTP.SetToolMobility(true);
+                            //GTP.set_Name(NwName);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    //Object[] TooList = new object[99];
+                    //Rgcr.GetToolProfiles(TooList);
+                    //int TotalTool;
+                    //Rgcr.GetToolProfileCount(out TotalTool);
+                    //GenericToolProfile ToolProfile =(GenericToolProfile)TooList[TotalTool-1];
+                    //NwName = ToolProfile.get_Name();
+                    //ToolProfile.set_Name(NwName);
+                }
+                Pbar.PerformStep();
+            }
+            #endregion
+            #region 机器人默认值设置
+            //Init Current Motion Profile \accuracy \ Tool Profile \Object
+            bool ExistsObj;
+            Rgcr.HasAccuracyProfile((100 + "%"), out ExistsObj);
+            if (ExistsObj)
+            {
+                Rgcr.SetCurrentAccuracyProfile((100 + "%"));
+            }
+            Rgcr.HasObjFrameProfile("Object_01", out ExistsObj);
+            if (ExistsObj)
+            {
+                Rgcr.SetCurrentObjFrameProfile("Object_01");
+            }
+            Rgcr.HasMotionProfile((100 + "%"), out ExistsObj);
+            if (ExistsObj)
+            {
+                Rgcr.SetCurrentMotionProfile((100 + "%"));
+            }
+            Rgcr.HasToolProfile("Tool_01", out ExistsObj);
+            if (ExistsObj)
+            {
+                Rgcr.SetCurrentToolProfile("Tool_01");
+            }
+            #endregion
+            #region 机器日Taglist目录及RobotTask批量设置
+            //RobotTaskFactory Rtf = (RobotTaskFactory)Usp.GetTechnologicalObject("RobotTaskFactory");
+            object[] RobotTaskLists = new object[99];
+            //try
+            //{
+            //    Rtf.GetAllRobotTasks(RobotTaskLists);
+            //}
+            //catch (Exception)
+            //{
+            //    RobotTaskLists = null;
+            //}
+            //GetName = Rtf.get_Name();
+            Pbar.PerformStep();
+            #endregion
+            object[] RTask = new object[50];
+            // Rtf.GetAllRobotTasks(RTask);
+            foreach (RobotTask item in RTask)
+            {
+                if (item != null)
+                {
+                    item.set_Description("安徽瑞祥工业自动化产品，机器人轨迹,创建于:" + DateTime.Now);
+                }
+            }
+        }
         public void SetRobotFixMechanism(Form FM, INFITF.Document document, Mechanism mechanism)
         {
             Selection Uselect = GetInitTargetProduct(FM, document, "请选择固定的对象!");
@@ -216,7 +456,7 @@ namespace YeDassaultSystemDev
             }
             mechanism.FixedPart = (Product)Uselect.Item(1).Value;
 
-            Uselect = GetInitTargetProduct(FM, document, "请选择固联的对象!",true);
+            Uselect = GetInitTargetProduct(FM, document, "请选择固联的对象!", true);
             if (Uselect == null)
             {
                 return;
@@ -232,7 +472,7 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
                 throw;
-            }   
+            }
         }
     }
 }

@@ -89,6 +89,8 @@
             this.InsertNewPart = new System.Windows.Forms.ToolStripButton();
             this.CreatRobotClub = new System.Windows.Forms.ToolStripButton();
             this.BollToTagList = new System.Windows.Forms.ToolStripButton();
+            this.toolCreateRobot = new System.Windows.Forms.ToolStripButton();
+            this.clearRobotHomeList = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -384,8 +386,6 @@
             // PickAndUp
             // 
             this.PickAndUp.AutoSize = true;
-            this.PickAndUp.Checked = true;
-            this.PickAndUp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.PickAndUp.Location = new System.Drawing.Point(287, 55);
             this.PickAndUp.Name = "PickAndUp";
             this.PickAndUp.Size = new System.Drawing.Size(48, 16);
@@ -396,8 +396,6 @@
             // RPWeld
             // 
             this.RPWeld.AutoSize = true;
-            this.RPWeld.Checked = true;
-            this.RPWeld.CheckState = System.Windows.Forms.CheckState.Checked;
             this.RPWeld.Location = new System.Drawing.Point(74, 55);
             this.RPWeld.Name = "RPWeld";
             this.RPWeld.Size = new System.Drawing.Size(48, 16);
@@ -408,8 +406,6 @@
             // GPWeld
             // 
             this.GPWeld.AutoSize = true;
-            this.GPWeld.Checked = true;
-            this.GPWeld.CheckState = System.Windows.Forms.CheckState.Checked;
             this.GPWeld.Location = new System.Drawing.Point(8, 55);
             this.GPWeld.Name = "GPWeld";
             this.GPWeld.Size = new System.Drawing.Size(60, 16);
@@ -636,7 +632,9 @@
             this.PackageTarget,
             this.InsertNewPart,
             this.CreatRobotClub,
-            this.BollToTagList});
+            this.BollToTagList,
+            this.toolCreateRobot,
+            this.clearRobotHomeList});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(838, 31);
@@ -718,8 +716,28 @@
             this.BollToTagList.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BollToTagList.Name = "BollToTagList";
             this.BollToTagList.Size = new System.Drawing.Size(28, 28);
-            this.BollToTagList.Text = "BollToTagList";
+            this.BollToTagList.Text = "焊点球转Tag";
             this.BollToTagList.Click += new System.EventHandler(this.BollToTagList_Click);
+            // 
+            // toolCreateRobot
+            // 
+            this.toolCreateRobot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolCreateRobot.Image = ((System.Drawing.Image)(resources.GetObject("toolCreateRobot.Image")));
+            this.toolCreateRobot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolCreateRobot.Name = "toolCreateRobot";
+            this.toolCreateRobot.Size = new System.Drawing.Size(28, 28);
+            this.toolCreateRobot.Text = " 创建机器人DMU";
+            this.toolCreateRobot.Click += new System.EventHandler(this.toolCreateRobot_Click);
+            // 
+            // clearRobotHomeList
+            // 
+            this.clearRobotHomeList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearRobotHomeList.Image = global::YeDassaultSystemDev.Properties.Resources.Uninstall;
+            this.clearRobotHomeList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearRobotHomeList.Name = "clearRobotHomeList";
+            this.clearRobotHomeList.Size = new System.Drawing.Size(28, 28);
+            this.clearRobotHomeList.Text = "清空机器人Home";
+            this.clearRobotHomeList.Click += new System.EventHandler(this.clearRobotHomeList_Click);
             // 
             // InitDelmiaDocument
             // 
@@ -823,5 +841,7 @@
         private System.Windows.Forms.ToolStripButton InsertNewPart;
         private System.Windows.Forms.ToolStripButton CreatRobotClub;
         private System.Windows.Forms.ToolStripButton BollToTagList;
+        private System.Windows.Forms.ToolStripButton toolCreateRobot;
+        private System.Windows.Forms.ToolStripButton clearRobotHomeList;
     }
 }

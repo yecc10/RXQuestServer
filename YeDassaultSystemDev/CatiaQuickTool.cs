@@ -237,6 +237,18 @@ namespace YeDassaultSystemDev
                                 RefStr = RefStrArry.Last();
                             }
                             Part RefPart = ((PartDocument)CatApplication.Documents.Item(RefStr)).Part;//通过总文档将当前零件转换成PartDocumet
+                            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            Product productPre = (Product)product.Parent; //test start
+                            //String RefStr1 = productPre.GetMasterShapeRepresentationPathName(); //获取零件路径地址
+                            //string[] RefStrArry1 = RefStr1.Split('\\');
+                            //if (RefStrArry.Length > 1)
+                            //{
+                            //    RefStr1 = RefStrArry1.Last();
+                            //}
+                            string tname= productPre.get_PartNumber();
+                            //referenceObject= productPre.CreateReferenceFromName(TName);
+                            Product RefProduct = ((ProductDocument)CatApplication.Documents.Item("70918")).Product;//通过总文档将当前零件转换成PartDocumet
+                            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                             try
                             {
                                 //RefPart = (Part)RefPart.Parent;

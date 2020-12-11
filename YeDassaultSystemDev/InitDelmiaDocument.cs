@@ -1679,11 +1679,67 @@ namespace YeDassaultSystemDev
                 try
                 {
                     tag.SetType("WeldPoint");
-                    tag.set_Name(ModelName.Text+TName);
+                    tag.set_Name(ModelName.Text + TName);
                 }
                 catch (Exception)
                 {
                     //throw;
+                }
+            }
+        }
+
+        private void toolCreateRobot_Click(object sender, EventArgs e)
+        {
+            Pbar.Value = 0;
+            Pbar.Step = 10;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype,9,"请选择即将定义的机构体");
+            Product Usp = null;
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                try
+                {
+                    String GetName = string.Empty;
+                    Usp = (Product)Uselect.Item2(1).Value;
+                    GetName = Usp.get_Name();
+                    GFD.CreateRobotMoto(this, DStype, Usp, "Test",Pbar);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void clearRobotHomeList_Click(object sender, EventArgs e)
+        {
+            Pbar.Value = 0;
+            Pbar.Step = 10;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择即将定义的机构体");
+            Product Usp = null;
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                try
+                {
+                    String GetName = string.Empty;
+                    Usp = (Product)Uselect.Item2(1).Value;
+                    GetName = Usp.get_Name();
+                    GFD.ClearRobotHomeList(this, DStype, Usp, "Test", Pbar);
+                }
+                catch
+                {
+
                 }
             }
         }
