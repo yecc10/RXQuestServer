@@ -88,6 +88,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RobotTaskControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RobotTaskControl.Designer.cs">
+      <DependentUpon>RobotTaskControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CatiaQuickTool.resx">
@@ -99,6 +105,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RobotTaskControl.resx">
+      <DependentUpon>RobotTaskControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

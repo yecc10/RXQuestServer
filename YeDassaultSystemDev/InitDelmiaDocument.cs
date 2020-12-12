@@ -1743,5 +1743,12 @@ namespace YeDassaultSystemDev
                 }
             }
         }
+
+        private void TaskOprator_Click(object sender, EventArgs e)
+        {
+            RobotTaskControl robotTaskControldialog = new RobotTaskControl();
+            this.Hide();
+            robotTaskControldialog.Show();
+        }
     }
 }

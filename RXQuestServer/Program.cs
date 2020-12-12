@@ -48,7 +48,7 @@ namespace RXQuestServer
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("非管理员,该应用程序可能无法完整运行!");
+                    //MessageBox.Show("非管理员,该应用程序可能无法完整运行!");
                 }
             }
              Application.Run(new Main());

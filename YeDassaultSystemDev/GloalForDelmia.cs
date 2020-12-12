@@ -263,6 +263,15 @@ namespace YeDassaultSystemDev
             ///RefDocument//mk:@MSITStore:F:\02%20我的知识库\05%20学习&总结资料\01%20CAA开发资料\V5Automation.chm::/online/CAAScdDmuUseCases/CAAKiiMechanismCreationSource.htm                 
             //string GetName = CRM.get_Name();
         }
+        /// <summary>
+        /// 清空机器人Home预制坐标信息_Yecc
+        /// </summary>
+        /// <param name="FM"></param>
+        /// <param name="DSystem"></param>
+        /// <param name="product"></param>
+        /// <param name="RobotName"></param>
+        /// <param name="progressBar"></param>
+        /// <param name="CreateCable"></param>
         public void ClearRobotHomeList(Form FM, DataType.Dsystem DSystem, Product product, String RobotName, ProgressBar progressBar, bool CreateCable = false)
         {
             //Workbench TheKinWorkbench = DSystem.CDSActiveDocument.GetWorkbench("KinematicsWorkbench");
@@ -272,25 +281,29 @@ namespace YeDassaultSystemDev
             try
             {
                 BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
-                System.Array homePosition=null;
+                System.Array homePositions=null; 
                 for (int i = 0; i < 100; i++)
                 {
                     object[] HomePos = {0,0,0,0,0,0 };
                     basicDevice.SetHomePosition("RobotHome_" + i, HomePos);
                 }
-                basicDevice.GetHomePositions(out homePosition);
-                int HomePosNum = homePosition.Length;
+                basicDevice.GetHomePositions(out homePositions);
+                int HomePosNum = homePositions.Length;
                 if (HomePosNum > 1) //当对象运动机构数量>1时 清除全部机构对象
                 {
-                    foreach (HomePosition item in homePosition)
+                    foreach (HomePosition homePosition in homePositions)
                     {
-                        selection.Add(item);
+                        //Array AtoolTip = null;
+                        //homePosition.GetAssociatedToolTip(out AtoolTip);
+                        //selection.Add(item);
+
                     }
                     selection.Delete();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message+";请在帮助-》问题反馈与建议中反馈该问题，谢谢!");
                 //选定的对象不存在任何运动机构
             }
             //Mechanisms TheMechanismsList = TheKinWorkbench.Mechanisms;

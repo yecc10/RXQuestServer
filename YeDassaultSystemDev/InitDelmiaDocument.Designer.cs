@@ -91,6 +91,8 @@
             this.BollToTagList = new System.Windows.Forms.ToolStripButton();
             this.toolCreateRobot = new System.Windows.Forms.ToolStripButton();
             this.clearRobotHomeList = new System.Windows.Forms.ToolStripButton();
+            this.cloneRobot = new System.Windows.Forms.ToolStripButton();
+            this.TaskOprator = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -634,7 +636,9 @@
             this.CreatRobotClub,
             this.BollToTagList,
             this.toolCreateRobot,
-            this.clearRobotHomeList});
+            this.clearRobotHomeList,
+            this.cloneRobot,
+            this.TaskOprator});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(838, 31);
@@ -738,6 +742,25 @@
             this.clearRobotHomeList.Size = new System.Drawing.Size(28, 28);
             this.clearRobotHomeList.Text = "清空机器人Home";
             this.clearRobotHomeList.Click += new System.EventHandler(this.clearRobotHomeList_Click);
+            // 
+            // cloneRobot
+            // 
+            this.cloneRobot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cloneRobot.Image = ((System.Drawing.Image)(resources.GetObject("cloneRobot.Image")));
+            this.cloneRobot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cloneRobot.Name = "cloneRobot";
+            this.cloneRobot.Size = new System.Drawing.Size(28, 28);
+            this.cloneRobot.Text = "克隆机器人";
+            // 
+            // TaskOprator
+            // 
+            this.TaskOprator.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TaskOprator.Image = global::YeDassaultSystemDev.Properties.Resources.View_list;
+            this.TaskOprator.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TaskOprator.Name = "TaskOprator";
+            this.TaskOprator.Size = new System.Drawing.Size(28, 28);
+            this.TaskOprator.Text = "机器人轨迹操作[命名及坐标]";
+            this.TaskOprator.Click += new System.EventHandler(this.TaskOprator_Click);
             // 
             // InitDelmiaDocument
             // 
@@ -843,5 +866,7 @@
         private System.Windows.Forms.ToolStripButton BollToTagList;
         private System.Windows.Forms.ToolStripButton toolCreateRobot;
         private System.Windows.Forms.ToolStripButton clearRobotHomeList;
+        private System.Windows.Forms.ToolStripButton cloneRobot;
+        private System.Windows.Forms.ToolStripButton TaskOprator;
     }
 }
