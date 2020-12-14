@@ -2022,5 +2022,11 @@
   <ItemGroup>
     <None Include="Resources\Zoom_out.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tp1.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

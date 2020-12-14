@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region 程序头文件集 // Create by Yechaocheng with 20201212
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,7 @@ using System.Reflection;
 using DNBRobot;
 using DNBDevice;
 using DNBIgpTagPath;
-
+#endregion
 namespace YeDassaultSystemDev
 {
     class GloalForDelmia
@@ -281,10 +282,10 @@ namespace YeDassaultSystemDev
             try
             {
                 BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
-                System.Array homePositions=null; 
+                System.Array homePositions = null;
                 for (int i = 0; i < 100; i++)
                 {
-                    object[] HomePos = {0,0,0,0,0,0 };
+                    object[] HomePos = { 0, 0, 0, 0, 0, 0 };
                     basicDevice.SetHomePosition("RobotHome_" + i, HomePos);
                 }
                 basicDevice.GetHomePositions(out homePositions);
@@ -303,7 +304,7 @@ namespace YeDassaultSystemDev
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message+";请在帮助-》问题反馈与建议中反馈该问题，谢谢!");
+                MessageBox.Show(e.Message + ";请在帮助-》问题反馈与建议中反馈该问题，谢谢!");
                 //选定的对象不存在任何运动机构
             }
             //Mechanisms TheMechanismsList = TheKinWorkbench.Mechanisms;
@@ -487,5 +488,95 @@ namespace YeDassaultSystemDev
                 throw;
             }
         }
+        /// <summary>
+        /// 对机器人程序进行操作
+        /// </summary>
+        /// <param name="FM"></param>
+        /// <param name="robotTask"></param>
+        /// <param name="listBoxMain"></param>
+        /// <param name="listBoxTarget"></param>
+        /// <param name="Pbar"></param>
+        public void ReadTaskTagList(Form FM, RobotTask robotTask, ListBox listBoxMain, ListBox listBoxTarget, ProgressBar Pbar, ref List<Tag> tagList, ref List<Tag> viatagList, ref List<Tag> processtagList)
+        {
+            FM.TopMost = false;
+            FM.WindowState = FormWindowState.Minimized;
+            listBoxMain.Items.Clear();
+            listBoxTarget.Items.Clear();
+            if (robotTask.ChildrenActivities.Count < 1)
+            {
+                Pbar.Maximum = 100;
+                Pbar.Value = 100;
+                Pbar.Step = 1;
+                return;
+            }
+            Pbar.Value = 0;
+            //List<Tag> tagList = new List<Tag>(); // Init A container to Save Target Tag List
+            //List<Tag> viatagList = new List<Tag>(); // Init A container to Save Target Tag List
+            //List<Tag> processtagList = new List<Tag>(); // Init A container to Save Target Tag List
+            Pbar.Maximum = robotTask.ChildrenActivities.Count;
+            try
+            {
+                foreach (Operation soperation in robotTask.ChildrenActivities)
+                {
+                    foreach (Activity activity in soperation.ChildrenActivities)
+                    {
+                        string activityName = activity.Type;
+                        if (activityName == "DNBRobotMotionActivity")
+                        {
+                            RobotMotion robotMotion = (RobotMotion)activity;
+                            short TagetType = -1;
+                            robotMotion.GetTargetType(ref TagetType); //Type of the Target (Cartesian = 0, Joint = 1, Tag = 2, Home = 3). 
+                            if (TagetType != 2)
+                            {
+                                continue;
+                            }
+                            try
+                            {
+                                Tag tag = null;
+                                robotMotion.GetTagTarget(ref tag);
+                                var Return = tagList.Find(
+                                    delegate (Tag tag1)
+                                    {
+                                        return tag1.get_Name() == tag.get_Name(); //需要修改为检查ID 名称可重复
+                                    }); // Check Repeact 
+                                if (Return == null) //当列表中不存在时 把新对象加载进入
+                                {
+                                    //确定当前Opration类型 The Via Mode (1 if the target is a via point and 0 if the Target is Untyped (process)). 
+                                    short ViaMode = -1;
+                                    soperation.GetViaMode(ref ViaMode);
+                                    switch (ViaMode)
+                                    {
+                                        case 0:
+                                            processtagList.Add(tag);
+                                            break;
+                                        case 1:
+                                            viatagList.Add(tag);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    tagList.Add(tag);
+                                    string TagName = tag.get_Name();
+                                    listBoxMain.Items.Add(TagName);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                                //throw;
+                            }
+
+                        }
+                    }
+                    Pbar.PerformStep();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("在处理Oprations时发生错误，请联系或在帮助选项中反馈该问题!" + e.Message);
+            }
+            Pbar.Value = Pbar.Maximum;
+        }
+
     }
 }
