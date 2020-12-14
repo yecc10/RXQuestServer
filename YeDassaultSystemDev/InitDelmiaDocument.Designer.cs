@@ -458,7 +458,7 @@
             this.RobotCtrlNum.Name = "RobotCtrlNum";
             this.RobotCtrlNum.Size = new System.Drawing.Size(100, 21);
             this.RobotCtrlNum.TabIndex = 16;
-            this.RobotCtrlNum.Text = "10";
+            this.RobotCtrlNum.Text = "1";
             this.RobotCtrlNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ELEREMOVE
