@@ -751,6 +751,7 @@
             this.cloneRobot.Name = "cloneRobot";
             this.cloneRobot.Size = new System.Drawing.Size(28, 28);
             this.cloneRobot.Text = "克隆机器人";
+            this.cloneRobot.Click += new System.EventHandler(this.cloneRobot_Click);
             // 
             // TaskOprator
             // 

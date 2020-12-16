@@ -126,6 +126,43 @@ namespace YeDassaultSystemDev
             Dsvalue.Revalue = 0;
             return Dsvalue;
         }
+        public string GetProductPath(Product Tproduct, DataType.Dsystem DStype)
+        {
+            Documents CatDocuments = DStype.DSDocument;
+            String Path = string.Empty;
+            String SPath = string.Empty;
+            String Name = Tproduct.get_PartNumber();
+            //String NwProductName = Name + "_Fixture";
+            try
+            {
+                ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
+                string cPath = DSPD.Path;
+                return cPath;
+            }
+            catch (Exception)
+            {
+                //
+            }
+            return null;
+        }
+        public ProductDocument GetProductPath(Product Tproduct, DataType.Dsystem DStype, bool Value = false)
+        {
+            Documents CatDocuments = DStype.DSDocument;
+            String Path = string.Empty;
+            String SPath = string.Empty;
+            String Name = Tproduct.get_PartNumber();
+            //String NwProductName = Name + "_Fixture";
+            try
+            {
+                ProductDocument DSPD = (ProductDocument)CatDocuments.Item(Name + ".CATProduct");
+                return DSPD;
+            }
+            catch (Exception)
+            {
+                //
+            }
+            return null;
+        }
         /// <summary>
         /// Delmia 在仿真示教模式下使用
         /// </summary>
@@ -277,26 +314,28 @@ namespace YeDassaultSystemDev
         {
             //Workbench TheKinWorkbench = DSystem.CDSActiveDocument.GetWorkbench("KinematicsWorkbench");
             Mechanisms cTheMechanisms = null;
-            Selection selection = DSystem.CDSActiveDocument.Selection;
+            ProductDocument partDocument = GetProductPath(product, DSystem, false);
+            Selection selection = partDocument.Selection;
             selection.Clear();
             try
             {
                 BasicDevice basicDevice = (BasicDevice)product.GetTechnologicalObject("BasicDevice");
                 System.Array homePositions = null;
-                for (int i = 0; i < 100; i++)
-                {
-                    object[] HomePos = { 0, 0, 0, 0, 0, 0 };
-                    basicDevice.SetHomePosition("RobotHome_" + i, HomePos);
-                }
+                //for (int i = 0; i < 100; i++) // add New Robot Home Position
+                //{
+                //    object[] HomePos = { 0, 0, 0, 0, 0, 0 };
+                //    basicDevice.SetHomePosition("RobotHome_" + i, HomePos);
+                //}
                 basicDevice.GetHomePositions(out homePositions);
                 int HomePosNum = homePositions.Length;
                 if (HomePosNum > 1) //当对象运动机构数量>1时 清除全部机构对象
                 {
                     foreach (HomePosition homePosition in homePositions)
                     {
+                        selection.Add(homePosition);
                         //Array AtoolTip = null;
                         //homePosition.GetAssociatedToolTip(out AtoolTip);
-                        //selection.Add(item);
+                        //selection.Add(homePosition);
 
                     }
                     selection.Delete();
@@ -577,6 +616,30 @@ namespace YeDassaultSystemDev
             }
             Pbar.Value = Pbar.Maximum;
         }
-
+        public void CopyTaskToNewRobot(Form FM, DataType.Dsystem DSystem, RobotTask robotTask, RobotTask TargetrobotTask,Product SrcRobot,Product TargetRobot)
+        {
+            //string TarName = SrcRobot.get_PartNumber();
+            //ProductDocument SrcRobotDoc = (ProductDocument)DSystem.DSDocument.Item(TarName + ".CATProduct");
+            //TarName = TargetRobot.get_PartNumber();
+            //ProductDocument TargetRobotDoc = (ProductDocument)DSystem.DSDocument.Item(TargetRobot.get_PartNumber() + ".CATProduct");
+            Selection selection = DSystem.CDSActiveDocument.Selection;
+            selection.Clear();
+            foreach (Operation soperation in robotTask.ChildrenActivities)
+            {
+                selection.Add(soperation);
+            }
+            try
+            {
+                selection.Copy();
+                selection.Clear();
+                //selection = TargetRobotDoc.Selection;
+                selection.Add(TargetrobotTask);
+                selection.Paste();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("应发了未知错误，请核实是否完全克隆后再删除原机器人! "+ e.Message);
+            }
+        }
     }
 }

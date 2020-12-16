@@ -569,6 +569,26 @@ namespace YeDassaultSystemDev
                 return null;
             }
         }
+        public TagGroup NwSingleTagGroup(Product PD, String Name, bool nullable)
+        {
+            Product NPD = null;
+            NPD = GetProductByPartNumber(PD, PD.get_PartNumber() + "_TagList");
+            if (NPD == null)
+            {
+                return null;
+            }
+            try
+            {
+                TagGroupFactory TGF = (TagGroupFactory)NPD.GetTechnologicalObject("TagGroupFactory"); //创建TagGroupFactory 工厂
+                TagGroup NwTagGroup = null; //创建TagGroup指针
+                TGF.CreateTagGroup(Name, true, NPD, out NwTagGroup);//创建TagGroupFactory
+                return NwTagGroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public void GetDocument()
         {
             FolderBrowserDialog GetDocument = new FolderBrowserDialog();
@@ -1698,7 +1718,7 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            Selection Uselect = GFD.GetIRobotMotion(this, DStype,9,"请选择即将定义的机构体");
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择即将定义的机构体");
             Product Usp = null;
             if (Uselect != null && Uselect.Count > 0)
             {
@@ -1707,7 +1727,7 @@ namespace YeDassaultSystemDev
                     String GetName = string.Empty;
                     Usp = (Product)Uselect.Item2(1).Value;
                     GetName = Usp.get_Name();
-                    GFD.CreateRobotMoto(this, DStype, Usp, "Test",Pbar);
+                    GFD.CreateRobotMoto(this, DStype, Usp, "Test", Pbar);
                 }
                 catch
                 {
@@ -1749,6 +1769,87 @@ namespace YeDassaultSystemDev
             RobotTaskControl robotTaskControldialog = new RobotTaskControl();
             this.Hide();
             robotTaskControldialog.Show();
+        }
+
+        private void cloneRobot_Click(object sender, EventArgs e)
+        {
+            //API CloneTaskInAnotherRobot
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Product SrcRobot = null, TargetRobot = null;
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择被克隆的机器人");
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                SrcRobot = (Product)Uselect.Item2(1).Value;
+            }
+            else
+            {
+                return;
+            }
+            Uselect.Clear();
+            Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择克隆轨迹的容器'机器人'");
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                TargetRobot = (Product)Uselect.Item2(1).Value;
+            }
+            else
+            {
+                return;
+            }
+            RobotTaskCloneFactory robotTaskClone = (RobotTaskCloneFactory)SrcRobot.GetTechnologicalObject("RobotTaskCloneFactory");
+            RobotTaskFactory objDeviceTaskFactory = (RobotTaskFactory)SrcRobot.GetTechnologicalObject("RobotTaskFactory");
+            RobotTaskCloneFactory TrobotTaskClone = (RobotTaskCloneFactory)TargetRobot.GetTechnologicalObject("RobotTaskCloneFactory");
+            RobotTaskFactory TobjDeviceTaskFactory = (RobotTaskFactory)TargetRobot.GetTechnologicalObject("RobotTaskFactory");
+            object[] SrcRobotAllTask = new object[999];
+            objDeviceTaskFactory.GetAllRobotTasks(SrcRobotAllTask);
+            foreach (RobotTask robotTask in SrcRobotAllTask)
+            {
+                if (robotTask == null)
+                {
+                    return;
+                }
+                string robotTaskName = robotTask.get_Name();
+                //objDeviceTaskFactory.CreateRobotTask(robotTaskName, null);
+                //TagGroup tagGroup = NwSingleTagGroup(TargetRobot, robotTaskName,false);
+                int CreateTaskmodel = 2;// 1全新创建 0 复制创建
+                switch (CreateTaskmodel)
+                {
+                    case 0:
+                        {
+                            RobotTask robotNew = null;
+                            object[] newTagArry = new object[12];
+                            try
+                            {
+                                robotTaskClone.CloneTaskInAnotherRobot(robotTask, TargetRobot, robotTaskName, newTagArry, ref robotNew);
+                                robotNew.set_Name(robotTaskName);
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                            break;
+                        }
+                    case 1:
+                        {
+                            RobotTask task = null;
+                            TobjDeviceTaskFactory.CreateRobotTask(robotTaskName, ref task);
+                            GFD.CopyTaskToNewRobot(this, DStype, robotTask, task, SrcRobot, TargetRobot);
+                            break;
+                        }
+                    case 2:
+                        {
+                            RobotTask task = null;
+                            TobjDeviceTaskFactory.CreateRobotTask(robotTaskName, ref task);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
