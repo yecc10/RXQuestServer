@@ -152,7 +152,16 @@ namespace YeDassaultSystemDev
                         }); // Check Repeact 
                     if (Return != null) //
                     {
-                        string TagNewName = taskNameTagName.Text + (CurrentID);
+                        string prestr=string.Empty, endstr= string.Empty;
+                        if (string.IsNullOrEmpty(taskNameFrontStr.Text))
+                        {
+                            prestr = taskNameFrontStr.Text + "_";
+                        }
+                        if (string.IsNullOrEmpty(taskNameRearStr.Text))
+                        {
+                            prestr = "_"+ taskNameRearStr.Text;
+                        }
+                        string TagNewName = prestr + taskNameTagName.Text + (CurrentID)+ prestr;
                         CurrentID += stepNum;
                         tag.SetName(TagNewName);
                         tags.Add(tag);
@@ -219,7 +228,7 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择即将操作Taglist的机器人对象");
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 16, "请选择即将操作Taglist的机器人对象");
             Product Robot = null;
             if (Uselect != null && Uselect.Count > 0)
             {
