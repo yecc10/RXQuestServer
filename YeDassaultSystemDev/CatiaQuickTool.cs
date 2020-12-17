@@ -54,7 +54,7 @@ namespace YeDassaultSystemDev
             InitializeComponent();
             timer.Enabled = true;
             InitDataTable();
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this,ConCatia.Checked, myMessage);
         }
         private void TryRead_Click(object sender, EventArgs e)
         {
@@ -713,7 +713,7 @@ namespace YeDassaultSystemDev
             }
             if (CatDocument == null)
             {
-                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
+                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
             }
             Product Cproduct;
             try
@@ -722,7 +722,7 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
-                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
+                CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
                 Cproduct = CatDocument.Product;
             }
             Products Cps = Cproduct.Products;
@@ -889,11 +889,15 @@ namespace YeDassaultSystemDev
 
         private void InitCatia_Click(object sender, EventArgs e)
         {
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this);
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this,ConCatia.Checked, myMessage);
         }
         private void ExtraPadToSurface_Click(object sender, EventArgs e)
         {
 
+        }
+        private void ConCatia_CheckedChanged(object sender, EventArgs e)
+        {
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked,myMessage);
         }
     }
 }

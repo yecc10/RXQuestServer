@@ -72,10 +72,11 @@ namespace YeDassaultSystemDev
         /// <param name="PartID">CATIA 零件目标</param>
         /// <param name="form">当前活动窗口</param>
         /// <returns></returns>
-        public bool InitCatEnv(ref INFITF.Application CatApplication, ref ProductDocument CatDocument, ref Part PartID, Form form)
+        public bool InitCatEnv(ref INFITF.Application CatApplication, ref ProductDocument CatDocument, ref Part PartID, Form form,bool isCatia=true,Label mymessage=null)
         {
             Process[] AllProcess = Process.GetProcessesByName("CNEXT"); //Only When Get CATIA Process
             form.TopMost = false;
+            #region MyRegion
             // Process[] AllProcess = Process.GetProcessesByName("Delmia");
             //if (AllProcess.Length > 1)
             //{
@@ -113,15 +114,35 @@ namespace YeDassaultSystemDev
             //        throw;
             //    }
             //}
+            #endregion
             try
             {
-                CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
+                if (isCatia)
+                {
+                    CatApplication = (INFITF.Application)Marshal.GetActiveObject("Catia.Application");
+                    if (mymessage != null)
+                    {
+                        mymessage.Text = "已建立CATIA通信！";
+                    }
+                }
+                else
+                {
+                    CatApplication = (INFITF.Application)Marshal.GetActiveObject("Delmia.Application");
+                    if (mymessage != null)
+                    {
+                        mymessage.Text ="已建立Delmia通信！";
+                    }
+                }
             }
             catch (Exception)
             {
                 form.WindowState = FormWindowState.Normal;
                 form.StartPosition = FormStartPosition.CenterScreen;
-                MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
+                //MessageBox.Show("未检测到打开的CATIA!,请重新运行CATIA!");
+                if (mymessage!=null)
+                {
+                    mymessage.Text = "通信建立失败，所有功能将会失效请重新尝试或重新启动该软件！";
+                }
                 return false;
                 //throw;
             }

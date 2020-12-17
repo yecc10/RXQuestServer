@@ -57,6 +57,9 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.skipViaPoint = new System.Windows.Forms.CheckBox();
             this.getJTCoord = new System.Windows.Forms.CheckBox();
+            this.ConCatia = new System.Windows.Forms.RadioButton();
+            this.ConDelmia = new System.Windows.Forms.RadioButton();
+            this.myMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -306,7 +309,7 @@
             // 
             this.InitCatia.Image = global::YeDassaultSystemDev.Properties.Resources.Health;
             this.InitCatia.Name = "InitCatia";
-            this.InitCatia.Size = new System.Drawing.Size(147, 22);
+            this.InitCatia.Size = new System.Drawing.Size(188, 30);
             this.InitCatia.Text = "初始化CATIA";
             this.InitCatia.Click += new System.EventHandler(this.InitCatia_Click);
             // 
@@ -339,12 +342,46 @@
             this.getJTCoord.Text = "Read-JT->STP坐标";
             this.getJTCoord.UseVisualStyleBackColor = true;
             // 
+            // ConCatia
+            // 
+            this.ConCatia.AutoSize = true;
+            this.ConCatia.Checked = true;
+            this.ConCatia.Location = new System.Drawing.Point(682, 520);
+            this.ConCatia.Name = "ConCatia";
+            this.ConCatia.Size = new System.Drawing.Size(77, 16);
+            this.ConCatia.TabIndex = 8;
+            this.ConCatia.TabStop = true;
+            this.ConCatia.Text = "CATIA通信";
+            this.ConCatia.UseVisualStyleBackColor = true;
+            this.ConCatia.CheckedChanged += new System.EventHandler(this.ConCatia_CheckedChanged);
+            // 
+            // ConDelmia
+            // 
+            this.ConDelmia.AutoSize = true;
+            this.ConDelmia.Location = new System.Drawing.Point(783, 520);
+            this.ConDelmia.Name = "ConDelmia";
+            this.ConDelmia.Size = new System.Drawing.Size(83, 16);
+            this.ConDelmia.TabIndex = 8;
+            this.ConDelmia.Text = "Delmia通信";
+            this.ConDelmia.UseVisualStyleBackColor = true;
+            // 
+            // myMessage
+            // 
+            this.myMessage.AutoSize = true;
+            this.myMessage.Location = new System.Drawing.Point(310, 523);
+            this.myMessage.Name = "myMessage";
+            this.myMessage.Size = new System.Drawing.Size(0, 12);
+            this.myMessage.TabIndex = 9;
+            // 
             // CatiaQuickTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(878, 580);
+            this.Controls.Add(this.myMessage);
+            this.Controls.Add(this.ConDelmia);
+            this.Controls.Add(this.ConCatia);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.label1);
@@ -409,5 +446,8 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.CheckBox skipViaPoint;
         private System.Windows.Forms.CheckBox getJTCoord;
+        private System.Windows.Forms.RadioButton ConCatia;
+        private System.Windows.Forms.RadioButton ConDelmia;
+        private System.Windows.Forms.Label myMessage;
     }
 }
