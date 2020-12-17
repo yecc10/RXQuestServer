@@ -61,6 +61,9 @@
             this.OutTargetListAix = new System.Windows.Forms.Button();
             this.goBackToFather = new System.Windows.Forms.Button();
             this.Pbar = new System.Windows.Forms.ProgressBar();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.ProcessTaskAddress = new System.Windows.Forms.ListBox();
+            this.reSelectRobot = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CompayIco)).BeginInit();
@@ -68,12 +71,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 28);
+            this.label1.Location = new System.Drawing.Point(6, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 0;
@@ -81,26 +85,27 @@
             // 
             // selectedrobotTaskName
             // 
-            this.selectedrobotTaskName.Location = new System.Drawing.Point(83, 24);
+            this.selectedrobotTaskName.Location = new System.Drawing.Point(83, 25);
             this.selectedrobotTaskName.Name = "selectedrobotTaskName";
             this.selectedrobotTaskName.ReadOnly = true;
-            this.selectedrobotTaskName.Size = new System.Drawing.Size(401, 21);
+            this.selectedrobotTaskName.Size = new System.Drawing.Size(290, 21);
             this.selectedrobotTaskName.TabIndex = 1;
             this.selectedrobotTaskName.Text = "Please Select a Robot Task";
             // 
             // reSelectRobotTask
             // 
-            this.reSelectRobotTask.Location = new System.Drawing.Point(490, 11);
+            this.reSelectRobotTask.Location = new System.Drawing.Point(379, 11);
             this.reSelectRobotTask.Name = "reSelectRobotTask";
-            this.reSelectRobotTask.Size = new System.Drawing.Size(134, 48);
+            this.reSelectRobotTask.Size = new System.Drawing.Size(118, 48);
             this.reSelectRobotTask.TabIndex = 2;
-            this.reSelectRobotTask.Text = "选择目标TagList";
+            this.reSelectRobotTask.Text = "选择目标Task";
             this.reSelectRobotTask.UseVisualStyleBackColor = true;
             this.reSelectRobotTask.Click += new System.EventHandler(this.reSelectRobotTask_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.reSelectRobot);
             this.groupBox1.Controls.Add(this.reSelectRobotTask);
             this.groupBox1.Controls.Add(this.selectedrobotTaskName);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -255,6 +260,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Location = new System.Drawing.Point(12, 231);
@@ -267,9 +273,9 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.TaskListA);
-            this.groupBox5.Location = new System.Drawing.Point(8, 20);
+            this.groupBox5.Location = new System.Drawing.Point(258, 20);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(269, 190);
+            this.groupBox5.Size = new System.Drawing.Size(180, 190);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Task地址";
@@ -280,15 +286,15 @@
             this.TaskListA.ItemHeight = 12;
             this.TaskListA.Location = new System.Drawing.Point(7, 21);
             this.TaskListA.Name = "TaskListA";
-            this.TaskListA.Size = new System.Drawing.Size(256, 160);
+            this.TaskListA.Size = new System.Drawing.Size(167, 160);
             this.TaskListA.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.TaskListB);
-            this.groupBox4.Location = new System.Drawing.Point(355, 20);
+            this.groupBox4.Location = new System.Drawing.Point(444, 20);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(269, 190);
+            this.groupBox4.Size = new System.Drawing.Size(180, 190);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "目标Task清单";
@@ -299,7 +305,7 @@
             this.TaskListB.ItemHeight = 12;
             this.TaskListB.Location = new System.Drawing.Point(7, 21);
             this.TaskListB.Name = "TaskListB";
-            this.TaskListB.Size = new System.Drawing.Size(256, 160);
+            this.TaskListB.Size = new System.Drawing.Size(167, 160);
             this.TaskListB.TabIndex = 0;
             // 
             // groupBox6
@@ -390,6 +396,36 @@
             this.Pbar.Size = new System.Drawing.Size(630, 23);
             this.Pbar.TabIndex = 5;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.ProcessTaskAddress);
+            this.groupBox7.Location = new System.Drawing.Point(8, 20);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(244, 190);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "ProcessTask地址";
+            // 
+            // ProcessTaskAddress
+            // 
+            this.ProcessTaskAddress.FormattingEnabled = true;
+            this.ProcessTaskAddress.ItemHeight = 12;
+            this.ProcessTaskAddress.Location = new System.Drawing.Point(7, 21);
+            this.ProcessTaskAddress.Name = "ProcessTaskAddress";
+            this.ProcessTaskAddress.Size = new System.Drawing.Size(231, 160);
+            this.ProcessTaskAddress.TabIndex = 0;
+            this.ProcessTaskAddress.SelectedIndexChanged += new System.EventHandler(this.ProcessTaskAddress_SelectedIndexChanged);
+            // 
+            // reSelectRobot
+            // 
+            this.reSelectRobot.Location = new System.Drawing.Point(506, 11);
+            this.reSelectRobot.Name = "reSelectRobot";
+            this.reSelectRobot.Size = new System.Drawing.Size(118, 48);
+            this.reSelectRobot.TabIndex = 2;
+            this.reSelectRobot.Text = "选择目标机器人";
+            this.reSelectRobot.UseVisualStyleBackColor = true;
+            this.reSelectRobot.Click += new System.EventHandler(this.reSelectRobot_Click);
+            // 
             // RobotTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -419,6 +455,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -457,5 +494,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar Pbar;
         private System.Windows.Forms.PictureBox CompayIco;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.ListBox ProcessTaskAddress;
+        private System.Windows.Forms.Button reSelectRobot;
     }
 }

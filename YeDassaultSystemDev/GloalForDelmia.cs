@@ -537,10 +537,11 @@ namespace YeDassaultSystemDev
         /// <param name="Pbar"></param>
         public void ReadTaskTagList(Form FM, RobotTask robotTask, ListBox listBoxMain, ListBox listBoxTarget, ProgressBar Pbar, ref List<Tag> tagList, ref List<Tag> viatagList, ref List<Tag> processtagList)
         {
-            FM.TopMost = false;
-            FM.WindowState = FormWindowState.Minimized;
             listBoxMain.Items.Clear();
             listBoxTarget.Items.Clear();
+            tagList.Clear();
+            viatagList.Clear();
+            processtagList.Clear();
             if (robotTask.ChildrenActivities.Count < 1)
             {
                 Pbar.Maximum = 100;
@@ -616,7 +617,36 @@ namespace YeDassaultSystemDev
             }
             Pbar.Value = Pbar.Maximum;
         }
-        public void CopyTaskToNewRobot(Form FM, DataType.Dsystem DSystem, RobotTask robotTask, RobotTask TargetrobotTask,Product SrcRobot,Product TargetRobot)
+        public void ReadRobotTaskTagList(Form FM, Product robot, ListBox listRobotBox, ProgressBar Pbar, ref List<RobotTask> RobotTaskList)
+        {
+            FM.TopMost = false;
+            FM.WindowState = FormWindowState.Minimized;
+            listRobotBox.Items.Clear();
+            RobotTaskFactory TobjDeviceTaskFactory = (RobotTaskFactory)robot.GetTechnologicalObject("RobotTaskFactory");
+            object[] SrcRobotAllTask = new object[999];
+            TobjDeviceTaskFactory.GetAllRobotTasks(SrcRobotAllTask);
+            if (SrcRobotAllTask[0] ==null)
+            {
+                Pbar.Maximum = 100;
+                Pbar.Value = 100;
+                Pbar.Step = 1;
+                return;
+            }
+            foreach (RobotTask robotTask in SrcRobotAllTask)
+            {
+                if (robotTask == null)
+                {
+                    return;
+                }
+                string robotTaskName = robotTask.get_Name();
+                listRobotBox.Items.Add(robotTaskName);
+                RobotTaskList.Add(robotTask);
+            }
+                Pbar.Value = 0;
+
+            Pbar.Value = Pbar.Maximum;
+        }
+        public void CopyTaskToNewRobot(Form FM, DataType.Dsystem DSystem, RobotTask robotTask, RobotTask TargetrobotTask, Product SrcRobot, Product TargetRobot)
         {
             //string TarName = SrcRobot.get_PartNumber();
             //ProductDocument SrcRobotDoc = (ProductDocument)DSystem.DSDocument.Item(TarName + ".CATProduct");
@@ -624,10 +654,11 @@ namespace YeDassaultSystemDev
             //ProductDocument TargetRobotDoc = (ProductDocument)DSystem.DSDocument.Item(TargetRobot.get_PartNumber() + ".CATProduct");
             Selection selection = DSystem.CDSActiveDocument.Selection;
             selection.Clear();
-            foreach (Operation soperation in robotTask.ChildrenActivities)
-            {
-                selection.Add(soperation);
-            }
+            //foreach (Operation soperation in robotTask.ChildrenActivities)
+            //{
+            //    selection.Add(soperation);
+            //}
+            selection.Add(robotTask);
             try
             {
                 selection.Copy();
@@ -638,7 +669,7 @@ namespace YeDassaultSystemDev
             }
             catch (Exception e)
             {
-                MessageBox.Show("应发了未知错误，请核实是否完全克隆后再删除原机器人! "+ e.Message);
+                MessageBox.Show("应发了未知错误，请核实是否完全克隆后再删除原机器人! " + e.Message);
             }
         }
     }

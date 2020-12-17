@@ -23,6 +23,7 @@ namespace YeDassaultSystemDev
         List<Tag> tagList = new List<Tag>(); // Init A container to Save Target Tag List
         List<Tag> viatagList = new List<Tag>(); // Init A container to Save Target Tag List
         List<Tag> processtagList = new List<Tag>(); // Init A container to Save Target Tag List
+        List<RobotTask> robotTasks = new List<RobotTask>(); // Init A container to Save Target Tag List
         /// <summary>
         /// 自动化布局主要区域类型
         /// </summary>
@@ -45,6 +46,7 @@ namespace YeDassaultSystemDev
             tagList.Clear();
             viatagList.Clear();
             processtagList.Clear();
+            ProcessTaskAddress.Items.Clear();
             Pbar.Value = 0;
             Pbar.Step = 10;
             GloalForDelmia GFD = new GloalForDelmia();
@@ -53,6 +55,8 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
+            this.TopMost = false;
+            this.WindowState = FormWindowState.Minimized;
             Selection Uselect = GFD.GetIRobotMotion(this, DStype, 12, "请选择即将操作的Taglist对象");
             RobotTask robotTask = null;
             if (Uselect != null && Uselect.Count > 0)
@@ -124,7 +128,7 @@ namespace YeDassaultSystemDev
 
         private void WorkToBefore_Click(object sender, EventArgs e)
         {
-            if (TaskListB.Items.Count<1)
+            if (TaskListB.Items.Count < 1)
             {
                 MessageBox.Show("目标TagList 为空，无法执行该操作");
                 return;
@@ -179,6 +183,66 @@ namespace YeDassaultSystemDev
                 }
             }
             Pbar.Value = Pbar.Maximum;
+        }
+
+        private void ProcessTaskAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (robotTasks.Count < 1)
+            {
+                return;
+            }
+            String GetName = string.Empty;
+            int SelectIndex = ProcessTaskAddress.SelectedIndex;
+            RobotTask srobotTask = robotTasks[SelectIndex];
+            GetName = srobotTask.get_Name();
+            //selectedrobotTaskName.Text = GetName;
+            //GFD.ClearRobotHomeList(this, DStype, Usp, "Test", Pbar);
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            GFD.ReadTaskTagList(this, srobotTask, TaskListA, TaskListB, Pbar, ref tagList, ref viatagList, ref processtagList);
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.TopMost = true;
+        }
+
+        private void reSelectRobot_Click(object sender, EventArgs e)
+        {
+            robotTasks.Clear();
+            tagList.Clear();
+            viatagList.Clear();
+            processtagList.Clear();
+            Pbar.Value = 0;
+            Pbar.Step = 10;
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择即将操作Taglist的机器人对象");
+            Product Robot = null;
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                try
+                {
+                    String GetName = string.Empty;
+                    Robot = (Product)Uselect.Item2(1).Value;
+                    GetName = Robot.get_Name();
+                    selectedrobotTaskName.Text = GetName;
+                    //GFD.ClearRobotHomeList(this, DStype, Usp, "Test", Pbar);
+                    GFD.ReadRobotTaskTagList(this, Robot, ProcessTaskAddress, Pbar, ref robotTasks);
+                }
+                catch
+                {
+                    MessageBox.Show("操作目标过程中发生未知错误，编号：0029874，在入口的帮助选项卡中反馈该问题!");
+                }
+            }
+            //this.TopMost = true;
+            //this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.TopMost = false;
+
         }
     }
 }
