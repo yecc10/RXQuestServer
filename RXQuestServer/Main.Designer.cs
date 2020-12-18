@@ -144,7 +144,7 @@
             this.达索软件接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.达索软件接口.Name = "达索软件接口";
             this.达索软件接口.Size = new System.Drawing.Size(45, 36);
-            this.达索软件接口.Text = "toolStripDropDownButton1";
+            this.达索软件接口.Text = "达索软件接口";
             // 
             // InitDelmia
             // 
@@ -172,7 +172,7 @@
             this.工厂仿真快捷接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工厂仿真快捷接口.Name = "工厂仿真快捷接口";
             this.工厂仿真快捷接口.Size = new System.Drawing.Size(45, 36);
-            this.工厂仿真快捷接口.Text = "toolStripDropDownButton2";
+            this.工厂仿真快捷接口.Text = "工厂仿真快捷接口";
             // 
             // plant离线创建路径ToolStripMenuItem
             // 
@@ -213,7 +213,7 @@
             this.工作辅助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工作辅助.Name = "工作辅助";
             this.工作辅助.Size = new System.Drawing.Size(45, 36);
-            this.工作辅助.Text = "toolStripDropDownButton4";
+            this.工作辅助.Text = "工作辅助";
             // 
             // 经验库登记ToolStripMenuItem
             // 
@@ -247,7 +247,7 @@
             this.问题反馈及帮助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.问题反馈及帮助.Name = "问题反馈及帮助";
             this.问题反馈及帮助.Size = new System.Drawing.Size(45, 36);
-            this.问题反馈及帮助.Text = "toolStripDropDownButton3";
+            this.问题反馈及帮助.Text = "问题反馈及帮助";
             // 
             // ReadHelp
             // 

@@ -2028,5 +2028,8 @@
   <ItemGroup>
     <None Include="Resources\tp1.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yeccico.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

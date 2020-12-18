@@ -1300,11 +1300,12 @@ namespace YeDassaultSystemDev
         }
         private void BallToRobotList_Click(object sender, EventArgs e)
         {
-            int CV = Convert.ToInt16(RobotID.Text);
-            CV += 1;
-            CV = CV < 1 ? 1 : CV;
-            String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
-            ELEID.Text = TV;
+            //int CV = Convert.ToInt16(RobotID.Text);
+            //CV += 1;
+            //CV = CV < 1 ? 1 : CV;
+            //String TV = CV < 10 ? (0 + CV.ToString()) : CV.ToString();
+            //ELEID.Text = TV;
+            BollToTagList_Click(sender, e);
         }
         private void StationNumAdd_Click(object sender, EventArgs e)
         {
@@ -1699,7 +1700,7 @@ namespace YeDassaultSystemDev
                 try
                 {
                     tag.SetType("WeldPoint");
-                    tag.set_Name(ModelName.Text + TName);
+                    tag.SetName(ModelName.Text + TName);
                 }
                 catch (Exception)
                 {

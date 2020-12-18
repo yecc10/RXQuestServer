@@ -33,6 +33,7 @@
             this.selectedrobotTaskName = new System.Windows.Forms.TextBox();
             this.reSelectRobotTask = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.reSelectRobot = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.CompayIco = new System.Windows.Forms.PictureBox();
             this.taskNameTotalNum = new System.Windows.Forms.ComboBox();
@@ -48,6 +49,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.ProcessTaskAddress = new System.Windows.Forms.ListBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.TaskListA = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -61,17 +64,17 @@
             this.OutTargetListAix = new System.Windows.Forms.Button();
             this.goBackToFather = new System.Windows.Forms.Button();
             this.Pbar = new System.Windows.Forms.ProgressBar();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.ProcessTaskAddress = new System.Windows.Forms.ListBox();
-            this.reSelectRobot = new System.Windows.Forms.Button();
+            this.tGP = new System.Windows.Forms.RadioButton();
+            this.tRP = new System.Windows.Forms.RadioButton();
+            this.tLHP = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CompayIco)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -115,8 +118,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "目标选择";
             // 
+            // reSelectRobot
+            // 
+            this.reSelectRobot.Location = new System.Drawing.Point(506, 11);
+            this.reSelectRobot.Name = "reSelectRobot";
+            this.reSelectRobot.Size = new System.Drawing.Size(118, 48);
+            this.reSelectRobot.TabIndex = 2;
+            this.reSelectRobot.Text = "选择目标机器人";
+            this.reSelectRobot.UseVisualStyleBackColor = true;
+            this.reSelectRobot.Click += new System.EventHandler(this.reSelectRobot_Click);
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tLHP);
+            this.groupBox2.Controls.Add(this.tRP);
+            this.groupBox2.Controls.Add(this.tGP);
             this.groupBox2.Controls.Add(this.CompayIco);
             this.groupBox2.Controls.Add(this.taskNameTotalNum);
             this.groupBox2.Controls.Add(this.label5);
@@ -139,7 +155,7 @@
             // 
             // CompayIco
             // 
-            this.CompayIco.Image = global::YeDassaultSystemDev.Properties.Resources.tp;
+            this.CompayIco.Image = global::YeDassaultSystemDev.Properties.Resources.yeccico;
             this.CompayIco.InitialImage = global::YeDassaultSystemDev.Properties.Resources.tp;
             this.CompayIco.Location = new System.Drawing.Point(506, 12);
             this.CompayIco.Name = "CompayIco";
@@ -193,7 +209,7 @@
             // 
             this.taskNameTagName.Location = new System.Drawing.Point(90, 107);
             this.taskNameTagName.Name = "taskNameTagName";
-            this.taskNameTagName.Size = new System.Drawing.Size(409, 21);
+            this.taskNameTagName.Size = new System.Drawing.Size(283, 21);
             this.taskNameTagName.TabIndex = 1;
             this.taskNameTagName.Text = "LHP";
             // 
@@ -269,6 +285,26 @@
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "选择要重命名的Tag(s)";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.ProcessTaskAddress);
+            this.groupBox7.Location = new System.Drawing.Point(8, 20);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(244, 190);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "ProcessTask地址";
+            // 
+            // ProcessTaskAddress
+            // 
+            this.ProcessTaskAddress.FormattingEnabled = true;
+            this.ProcessTaskAddress.ItemHeight = 12;
+            this.ProcessTaskAddress.Location = new System.Drawing.Point(7, 21);
+            this.ProcessTaskAddress.Name = "ProcessTaskAddress";
+            this.ProcessTaskAddress.Size = new System.Drawing.Size(231, 160);
+            this.ProcessTaskAddress.TabIndex = 0;
+            this.ProcessTaskAddress.SelectedIndexChanged += new System.EventHandler(this.ProcessTaskAddress_SelectedIndexChanged);
             // 
             // groupBox5
             // 
@@ -396,35 +432,41 @@
             this.Pbar.Size = new System.Drawing.Size(630, 23);
             this.Pbar.TabIndex = 5;
             // 
-            // groupBox7
+            // tGP
             // 
-            this.groupBox7.Controls.Add(this.ProcessTaskAddress);
-            this.groupBox7.Location = new System.Drawing.Point(8, 20);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(244, 190);
-            this.groupBox7.TabIndex = 4;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "ProcessTask地址";
+            this.tGP.AutoSize = true;
+            this.tGP.Location = new System.Drawing.Point(379, 112);
+            this.tGP.Name = "tGP";
+            this.tGP.Size = new System.Drawing.Size(35, 16);
+            this.tGP.TabIndex = 4;
+            this.tGP.TabStop = true;
+            this.tGP.Text = "GP";
+            this.tGP.UseVisualStyleBackColor = true;
+            this.tGP.CheckedChanged += new System.EventHandler(this.tGP_CheckedChanged);
             // 
-            // ProcessTaskAddress
+            // tRP
             // 
-            this.ProcessTaskAddress.FormattingEnabled = true;
-            this.ProcessTaskAddress.ItemHeight = 12;
-            this.ProcessTaskAddress.Location = new System.Drawing.Point(7, 21);
-            this.ProcessTaskAddress.Name = "ProcessTaskAddress";
-            this.ProcessTaskAddress.Size = new System.Drawing.Size(231, 160);
-            this.ProcessTaskAddress.TabIndex = 0;
-            this.ProcessTaskAddress.SelectedIndexChanged += new System.EventHandler(this.ProcessTaskAddress_SelectedIndexChanged);
+            this.tRP.AutoSize = true;
+            this.tRP.Location = new System.Drawing.Point(420, 112);
+            this.tRP.Name = "tRP";
+            this.tRP.Size = new System.Drawing.Size(35, 16);
+            this.tRP.TabIndex = 4;
+            this.tRP.TabStop = true;
+            this.tRP.Text = "RP";
+            this.tRP.UseVisualStyleBackColor = true;
+            this.tRP.CheckedChanged += new System.EventHandler(this.tRP_CheckedChanged);
             // 
-            // reSelectRobot
+            // tLHP
             // 
-            this.reSelectRobot.Location = new System.Drawing.Point(506, 11);
-            this.reSelectRobot.Name = "reSelectRobot";
-            this.reSelectRobot.Size = new System.Drawing.Size(118, 48);
-            this.reSelectRobot.TabIndex = 2;
-            this.reSelectRobot.Text = "选择目标机器人";
-            this.reSelectRobot.UseVisualStyleBackColor = true;
-            this.reSelectRobot.Click += new System.EventHandler(this.reSelectRobot_Click);
+            this.tLHP.AutoSize = true;
+            this.tLHP.Location = new System.Drawing.Point(456, 112);
+            this.tLHP.Name = "tLHP";
+            this.tLHP.Size = new System.Drawing.Size(41, 16);
+            this.tLHP.TabIndex = 4;
+            this.tLHP.TabStop = true;
+            this.tLHP.Text = "LHP";
+            this.tLHP.UseVisualStyleBackColor = true;
+            this.tLHP.CheckedChanged += new System.EventHandler(this.tLHP_CheckedChanged);
             // 
             // RobotTaskControl
             // 
@@ -452,10 +494,10 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CompayIco)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -497,5 +539,8 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.ListBox ProcessTaskAddress;
         private System.Windows.Forms.Button reSelectRobot;
+        private System.Windows.Forms.RadioButton tLHP;
+        private System.Windows.Forms.RadioButton tRP;
+        private System.Windows.Forms.RadioButton tGP;
     }
 }

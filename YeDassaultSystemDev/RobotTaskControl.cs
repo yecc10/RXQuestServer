@@ -153,15 +153,15 @@ namespace YeDassaultSystemDev
                     if (Return != null) //
                     {
                         string prestr=string.Empty, endstr= string.Empty;
-                        if (string.IsNullOrEmpty(taskNameFrontStr.Text))
+                        if (!string.IsNullOrEmpty(taskNameFrontStr.Text))
                         {
                             prestr = taskNameFrontStr.Text + "_";
                         }
-                        if (string.IsNullOrEmpty(taskNameRearStr.Text))
+                        if (!string.IsNullOrEmpty(taskNameRearStr.Text))
                         {
-                            prestr = "_"+ taskNameRearStr.Text;
+                            endstr = "_"+ taskNameRearStr.Text;
                         }
-                        string TagNewName = prestr + taskNameTagName.Text + (CurrentID)+ prestr;
+                        string TagNewName = prestr + taskNameTagName.Text + (CurrentID)+ endstr;
                         CurrentID += stepNum;
                         tag.SetName(TagNewName);
                         tags.Add(tag);
@@ -252,6 +252,21 @@ namespace YeDassaultSystemDev
             this.StartPosition = FormStartPosition.CenterScreen;
             this.TopMost = false;
 
+        }
+
+        private void tGP_CheckedChanged(object sender, EventArgs e)
+        {
+            taskNameTagName.Text = "GP";
+        }
+
+        private void tRP_CheckedChanged(object sender, EventArgs e)
+        {
+            taskNameTagName.Text = "RP";
+        }
+
+        private void tLHP_CheckedChanged(object sender, EventArgs e)
+        {
+            taskNameTagName.Text = "LHP";
         }
     }
 }

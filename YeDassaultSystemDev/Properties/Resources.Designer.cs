@@ -2433,6 +2433,16 @@ namespace YeDassaultSystemDev.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap yeccico {
+            get {
+                object obj = ResourceManager.GetObject("yeccico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Zip {
             get {
                 object obj = ResourceManager.GetObject("Zip", resourceCulture);

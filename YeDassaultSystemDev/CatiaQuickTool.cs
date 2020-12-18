@@ -475,6 +475,7 @@ namespace YeDassaultSystemDev
                 this.WindowState = FormWindowState.Normal;
                 this.StartPosition = FormStartPosition.CenterScreen;
             }
+            DataGrid.AllowUserToAddRows = false;
             this.TopMost = true;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -706,6 +707,8 @@ namespace YeDassaultSystemDev
         {
             this.TopMost = false;
             this.WindowState = FormWindowState.Minimized;
+            progressBar.Value = 0;
+            DataGrid.AllowUserToAddRows = false;
             if (DataGrid.RowCount < 1)
             {
                 MessageBox.Show("未检测到任何数据请先导入EXCEL数据再执行该操作!");
@@ -731,7 +734,6 @@ namespace YeDassaultSystemDev
             object[] oPositionMatrix = new object[12];
             object[] oPositionSafeMatrix = new object[12] { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1 };
             double oRx, oRy, oRz;
-            progressBar.Value = 0;
             progressBar.Maximum = DataGrid.RowCount;
             progressBar.Step = 1;
             for (int i = 0; i < DataGrid.RowCount; i++)
