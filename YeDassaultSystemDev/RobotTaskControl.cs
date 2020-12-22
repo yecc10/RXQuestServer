@@ -1,6 +1,7 @@
 ﻿using DNBIgpTagPath;
 using INFITF;
 using ProductStructureTypeLib;
+using SPATypeLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -152,16 +153,16 @@ namespace YeDassaultSystemDev
                         }); // Check Repeact 
                     if (Return != null) //
                     {
-                        string prestr=string.Empty, endstr= string.Empty;
+                        string prestr = string.Empty, endstr = string.Empty;
                         if (!string.IsNullOrEmpty(taskNameFrontStr.Text))
                         {
                             prestr = taskNameFrontStr.Text + "_";
                         }
                         if (!string.IsNullOrEmpty(taskNameRearStr.Text))
                         {
-                            endstr = "_"+ taskNameRearStr.Text;
+                            endstr = "_" + taskNameRearStr.Text;
                         }
-                        string TagNewName = prestr + taskNameTagName.Text + (CurrentID)+ endstr;
+                        string TagNewName = prestr + taskNameTagName.Text + (CurrentID) + endstr;
                         CurrentID += stepNum;
                         tag.SetName(TagNewName);
                         tags.Add(tag);
@@ -267,6 +268,37 @@ namespace YeDassaultSystemDev
         private void tLHP_CheckedChanged(object sender, EventArgs e)
         {
             taskNameTagName.Text = "LHP";
+        }
+
+        private void OutTargetListAix_Click(object sender, EventArgs e)
+        {
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择正确的产品数模作为坐标基准");
+            Product BaseProduct = null;
+            if (Uselect == null && Uselect.Count < 1)
+            {
+                return;
+            }
+            BaseProduct = (Product)Uselect.Item2(1).Value;
+            SPAWorkbench TheSPAWorkbench = (SPAWorkbench)DStype.CDSActiveDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
+            try
+            {
+                Reference basereference = Uselect.Item2(1).Reference;
+                Measurable measurable = TheSPAWorkbench.GetMeasurable(basereference);
+                object[] PointCoord = new object[3];//{-99, -99, -99, -99, -99, -99, -99, -99, -99 };
+                Uselect.Item2(1).GetCoordinates(PointCoord);
+                measurable.GetCenter(PointCoord);
+            }
+            catch (Exception e1)
+            {
+
+                MessageBox.Show("发生未知错误:" + e1.Message);
+            }
         }
     }
 }

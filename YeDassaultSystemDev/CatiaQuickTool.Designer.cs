@@ -309,7 +309,7 @@
             // 
             this.InitCatia.Image = global::YeDassaultSystemDev.Properties.Resources.Health;
             this.InitCatia.Name = "InitCatia";
-            this.InitCatia.Size = new System.Drawing.Size(188, 30);
+            this.InitCatia.Size = new System.Drawing.Size(147, 22);
             this.InitCatia.Text = "初始化CATIA";
             this.InitCatia.Click += new System.EventHandler(this.InitCatia_Click);
             // 
@@ -335,6 +335,8 @@
             // getJTCoord
             // 
             this.getJTCoord.AutoSize = true;
+            this.getJTCoord.Checked = true;
+            this.getJTCoord.CheckState = System.Windows.Forms.CheckState.Checked;
             this.getJTCoord.Location = new System.Drawing.Point(162, 521);
             this.getJTCoord.Name = "getJTCoord";
             this.getJTCoord.Size = new System.Drawing.Size(120, 16);

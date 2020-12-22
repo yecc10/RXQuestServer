@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>F:\SystemRoot\PushSoft\01_RXQuesetServer\</PublishUrl>
+    <PublishUrl>\\DESKTOP-5HK1A1I\SystemRoot\PushSoft\01_RXQuesetServer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -28,8 +28,8 @@
     <ProductName>安徽瑞祥工业数字化系统</ProductName>
     <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
     <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>10</ApplicationRevision>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>4.4.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

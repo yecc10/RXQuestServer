@@ -119,9 +119,13 @@ namespace YeDassaultSystemDev
                     {
                         return new object[] { "HybridBody" };
                     }
-                case 16: //HybridBodie
+                case 16: //"BasicDevice", "Product"
                     {
                         return new object[] { "BasicDevice", "Product" };
+                    }
+                case 17: //"BasicDevice", "Product"
+                    {
+                        return new object[] { "Tag"};
                     }
                 default:
                     return new object[] { "AnyObject" };

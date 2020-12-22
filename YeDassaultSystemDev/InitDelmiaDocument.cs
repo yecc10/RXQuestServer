@@ -732,8 +732,14 @@ namespace YeDassaultSystemDev
             CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_Resourse";
             CreatePath(CPath);
             CreateResoursePath(CPath);
+            if (CreateRefSimulationDoc.Checked)
+            {
+                StationID += 1;
+                CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_RefSimulation";
+                CreatePath(CPath);
+            }
             StationID += 1;
-            CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_RefSimulation";
+            CPath = MPath + (StationID < 10 ? "//0" + StationID : "//" + StationID) + "_ProcessList";
             CreatePath(CPath);
         }
         private void CreateStationPath(String StationPath)
@@ -760,6 +766,7 @@ namespace YeDassaultSystemDev
             CreatePath(CPath + "//11_WaterUnit");
             CreatePath(CPath + "//12_APC");
             CreatePath(CPath + "//13_SHUTTLE");
+            CreatePath(CPath + "//14_ActConfigFile");
         }
         public void CreatePath(string Dpath)
         {

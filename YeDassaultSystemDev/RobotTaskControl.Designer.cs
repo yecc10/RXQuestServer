@@ -35,6 +35,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.reSelectRobot = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tLHP = new System.Windows.Forms.RadioButton();
+            this.tRP = new System.Windows.Forms.RadioButton();
+            this.tGP = new System.Windows.Forms.RadioButton();
             this.CompayIco = new System.Windows.Forms.PictureBox();
             this.taskNameTotalNum = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,9 +67,6 @@
             this.OutTargetListAix = new System.Windows.Forms.Button();
             this.goBackToFather = new System.Windows.Forms.Button();
             this.Pbar = new System.Windows.Forms.ProgressBar();
-            this.tGP = new System.Windows.Forms.RadioButton();
-            this.tRP = new System.Windows.Forms.RadioButton();
-            this.tLHP = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CompayIco)).BeginInit();
@@ -152,6 +152,42 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "标签设置";
+            // 
+            // tLHP
+            // 
+            this.tLHP.AutoSize = true;
+            this.tLHP.Location = new System.Drawing.Point(456, 112);
+            this.tLHP.Name = "tLHP";
+            this.tLHP.Size = new System.Drawing.Size(41, 16);
+            this.tLHP.TabIndex = 4;
+            this.tLHP.TabStop = true;
+            this.tLHP.Text = "LHP";
+            this.tLHP.UseVisualStyleBackColor = true;
+            this.tLHP.CheckedChanged += new System.EventHandler(this.tLHP_CheckedChanged);
+            // 
+            // tRP
+            // 
+            this.tRP.AutoSize = true;
+            this.tRP.Location = new System.Drawing.Point(420, 112);
+            this.tRP.Name = "tRP";
+            this.tRP.Size = new System.Drawing.Size(35, 16);
+            this.tRP.TabIndex = 4;
+            this.tRP.TabStop = true;
+            this.tRP.Text = "RP";
+            this.tRP.UseVisualStyleBackColor = true;
+            this.tRP.CheckedChanged += new System.EventHandler(this.tRP_CheckedChanged);
+            // 
+            // tGP
+            // 
+            this.tGP.AutoSize = true;
+            this.tGP.Location = new System.Drawing.Point(379, 112);
+            this.tGP.Name = "tGP";
+            this.tGP.Size = new System.Drawing.Size(35, 16);
+            this.tGP.TabIndex = 4;
+            this.tGP.TabStop = true;
+            this.tGP.Text = "GP";
+            this.tGP.UseVisualStyleBackColor = true;
+            this.tGP.CheckedChanged += new System.EventHandler(this.tGP_CheckedChanged);
             // 
             // CompayIco
             // 
@@ -415,6 +451,7 @@
             this.OutTargetListAix.TabIndex = 2;
             this.OutTargetListAix.Text = "导出目标坐标";
             this.OutTargetListAix.UseVisualStyleBackColor = true;
+            this.OutTargetListAix.Click += new System.EventHandler(this.OutTargetListAix_Click);
             // 
             // goBackToFather
             // 
@@ -431,42 +468,6 @@
             this.Pbar.Name = "Pbar";
             this.Pbar.Size = new System.Drawing.Size(630, 23);
             this.Pbar.TabIndex = 5;
-            // 
-            // tGP
-            // 
-            this.tGP.AutoSize = true;
-            this.tGP.Location = new System.Drawing.Point(379, 112);
-            this.tGP.Name = "tGP";
-            this.tGP.Size = new System.Drawing.Size(35, 16);
-            this.tGP.TabIndex = 4;
-            this.tGP.TabStop = true;
-            this.tGP.Text = "GP";
-            this.tGP.UseVisualStyleBackColor = true;
-            this.tGP.CheckedChanged += new System.EventHandler(this.tGP_CheckedChanged);
-            // 
-            // tRP
-            // 
-            this.tRP.AutoSize = true;
-            this.tRP.Location = new System.Drawing.Point(420, 112);
-            this.tRP.Name = "tRP";
-            this.tRP.Size = new System.Drawing.Size(35, 16);
-            this.tRP.TabIndex = 4;
-            this.tRP.TabStop = true;
-            this.tRP.Text = "RP";
-            this.tRP.UseVisualStyleBackColor = true;
-            this.tRP.CheckedChanged += new System.EventHandler(this.tRP_CheckedChanged);
-            // 
-            // tLHP
-            // 
-            this.tLHP.AutoSize = true;
-            this.tLHP.Location = new System.Drawing.Point(456, 112);
-            this.tLHP.Name = "tLHP";
-            this.tLHP.Size = new System.Drawing.Size(41, 16);
-            this.tLHP.TabIndex = 4;
-            this.tLHP.TabStop = true;
-            this.tLHP.Text = "LHP";
-            this.tLHP.UseVisualStyleBackColor = true;
-            this.tLHP.CheckedChanged += new System.EventHandler(this.tLHP_CheckedChanged);
             // 
             // RobotTaskControl
             // 

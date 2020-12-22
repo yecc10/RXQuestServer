@@ -54,7 +54,7 @@ namespace YeDassaultSystemDev
             InitializeComponent();
             timer.Enabled = true;
             InitDataTable();
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this,ConCatia.Checked, myMessage);
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
         }
         private void TryRead_Click(object sender, EventArgs e)
         {
@@ -204,14 +204,7 @@ namespace YeDassaultSystemDev
                 object[] PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
                 SPAWorkbench TheSPAWorkbench = null;
-                if (getJTCoord.Checked)
-                {
-                    //TheSPAWorkbench = (SPAWorkbench)CatDocument.GetItem("").GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word // Default Get Coordxyz From Pred Product
-                }
-                else
-                {
-                    TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
-                }
+                TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;
@@ -243,8 +236,10 @@ namespace YeDassaultSystemDev
                             {
                                 try
                                 {
-                                    RefPart.InWorkObject = RefPart;
-                                    int a = RefPart.Constraints.Count;
+                                    //Product PCompoments = (Product)product.Parent;
+                                    //TName = PCompoments.get_Name();
+                                    //referenceObject = PCompoments.CreateReferenceFromName(TName);
+                                    //Measurable TheMeasurable1 = TheSPAWorkbench.GetMeasurable(referenceObject);
                                 }
                                 catch (Exception)
                                 {
@@ -756,7 +751,7 @@ namespace YeDassaultSystemDev
                 {
                     string tn = NewName.Substring(0, 8);
                 }
-                if (NewName.Length > 8 && skipViaPoint.Checked && NewName.Substring(0, 8) == "ViaPoint")
+                if (NewName.Length > 8 && skipViaPoint.Checked && (NewName.Substring(0, 8) == "ViaPoint"|| NewName.Substring(0, 3) == "LHP"))
                 {
                     goto Skip;
                 }
@@ -903,7 +898,7 @@ namespace YeDassaultSystemDev
 
         private void InitCatia_Click(object sender, EventArgs e)
         {
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this,ConCatia.Checked, myMessage);
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
         }
         private void ExtraPadToSurface_Click(object sender, EventArgs e)
         {
@@ -911,7 +906,7 @@ namespace YeDassaultSystemDev
         }
         private void ConCatia_CheckedChanged(object sender, EventArgs e)
         {
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked,myMessage);
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
         }
     }
 }
