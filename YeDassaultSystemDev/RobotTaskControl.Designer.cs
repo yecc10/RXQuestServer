@@ -461,6 +461,7 @@
             this.goBackToFather.TabIndex = 2;
             this.goBackToFather.Text = "返回上一级";
             this.goBackToFather.UseVisualStyleBackColor = true;
+            this.goBackToFather.Click += new System.EventHandler(this.goBackToFather_Click);
             // 
             // Pbar
             // 

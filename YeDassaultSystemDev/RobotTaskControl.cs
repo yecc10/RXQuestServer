@@ -300,5 +300,12 @@ namespace YeDassaultSystemDev
                 MessageBox.Show("发生未知错误:" + e1.Message);
             }
         }
+
+        private void goBackToFather_Click(object sender, EventArgs e)
+        {
+            InitDelmiaDocument initDelmiaDocument = new InitDelmiaDocument();
+            this.Hide();
+            initDelmiaDocument.Show();
+        }
     }
 }
