@@ -237,17 +237,29 @@ namespace YeDassaultSystemDev
                                 RefStr = RefStrArry.Last();
                             }
                             Part RefPart = ((PartDocument)CatApplication.Documents.Item(RefStr)).Part;//通过总文档将当前零件转换成PartDocumet
+                            TName = RefPart.get_Name();
                             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            Product productPre = (Product)product.Parent; //test start
+                            if (getJTCoord.Checked)
+                            {
+                                try
+                                {
+                                    RefPart.InWorkObject = RefPart;
+                                    int a = RefPart.Constraints.Count;
+                                }
+                                catch (Exception)
+                                {
+                                    throw;
+                                }
+                            }
                             //String RefStr1 = productPre.GetMasterShapeRepresentationPathName(); //获取零件路径地址
                             //string[] RefStrArry1 = RefStr1.Split('\\');
                             //if (RefStrArry.Length > 1)
                             //{
                             //    RefStr1 = RefStrArry1.Last();
                             //}
-                            string tname= productPre.get_PartNumber();
+                            //string tname= productPre.get_PartNumber();
                             //referenceObject= productPre.CreateReferenceFromName(TName);
-                            Product RefProduct = ((ProductDocument)CatApplication.Documents.Item("70918")).Product;//通过总文档将当前零件转换成PartDocumet
+                            //Product RefProduct = ((ProductDocument)CatApplication.Documents.Item("70918")).Product;//通过总文档将当前零件转换成PartDocumet
                             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                             try
                             {

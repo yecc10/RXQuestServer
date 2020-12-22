@@ -215,7 +215,7 @@
             this.StationNum.Name = "StationNum";
             this.StationNum.Size = new System.Drawing.Size(100, 21);
             this.StationNum.TabIndex = 18;
-            this.StationNum.Text = "8";
+            this.StationNum.Text = "1";
             this.StationNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // NSTagGroup
@@ -458,7 +458,7 @@
             this.RobotCtrlNum.Name = "RobotCtrlNum";
             this.RobotCtrlNum.Size = new System.Drawing.Size(100, 21);
             this.RobotCtrlNum.TabIndex = 16;
-            this.RobotCtrlNum.Text = "1";
+            this.RobotCtrlNum.Text = "10";
             this.RobotCtrlNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ELEREMOVE

@@ -893,7 +893,7 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            Selection Uselect = GFD.GetIRobotMotion(this, DStype);
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype,16,"请选择初始化的机器人对象");
             Product Usp = null;
             if (Uselect != null && Uselect.Count > 0)
             {
