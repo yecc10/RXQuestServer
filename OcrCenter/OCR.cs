@@ -139,30 +139,41 @@ namespace OcrCenter
         {
             string file = FilePath.Text; // ☜ jpg, gif, tif, pdf, etc.
             PBOCR.Value = 30;
-            var Ocr = new IronOcr.AdvancedOcr();
+            //var Ocr = new IronOcr.AdvancedOcr();
             try
             {
-                Ocr.CleanBackgroundNoise = true;
-                Ocr.EnhanceContrast = true;
-                Ocr.EnhanceResolution = true;
-                Ocr.Language = IronOcr.Languages.MultiLanguage.OcrLanguagePack(
-                    IronOcr.Languages.ChineseSimplified.OcrLanguagePack,
-                    IronOcr.Languages.English.OcrLanguagePack
-                );
-                PBOCR.Value = 40;
-                Ocr.Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced;
-                Ocr.ColorSpace = AdvancedOcr.OcrColorSpace.Color;
-                Ocr.DetectWhiteTextOnDarkBackgrounds = true;
-                Ocr.InputImageType = AdvancedOcr.InputTypes.AutoDetect;
-                Ocr.RotateAndStraighten = true;
-                Ocr.ReadBarCodes = true;
-                Ocr.ColorDepth = 4;
-                var testDocument = file;
-                PBOCR.Value = 45;
-                var Results = Ocr.Read(testDocument);
-                PBOCR.Value = 80;
-                ResultTest.Text = Results.Text;
-                PBOCR.Value = 90;
+                //Ocr.CleanBackgroundNoise = true;
+                //Ocr.EnhanceContrast = true;
+                //Ocr.EnhanceResolution = true;
+                //Ocr.Language = IronOcr.o OcrLanguagePack(
+                //    Languages.ChineseSimplified.OcrLanguagePack,
+                //    Languages.English.OcrLanguagePack
+                //);
+                //PBOCR.Value = 40;
+                //Ocr.Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced;
+                //Ocr.ColorSpace = AdvancedOcr.OcrColorSpace.Color;
+                //Ocr.DetectWhiteTextOnDarkBackgrounds = true;
+                //Ocr.InputImageType = AdvancedOcr.InputTypes.AutoDetect;
+                //Ocr.RotateAndStraighten = true;
+                //Ocr.ReadBarCodes = true;
+                //Ocr.ColorDepth = 4;
+                //var testDocument = file;
+                //PBOCR.Value = 45;
+                //var Results = Ocr.Read(testDocument);
+                //PBOCR.Value = 80;
+                //ResultTest.Text = Results.Text;
+                //PBOCR.Value = 90;
+                var Ocr = new IronTesseract();
+                using (var Input = new OcrInput(file))
+                {
+                    Ocr.Language = OcrLanguage.EnglishBest;
+                    //Ocr.AddSecondaryLanguage(OcrLanguage.ChineseSimplified);
+                    // Input.Deskew();  // use if image not straight
+                    //Input.DeNoise(); // use if image contains digital noise
+                    var Result = Ocr.Read(Input);
+                    //Console.WriteLine(Result.Text);
+                    ResultTest.Text = Result.Text;
+                }
             }
             catch (Exception)
             {
