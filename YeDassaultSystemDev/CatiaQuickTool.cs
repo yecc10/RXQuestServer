@@ -148,7 +148,7 @@ namespace YeDassaultSystemDev
                 xyz[0] = Math.Round(Convert.ToDouble(PointData[0]), keepValuePoint);
                 xyz[1] = Math.Round(Convert.ToDouble(PointData[1]), keepValuePoint);
                 xyz[2] = Math.Round(Convert.ToDouble(PointData[2]), keepValuePoint);
-                if (RxDataOprator.DoRepeatCheck(xyz, datatable))//True 为重复值
+                if (RxDataOprator.DoRepeatCheck(xyz, datatable,Convert.ToInt16(this.MinDistance.Text)))//True 为重复值
                 {
                     GetRepeatRef.SetValue(RefObj, RepeatNum);//记录重复对象
                     RepeatNum += 1;

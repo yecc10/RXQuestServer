@@ -60,6 +60,8 @@
             this.ConCatia = new System.Windows.Forms.RadioButton();
             this.ConDelmia = new System.Windows.Forms.RadioButton();
             this.myMessage = new System.Windows.Forms.Label();
+            this.MinDistance = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -198,7 +200,7 @@
             // BallRadio
             // 
             this.BallRadio.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BallRadio.Location = new System.Drawing.Point(787, 470);
+            this.BallRadio.Location = new System.Drawing.Point(787, 455);
             this.BallRadio.Name = "BallRadio";
             this.BallRadio.Size = new System.Drawing.Size(77, 26);
             this.BallRadio.TabIndex = 4;
@@ -208,7 +210,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(740, 477);
+            this.label1.Location = new System.Drawing.Point(740, 462);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 5;
@@ -375,6 +377,25 @@
             this.myMessage.Size = new System.Drawing.Size(0, 12);
             this.myMessage.TabIndex = 9;
             // 
+            // MinDistance
+            // 
+            this.MinDistance.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.MinDistance.Location = new System.Drawing.Point(787, 487);
+            this.MinDistance.Name = "MinDistance";
+            this.MinDistance.Size = new System.Drawing.Size(77, 26);
+            this.MinDistance.TabIndex = 4;
+            this.MinDistance.Text = "5";
+            this.MinDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(729, 494);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "最小间距";
+            // 
             // CatiaQuickTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -386,7 +407,9 @@
             this.Controls.Add(this.ConCatia);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.MinDistance);
             this.Controls.Add(this.BallRadio);
             this.Controls.Add(this.DataGrid);
             this.Controls.Add(this.Creat3dBall);
@@ -451,5 +474,7 @@
         private System.Windows.Forms.RadioButton ConCatia;
         private System.Windows.Forms.RadioButton ConDelmia;
         private System.Windows.Forms.Label myMessage;
+        private System.Windows.Forms.TextBox MinDistance;
+        private System.Windows.Forms.Label label2;
     }
 }

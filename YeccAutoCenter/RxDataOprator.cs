@@ -719,8 +719,9 @@ namespace YeccAutoCenter
         /// </summary>
         /// <param name="DGR">待检测对象行</param>
         /// <param name="DG">参考数据集</param>
+        /// <param name="MinPointDistance">最小点间距，小于该间距默认为重合点</param>
         /// <returns></returns>
-        static public bool DoRepeatCheck(double[] DGR, System.Data.DataTable DG)
+        static public bool DoRepeatCheck(double[] DGR, System.Data.DataTable DG,int MinPointDistance)
         {
             bool Result = false;
             int Num = 0;
@@ -735,7 +736,11 @@ namespace YeccAutoCenter
                 {
                     continue;
                 }
-                if ((Convert.ToDouble(Row[2]) == DGR[0] && Convert.ToDouble(Row[3]) == DGR[1] && Convert.ToDouble(Row[4]) == DGR[2]))//对比XYZ值 如果一致则判断重复
+                //if ((Convert.ToDouble(Row[2]) == DGR[0] && Convert.ToDouble(Row[3]) == DGR[1] && Convert.ToDouble(Row[4]) == DGR[2]))//对比XYZ值 如果一致则判断重复
+                //{
+                //    Num += 1;
+                //}
+                if (Math.Abs(Convert.ToDouble(Row[2]) - DGR[0])< MinPointDistance && Math.Abs(Convert.ToDouble(Row[3]) - DGR[1])<MinPointDistance && Math.Abs(Convert.ToDouble(Row[4]) - DGR[2])<MinPointDistance)//对比XYZ值 如果一致则判断重复
                 {
                     Num += 1;
                 }
