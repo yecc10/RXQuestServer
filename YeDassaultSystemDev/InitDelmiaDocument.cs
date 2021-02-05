@@ -152,6 +152,42 @@ namespace YeDassaultSystemDev
             }
             return NwP;
         }
+        public Product NewProduct(Product PPRProduct, string Name, bool NeedSave = true, String SavePath = null)
+        {
+            if (CheckRepeatByPartNumber(PPRProduct, Name))
+            {
+                return null;
+            }
+            Product NwP = PPRProduct.Products.AddNewComponent("Part", Name);
+            SetAttrValue(NwP);
+            if (NeedSave)
+            {
+                DStype.DSApplication.DisplayFileAlerts = false; //关闭提示
+                Documents CatDocuments = DStype.DSDocument;
+                String PName = NwP.get_PartNumber();
+                PartDocument DSPD = null;
+                if (DStype.DSActiveDocument == null)
+                {
+                    GloalForDelmia GFD = new GloalForDelmia();
+                    DStype = GFD.InitCatEnv(this);
+                    if (DStype.Revalue == -1)
+                    {
+                        return null;
+                    }
+                }
+                try
+                {
+                    DSPD = (PartDocument)CatDocuments.Item(PName + ".CATPart");
+                }
+                catch (Exception E)
+                {
+                    MessageBox.Show(E.Message);
+                }
+                DSPD.SaveAs(SavePath);
+                DStype.DSApplication.DisplayFileAlerts = true; //恢复提示
+            }
+            return NwP;
+        }
         public Product NewPPRProduct(PPRProducts Product, string Name, String SavePath = null)
         {
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
@@ -280,11 +316,33 @@ namespace YeDassaultSystemDev
                     Product CLayoutProduct = NewPPRProduct(PPRS, "Layout");
                     if (!CheckRepeatByPartNumber(CLayoutProduct, "Layout_2D"))
                     {
+                        if (string.IsNullOrEmpty(SavePath.Text))
+                        {
+                            MessageBox.Show("主Process目录尚未创建及保存，后续操作已终止!");
+                            return;
+                        }
+                        string FileFullName = Path.GetFullPath(SavePath.Text);
+                        string FilePath = null;
                         NewProduct(CLayoutProduct, "01_Layout_2D", false);
-                        NewProduct(CLayoutProduct, "02_Layout_3D", false);
+                        Product Layout3D = NewProduct(CLayoutProduct, "02_Layout_3D", false);
+                        Product Tproduct = NewProduct(Layout3D, "01_Box", false); // 创建料盒Part
+                        for (int i = 1; i < 10; i++)
+                        {
+                            string TagetName = "0" + i + "_Box.CATPart";
+                            CreatePath(FileFullName + "\\02_Layout\\01_3DLayout\\01_Box\\");
+                            FilePath = FileFullName + "\\02_Layout\\01_3DLayout\\01_Box\\" + TagetName;
+                            NewProduct(Tproduct, TagetName, true, FilePath);
+                        }
+                        Tproduct = NewProduct(CLayoutProduct, "02_Ground", false);
+                        {
+                            FilePath = FileFullName + "\\02_Layout\\01_3DLayout\\02_Ground\\01_Ground.CATPart";
+                            CreatePath(FileFullName + "\\02_Layout\\01_3DLayout\\02_Ground\\");
+                            NewProduct(Tproduct, "01_Ground", true, FilePath);
+                        }
+                        NewProduct(Layout3D, "03_Human", false);
+                        NewProduct(Layout3D, "04_UndifineTypeEuipment", false);
                         NewProduct(CLayoutProduct, "03_Fence", false);
                         NewProduct(CLayoutProduct, "04_Platform", false);
-                        NewProduct(CLayoutProduct, "05_Human", false);
                         NewProduct(CLayoutProduct, "06_SHUTTLE", false);
                     }
                     Pbar.Step = 5;
@@ -900,7 +958,7 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            Selection Uselect = GFD.GetIRobotMotion(this, DStype,16,"请选择初始化的机器人对象");
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 16, "请选择初始化的机器人对象");
             Product Usp = null;
             if (Uselect != null && Uselect.Count > 0)
             {
@@ -1711,7 +1769,7 @@ namespace YeDassaultSystemDev
                 }
                 catch (Exception)
                 {
-                   // tag.set_Name(ModelName.Text + TName);
+                    // tag.set_Name(ModelName.Text + TName);
                     //throw;
                 }
             }
