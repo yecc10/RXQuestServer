@@ -100,6 +100,42 @@ namespace YeDassaultSystemDev
                 }
             }
         }
+        /// <summary>
+        /// 隐藏新建Part的XYZ平面
+        /// </summary>
+        /// <param name="PartID">被操作的Part对象</param>
+        /// <returns></returns>
+        public bool HidePartXYZ(ref Product UserProduct)
+        {
+            Part PartID = null;
+            try
+            {
+                PartID = (Part)UserProduct; //当前操作失败 未处理
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            HybridBodies HBS = PartID.HybridBodies;
+            if (HBS.Count < 1)
+            {
+                HybridBody HB = HBS.Add();
+                HB.set_Name("Geometrical Set.1");
+            }
+            OriginElements Tpart = PartID.OriginElements;
+            AnyObject dxy = Tpart.PlaneXY;
+            AnyObject dyz = Tpart.PlaneYZ;
+            AnyObject dzx = Tpart.PlaneZX;
+            Selection SelectT = DStype.CDSActiveDocument.Selection;
+            VisPropertySet VP = SelectT.VisProperties;
+            SelectT.Add(dxy);
+            SelectT.Add(dyz);
+            SelectT.Add(dzx);
+            VP = (VisPropertySet)VP.Parent;
+            VP.SetShow(CatVisPropertyShow.catVisPropertyNoShowAttr);
+            SelectT.Clear();
+            return true;
+        }
         private void SelectInit_Click(object sender, EventArgs e)
         {
             GloalForDelmia GFD = new GloalForDelmia();
@@ -160,6 +196,7 @@ namespace YeDassaultSystemDev
             }
             Product NwP = PPRProduct.Products.AddNewComponent("Part", Name);
             SetAttrValue(NwP);
+            //HidePartXYZ(ref NwP);
             if (NeedSave)
             {
                 DStype.DSApplication.DisplayFileAlerts = false; //关闭提示
