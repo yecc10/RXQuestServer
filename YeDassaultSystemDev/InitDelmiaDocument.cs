@@ -227,6 +227,10 @@ namespace YeDassaultSystemDev
         }
         public Product NewPPRProduct(PPRProducts Product, string Name, String SavePath = null)
         {
+            if (CheckRepeatByName(Product, Name))
+            {
+                return null;
+            }
             ProductDocument TeDocument = (ProductDocument)DStype.DSApplication.Documents.Add("Product");
             Product Teproduct = TeDocument.Product;
             SetAttrValue(Teproduct);
@@ -418,10 +422,41 @@ namespace YeDassaultSystemDev
         /// 查询选定的Product中是否存在指定的对象
         /// </summary>
         /// <param name="FatherList">被查询Product最高级</param>
+        /// <param name="Name">被查询对象</param>
+        /// <returns></returns>
+        public bool CheckRepeatByName(PPRProducts FatherList, String Name)
+        {
+            ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
+            Selection CheckProduct = DSActiveDocument.Selection;
+            CheckProduct.Clear();
+            foreach (Product SProduct in FatherList)
+            {
+                if (SProduct.get_Name()== Name|| SProduct.get_PartNumber() == Name)
+                {
+                    return true;
+                }
+                CheckProduct.Add(SProduct);
+                string Sc = "Name =" + Name + ",all";
+                CheckProduct.Search(Sc);
+                if (CheckProduct.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// 查询选定的Product中是否存在指定的对象
+        /// </summary>
+        /// <param name="FatherList">被查询Product最高级</param>
         /// <param name="PartNumber">被查询对象</param>
         /// <returns></returns>
         public bool CheckRepeatByPartNumber(Product FatherList, String PartNumber)
         {
+            if (FatherList==null)
+            {
+                return false;
+            }
             foreach (Product Pitem in FatherList.Products)
             {
                 Pitem.set_Name(Pitem.get_PartNumber());
@@ -948,6 +983,10 @@ namespace YeDassaultSystemDev
                 string FID = Dirst.Length < 10 ? "0" + Convert.ToString(Dirst.Length + 1) : Convert.ToString(Dirst.Length + 1);
                 String NewSavePath = SavePath.Text + "\\01_SM\\" + FID + "_" + ModelName.Text + "_SM";
                 Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text + "_SM", NewSavePath); //初始化产品数模
+                if (PPRSMProduct==null)
+                {
+                    MessageBox.Show("你创建的对象已存在于当前文档！已终止后续进程!");
+                }
                 for (int j = 1; j <= NumStation; j++)
                 {
                     if (type1020.Checked)
@@ -1453,7 +1492,7 @@ namespace YeDassaultSystemDev
         }
         private void newproductToProductlist_Click(object sender, EventArgs e)
         {
-            NewProductToProductList();
+            NewProductToProductList();//在资源中新增产品数模对象
         }
         private void newStationToResList_Click(object sender, EventArgs e)
         {
