@@ -41,6 +41,7 @@
             this.Station_Group = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.StationNum = new System.Windows.Forms.TextBox();
+            this.CreateRefSimulationDoc = new System.Windows.Forms.CheckBox();
             this.NSTagGroup = new System.Windows.Forms.CheckBox();
             this.Fullint = new System.Windows.Forms.Button();
             this.SelectInit = new System.Windows.Forms.Button();
@@ -81,6 +82,8 @@
             this.RobotAdd = new System.Windows.Forms.Button();
             this.StationNumAdd = new System.Windows.Forms.Button();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripButton();
             this.PackageTarget = new System.Windows.Forms.ToolStripButton();
             this.InsertNewPart = new System.Windows.Forms.ToolStripButton();
             this.CreatRobotClub = new System.Windows.Forms.ToolStripButton();
@@ -89,9 +92,8 @@
             this.clearRobotHomeList = new System.Windows.Forms.ToolStripButton();
             this.cloneRobot = new System.Windows.Forms.ToolStripButton();
             this.TaskOprator = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripButton();
-            this.CreateRefSimulationDoc = new System.Windows.Forms.CheckBox();
+            this.addnewpart = new System.Windows.Forms.ToolStripButton();
+            this.addnewproduct = new System.Windows.Forms.ToolStripButton();
             this.LayoutGroup.SuspendLayout();
             this.Station_Group.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -217,6 +219,16 @@
             this.StationNum.TabIndex = 18;
             this.StationNum.Text = "1";
             this.StationNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CreateRefSimulationDoc
+            // 
+            this.CreateRefSimulationDoc.AutoSize = true;
+            this.CreateRefSimulationDoc.Location = new System.Drawing.Point(128, 56);
+            this.CreateRefSimulationDoc.Name = "CreateRefSimulationDoc";
+            this.CreateRefSimulationDoc.Size = new System.Drawing.Size(84, 16);
+            this.CreateRefSimulationDoc.TabIndex = 19;
+            this.CreateRefSimulationDoc.Text = "旧仿真升级";
+            this.CreateRefSimulationDoc.UseVisualStyleBackColor = true;
             // 
             // NSTagGroup
             // 
@@ -638,12 +650,34 @@
             this.toolCreateRobot,
             this.clearRobotHomeList,
             this.cloneRobot,
-            this.TaskOprator});
+            this.TaskOprator,
+            this.addnewpart,
+            this.addnewproduct});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(838, 31);
             this.toolStrip.TabIndex = 20;
             this.toolStrip.Text = "toolStrip";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.Image = global::YeDassaultSystemDev.Properties.Resources.Document_chart;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripDropDownButton1.Text = "产品类操作";
+            this.toolStripDropDownButton1.Click += new System.EventHandler(this.newproductToProductlist_Click);
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton2.Image = global::YeDassaultSystemDev.Properties.Resources.Add_button;
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripDropDownButton2.Text = "追加Station";
+            this.toolStripDropDownButton2.Click += new System.EventHandler(this.newStationToResList_Click);
             // 
             // PackageTarget
             // 
@@ -725,35 +759,25 @@
             this.TaskOprator.Text = "机器人轨迹操作[命名及坐标]";
             this.TaskOprator.Click += new System.EventHandler(this.TaskOprator_Click);
             // 
-            // toolStripDropDownButton2
+            // addnewpart
             // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton2.Image = global::YeDassaultSystemDev.Properties.Resources.Add_button;
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripDropDownButton2.Text = "追加Station";
-            this.toolStripDropDownButton2.Click += new System.EventHandler(this.newStationToResList_Click);
+            this.addnewpart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addnewpart.Image = global::YeDassaultSystemDev.Properties.Resources.Add;
+            this.addnewpart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addnewpart.Name = "addnewpart";
+            this.addnewpart.Size = new System.Drawing.Size(28, 28);
+            this.addnewpart.Text = "增加新的Part";
+            this.addnewpart.Click += new System.EventHandler(this.addnewpart_Click);
             // 
-            // toolStripDropDownButton1
+            // addnewproduct
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = global::YeDassaultSystemDev.Properties.Resources.Document_chart;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripDropDownButton1.Text = "产品类操作";
-            this.toolStripDropDownButton1.Click += new System.EventHandler(this.newproductToProductlist_Click);
-            // 
-            // CreateRefSimulationDoc
-            // 
-            this.CreateRefSimulationDoc.AutoSize = true;
-            this.CreateRefSimulationDoc.Location = new System.Drawing.Point(128, 56);
-            this.CreateRefSimulationDoc.Name = "CreateRefSimulationDoc";
-            this.CreateRefSimulationDoc.Size = new System.Drawing.Size(84, 16);
-            this.CreateRefSimulationDoc.TabIndex = 19;
-            this.CreateRefSimulationDoc.Text = "旧仿真升级";
-            this.CreateRefSimulationDoc.UseVisualStyleBackColor = true;
+            this.addnewproduct.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addnewproduct.Image = global::YeDassaultSystemDev.Properties.Resources.Add;
+            this.addnewproduct.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addnewproduct.Name = "addnewproduct";
+            this.addnewproduct.Size = new System.Drawing.Size(28, 28);
+            this.addnewproduct.Text = "增加新Product";
+            this.addnewproduct.Click += new System.EventHandler(this.addnewproduct_Click);
             // 
             // InitDelmiaDocument
             // 
@@ -860,5 +884,7 @@
         private System.Windows.Forms.ToolStripButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripButton toolStripDropDownButton1;
         private System.Windows.Forms.CheckBox CreateRefSimulationDoc;
+        private System.Windows.Forms.ToolStripButton addnewpart;
+        private System.Windows.Forms.ToolStripButton addnewproduct;
     }
 }

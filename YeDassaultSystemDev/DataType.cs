@@ -127,6 +127,10 @@ namespace YeDassaultSystemDev
                     {
                         return new object[] { "Tag"};
                     }
+                case 18: //"Product", "Part"
+                    {
+                        return new object[] { "Part", "Product" };
+                    }
                 default:
                     return new object[] { "AnyObject" };
             }

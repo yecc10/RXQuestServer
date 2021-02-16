@@ -625,7 +625,7 @@ namespace YeDassaultSystemDev
             RobotTaskFactory TobjDeviceTaskFactory = (RobotTaskFactory)robot.GetTechnologicalObject("RobotTaskFactory");
             object[] SrcRobotAllTask = new object[999];
             TobjDeviceTaskFactory.GetAllRobotTasks(SrcRobotAllTask);
-            if (SrcRobotAllTask[0] ==null)
+            if (SrcRobotAllTask[0] == null)
             {
                 Pbar.Maximum = 100;
                 Pbar.Value = 100;
@@ -642,7 +642,7 @@ namespace YeDassaultSystemDev
                 listRobotBox.Items.Add(robotTaskName);
                 RobotTaskList.Add(robotTask);
             }
-                Pbar.Value = 0;
+            Pbar.Value = 0;
 
             Pbar.Value = Pbar.Maximum;
         }

@@ -429,9 +429,13 @@ namespace YeDassaultSystemDev
             ProcessDocument DSActiveDocument = DStype.DSActiveDocument;
             Selection CheckProduct = DSActiveDocument.Selection;
             CheckProduct.Clear();
+            if (FatherList.Count < 1)
+            {
+                return false;
+            }
             foreach (Product SProduct in FatherList)
             {
-                if (SProduct.get_Name()== Name|| SProduct.get_PartNumber() == Name)
+                if (SProduct.get_Name() == Name || SProduct.get_PartNumber() == Name)
                 {
                     return true;
                 }
@@ -453,7 +457,7 @@ namespace YeDassaultSystemDev
         /// <returns></returns>
         public bool CheckRepeatByPartNumber(Product FatherList, String PartNumber)
         {
-            if (FatherList==null)
+            if (FatherList == null)
             {
                 return false;
             }
@@ -983,7 +987,7 @@ namespace YeDassaultSystemDev
                 string FID = Dirst.Length < 10 ? "0" + Convert.ToString(Dirst.Length + 1) : Convert.ToString(Dirst.Length + 1);
                 String NewSavePath = SavePath.Text + "\\01_SM\\" + FID + "_" + ModelName.Text + "_SM";
                 Product PPRSMProduct = NewPPRProduct(PPRSM, ModelName.Text + "_SM", NewSavePath); //初始化产品数模
-                if (PPRSMProduct==null)
+                if (PPRSMProduct == null)
                 {
                     MessageBox.Show("你创建的对象已存在于当前文档！已终止后续进程!");
                 }
@@ -1993,6 +1997,52 @@ namespace YeDassaultSystemDev
                         break;
                 }
             }
+        }
+
+        private void addnewpart_Click(object sender, EventArgs e)
+        {
+            GloalForDelmia GFD = new GloalForDelmia();
+            DStype = GFD.InitCatEnv(this);
+            if (DStype.Revalue == -1)
+            {
+                return;
+            }
+            Product Uproduct = null;
+            Part Upart = null;
+            String Tpath = null;
+            String Tdoc = null;
+            Selection Uselect = GFD.GetIRobotMotion(this, DStype, 9, "请选择一个已保存的对象新对象将保存在同级目录!");
+            if (Uselect != null && Uselect.Count > 0)
+            {
+                try
+                {
+                    Uproduct = (Product)Uselect.Item(1).Value;
+                    Tpath = Uproduct.GetMasterShapeRepresentationPathName();
+                    Tdoc = Path.GetDirectoryName(Tpath);
+                }
+                catch (Exception e1)
+                {
+                    MessageBox.Show("未能成功获取到您选择的对象路径，可能其尚未保存或为部件，请重新选择或通过帮助进行反馈!——"+e1.Message);
+                    return;
+                }
+                if (string.IsNullOrEmpty(Tdoc))
+                {
+                    MessageBox.Show("未能成功获取到您选择的对象路径，可能其尚未保存或为部件，请重新选择或通过帮助进行反馈!");
+                    return;
+                }
+                UserInPut userInPut = new UserInPut();
+                userInPut.UserLable.Text = "请输入新增Part名称《禁止中文》:";
+                userInPut.Show();
+                userInPut.WindowState = FormWindowState.Maximized;
+                userInPut.StartPosition = FormStartPosition.CenterScreen;
+                userInPut.TopMost = true;
+
+            }
+        }
+
+        private void addnewproduct_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

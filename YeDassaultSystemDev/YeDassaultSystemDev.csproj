@@ -94,6 +94,12 @@
     <Compile Include="RobotTaskControl.Designer.cs">
       <DependentUpon>RobotTaskControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInPut.Designer.cs">
+      <DependentUpon>UserInPut.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CatiaQuickTool.resx">
@@ -108,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RobotTaskControl.resx">
       <DependentUpon>RobotTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInPut.resx">
+      <DependentUpon>UserInPut.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -141,42 +150,6 @@
     <COMReference Include="BehaviorTypeLib">
       <Guid>{14F198C2-0761-11D1-A5B1-00A0C9469177}</Guid>
       <VersionMajor>0</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CAARCHIVEMERGERLib">
-      <Guid>{B48C07C4-CA02-4D5D-9758-87CAE3C4C695}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CACOMPRESSIONLIBLib">
-      <Guid>{746A5B3C-D1D4-41F4-A5DF-A762F87148F5}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CamControlLib">
-      <Guid>{4F595D8F-2F58-4086-B4DE-728C18660BD8}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="CamtasiaAddinLib">
-      <Guid>{B70796FC-8EBC-4645-9CA1-8B050291B880}</Guid>
-      <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
@@ -266,6 +239,15 @@
     </COMReference>
     <COMReference Include="CATFunctSystem">
       <Guid>{66AC8D61-4977-11D3-B2C7-0008C725BE57}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CATHAS">
+      <Guid>{8A35F107-4C01-4874-B49C-F8F1D1026479}</Guid>
       <VersionMajor>0</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
