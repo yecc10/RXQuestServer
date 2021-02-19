@@ -19,6 +19,7 @@ namespace RXQuestServer
     public partial class Main : Form
     {
         bool HasAccessToRun = false;
+        DateTime RegTime = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
         public Main()
         {
             InitializeComponent();
@@ -172,7 +173,7 @@ namespace RXQuestServer
             }
         }
 
-        private void CheckUserAccess()
+        private bool CheckUserAccess()
         {
             DateTime dateTime = DateTime.Now;
             var Psh = new PasswordHasher();
@@ -199,15 +200,15 @@ namespace RXQuestServer
                     HasAccessToRun = true;
                     Yecc_Help.Enabled = false;
                     Properties.Settings.Default.VisionType = "正式授权版";
-                    return;
+                    return true;
                 }
             }
             //检查是否处于试用期 并小于30天
             if (RegOprate.IsRegeditExit("SetUpTime"))
             {
-                DateTime RegWord =Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
-                DateTime dateTime1 = dateTime.AddDays(30);
-                if (dateTime1 < RegWord)
+                DateTime RegWord = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
+                DateTime NormalWorkTime = RegWord.AddDays(30);
+                if (dateTime > NormalWorkTime)
                 {
                     Properties.Settings.Default.VisionType = "30天试用版";
                     MessageBox.Show("当前试用30天已过期，请申请正式版本！");
@@ -215,10 +216,11 @@ namespace RXQuestServer
                 else
                 {
                     //临时授权未过期 授权通过使用
-                    Properties.Settings.Default.VisionType = "30天试用版";
+                    TimeSpan WorkDays = NormalWorkTime- dateTime;
+                    Properties.Settings.Default.VisionType = "30天试用版,剩余[小时]: " + WorkDays.TotalHours.ToString("0");
                     HasAccessToRun = true;
                     Yecc_Help.Enabled = true;
-                    return;
+                    return true;
                 }
             }
             else
@@ -236,18 +238,19 @@ namespace RXQuestServer
                     RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
                     HasAccessToRun = true;
                     Properties.Settings.Default.VisionType = "30天试用版";
-                    return;
+                    return true;
                 }
                 else
                 {
                     Process.GetCurrentProcess().Kill();
-                    return;
+                    return true;
                 }
             }
             //非注册用户并试用时间已过期，强制退出
             this.Hide();
             RegKeyInput regKeyInput = new RegKeyInput();
             regKeyInput.Show();
+            return false;
         }
         private void Yecc_Help_Click(object sender, EventArgs e)
         {
@@ -258,9 +261,16 @@ namespace RXQuestServer
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            //this.Text = "YECC_SYS_"+Application.ProductVersion.ToString()+Properties.Settings.Default.VisionType.ToString();
-            //this.Text = "YECC_SYS_" + System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
-            this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString() +"_"+ DateTime.Now.ToString();
+            DateTime dateTime = DateTime.Now;
+            TimeSpan WorkDays = RegTime.AddDays(30) - dateTime;
+            if (WorkDays.TotalMinutes>0)
+            {
+                this.Text = "YECC_" + Application.ProductVersion.ToString() + "30天试用版,剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
+            }
+            else
+            {
+                this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
+            }
         }
 
         private void WordToAixForPlant_Click(object sender, EventArgs e)
@@ -273,7 +283,7 @@ namespace RXQuestServer
 
         private void ReadHelp_Click(object sender, EventArgs e)
         {
-            this.TopMost=false;
+            this.TopMost = false;
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
@@ -287,7 +297,7 @@ namespace RXQuestServer
             }
             catch (Exception)
             {
-                MessageBox.Show(Environment.CurrentDirectory+"路径打卡失败，请手动打开!");
+                MessageBox.Show(Environment.CurrentDirectory + "路径打卡失败，请手动打开!");
             }
         }
 
