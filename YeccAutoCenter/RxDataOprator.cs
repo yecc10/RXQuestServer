@@ -30,14 +30,15 @@ namespace YeccAutoCenter
             /// 将dataGridView导出到EXCEL
             /// </summary>
             /// <param name="dataGridView">需要导出的dataGridView数据</param>
+            /// <param name="SportName">生成的EXCEL 文件名称</param>
             /// <returns></returns>
-            static public bool SaveExcelForLvSport(DataGridView dataGridView, string SportName)
+            static public bool SaveExcelForLvSport(DataGridView dataGridView, string SportName=null)
             {
                 dataGridView.AllowUserToAddRows = false;
                 if (dataGridView.Rows.Count > 0)
                 {
                     HSSFWorkbook wkb = new HSSFWorkbook();
-                    ISheet sheet = wkb.CreateSheet("瑞祥工业物流组");
+                    ISheet sheet = wkb.CreateSheet("数字化小组");
                     sheet.DefaultColumnWidth = 15;
                     IRow HeadRow = sheet.CreateRow(0);
                     HeadRow.Height = 400;
@@ -64,7 +65,15 @@ namespace YeccAutoCenter
                     }
                     string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
                     string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                    string path = strDesktopPath + "\\瑞祥工业工厂仿真组" + datatime + ".xls";
+                    string path = null;
+                    if (string.IsNullOrEmpty(SportName))
+                    {
+                        path = strDesktopPath + "\\仿真自动化" + datatime + ".xls";
+                    }
+                    else
+                    {
+                        path = strDesktopPath + "\\" + SportName + datatime + ".xls";
+                    }
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     wkb.Write(file);
                     file.Flush();

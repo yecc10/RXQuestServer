@@ -68,7 +68,7 @@ namespace YeDassaultSystemDev
         }
         private void OutToEXcel_Click(object sender, EventArgs e)
         {
-            RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, "Cad路径坐标值");
+            RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, string.IsNullOrEmpty(xlsFileName)?"叶朝成数字化支持":xlsFileName+"_By_叶朝成技术_");
         }
         private void BollToPoint_Click(object sender, EventArgs e)
         {
@@ -199,6 +199,16 @@ namespace YeDassaultSystemDev
             int ERR = 0;
             progressBar.Maximum = SelectArc.Count2;
             progressBar.Step = 1;
+            try
+            {
+                HybridShape product = (HybridShape)SelectArc.Item(1).Value;
+                HybridBody hybridBody = (HybridBody)product.Parent;
+                xlsFileName = hybridBody.get_Name();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             for (int i = 1; i < SelectArc.Count2 + 1; i++)
             {
                 object[] PointCoord = new object[] { -99, -99, -99, -99, -99, -99 };
@@ -398,7 +408,7 @@ namespace YeDassaultSystemDev
         }
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.FindForm().Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
+            this.FindForm().Text = "瑞祥快捷设计中心 BY_叶朝成_当前时间: " + DateTime.Now.ToString();
         }
         private void PointToCoord_Click(object sender, EventArgs e)
         {

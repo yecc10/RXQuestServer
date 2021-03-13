@@ -114,6 +114,10 @@ namespace WindowsAPI_Interface
                 YeMainKey = software.OpenSubKey("RXYFYECHAOCHENG", true);
             }
             RegistryKey admindir = YeMainKey.OpenSubKey(str, true);
+            if (admindir==null)
+            {
+                return null;
+            }
             object str1 = admindir.GetValue(str);
             hklm.Close();
             software.Close();
