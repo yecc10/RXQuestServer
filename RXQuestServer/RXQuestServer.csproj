@@ -686,6 +686,10 @@
     <Content Include="YI.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cs_sdk_v3.0.9\WxPayAPI\WxPayAPI.csproj">
+      <Project>{25911370-f06a-4956-8ee3-659a7ba14961}</Project>
+      <Name>WxPayAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OcrCenter\OcrCenter.csproj">
       <Project>{ed1b3ad1-9387-4c6e-85f1-581991da347a}</Project>
       <Name>OcrCenter</Name>
