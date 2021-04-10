@@ -624,10 +624,10 @@ namespace YeDassaultSystemDev
         public void SetAttrValue(Product Prodt)
         {
             Prodt.set_Revision("V01");//版本号
-            Prodt.set_Definition("安徽瑞祥工业自动化产品定义");//产品定义
-            Prodt.set_Nomenclature("安徽瑞祥工业自动化产品术语");//产品术语
-            Prodt.set_DescriptionInst("安徽瑞祥工业自动化部件描述");//部件描述
-            Prodt.set_DescriptionRef("安徽瑞祥工业自动化产品描述,创建于:" + DateTime.Now);//产品描述
+            Prodt.set_Definition("安徽锐锋科技自动化产品定义");//产品定义
+            Prodt.set_Nomenclature("安徽锐锋科技自动化产品术语");//产品术语
+            Prodt.set_DescriptionInst("安徽锐锋科技自动化部件描述");//部件描述
+            Prodt.set_DescriptionRef("安徽锐锋科技自动化产品描述,创建于:" + DateTime.Now);//产品描述
             Prodt.Source = CatProductSource.catProductMade;//默认自制
             Prodt.Update();
             string PartNumber = Prodt.get_PartNumber();
@@ -1014,7 +1014,7 @@ namespace YeDassaultSystemDev
         }
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = "InitDelmiaDocument_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
+            this.Text = "InitDelmiaDocument_本技术由锐锋科技数字化_叶朝成提供|SystemTime:" + DateTime.Now;
             if (!string.IsNullOrEmpty(SavePath.Text))
             {
                 string[] dirst = Directory.GetDirectories(SavePath.Text);//读取文件夹中文件夹数量
@@ -1266,7 +1266,7 @@ namespace YeDassaultSystemDev
                     {
                         if (item != null)
                         {
-                            item.set_Description("安徽瑞祥工业自动化产品，机器人轨迹,创建于:" + DateTime.Now);
+                            item.set_Description("安徽锐锋科技自动化产品，机器人轨迹,创建于:" + DateTime.Now);
                         }
                     }
                     //DeviceTaskFactory DTF= (DeviceTaskFactory)Usp.GetTechnologicalObject("DeviceTaskFactory");

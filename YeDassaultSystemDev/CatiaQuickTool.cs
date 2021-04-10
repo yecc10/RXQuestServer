@@ -408,7 +408,7 @@ namespace YeDassaultSystemDev
         }
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.FindForm().Text = "瑞祥快捷设计中心 BY_叶朝成_当前时间: " + DateTime.Now.ToString();
+            this.FindForm().Text = "锐锋快捷设计中心 BY_叶朝成_当前时间: " + DateTime.Now.ToString();
         }
         private void PointToCoord_Click(object sender, EventArgs e)
         {

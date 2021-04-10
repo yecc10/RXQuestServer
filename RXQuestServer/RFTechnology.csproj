@@ -30,7 +30,7 @@
     <PublisherName>安徽锐锋科技</PublisherName>
     <SuiteName>安徽锐锋科技数字化系统</SuiteName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>5.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

@@ -248,7 +248,7 @@ namespace ToPlant
         }
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.FindForm().Text = "物流输送系统路径转化程序 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
+            this.FindForm().Text = "物流输送系统路径转化程序 BY_安徽锐锋科技【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
         }
         private void DeleteData_Click(object sender, EventArgs e)
         {
@@ -865,7 +865,7 @@ namespace ToPlant
         }
         private void timer_Tick_1(object sender, EventArgs e)
         {
-            this.FindForm().Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
+            this.FindForm().Text = "锐锋快捷设计中心 BY_安徽锐锋科技【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
         }
     }
 

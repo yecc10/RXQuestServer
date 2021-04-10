@@ -92,7 +92,7 @@ namespace YeDassaultSystemDev
             //        var application = Marshal.GetObjectForNativeVariant(intPtr);
             //        CatApplication = (INFITF.Application)application;
             //        string CapName1 = CatApplication.get_Caption();
-            //        CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
+            //        CatApplication.set_Caption("正在运行锐锋快速建模工具！锐锋快捷设计中心 BY_安徽锐锋科技【工厂仿真组】叶朝成");
             //        AllProcess[1].WaitForInputIdle();
             //        IntPtr ProgHandle = AllProcess[1].Handle;
             //        //CatApplication = (INFITF.Application)Marshal.GetObjectForNativeVariant(ProgId);
@@ -148,7 +148,7 @@ namespace YeDassaultSystemDev
             }
             try
             {
-                CatApplication.set_Caption("正在运行瑞祥快速建模工具！瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成");
+                CatApplication.set_Caption("正在运行锐锋快速建模工具！锐锋快捷设计中心 BY_安徽锐锋科技【工厂仿真组】叶朝成");
             }
             catch (Exception)
             {

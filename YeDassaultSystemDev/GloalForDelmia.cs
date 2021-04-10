@@ -89,7 +89,7 @@ namespace YeDassaultSystemDev
             }
             try
             {
-                DSApplication.set_Caption("正在运行瑞祥快速建模工具！");
+                DSApplication.set_Caption("正在运行锐锋快速建模工具！");
             }
             catch (Exception)
             {
@@ -496,7 +496,7 @@ namespace YeDassaultSystemDev
             {
                 if (item != null)
                 {
-                    item.set_Description("安徽瑞祥工业自动化产品，机器人轨迹,创建于:" + DateTime.Now);
+                    item.set_Description("安徽锐锋科技自动化产品，机器人轨迹,创建于:" + DateTime.Now);
                 }
             }
         }

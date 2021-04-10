@@ -213,7 +213,7 @@ namespace OcrCenter
             //    P1Text.SetText(Plist[i]);
             //}
             PBOCR.Value = 50;
-            string Path = "C:\\Users\\Administrator\\Desktop\\瑞祥OCR转译系统_" + System.DateTime.Now.ToString("yyyymmddHHmmssffff") + ".doc";
+            string Path = "C:\\Users\\Administrator\\Desktop\\锐锋OCR转译系统_" + System.DateTime.Now.ToString("yyyymmddHHmmssffff") + ".doc";
             FileStream newfile = new FileStream(Path, FileMode.Create);
             Globaldoc.Write(newfile);
             newfile.Close();
@@ -263,7 +263,7 @@ namespace OcrCenter
         }
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = "Rx_OCR_System_本技术由瑞祥工业数字化_叶朝成提供|SystemTime:" + DateTime.Now;
+            this.Text = "Rx_OCR_System_本技术由锐锋科技数字化_叶朝成提供|SystemTime:" + DateTime.Now;
         }
         public void TranslateOCRByScreenImage(string ImagePath)
         {

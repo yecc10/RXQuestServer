@@ -31,7 +31,7 @@ namespace ToPlant
                 if (dataGridView.Rows.Count > 1)
                 {
                     HSSFWorkbook wkb = new HSSFWorkbook();
-                    ISheet sheet = wkb.CreateSheet("瑞祥工业物流组");
+                    ISheet sheet = wkb.CreateSheet("锐锋科技物流组");
                     sheet.DefaultColumnWidth = 15;
                     IRow HeadRow = sheet.CreateRow(0);
                     HeadRow.Height = 400;
@@ -59,7 +59,7 @@ namespace ToPlant
                     string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
                     string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
-                    string path = strDesktopPath + "\\瑞祥工业工厂仿真组" + datatime + ".xls";
+                    string path = strDesktopPath + "\\锐锋科技工厂仿真组" + datatime + ".xls";
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     wkb.Write(file);
                     file.Flush();

@@ -40,7 +40,7 @@ namespace WordToAix
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.Text = "瑞祥快捷设计中心 BY_安徽瑞祥工业【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
+            this.Text = "锐锋快捷设计中心 BY_安徽锐锋科技【工厂仿真组】叶朝成_当前时间: " + DateTime.Now.ToString();
         }
 
         private void WordToAix_FormClosed(object sender, FormClosedEventArgs e)
