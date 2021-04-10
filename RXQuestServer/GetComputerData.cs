@@ -9,7 +9,7 @@ using System.Security.Policy;
 using Microsoft.Win32;
 using System.Windows.Forms;
 
-namespace RXQuestServer
+namespace RFTechnology
 {
     class GetComputerData
     {

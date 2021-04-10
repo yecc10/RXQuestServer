@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RXQuestServer
+namespace RFTechnology
 {
     partial class AboutBox : Form
     {
@@ -98,5 +98,10 @@ namespace RXQuestServer
             }
         }
         #endregion
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

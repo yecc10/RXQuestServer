@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RXQuestServer.Properties {
+namespace RFTechnology.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RXQuestServer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RXQuestServer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RFTechnology.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -47,8 +47,8 @@ namespace RXQuestServer.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -1461,6 +1461,16 @@ namespace RXQuestServer.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon RF {
+            get {
+                object obj = ResourceManager.GetObject("RF", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap Save {
@@ -1731,12 +1741,12 @@ namespace RXQuestServer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 软件安装许可协议
-        ///请仔细阅读 - 本协议是您与安徽瑞祥工业有限公司（以下简称“瑞祥”）签定的软件许可协议。
-        ///在使用“ 瑞祥 ”软件（以下称许可软件）之前，请您仔细阅读本协议，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体标识，您需要重点阅读。
-        ///瑞祥系列所有软件（包括所有您从 www.ahrxgy.com 网站上可以看到的自主研发的软件），以下称为“本软件”。
-        ///重要提示 - 本《软件安装许可协议》（以下称为“本协议”）是您（自然人、法人或其他组织）与 安徽瑞祥工业有限公司 （网站www.ahrxgy.com）之间有关复制、下载、安装、购买、使用 瑞祥软件 以及任何相关材料（统一称作“软件”）及为该软件提供的任何更新（包括但不限于：错误修正程序、补丁程序、更新、升级、增强、新版软件和后续软件，这些内容统称为“更新”）和支持服务的法律协议。
-        ///一旦您复制、下载、安装或者以其他方式使用本“软件”，即表明您完全同意并接受本协议各项条款，同时包括接受 安徽瑞祥工业有限公司 对协议各项条款随时所做的任何修改。如果您不同意本协议中的条款，请勿复制、下载、查看、安装或者以其他方式使 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 软件安装许可协议:
+        ///请仔细阅读 - 本协议是您与安徽锐锋科技有限公司（以下简称“锐锋”）签定的软件许可协议。
+        ///在使用“ 锐锋 ”软件（以下称许可软件）之前，请您仔细阅读本协议，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体标识，您需要重点阅读。
+        ///锐锋系列所有软件（包括所有您从 www.ahrfkj.com 网站上可以看到的自主研发的软件），以下称为“本软件”。
+        ///重要提示 - 本《软件安装许可协议》（以下称为“本协议”）是您（自然人、法人或其他组织）与 安徽锐锋科技有限公司 （网站www.ahrfkj.com）之间有关复制、下载、安装、购买、使用 锐锋软件 以及任何相关材料（统一称作“软件”）及为该软件提供的任何更新（包括但不限于：错误修正程序、补丁程序、更新、升级、增强、新版软件和后续软件，这些内容统称为“更新”）和支持服务的法律协议。
+        ///一旦您复制、下载、安装或者以其他方式使用本“软件”，即表明您完全同意并接受本协议各项条款，同时包括接受 安徽锐锋科技有限公司 对协议各项条款随时所做的任何修改。如果您不同意本协议中的条款，请勿复制、下载、查看、安装或者以其他方式 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string SoftAccess {
             get {

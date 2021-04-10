@@ -1,4 +1,4 @@
-﻿namespace RXQuestServer
+﻿namespace RFTechnology
 {
     partial class Main
     {
@@ -63,7 +63,7 @@
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::RXQuestServer.Properties.Resources.Address_book;
+            this.toolStripButton2.Image = global::RFTechnology.Properties.Resources.Address_book;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(29, 22);
@@ -97,7 +97,7 @@
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::RXQuestServer.Properties.Resources.Archive;
+            this.toolStripButton1.Image = global::RFTechnology.Properties.Resources.Archive;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(29, 22);
@@ -140,7 +140,7 @@
             this.达索软件接口.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.InitDelmia,
             this.WeldSport});
-            this.达索软件接口.Image = global::RXQuestServer.Properties.Resources.Address_book;
+            this.达索软件接口.Image = global::RFTechnology.Properties.Resources.Address_book;
             this.达索软件接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.达索软件接口.Name = "达索软件接口";
             this.达索软件接口.Size = new System.Drawing.Size(45, 36);
@@ -149,14 +149,14 @@
             // InitDelmia
             // 
             this.InitDelmia.Name = "InitDelmia";
-            this.InitDelmia.Size = new System.Drawing.Size(180, 22);
+            this.InitDelmia.Size = new System.Drawing.Size(140, 22);
             this.InitDelmia.Text = "Delmia仿真";
             this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
             // 
             // WeldSport
             // 
             this.WeldSport.Name = "WeldSport";
-            this.WeldSport.Size = new System.Drawing.Size(180, 22);
+            this.WeldSport.Size = new System.Drawing.Size(140, 22);
             this.WeldSport.Text = "焊点处理";
             this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
             // 
@@ -168,7 +168,7 @@
             this.plant在线创建路径ToolStripMenuItem,
             this.plant创建围栏ToolStripMenuItem,
             this.WordToAixForPlant});
-            this.工厂仿真快捷接口.Image = global::RXQuestServer.Properties.Resources.Home;
+            this.工厂仿真快捷接口.Image = global::RFTechnology.Properties.Resources.Home;
             this.工厂仿真快捷接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工厂仿真快捷接口.Name = "工厂仿真快捷接口";
             this.工厂仿真快捷接口.Size = new System.Drawing.Size(45, 36);
@@ -177,28 +177,28 @@
             // plant离线创建路径ToolStripMenuItem
             // 
             this.plant离线创建路径ToolStripMenuItem.Name = "plant离线创建路径ToolStripMenuItem";
-            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant离线创建路径ToolStripMenuItem.Text = "Plant离线创建路径";
             this.plant离线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.PlantDTrack_Click);
             // 
             // plant在线创建路径ToolStripMenuItem
             // 
             this.plant在线创建路径ToolStripMenuItem.Name = "plant在线创建路径ToolStripMenuItem";
-            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant在线创建路径ToolStripMenuItem.Text = "Plant在线创建路径";
             this.plant在线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
             // 
             // plant创建围栏ToolStripMenuItem
             // 
             this.plant创建围栏ToolStripMenuItem.Name = "plant创建围栏ToolStripMenuItem";
-            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.plant创建围栏ToolStripMenuItem.Text = "Plant创建围栏";
             this.plant创建围栏ToolStripMenuItem.Click += new System.EventHandler(this.PlantDFence_Click);
             // 
             // WordToAixForPlant
             // 
             this.WordToAixForPlant.Name = "WordToAixForPlant";
-            this.WordToAixForPlant.Size = new System.Drawing.Size(180, 22);
+            this.WordToAixForPlant.Size = new System.Drawing.Size(176, 22);
             this.WordToAixForPlant.Text = "Plant文字仓储";
             this.WordToAixForPlant.Click += new System.EventHandler(this.WordToAixForPlant_Click);
             // 
@@ -209,7 +209,7 @@
             this.经验库登记ToolStripMenuItem,
             this.oCRToolStripMenuItem,
             this.办公ToolStripMenuItem});
-            this.工作辅助.Image = global::RXQuestServer.Properties.Resources.Phone;
+            this.工作辅助.Image = global::RFTechnology.Properties.Resources.Phone;
             this.工作辅助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工作辅助.Name = "工作辅助";
             this.工作辅助.Size = new System.Drawing.Size(45, 36);
@@ -218,20 +218,20 @@
             // 经验库登记ToolStripMenuItem
             // 
             this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
-            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.经验库登记ToolStripMenuItem.Text = "经验库登记";
             // 
             // oCRToolStripMenuItem
             // 
             this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
-            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.oCRToolStripMenuItem.Text = "OCR";
             this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // 办公ToolStripMenuItem
             // 
             this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
-            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.办公ToolStripMenuItem.Text = "办公";
             this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
             // 
@@ -243,7 +243,7 @@
             this.注册永久授权ToolStripMenuItem,
             this.OpenApplicationdoc,
             this.反馈问题建议ToolStripMenuItem});
-            this.问题反馈及帮助.Image = global::RXQuestServer.Properties.Resources.Help;
+            this.问题反馈及帮助.Image = global::RFTechnology.Properties.Resources.Help;
             this.问题反馈及帮助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.问题反馈及帮助.Name = "问题反馈及帮助";
             this.问题反馈及帮助.Size = new System.Drawing.Size(45, 36);
@@ -252,28 +252,28 @@
             // ReadHelp
             // 
             this.ReadHelp.Name = "ReadHelp";
-            this.ReadHelp.Size = new System.Drawing.Size(180, 22);
+            this.ReadHelp.Size = new System.Drawing.Size(172, 22);
             this.ReadHelp.Text = "帮助";
             this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
             // 
             // 注册永久授权ToolStripMenuItem
             // 
             this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
-            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.注册永久授权ToolStripMenuItem.Text = "注册永久授权";
             this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
             // 
             // OpenApplicationdoc
             // 
             this.OpenApplicationdoc.Name = "OpenApplicationdoc";
-            this.OpenApplicationdoc.Size = new System.Drawing.Size(180, 22);
+            this.OpenApplicationdoc.Size = new System.Drawing.Size(172, 22);
             this.OpenApplicationdoc.Text = "打开软件安装目录";
             this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
             // 
             // 反馈问题建议ToolStripMenuItem
             // 
             this.反馈问题建议ToolStripMenuItem.Name = "反馈问题建议ToolStripMenuItem";
-            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.反馈问题建议ToolStripMenuItem.Text = "反馈问题/建议";
             this.反馈问题建议ToolStripMenuItem.Click += new System.EventHandler(this.反馈问题建议ToolStripMenuItem_Click);
             // 

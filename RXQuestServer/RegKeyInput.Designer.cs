@@ -1,4 +1,4 @@
-﻿namespace RXQuestServer
+﻿namespace RFTechnology
 {
     partial class RegKeyInput
     {

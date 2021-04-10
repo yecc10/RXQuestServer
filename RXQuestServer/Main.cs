@@ -14,11 +14,12 @@ using System.Management;
 using System.Diagnostics;
 using WindowsAPI_Interface;
 
-namespace RXQuestServer
+namespace RFTechnology
 {
     public partial class Main : Form
     {
         bool HasAccessToRun = false;
+        bool CheckedAccess = false;
         DateTime RegTime = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
         public Main()
         {
@@ -50,10 +51,6 @@ namespace RXQuestServer
 
         private void WeldSportTool_Click(object sender, EventArgs e)
         {
-            YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
-            this.TopMost = false;
-            this.Hide();
-            CQT.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
@@ -61,6 +58,7 @@ namespace RXQuestServer
             if (HasAccessToRun)
             {
                 //YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
+                YeDassaultSystemDev.CatiaQuickTool CQT = new YeDassaultSystemDev.CatiaQuickTool();
                 this.TopMost = false;
                 this.Hide();
                 CQT.Show();
@@ -86,16 +84,13 @@ namespace RXQuestServer
 
         private void InPutWorkTime_Click(object sender, EventArgs e)
         {
-            WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
-            this.Hide();
-            workTimeUpdata.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                //WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
+                WorkOffice.WorkTimeUpdata workTimeUpdata = new WorkOffice.WorkTimeUpdata();
                 this.Hide();
                 workTimeUpdata.Show();
             }
@@ -104,34 +99,28 @@ namespace RXQuestServer
 
         private void PlantDTrack_Click(object sender, EventArgs e)
         {
-            ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
-            this.Hide();
-            autoDesKToPlant.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                //ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
+                ToPlant.AutoDesKToPlant autoDesKToPlant = new ToPlant.AutoDesKToPlant();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
 
         }
-
         private void PlantDFence_Click(object sender, EventArgs e)
         {
-            ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
-            this.Hide();
-            autoDesKToPlant.Show();
+
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                //ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
+                ToPlant.DrawFence autoDesKToPlant = new ToPlant.DrawFence();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
@@ -140,16 +129,13 @@ namespace RXQuestServer
 
         private void WorkData_Click(object sender, EventArgs e)
         {
-            RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
-            this.Hide();
-            uLogin.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                //RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
+                RX_DataUpdata.ULogin uLogin = new RX_DataUpdata.ULogin();
                 this.Hide();
                 uLogin.Show();
             }
@@ -158,16 +144,13 @@ namespace RXQuestServer
 
         private void CreateTrackOnLine_Click(object sender, EventArgs e)
         {
-            ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
-            this.Hide();
-            autoDesKToPlant.Show();
             if (!HasAccessToRun)
             {
                 CheckUserAccess();
             }
             if (HasAccessToRun)
             {
-                //ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
+                ToPlant.DrawTrack autoDesKToPlant = new ToPlant.DrawTrack();
                 this.Hide();
                 autoDesKToPlant.Show();
             }
@@ -216,7 +199,7 @@ namespace RXQuestServer
                 else
                 {
                     //临时授权未过期 授权通过使用
-                    TimeSpan WorkDays = NormalWorkTime- dateTime;
+                    TimeSpan WorkDays = NormalWorkTime - dateTime;
                     Properties.Settings.Default.VisionType = "30天试用版,剩余[小时]: " + WorkDays.TotalHours.ToString("0");
                     HasAccessToRun = true;
                     Yecc_Help.Enabled = true;
@@ -248,6 +231,17 @@ namespace RXQuestServer
             }
             //非注册用户并试用时间已过期，强制退出
             this.Hide();
+            Process[] AllProcess = Process.GetProcessesByName("RFTechnology");
+            if (AllProcess.Length==1)
+            {
+                Process process = AllProcess[0];
+                string TitleName = process.MainWindowTitle;
+                if (TitleName=="RegKeyInput")
+                {
+                    MessageBox.Show("注册窗口您已打开，无需重复打开!");
+                    return false;
+                }
+            }
             RegKeyInput regKeyInput = new RegKeyInput();
             regKeyInput.Show();
             return false;
@@ -263,7 +257,7 @@ namespace RXQuestServer
         {
             DateTime dateTime = DateTime.Now;
             TimeSpan WorkDays = RegTime.AddDays(30) - dateTime;
-            if (WorkDays.TotalMinutes>0)
+            if (WorkDays.TotalMinutes > 0)
             {
                 this.Text = "YECC_" + Application.ProductVersion.ToString() + "30天试用版,剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
             }

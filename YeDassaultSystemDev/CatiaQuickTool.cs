@@ -58,7 +58,7 @@ namespace YeDassaultSystemDev
         }
         private void TryRead_Click(object sender, EventArgs e)
         {
-            //RXQuestServer.Main CM = new RXQuestServer.Main();
+            //RFTechnology.Main CM = new RFTechnology.Main();
             //this.Hide();
             //CM.Show();
         }

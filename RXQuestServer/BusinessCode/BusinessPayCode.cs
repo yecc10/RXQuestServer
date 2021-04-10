@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RXQuestServer.BusinessCode
+namespace RFTechnology.BusinessCode
 {
     public partial class BusinessPayCode : Form
     {

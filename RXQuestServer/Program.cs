@@ -8,7 +8,7 @@ using System.Security.Principal;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace RXQuestServer
+namespace RFTechnology
 {
     static class Program
     {
@@ -51,7 +51,13 @@ namespace RXQuestServer
                     //MessageBox.Show("非管理员,该应用程序可能无法完整运行!");
                 }
             }
-             Application.Run(new Main());
+            Process[] AllProcess = Process.GetProcessesByName("RFTechnology");
+            if (AllProcess.Length > 1)
+            {
+                MessageBox.Show("本软件您已开启一个窗口，无需重复打开!");
+                return;
+            }
+            Application.Run(new Main());
         }
     }
 }

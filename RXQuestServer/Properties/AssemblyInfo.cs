@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("瑞祥数字化")]
+[assembly: AssemblyTitle("锐锋数字化")]
 [assembly: AssemblyDescription("Delmia数字化仿真快捷平台")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("安徽瑞祥工业有限公司")]
+[assembly: AssemblyCompany("安徽锐锋科技有限公司")]
 [assembly: AssemblyProduct("Delmia数字化")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("Copyright ©  2020")]
