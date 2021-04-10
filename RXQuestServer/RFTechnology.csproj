@@ -14,23 +14,24 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>\\DESKTOP-5HK1A1I\SystemRoot\PushSoft\01_RXQuesetServer\</PublishUrl>
+    <PublishUrl>F:\10 RFTechnology\RFTechnology_Push\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ProductName>安徽瑞祥工业数字化系统</ProductName>
-    <PublisherName>安徽瑞祥工业_数字化工程科_叶朝成</PublisherName>
-    <SuiteName>安徽瑞祥工业数字化系统</SuiteName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <SupportUrl>https://blog.csdn.net/qingyangwuji</SupportUrl>
+    <ErrorReportUrl>https://blog.csdn.net/qingyangwuji</ErrorReportUrl>
+    <ProductName>安徽锐锋科技数字化系统</ProductName>
+    <PublisherName>安徽锐锋科技</PublisherName>
+    <SuiteName>安徽锐锋科技数字化系统</SuiteName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>4.5.1.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>5.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
