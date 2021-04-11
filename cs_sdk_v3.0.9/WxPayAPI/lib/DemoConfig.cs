@@ -17,7 +17,7 @@ namespace WxPayAPI.lib
         */
 
         public string GetAppID(){
-            return "";
+            return "wx804f1ed8c855185c";
         }
         public string GetMchID(){
             return "";

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace WxPayAPI.lib
 {
-public interface IConfig
+    public interface IConfig
     {
 
         //=======【基本信息设置】=====================================
@@ -12,10 +12,10 @@ public interface IConfig
         * APPSECRET：公众帐号secert（仅JSAPI支付的时候需要配置），请妥善保管，避免密钥泄露
         */
 
-         string GetAppID();
-         string GetMchID();
-         string GetKey();
-         string GetAppSecret();
+        string GetAppID();
+        string GetMchID();
+        string GetKey();
+        string GetAppSecret();
 
 
 
@@ -25,38 +25,38 @@ public interface IConfig
          * 2.建议将证书文件名改为复杂且不容易猜测的文件
          * 3.商户服务器要做好病毒和木马防护工作，不被非法侵入者窃取证书文件。
         */
-         string GetSSlCertPath();
-         string GetSSlCertPassword();
+        string GetSSlCertPath();
+        string GetSSlCertPassword();
 
 
 
         //=======【支付结果通知url】===================================== 
         /* 支付结果通知回调url，用于商户接收支付结果
         */
-         string GetNotifyUrl();
-     
+        string GetNotifyUrl();
+
         //=======【商户系统后台机器IP】===================================== 
         /* 此参数可手动配置也可在程序中自动获取
         */
-         string GetIp();
+        string GetIp();
 
 
         //=======【代理服务器设置】===================================
         /* 默认IP和端口号分别为0.0.0.0和0，此时不开启代理（如有需要才设置）
         */
-         string GetProxyUrl();
+        string GetProxyUrl();
 
 
         //=======【上报信息配置】===================================
         /* 测速上报等级，0.关闭上报; 1.仅错误时上报; 2.全量上报
         */
-         int GetReportLevel();
- 
+        int GetReportLevel();
+
 
         //=======【日志级别】===================================
         /* 日志等级，0.不输出日志；1.只输出错误信息; 2.输出错误和正常信息; 3.输出错误信息、正常信息和调试信息
         */
-         int GetLogLevel();
+        int GetLogLevel();
 
 
     }

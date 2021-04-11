@@ -30,33 +30,60 @@ namespace RFTechnology.BusinessCode
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusinessPayCode));
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.WxPayCode = new System.Windows.Forms.PictureBox();
+            this.TextBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.WxPayCode)).BeginInit();
             this.SuspendLayout();
             // 
-            // webBrowser
+            // WxPayCode
             // 
-            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(813, 588);
-            this.webBrowser.TabIndex = 0;
+            this.WxPayCode.Location = new System.Drawing.Point(236, 27);
+            this.WxPayCode.Name = "WxPayCode";
+            this.WxPayCode.Size = new System.Drawing.Size(350, 350);
+            this.WxPayCode.TabIndex = 1;
+            this.WxPayCode.TabStop = false;
+            // 
+            // TextBox
+            // 
+            this.TextBox.Location = new System.Drawing.Point(12, 395);
+            this.TextBox.Multiline = true;
+            this.TextBox.Name = "TextBox";
+            this.TextBox.Size = new System.Drawing.Size(789, 108);
+            this.TextBox.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(620, 509);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(181, 67);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "已有注册码[点击]";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BusinessPayCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(813, 588);
-            this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TextBox);
+            this.Controls.Add(this.WxPayCode);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BusinessPayCode";
             this.Text = "BusinessPayCode";
+            ((System.ComponentModel.ISupportInitialize)(this.WxPayCode)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser webBrowser;
+        private System.Windows.Forms.PictureBox WxPayCode;
+        private System.Windows.Forms.TextBox TextBox;
+        private System.Windows.Forms.Button button1;
     }
 }

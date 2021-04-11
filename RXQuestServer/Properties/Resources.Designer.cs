@@ -1271,6 +1271,15 @@ namespace RFTechnology.Properties {
         }
         
         /// <summary>
+        ///   查找类似 欢迎您使用锐锋科技提供的数字化产品，您的支持是我们前进的动力，欢迎您在使用过程中提供您宝贵的意见，我们将免费持续更新为您的工作保驾护航，提供更高效的工作通道。 欢迎加入该软件技术支持群:685526378 的本地化字符串。
+        /// </summary>
+        internal static string PayNote {
+            get {
+                return ResourceManager.GetString("PayNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap Phone {

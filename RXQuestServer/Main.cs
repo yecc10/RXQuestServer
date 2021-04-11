@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity;
 using System.Management;
 using System.Diagnostics;
 using WindowsAPI_Interface;
+using WxPayAPI;
+using WxPayAPI.lib;
 
 namespace RFTechnology
 {
@@ -249,8 +251,10 @@ namespace RFTechnology
         private void Yecc_Help_Click(object sender, EventArgs e)
         {
             this.Hide();
-            RegKeyInput regKeyInput = new RegKeyInput();
-            regKeyInput.Show();
+            //RegKeyInput regKeyInput = new RegKeyInput();
+            //regKeyInput.Show();
+            BusinessCode.BusinessPayCode businessPayCode = new BusinessCode.BusinessPayCode();
+            businessPayCode.Show();
         }
 
         private void timer_Tick(object sender, EventArgs e)

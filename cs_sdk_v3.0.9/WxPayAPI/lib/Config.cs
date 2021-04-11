@@ -23,10 +23,5 @@ namespace WxPayAPI
             }
             return config;
         } 
-
-
-       
-
-
     }
 }
