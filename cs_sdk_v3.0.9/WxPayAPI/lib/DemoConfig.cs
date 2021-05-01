@@ -6,8 +6,6 @@ namespace WxPayAPI.lib
         public DemoConfig()
         {
         }
-
-
         //=======【基本信息设置】=====================================
         /* 微信公众号信息配置
         * APPID：绑定支付的APPID（必须配置）
@@ -17,16 +15,16 @@ namespace WxPayAPI.lib
         */
 
         public string GetAppID(){
-            return "wx804f1ed8c855185c";
+            return "wxac15f6acaa89bdf8";
         }
         public string GetMchID(){
-            return "";
+            return "1609061348";
         }
         public string GetKey(){
-            return "";
+            return "yeccanrfkjforytj2018888888888888";
         }
         public string GetAppSecret(){
-            return "";
+            return "decf4eed4c2f6bc03aa12bea021d231e";
         }
 
 
@@ -50,7 +48,7 @@ namespace WxPayAPI.lib
         /* 支付结果通知回调url，用于商户接收支付结果
         */
         public string GetNotifyUrl(){
-            return "";
+            return "https://www.baidu.com/";
         }
 
         //=======【商户系统后台机器IP】===================================== 

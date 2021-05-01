@@ -49,7 +49,7 @@ namespace RFTechnology.BusinessCode
             this.TextBox.Location = new System.Drawing.Point(12, 395);
             this.TextBox.Multiline = true;
             this.TextBox.Name = "TextBox";
-            this.TextBox.Size = new System.Drawing.Size(789, 108);
+            this.TextBox.Size = new System.Drawing.Size(789, 77);
             this.TextBox.TabIndex = 2;
             // 
             // button1
@@ -67,6 +67,7 @@ namespace RFTechnology.BusinessCode
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(813, 588);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TextBox);
@@ -74,6 +75,7 @@ namespace RFTechnology.BusinessCode
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BusinessPayCode";
             this.Text = "BusinessPayCode";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BusinessPayCode_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.WxPayCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

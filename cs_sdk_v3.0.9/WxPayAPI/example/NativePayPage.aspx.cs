@@ -10,6 +10,7 @@ using ThoughtWorks;
 using ThoughtWorks.QRCode;
 using ThoughtWorks.QRCode.Codec;
 using ThoughtWorks.QRCode.Codec.Data;
+using System.CodeDom.Compiler;
 
 namespace WxPayAPI
 {
@@ -26,10 +27,16 @@ namespace WxPayAPI
 
             //生成扫码支付模式二url
             string url2 = nativePay.GetPayUrl("123456789");
-
             //将url生成二维码图片
-            Image1.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url1);
-            Image2.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url2);
+            //Image1.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url1);
+            //Image2.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url2);
+        }
+        public Bitmap QrCode(String TargetStr)
+        {
+            QRCodeEncoder qRCodeEncoder = new QRCodeEncoder();
+            Bitmap bitmap = qRCodeEncoder.Encode(TargetStr);
+            return bitmap;
         }
     }
+
 }
