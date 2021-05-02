@@ -34,14 +34,14 @@ namespace WxPayAPI
         * @param productId 商品ID
         * @return 模式二URL
         */
-        public string GetPayUrl(string productId)
+        public string GetPayUrl(string productId,int Prise,string introducttion)
         {
             Log.Info(this.GetType().ToString(), "正在为您进入支付页面...");
             WxPayData data = new WxPayData();
-            data.SetValue("body", "锐锋科技自动化产品180天授权注册");//商品描述
+            data.SetValue("body", introducttion);//商品描述
             data.SetValue("attach", "180天激活");//附加数据
             data.SetValue("out_trade_no", WxPayApi.GenerateOutTradeNo());//随机字符串
-            data.SetValue("total_fee",29900 );//总金额
+            data.SetValue("total_fee", Prise);//总金额
             data.SetValue("time_start", DateTime.Now.ToString("yyyyMMddHHmmss"));//交易起始时间
             data.SetValue("time_expire", DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss"));//交易结束时间
             data.SetValue("goods_tag", "二次开发数字化中心");//商品标记

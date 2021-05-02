@@ -23,8 +23,7 @@ namespace RFTechnology.BusinessCode
             InitializeComponent();
             TextBox.Text = Properties.Resources.PayNote.ToString();//初始化支付页面说明
             NativePay nativePay = new NativePay();
-            //string url21 = nativePay.GetPrePayUrl("Test");
-            string url2 = nativePay.GetPayUrl("产品注册"); //生成扫码支付模式二url
+            string url2 = nativePay.GetPayUrl("产品注册3个月",8100, "锐锋科技自动化产品3个月授权注册"); //生成扫码支付模式二url
             //将url生成二维码图片
             WxPayCode.Image = QrCode(url2);
         }
@@ -47,6 +46,46 @@ namespace RFTechnology.BusinessCode
         {
             Process.GetCurrentProcess().Kill();
             System.Environment.Exit(0);
+        }
+
+        private void purchase3_CheckedChanged(object sender, EventArgs e)
+        {
+            NativePay nativePay = new NativePay();
+            string url2 = nativePay.GetPayUrl("产品注册3个月", 8100, "锐锋科技自动化产品3个月授权注册"); //生成扫码支付模式二url
+            //将url生成二维码图片
+            WxPayCode.Image = QrCode(url2);
+        }
+
+        private void purchase6_CheckedChanged(object sender, EventArgs e)
+        {
+            NativePay nativePay = new NativePay();
+            string url2 = nativePay.GetPayUrl("产品注册6个月", 15300, "锐锋科技自动化产品6个月授权注册"); //生成扫码支付模式二url
+            //将url生成二维码图片
+            WxPayCode.Image = QrCode(url2);
+        }
+
+        private void purchase12_CheckedChanged(object sender, EventArgs e)
+        {
+            NativePay nativePay = new NativePay();
+            string url2 = nativePay.GetPayUrl("产品注册1年许可", 28800, "锐锋科技自动化产品12+3【赠送】个月授权注册"); //生成扫码支付模式二url
+            //将url生成二维码图片
+            WxPayCode.Image = QrCode(url2);
+        }
+
+        private void purchase24_CheckedChanged(object sender, EventArgs e)
+        {
+            NativePay nativePay = new NativePay();
+            string url2 = nativePay.GetPayUrl("产品注册2年许可", 54000, "锐锋科技自动化产品24+6【赠送】个月授权注册"); //生成扫码支付模式二url
+            //将url生成二维码图片
+            WxPayCode.Image = QrCode(url2);
+        }
+
+        private void purchase36_CheckedChanged(object sender, EventArgs e)
+        {
+            NativePay nativePay = new NativePay();
+            string url2 = nativePay.GetPayUrl("产品注册3年许可", 75600, "锐锋科技自动化产品36+12【赠送】个月授权注册"); //生成扫码支付模式二url
+            //将url生成二维码图片
+            WxPayCode.Image = QrCode(url2);
         }
     }
 }

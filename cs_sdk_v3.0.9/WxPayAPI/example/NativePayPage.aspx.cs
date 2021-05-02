@@ -26,7 +26,7 @@ namespace WxPayAPI
             string url1 = nativePay.GetPrePayUrl("123456789");
 
             //生成扫码支付模式二url
-            string url2 = nativePay.GetPayUrl("123456789");
+            //string url2 = nativePay.GetPayUrl("123456789");
             //将url生成二维码图片
             //Image1.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url1);
             //Image2.ImageUrl = "MakeQRCode.aspx?data=" + HttpUtility.UrlEncode(url2);
