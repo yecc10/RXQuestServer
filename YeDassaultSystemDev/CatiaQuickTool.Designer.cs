@@ -62,6 +62,7 @@
             this.myMessage = new System.Windows.Forms.Label();
             this.MinDistance = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -396,12 +397,25 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "最小间距";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(308, 521);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(155, 12);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "https://blog.csdn.net/qingyangwuji/article/details/116357927";
+            this.linkLabel1.Text = "点击查看提取CGR坐标的方法";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // CatiaQuickTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(878, 580);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.myMessage);
             this.Controls.Add(this.ConDelmia);
             this.Controls.Add(this.ConCatia);
@@ -476,5 +490,6 @@
         private System.Windows.Forms.Label myMessage;
         private System.Windows.Forms.TextBox MinDistance;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

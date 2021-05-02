@@ -17,20 +17,21 @@
     <PublishUrl>F:\10 RFTechnology\RFTechnology_Push\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>https://github.com/yecc10/RXQuestServer/releases/download/LastPubRelease/</UpdateUrl>
     <SupportUrl>https://blog.csdn.net/qingyangwuji</SupportUrl>
     <ErrorReportUrl>https://blog.csdn.net/qingyangwuji</ErrorReportUrl>
     <ProductName>安徽锐锋科技数字化系统</ProductName>
     <PublisherName>安徽锐锋科技</PublisherName>
     <SuiteName>安徽锐锋科技数字化系统</SuiteName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>5.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

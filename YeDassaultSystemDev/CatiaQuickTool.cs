@@ -918,5 +918,10 @@ namespace YeDassaultSystemDev
         {
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, ConCatia.Checked, myMessage);
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://blog.csdn.net/qingyangwuji/article/details/116357927");
+        }
     }
 }
