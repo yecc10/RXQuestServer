@@ -38,6 +38,8 @@ namespace RFTechnology.BusinessCode
             // 
             // WxPayCode
             // 
+            this.WxPayCode.BackColor = System.Drawing.Color.Transparent;
+            this.WxPayCode.InitialImage = global::RFTechnology.Properties.Resources.Document_refresh;
             this.WxPayCode.Location = new System.Drawing.Point(236, 27);
             this.WxPayCode.Name = "WxPayCode";
             this.WxPayCode.Size = new System.Drawing.Size(350, 350);
@@ -68,6 +70,7 @@ namespace RFTechnology.BusinessCode
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(813, 588);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TextBox);

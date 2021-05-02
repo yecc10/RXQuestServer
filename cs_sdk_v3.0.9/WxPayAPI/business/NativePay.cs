@@ -41,7 +41,7 @@ namespace WxPayAPI
             data.SetValue("body", "锐锋科技自动化产品180天授权注册");//商品描述
             data.SetValue("attach", "180天激活");//附加数据
             data.SetValue("out_trade_no", WxPayApi.GenerateOutTradeNo());//随机字符串
-            data.SetValue("total_fee",299 );//总金额
+            data.SetValue("total_fee",29900 );//总金额
             data.SetValue("time_start", DateTime.Now.ToString("yyyyMMddHHmmss"));//交易起始时间
             data.SetValue("time_expire", DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss"));//交易结束时间
             data.SetValue("goods_tag", "二次开发数字化中心");//商品标记
