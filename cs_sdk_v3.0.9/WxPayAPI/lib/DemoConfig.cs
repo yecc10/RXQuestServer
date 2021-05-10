@@ -48,7 +48,7 @@ namespace WxPayAPI.lib
         /* 支付结果通知回调url，用于商户接收支付结果
         */
         public string GetNotifyUrl(){
-            return "https://www.baidu.com/";
+            return "http://www.ahrfkj.cn/";
         }
 
         //=======【商户系统后台机器IP】===================================== 

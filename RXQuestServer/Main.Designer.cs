@@ -56,6 +56,8 @@
             this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenApplicationdoc = new System.Windows.Forms.ToolStripMenuItem();
             this.反馈问题建议ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.访问官方网站ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于本软件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.MainTool.SuspendLayout();
             this.SuspendLayout();
@@ -149,14 +151,14 @@
             // InitDelmia
             // 
             this.InitDelmia.Name = "InitDelmia";
-            this.InitDelmia.Size = new System.Drawing.Size(180, 22);
+            this.InitDelmia.Size = new System.Drawing.Size(140, 22);
             this.InitDelmia.Text = "Delmia仿真";
             this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
             // 
             // WeldSport
             // 
             this.WeldSport.Name = "WeldSport";
-            this.WeldSport.Size = new System.Drawing.Size(180, 22);
+            this.WeldSport.Size = new System.Drawing.Size(140, 22);
             this.WeldSport.Text = "焊点处理";
             this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
             // 
@@ -251,6 +253,9 @@
             // 
             // ReadHelp
             // 
+            this.ReadHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.访问官方网站ToolStripMenuItem,
+            this.关于本软件ToolStripMenuItem});
             this.ReadHelp.Name = "ReadHelp";
             this.ReadHelp.Size = new System.Drawing.Size(180, 22);
             this.ReadHelp.Text = "帮助";
@@ -276,6 +281,20 @@
             this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.反馈问题建议ToolStripMenuItem.Text = "反馈问题/建议";
             this.反馈问题建议ToolStripMenuItem.Click += new System.EventHandler(this.反馈问题建议ToolStripMenuItem_Click);
+            // 
+            // 访问官方网站ToolStripMenuItem
+            // 
+            this.访问官方网站ToolStripMenuItem.Name = "访问官方网站ToolStripMenuItem";
+            this.访问官方网站ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.访问官方网站ToolStripMenuItem.Text = "访问官方网站http://www.ahrfkj.cn/";
+            this.访问官方网站ToolStripMenuItem.Click += new System.EventHandler(this.访问官方网站ToolStripMenuItem_Click);
+            // 
+            // 关于本软件ToolStripMenuItem
+            // 
+            this.关于本软件ToolStripMenuItem.Name = "关于本软件ToolStripMenuItem";
+            this.关于本软件ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.关于本软件ToolStripMenuItem.Text = "关于本软件";
+            this.关于本软件ToolStripMenuItem.Click += new System.EventHandler(this.关于本软件ToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -327,6 +346,8 @@
         private System.Windows.Forms.ToolStripMenuItem 注册永久授权ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenApplicationdoc;
         private System.Windows.Forms.ToolStripMenuItem 反馈问题建议ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 访问官方网站ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于本软件ToolStripMenuItem;
     }
 }
 

@@ -448,7 +448,16 @@ namespace YeccAutoCenter
                     {
                         Excel.Worksheet sheetA = xlsWorkBook.Worksheets[1];//工作薄从1开始，不是0
                         Excel.Worksheet sheetB = xlsWorkBook.Worksheets[2];//工作薄从1开始，不是0
-                        sheet = (sheetA.Cells.Count > sheetB.Cells.Count) ? sheetA : sheetB;
+                        try
+                        {
+                            sheet = (sheetA.Cells.Count > sheetB.Cells.Count) ? sheetA : sheetB;
+                        }
+                        catch (Exception)
+                        {
+
+                            sheet = sheetB; //PDPS文档
+                        }
+                        
                     }
                     else
                     {

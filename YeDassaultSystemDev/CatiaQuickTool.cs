@@ -68,7 +68,7 @@ namespace YeDassaultSystemDev
         }
         private void OutToEXcel_Click(object sender, EventArgs e)
         {
-            RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, string.IsNullOrEmpty(xlsFileName)?"叶朝成数字化支持":xlsFileName+"_By_叶朝成技术_");
+            RxDataOprator.ExcelOprator.SaveExcelForLvSport(this.DataGrid, string.IsNullOrEmpty(xlsFileName) ? "叶朝成数字化支持" : xlsFileName + "_By_叶朝成技术_");
         }
         private void BollToPoint_Click(object sender, EventArgs e)
         {
@@ -148,7 +148,7 @@ namespace YeDassaultSystemDev
                 xyz[0] = Math.Round(Convert.ToDouble(PointData[0]), keepValuePoint);
                 xyz[1] = Math.Round(Convert.ToDouble(PointData[1]), keepValuePoint);
                 xyz[2] = Math.Round(Convert.ToDouble(PointData[2]), keepValuePoint);
-                if (RxDataOprator.DoRepeatCheck(xyz, datatable,Convert.ToInt16(this.MinDistance.Text)))//True 为重复值
+                if (RxDataOprator.DoRepeatCheck(xyz, datatable, Convert.ToInt16(this.MinDistance.Text)))//True 为重复值
                 {
                     GetRepeatRef.SetValue(RefObj, RepeatNum);//记录重复对象
                     RepeatNum += 1;
@@ -543,6 +543,10 @@ namespace YeDassaultSystemDev
             progressBar.Maximum = DataGrid.RowCount;
             progressBar.Step = 1;
             Hyb = Hybs.Add();
+            if (!string.IsNullOrEmpty(xlsFileName))
+            {
+                Hyb.set_Name(xlsFileName);
+            }
             for (int i = 0; i < DataGrid.RowCount; i++)
             {
                 progressBar.PerformStep();
@@ -551,16 +555,34 @@ namespace YeDassaultSystemDev
                 //Reference referenceObject = SelectArc.Item(i).Reference;
                 //Measurable TheMeasurable = TheSPAWorkbench.GetMeasurable(referenceObject);
                 //TheMeasurable.GetPoint(PointCoord); //读取选择的曲面坐标
-                string TName;
+                string TName = null;
+                double PX = 0;
+                double PY = 0;
+                double PZ = 0;
                 try
                 {
                     TName = DataGrid.Rows[i].Cells[1].Value.ToString(); //读取选择的曲面名称
+                    PX = Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString());
+                    PY = Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString());
+                    PZ = Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString());
+                    if (PX == 0 && PY == 0 && PZ==0)
+                    {
+                        throw new Exception("任意车身不存在该焊点，识别为新的对象!");
+                    }
                 }
                 catch (Exception)
                 {
+                    if (!string.IsNullOrEmpty(TName) && PX == 0)
+                    {
+                        Hyb = Hybs.Add();
+                        if (!string.IsNullOrEmpty(xlsFileName))
+                        {
+                            Hyb.set_Name(TName);
+                        }
+                    }
                     continue;
                 }
-                HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString()), Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString()));
+                HybridShapePointCoord NewPoint = PartHyb.AddNewPointCoord(PX, PY, PZ);
                 Reference ShapeRef = PartID.CreateReferenceFromObject(NewPoint);
                 HybridShapeSphere NewShape = PartHyb.AddNewSphere(ShapeRef, null, Convert.ToDouble(BallRadio.Text), -45.000000, 45.000000, 0.000000, 180.000000);
                 NewShape.Limitation = 1;
@@ -761,7 +783,7 @@ namespace YeDassaultSystemDev
                 {
                     string tn = NewName.Substring(0, 8);
                 }
-                if (NewName.Length > 8 && skipViaPoint.Checked && (NewName.Substring(0, 8) == "ViaPoint"|| NewName.Substring(0, 3) == "LHP"))
+                if (NewName.Length > 8 && skipViaPoint.Checked && (NewName.Substring(0, 8) == "ViaPoint" || NewName.Substring(0, 3) == "LHP"))
                 {
                     goto Skip;
                 }

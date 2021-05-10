@@ -281,9 +281,6 @@ namespace RFTechnology
 
         private void ReadHelp_Click(object sender, EventArgs e)
         {
-            this.TopMost = false;
-            AboutBox aboutBox = new AboutBox();
-            aboutBox.ShowDialog();
         }
 
         private void OpenApplicationdoc_Click(object sender, EventArgs e)
@@ -302,6 +299,18 @@ namespace RFTechnology
         private void 反馈问题建议ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://blog.csdn.net/qingyangwuji/article/details/109142676");
+        }
+
+        private void 访问官方网站ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www.ahrfkj.cn/");
+        }
+
+        private void 关于本软件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
         }
     }
 }
