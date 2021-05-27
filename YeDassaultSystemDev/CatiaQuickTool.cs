@@ -205,9 +205,14 @@ namespace YeDassaultSystemDev
                 HybridBody hybridBody = (HybridBody)product.Parent;
                 xlsFileName = hybridBody.get_Name();
             }
-            catch (Exception)
+            catch (Exception eb)
             {
-                throw;
+                if (eb.HResult == -2147467262)
+                {
+                    HybridShape product = (HybridShape)SelectArc.Item(1).Value;
+                    //AnyObject hybridBody = (AnyObject)((AnyObject)product.Parent).Parent;
+                    xlsFileName = product.get_Name();
+                }
             }
             for (int i = 1; i < SelectArc.Count2 + 1; i++)
             {
@@ -565,7 +570,7 @@ namespace YeDassaultSystemDev
                     PX = Convert.ToDouble(DataGrid.Rows[i].Cells[2].Value.ToString());
                     PY = Convert.ToDouble(DataGrid.Rows[i].Cells[3].Value.ToString());
                     PZ = Convert.ToDouble(DataGrid.Rows[i].Cells[4].Value.ToString());
-                    if (PX == 0 && PY == 0 && PZ==0)
+                    if (PX == 0 && PY == 0 && PZ == 0)
                     {
                         throw new Exception("任意车身不存在该焊点，识别为新的对象!");
                     }
