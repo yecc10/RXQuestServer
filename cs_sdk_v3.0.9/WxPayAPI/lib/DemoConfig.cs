@@ -48,7 +48,7 @@ namespace WxPayAPI.lib
         /* 支付结果通知回调url，用于商户接收支付结果
         */
         public string GetNotifyUrl(){
-            return "http://www.ahrfkj.cn/";
+            return "http://localhost/WxPayAPI/example/ResultNotifyPage.aspx";
         }
 
         //=======【商户系统后台机器IP】===================================== 

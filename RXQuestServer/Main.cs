@@ -15,6 +15,7 @@ using System.Diagnostics;
 using WindowsAPI_Interface;
 using WxPayAPI;
 using WxPayAPI.lib;
+using RFTechnology.BusinessCode;
 
 namespace RFTechnology
 {
@@ -26,6 +27,12 @@ namespace RFTechnology
         public Main()
         {
             InitializeComponent();
+            NetCheck netCheck = new NetCheck();
+            int Result = netCheck.CheckAccessFromNet();//同步检查数据库中的用户记录
+            if (Result!=1)
+            {
+                MessageBox.Show("请连接网络获取最新软件信息及使用体验");
+            }
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
             this.WindowState = FormWindowState.Normal;
@@ -34,7 +41,6 @@ namespace RFTechnology
             this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
             CheckUserAccess();
         }
-
         private void InitDelmiaDocument_Click(object sender, EventArgs e)
         {
             if (!HasAccessToRun)
@@ -234,11 +240,11 @@ namespace RFTechnology
             //非注册用户并试用时间已过期，强制退出
             this.Hide();
             Process[] AllProcess = Process.GetProcessesByName("RFTechnology");
-            if (AllProcess.Length==1)
+            if (AllProcess.Length == 1)
             {
                 Process process = AllProcess[0];
                 string TitleName = process.MainWindowTitle;
-                if (TitleName=="RegKeyInput")
+                if (TitleName == "RegKeyInput")
                 {
                     MessageBox.Show("注册窗口您已打开，无需重复打开!");
                     return false;

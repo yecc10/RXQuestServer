@@ -13,7 +13,7 @@ namespace RFTechnology
 {
     class GetComputerData
     {
-        private string GetCPUID()
+        public string GetCPUID()
         {
             ManagementClass managClass = new ManagementClass("Win32_Processor");
             ManagementObjectCollection moc = managClass.GetInstances();
@@ -25,7 +25,26 @@ namespace RFTechnology
             }
             return CPUID;
         }
-        private string GetBoardID()
+        public string GetNetBoardID()
+        {
+            ManagementClass managClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection moc = managClass.GetInstances();
+            string NetBoardID = null;
+            foreach (ManagementObject item in moc)
+            {
+                if ((bool)item.Properties["IPEnabled"].Value == true)
+                {
+                    NetBoardID = item.Properties["MacAddress"].Value.ToString();
+                }
+                else
+                {
+                    continue;
+                }
+                break;
+            }
+            return NetBoardID;
+        }
+        public string GetBoardID()
         {
             ManagementClass managClass = new ManagementClass("Win32_BaseBoard");
             ManagementObjectCollection moc = managClass.GetInstances();
@@ -37,7 +56,7 @@ namespace RFTechnology
             }
             return BoardID;
         }
-        private string GetBIOSID()
+        public string GetBIOSID()
         {
             ManagementClass managClass = new ManagementClass("Win32_BIOS");
             ManagementObjectCollection moc = managClass.GetInstances();
@@ -49,7 +68,7 @@ namespace RFTechnology
             }
             return BIOSID;
         }
-        private string GetDiskID()
+        public string GetDiskID()
         {
             ManagementClass managClass = new ManagementClass("win32_logicaldisk");
             ManagementObjectCollection moc = managClass.GetInstances();
@@ -63,13 +82,13 @@ namespace RFTechnology
         }
         public string GetComputerID()
         {
-            string ComputerId = GetBoardID() + GetBoardID() + GetCPUID()+ GetDiskID();
+            string ComputerId = GetNetBoardID();//+ GetBoardID()+ GetBIOSID() + GetCPUID() + GetDiskID();
             return ComputerId;
         }
         public string GetHashProtectComputerID()
         {
             string ComputerId = GetComputerID();
-           // int HashComputerId=ComputerId.GetHashCode();
+            // int HashComputerId=ComputerId.GetHashCode();
             return ComputerId;
         }
         public bool CheckUsrKey(string UserKey)

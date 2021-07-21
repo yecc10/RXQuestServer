@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using ThoughtWorks.QRCode.Codec;
 using WxPayAPI;
 using WxPayAPI.lib;
+using RFTechnology;
 
 namespace RFTechnology.BusinessCode
 {
@@ -23,11 +24,10 @@ namespace RFTechnology.BusinessCode
             InitializeComponent();
             TextBox.Text = Properties.Resources.PayNote.ToString();//初始化支付页面说明
             NativePay nativePay = new NativePay();
-            string url2 = nativePay.GetPayUrl("产品注册3个月",8100, "锐锋科技自动化产品3个月授权注册"); //生成扫码支付模式二url
+            string url2 = nativePay.GetPayUrl("产品注册3个月", 8100, "锐锋科技自动化产品3个月授权注册"); //生成扫码支付模式二url
             //将url生成二维码图片
             WxPayCode.Image = QrCode(url2);
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             RegKeyInput regKeyInput = new RegKeyInput();

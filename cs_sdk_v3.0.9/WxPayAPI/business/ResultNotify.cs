@@ -31,9 +31,7 @@ namespace WxPayAPI
                 page.Response.Write(res.ToXml());
                 page.Response.End();
             }
-
             string transaction_id = notifyData.GetValue("transaction_id").ToString();
-
             //查询订单，判断订单真实性
             if (!QueryOrder(transaction_id))
             {

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AHRFKJ" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=1.117.219.238;Initial Catalog=AHRFKJ;Persist Security Info=True;User ID=sa" SettingsObjectName="RFTechnology.Properties.Settings" SettingsPropertyName="AHRFKJConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.UserComputerData" Member="UserComputerData">
+    <Type Name="UserComputerData">
+      <Column Name="NetID" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CPUID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="BoardID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="BIOSID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="DiskID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.CheckComputerWithRegInformation" Method="CheckComputerWithRegInformation">
+    <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdataUserLogTime" Method="UpdataUserLogTime">
+    <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetDbAllDataWithCurrentPC" Method="GetDbAllDataWithCurrentPC">
+    <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="KeyCode" Parameter="keyCode" Type="System.String" DbType="NVarChar(128)" Direction="InOut" />
+    <Parameter Name="CreateTime" Parameter="createTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
+    <Parameter Name="RegPayFinishedTime" Parameter="regPayFinishedTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
+    <Parameter Name="LastLogTime" Parameter="lastLogTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
+    <Parameter Name="RegPayDays" Parameter="regPayDays" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.CreateNewReginformation" Method="CreateNewReginformation">
+    <Parameter Name="ComputerName" Parameter="computerName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="NetBoardID" Parameter="netBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="BIOSID" Parameter="bIOSID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="CPUID" Parameter="cPUID" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DiskID" Parameter="diskID" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="BoardID" Parameter="boardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="KeyCode" Parameter="keyCode" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="SubmitTime" Parameter="submitTime" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

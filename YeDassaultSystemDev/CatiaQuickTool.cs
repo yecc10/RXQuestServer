@@ -209,9 +209,21 @@ namespace YeDassaultSystemDev
             {
                 if (eb.HResult == -2147467262)
                 {
-                    HybridShape product = (HybridShape)SelectArc.Item(1).Value;
+                    try
+                    {
+                        HybridShape product = (HybridShape)SelectArc.Item(1).Value;
+                        xlsFileName = product.get_Name();
+                    }
+                    catch (Exception)
+                    {
+                        Product product = (Product)SelectArc.Item(1).LeafProduct;
+                        xlsFileName = product.get_Name();
+                        //xlsFileName = SelectArc.Item(1).get_Name();
+                        //hy product = (HybridBody)SelectArc.Item(1).Value;
+                        //xlsFileName = product.();
+                        //throw;
+                    }
                     //AnyObject hybridBody = (AnyObject)((AnyObject)product.Parent).Parent;
-                    xlsFileName = product.get_Name();
                 }
             }
             for (int i = 1; i < SelectArc.Count2 + 1; i++)
@@ -220,6 +232,8 @@ namespace YeDassaultSystemDev
                 HybridShapeFactory PartHyb = (HybridShapeFactory)PartID.HybridShapeFactory;
                 SPAWorkbench TheSPAWorkbench = null;
                 TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
+                CatDocument.Product.ActivateShape("Geometrical Set.1");
+
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;

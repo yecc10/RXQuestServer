@@ -35,5 +35,13 @@
     <Setting Name="Vision" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AHRFKJConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=1.117.219.238;Initial Catalog=AHRFKJ;Persist Security Info=True;User ID=sa;Password=ycc15205657066!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=1.117.219.238;Initial Catalog=AHRFKJ;Persist Security Info=True;User ID=sa;Password=ycc15205657066!</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
