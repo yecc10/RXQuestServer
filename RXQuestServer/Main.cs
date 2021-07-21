@@ -23,6 +23,7 @@ namespace RFTechnology
     {
         bool HasAccessToRun = false;
         bool CheckedAccess = false;
+        int RegPayDays = Convert.ToInt32(RegOprate.GetRegValue("RegPayDays"));
         DateTime RegTime = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
         public Main()
         {
@@ -166,93 +167,8 @@ namespace RFTechnology
 
         private bool CheckUserAccess()
         {
-            DateTime dateTime = DateTime.Now;
-            var Psh = new PasswordHasher();
-            //检查注册信息,如果未注册设定30天试用
-            PasswordHasher passwordHasher = new PasswordHasher();
-            String protectid = String.Empty;
-            if (RegOprate.IsRegeditExit("ProtectComputerID"))
-            {
-                protectid = RegOprate.GetRegValue("ProtectComputerID");
-            }
-            if (String.IsNullOrEmpty(protectid))
-            {
-                GetComputerData getComputerData = new GetComputerData();
-                protectid = getComputerData.GetHashProtectComputerID(); //重新获取ID
-                RegOprate.WriteRegdit("ProtectComputerID", protectid);
-            }
-            protectid = protectid + "yeccdesignforruixiang2020";
-            if (RegOprate.IsRegeditExit("RegKey"))
-            {
-                string RegWord = RegOprate.GetRegValue("Regkey");
-                var Str = Psh.VerifyHashedPassword(RegWord, protectid);  // 使用PASSWORDHASH 数值进行对比
-                if (Convert.ToBoolean(Str))
-                {
-                    HasAccessToRun = true;
-                    Yecc_Help.Enabled = false;
-                    Properties.Settings.Default.VisionType = "正式授权版";
-                    return true;
-                }
-            }
-            //检查是否处于试用期 并小于30天
-            if (RegOprate.IsRegeditExit("SetUpTime"))
-            {
-                DateTime RegWord = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
-                DateTime NormalWorkTime = RegWord.AddDays(30);
-                if (dateTime > NormalWorkTime)
-                {
-                    Properties.Settings.Default.VisionType = "30天试用版";
-                    MessageBox.Show("当前试用30天已过期，请申请正式版本！");
-                }
-                else
-                {
-                    //临时授权未过期 授权通过使用
-                    TimeSpan WorkDays = NormalWorkTime - dateTime;
-                    Properties.Settings.Default.VisionType = "30天试用版,剩余[小时]: " + WorkDays.TotalHours.ToString("0");
-                    HasAccessToRun = true;
-                    Yecc_Help.Enabled = true;
-                    return true;
-                }
-            }
-            else
-            {
-                //首次安装使用
-                string message = Properties.Resources.SoftAccess;
-                string caption = "首次使用授权说明:";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result;
-                result = MessageBox.Show(message, caption, buttons);
-
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                {
-                    DateTime dateTime1 = dateTime;
-                    RegOprate.WriteRegdit("SetUpTime", dateTime1.ToString());
-                    HasAccessToRun = true;
-                    Properties.Settings.Default.VisionType = "30天试用版";
-                    return true;
-                }
-                else
-                {
-                    Process.GetCurrentProcess().Kill();
-                    return true;
-                }
-            }
-            //非注册用户并试用时间已过期，强制退出
-            this.Hide();
-            Process[] AllProcess = Process.GetProcessesByName("RFTechnology");
-            if (AllProcess.Length == 1)
-            {
-                Process process = AllProcess[0];
-                string TitleName = process.MainWindowTitle;
-                if (TitleName == "RegKeyInput")
-                {
-                    MessageBox.Show("注册窗口您已打开，无需重复打开!");
-                    return false;
-                }
-            }
-            RegKeyInput regKeyInput = new RegKeyInput();
-            regKeyInput.Show();
-            return false;
+            NetCheck netCheck = new NetCheck();
+           return netCheck.CheckUserAccess(string.Empty, DateTime.Now, DateTime.Now, -1, false);
         }
         private void Yecc_Help_Click(object sender, EventArgs e)
         {
@@ -266,14 +182,35 @@ namespace RFTechnology
         private void timer_Tick(object sender, EventArgs e)
         {
             DateTime dateTime = DateTime.Now;
-            TimeSpan WorkDays = RegTime.AddDays(30) - dateTime;
-            if (WorkDays.TotalMinutes > 0)
+            if (RegPayDays<1)
             {
-                this.Text = "YECC_" + Application.ProductVersion.ToString() + "30天试用版,剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
+                TimeSpan WorkDays = RegTime.AddDays(30) - dateTime;
+                if (WorkDays.TotalMinutes > 0)
+                {
+                    this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType + ",剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
+                }
+                else
+                {
+                    MessageBox.Show("当前试用30天已过期，请申请正式版本！");
+                    Process.GetCurrentProcess().Kill();
+                }
             }
             else
             {
-                this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType.ToString();
+                TimeSpan WorkDays = RegTime.AddDays(RegPayDays) - dateTime;
+                if (WorkDays.TotalDays >15)
+                {
+                    this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType;// +",剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
+                }
+                else if (WorkDays.TotalDays > 0)
+                {
+                    this.Text = "YECC_" + Application.ProductVersion.ToString() + Properties.Settings.Default.VisionType+",剩余[秒]: " + WorkDays.TotalSeconds.ToString("0");//+ "——当前时间:" + DateTime.Now.ToString()
+                }
+                else
+                {
+                    MessageBox.Show("当前授权许可已过期，请重新申请正式版本！");
+                    Process.GetCurrentProcess().Kill();
+                }
             }
         }
 

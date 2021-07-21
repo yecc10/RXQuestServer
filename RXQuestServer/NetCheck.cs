@@ -64,7 +64,7 @@ namespace RFTechnology
                 {
                     GetedDataFromSql = true;
                     CheckCorderFromDataBase();
-                    CheckUserAccess(KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
+                    CheckUserAccess(KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays),true);
                     return 1;
                 }
                 else
@@ -90,7 +90,7 @@ namespace RFTechnology
                 return string.Empty;
             }
         }
-        private bool CheckUserAccess(string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays)
+        public bool CheckUserAccess(string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays,bool GetedDataFromSql=false)
         {
             DateTime dateTime = DateTime.Now;
             bool HasAccessToRun = false;
