@@ -29,6 +29,9 @@ namespace RFTechnology
             bool state = InternetGetConnectedState(out I, 0);
             return state;
         }
+        /// <summary>
+        /// 从数据库同步用户数据
+        /// </summary>
         private void CheckCorderFromDataBase()
         {
             GetComputerData getComputerData = new GetComputerData();
@@ -46,14 +49,34 @@ namespace RFTechnology
                 CreateTime = DateTime.Now;
                 string LocalCode = NetBoardID + CreateTime;
                 PasswordHasher passwordHasher = new PasswordHasher();
-                string HasValue=passwordHasher.HashPassword(LocalCode);
+                string HasValue = passwordHasher.HashPassword(LocalCode);
                 var tr = passwordHasher.VerifyHashedPassword(HasValue, LocalCode);
-                dataClassesData.CreateNewReginformation(ComputerName, NetBoardID, BIOSID, CPUID, DiskID, BoardID, HasValue,CreateTime);
+                dataClassesData.CreateNewReginformation(ComputerName, NetBoardID, BIOSID, CPUID, DiskID, BoardID, HasValue, CreateTime);
             }
             dataClassesData.UpdataUserLogTime(NetBoardID);
             //服务器中已存在记录
-            dataClassesData.GetDbAllDataWithCurrentPC(NetBoardID, ref KeyCode, ref CreateTime, ref RegPayFinishedTime, ref LastLogTime, ref RegPayDays,ref validServerEndTime);
+            dataClassesData.GetDbAllDataWithCurrentPC(NetBoardID, ref KeyCode, ref CreateTime, ref RegPayFinishedTime, ref LastLogTime, ref RegPayDays, ref validServerEndTime);
+            try
+            {
+                Properties.Settings.Default.ComputerName = ComputerName;
+                Properties.Settings.Default.NetID = NetBoardID;
+                Properties.Settings.Default.KeyCode = KeyCode.Trim();
+                Properties.Settings.Default.CreateTime = Convert.ToDateTime(CreateTime);
+                Properties.Settings.Default.RegPayFinishedTime = Convert.ToDateTime(RegPayFinishedTime);
+                Properties.Settings.Default.LastLogTime = Convert.ToDateTime(LastLogTime);
+                Properties.Settings.Default.RegPayDays = Convert.ToInt32(RegPayDays);
+                Properties.Settings.Default.validServerEndTime = Convert.ToDateTime(validServerEndTime);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("数据更新失败！");
+            }
         }
+        /// <summary>
+        /// 检查网络连接
+        /// </summary>
+        /// <param name="HasAccessToRun"></param>
+        /// <returns></returns>
         public int CheckAccessFromNet(ref bool HasAccessToRun)
         {
             //1 正常执行完成 0 网络未连接 -1网线未连接  -2用户权限过期
@@ -65,12 +88,12 @@ namespace RFTechnology
                 {
                     GetedDataFromSql = true;
                     CheckCorderFromDataBase();
-                    CheckUserAccess(ref HasAccessToRun ,KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays),true);
+                    CheckUserAccess(ref HasAccessToRun, KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays), true);
                     return 1;
                 }
                 else
                 {
-                    CheckUserAccess(ref HasAccessToRun,KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
+                    CheckUserAccess(ref HasAccessToRun, KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
                     return -1;
                 }
             }
@@ -91,7 +114,17 @@ namespace RFTechnology
                 return string.Empty;
             }
         }
-        public bool CheckUserAccess(ref bool HasAccessToRun,string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays,bool GetedDataFromSql=false)
+        /// <summary>
+        /// 权限检查
+        /// </summary>
+        /// <param name="HasAccessToRun">是否具有运行权限</param>
+        /// <param name="KeyCode">校核秘钥</param>
+        /// <param name="CreateTime">创建日期</param>
+        /// <param name="RegPayFinishedTime">最终付款日期</param>
+        /// <param name="RegPayDays">购买天数</param>
+        /// <param name="GetedDataFromSql">是否从数据库读取</param>
+        /// <returns></returns>
+        public bool CheckUserAccess(ref bool HasAccessToRun, string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays, bool GetedDataFromSql = false)
         {
             DateTime dateTime = DateTime.Now;
             var Psh = new PasswordHasher();
@@ -130,8 +163,9 @@ namespace RFTechnology
                     RegOprate.WriteRegdit("RegPayFinishedTime", Convert.ToString(RegPayFinishedTime));//将服务器中的创建时间刷入到当前软件注册表中
                     RegOprate.WriteRegdit("RegPayDays", Convert.ToString(RegPayDays));//将服务器中的创建时间刷入到当前软件注册表中
                     RegOprate.WriteRegdit("KeyCode", Convert.ToString(KeyCode));//将服务器中的创建时间刷入到当前软件注册表中
+                    RegOprate.WriteRegdit("validServerEndTime", Convert.ToString(validServerEndTime));//将服务器中的创建时间刷入到当前软件注册表中
                 }
-                DateTime RegWord = Convert.ToDateTime(RegOprate.GetRegValue("SetUpTime"));
+                DateTime RegWord = Convert.ToDateTime(RegOprate.GetRegValue("validServerEndTime"));
                 RegPayDays = Convert.ToInt32(RegOprate.GetRegValue("RegPayDays"));
                 KeyCode = RegOprate.GetRegValue("KeyCode");
                 if (RegPayDays < 1)

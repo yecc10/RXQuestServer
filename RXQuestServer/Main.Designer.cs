@@ -53,11 +53,12 @@
             this.办公ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.问题反馈及帮助 = new System.Windows.Forms.ToolStripDropDownButton();
             this.ReadHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.访问官方网站ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于本软件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.注册永久授权ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenApplicationdoc = new System.Windows.Forms.ToolStripMenuItem();
             this.反馈问题建议ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.访问官方网站ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于本软件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.获取当前电脑注册信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.MainTool.SuspendLayout();
             this.SuspendLayout();
@@ -244,7 +245,8 @@
             this.ReadHelp,
             this.注册永久授权ToolStripMenuItem,
             this.OpenApplicationdoc,
-            this.反馈问题建议ToolStripMenuItem});
+            this.反馈问题建议ToolStripMenuItem,
+            this.获取当前电脑注册信息ToolStripMenuItem});
             this.问题反馈及帮助.Image = global::RFTechnology.Properties.Resources.Help;
             this.问题反馈及帮助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.问题反馈及帮助.Name = "问题反馈及帮助";
@@ -257,30 +259,9 @@
             this.访问官方网站ToolStripMenuItem,
             this.关于本软件ToolStripMenuItem});
             this.ReadHelp.Name = "ReadHelp";
-            this.ReadHelp.Size = new System.Drawing.Size(180, 22);
+            this.ReadHelp.Size = new System.Drawing.Size(196, 22);
             this.ReadHelp.Text = "帮助";
             this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
-            // 
-            // 注册永久授权ToolStripMenuItem
-            // 
-            this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
-            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.注册永久授权ToolStripMenuItem.Text = "注册授权";
-            this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
-            // 
-            // OpenApplicationdoc
-            // 
-            this.OpenApplicationdoc.Name = "OpenApplicationdoc";
-            this.OpenApplicationdoc.Size = new System.Drawing.Size(180, 22);
-            this.OpenApplicationdoc.Text = "打开软件安装目录";
-            this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
-            // 
-            // 反馈问题建议ToolStripMenuItem
-            // 
-            this.反馈问题建议ToolStripMenuItem.Name = "反馈问题建议ToolStripMenuItem";
-            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.反馈问题建议ToolStripMenuItem.Text = "反馈问题/建议";
-            this.反馈问题建议ToolStripMenuItem.Click += new System.EventHandler(this.反馈问题建议ToolStripMenuItem_Click);
             // 
             // 访问官方网站ToolStripMenuItem
             // 
@@ -295,6 +276,34 @@
             this.关于本软件ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
             this.关于本软件ToolStripMenuItem.Text = "关于本软件";
             this.关于本软件ToolStripMenuItem.Click += new System.EventHandler(this.关于本软件ToolStripMenuItem_Click);
+            // 
+            // 注册永久授权ToolStripMenuItem
+            // 
+            this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
+            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.注册永久授权ToolStripMenuItem.Text = "注册授权";
+            this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
+            // 
+            // OpenApplicationdoc
+            // 
+            this.OpenApplicationdoc.Name = "OpenApplicationdoc";
+            this.OpenApplicationdoc.Size = new System.Drawing.Size(196, 22);
+            this.OpenApplicationdoc.Text = "打开软件安装目录";
+            this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
+            // 
+            // 反馈问题建议ToolStripMenuItem
+            // 
+            this.反馈问题建议ToolStripMenuItem.Name = "反馈问题建议ToolStripMenuItem";
+            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.反馈问题建议ToolStripMenuItem.Text = "反馈问题/建议";
+            this.反馈问题建议ToolStripMenuItem.Click += new System.EventHandler(this.反馈问题建议ToolStripMenuItem_Click);
+            // 
+            // 获取当前电脑注册信息ToolStripMenuItem
+            // 
+            this.获取当前电脑注册信息ToolStripMenuItem.Name = "获取当前电脑注册信息ToolStripMenuItem";
+            this.获取当前电脑注册信息ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.获取当前电脑注册信息ToolStripMenuItem.Text = "获取当前电脑注册信息";
+            this.获取当前电脑注册信息ToolStripMenuItem.Click += new System.EventHandler(this.获取当前电脑注册信息ToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -348,6 +357,7 @@
         private System.Windows.Forms.ToolStripMenuItem 反馈问题建议ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 访问官方网站ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于本软件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 获取当前电脑注册信息ToolStripMenuItem;
     }
 }
 

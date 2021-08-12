@@ -189,6 +189,12 @@
       <DependentUpon>RegKeyInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="UserDataInformationFromServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserDataInformationFromServer.Designer.cs">
+      <DependentUpon>UserDataInformationFromServer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -211,6 +217,9 @@
     </Compile>
     <EmbeddedResource Include="RegKeyInput.resx">
       <DependentUpon>RegKeyInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDataInformationFromServer.resx">
+      <DependentUpon>UserDataInformationFromServer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataClasses.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

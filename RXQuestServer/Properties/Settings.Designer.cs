@@ -164,5 +164,85 @@ namespace RFTechnology.Properties {
                 return ((string)(this["AHRFKJConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ComputerName {
+            get {
+                return ((string)(this["ComputerName"]));
+            }
+            set {
+                this["ComputerName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime CreateTime {
+            get {
+                return ((global::System.DateTime)(this["CreateTime"]));
+            }
+            set {
+                this["CreateTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime RegPayFinishedTime {
+            get {
+                return ((global::System.DateTime)(this["RegPayFinishedTime"]));
+            }
+            set {
+                this["RegPayFinishedTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastLogTime {
+            get {
+                return ((global::System.DateTime)(this["LastLogTime"]));
+            }
+            set {
+                this["LastLogTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RegPayDays {
+            get {
+                return ((int)(this["RegPayDays"]));
+            }
+            set {
+                this["RegPayDays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime validServerEndTime {
+            get {
+                return ((global::System.DateTime)(this["validServerEndTime"]));
+            }
+            set {
+                this["validServerEndTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NetID {
+            get {
+                return ((string)(this["NetID"]));
+            }
+            set {
+                this["NetID"] = value;
+            }
+        }
     }
 }

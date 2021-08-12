@@ -147,7 +147,7 @@ namespace RFTechnology.BusinessCode
             }
             catch (Exception e)
             {
-                throw e;
+                //throw e;
                 Result = false;
             }
             switch (attach)

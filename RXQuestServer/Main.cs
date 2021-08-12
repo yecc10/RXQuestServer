@@ -255,5 +255,13 @@ namespace RFTechnology
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
+
+        private void 获取当前电脑注册信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+            UserDataInformationFromServer userDataInformationFromServer = new UserDataInformationFromServer();
+            userDataInformationFromServer.ShowDialog();
+            userDataInformationFromServer.TopMost = true;
+        }
     }
 }
