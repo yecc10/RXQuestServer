@@ -39,7 +39,7 @@ namespace WxPayAPI
             Log.Info(this.GetType().ToString(), "正在为您进入支付页面...");
             WxPayData data = new WxPayData();
             data.SetValue("body", introducttion);//商品描述
-            data.SetValue("attach", "180天激活");//附加数据
+            data.SetValue("attach", "安徽锐锋科技产品");//附加数据
             data.SetValue("out_trade_no", WxPayApi.GenerateOutTradeNo());//随机字符串
             data.SetValue("total_fee", Prise);//总金额
             data.SetValue("time_start", DateTime.Now.ToString("yyyyMMddHHmmss"));//交易起始时间

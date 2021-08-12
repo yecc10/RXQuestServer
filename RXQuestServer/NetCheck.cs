@@ -15,7 +15,7 @@ namespace RFTechnology
     class NetCheck
     {
         string KeyCode = string.Empty;
-        DateTime? CreateTime = DateTime.Now, RegPayFinishedTime = DateTime.Now, LastLogTime = DateTime.Now;
+        DateTime? CreateTime = null, RegPayFinishedTime = null, LastLogTime = null, validServerEndTime = null;
         int? RegPayDays = -1;
         bool GetedDataFromSql = false;
         string SFLocalPass = "yeccdesignforruixiang2020";
@@ -43,6 +43,7 @@ namespace RFTechnology
             if (Result < 0)
             {
                 //首次登录
+                CreateTime = DateTime.Now;
                 string LocalCode = NetBoardID + CreateTime;
                 PasswordHasher passwordHasher = new PasswordHasher();
                 string HasValue=passwordHasher.HashPassword(LocalCode);
@@ -51,7 +52,7 @@ namespace RFTechnology
             }
             dataClassesData.UpdataUserLogTime(NetBoardID);
             //服务器中已存在记录
-            dataClassesData.GetDbAllDataWithCurrentPC(NetBoardID, ref KeyCode, ref CreateTime, ref RegPayFinishedTime, ref LastLogTime, ref RegPayDays);
+            dataClassesData.GetDbAllDataWithCurrentPC(NetBoardID, ref KeyCode, ref CreateTime, ref RegPayFinishedTime, ref LastLogTime, ref RegPayDays,ref validServerEndTime);
         }
         public int CheckAccessFromNet(ref bool HasAccessToRun)
         {

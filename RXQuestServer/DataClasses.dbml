@@ -44,9 +44,48 @@
       <Column Name="KeyCode" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
     </Type>
   </Table>
+  <Function Name="dbo.AddUserWxPayInformation" Method="AddUserWxPayInformation">
+    <Parameter Name="NetID" Parameter="netID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="appid" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="attach" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="bank_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="cash_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cash_fee_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="fee_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="is_subscribe" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="mch_id" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="nonce_str" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="openid" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="out_trade_no" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="result_code" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="return_code" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="return_msg" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="sign" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="time_end" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="total_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="trade_state" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="trade_state_desc" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="trade_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="transaction_id" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="Writed" Parameter="writed" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.CheckComputerWithRegInformation" Method="CheckComputerWithRegInformation">
     <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.CreateNewReginformation" Method="CreateNewReginformation">
+    <Parameter Name="ComputerName" Parameter="computerName" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="NetBoardID" Parameter="netBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="BIOSID" Parameter="bIOSID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="CPUID" Parameter="cPUID" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="DiskID" Parameter="diskID" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="BoardID" Parameter="boardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="KeyCode" Parameter="keyCode" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="SubmitTime" Parameter="submitTime" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="CreateNewReginformationResult">
+      <Column Name="" Member="Column1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
   </Function>
   <Function Name="dbo.UpdataUserLogTime" Method="UpdataUserLogTime">
     <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
@@ -59,43 +98,12 @@
     <Parameter Name="RegPayFinishedTime" Parameter="regPayFinishedTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
     <Parameter Name="LastLogTime" Parameter="lastLogTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
     <Parameter Name="RegPayDays" Parameter="regPayDays" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="ValidServerEndTime" Parameter="validServerEndTime" Type="System.DateTime" DbType="DateTime" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.CreateNewReginformation" Method="CreateNewReginformation">
-    <Parameter Name="ComputerName" Parameter="computerName" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="NetBoardID" Parameter="netBoardID" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="BIOSID" Parameter="bIOSID" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="CPUID" Parameter="cPUID" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="DiskID" Parameter="diskID" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="BoardID" Parameter="boardID" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="KeyCode" Parameter="keyCode" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="SubmitTime" Parameter="submitTime" Type="System.DateTime" DbType="DateTime" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.AddUserWxPayInformation" Method="AddUserWxPayInformation">
-    <Parameter Name="NetID" Parameter="netID" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="device_info" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="openid" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="is_subscribe" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="trade_type" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="trade_state" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="bank_type" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="total_fee" Type="System.Int32" DbType="Int" />
-    <Parameter Name="settlement_total_fee" Type="System.Int32" DbType="Int" />
-    <Parameter Name="fee_type" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="cash_fee" Type="System.Int32" DbType="Int" />
-    <Parameter Name="cash_fee_type" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="coupon_fee" Type="System.Int32" DbType="Int" />
-    <Parameter Name="coupon_count" Type="System.Int32" DbType="Int" />
-    <Parameter Name="coupon_type_$n" Parameter="coupon_type__n" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="coupon_id_$n" Parameter="coupon_id__n" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="coupon_fee_$n" Parameter="coupon_fee__n" Type="System.Int32" DbType="Int" />
-    <Parameter Name="transaction_id" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="out_trade_no" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="attach" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="time_end" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="trade_state_desc" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="Writed" Parameter="writed" Type="System.Int32" DbType="Int" Direction="InOut" />
+  <Function Name="dbo.UpataUserPayInformation" Method="UpataUserPayInformation">
+    <Parameter Name="UserNetBoardID" Parameter="userNetBoardID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="RegPayDays" Parameter="regPayDays" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

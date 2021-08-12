@@ -29,6 +29,7 @@ namespace RFTechnology.BusinessCode
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusinessPayCode));
             this.WxPayCode = new System.Windows.Forms.PictureBox();
             this.TextBox = new System.Windows.Forms.TextBox();
@@ -44,6 +45,7 @@ namespace RFTechnology.BusinessCode
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.PayFinishedGetResult = new System.Windows.Forms.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.WxPayCode)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,6 +204,10 @@ namespace RFTechnology.BusinessCode
             this.PayFinishedGetResult.UseVisualStyleBackColor = true;
             this.PayFinishedGetResult.Click += new System.EventHandler(this.PayFinishedGetResult_Click);
             // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // BusinessPayCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -250,5 +256,6 @@ namespace RFTechnology.BusinessCode
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button PayFinishedGetResult;
+        private System.Windows.Forms.Timer timer;
     }
 }

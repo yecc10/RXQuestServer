@@ -81,11 +81,49 @@ namespace RFTechnology
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddUserWxPayInformation")]
+		public int AddUserWxPayInformation(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NetID", DbType="NVarChar(128)")] string netID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string appid, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string attach, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string bank_type, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cash_fee, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string cash_fee_type, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string fee_type, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string is_subscribe, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string mch_id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string nonce_str, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string openid, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string out_trade_no, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string result_code, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string return_code, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string return_msg, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string sign, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> time_end, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> total_fee, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_state, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_state_desc, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_type, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string transaction_id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Writed", DbType="Int")] ref System.Nullable<int> writed)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), netID, appid, attach, bank_type, cash_fee, cash_fee_type, fee_type, is_subscribe, mch_id, nonce_str, openid, out_trade_no, result_code, return_code, return_msg, sign, time_end, total_fee, trade_state, trade_state_desc, trade_type, transaction_id, writed);
+			writed = ((System.Nullable<int>)(result.GetParameterValue(22)));
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CheckComputerWithRegInformation")]
 		public int CheckComputerWithRegInformation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserNetBoardID", DbType="NVarChar(128)")] string userNetBoardID)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userNetBoardID);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CreateNewReginformation")]
+		public ISingleResult<CreateNewReginformationResult> CreateNewReginformation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ComputerName", DbType="NVarChar(128)")] string computerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NetBoardID", DbType="NVarChar(128)")] string netBoardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BIOSID", DbType="NVarChar(128)")] string bIOSID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CPUID", DbType="NVarChar(MAX)")] string cPUID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiskID", DbType="NVarChar(MAX)")] string diskID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BoardID", DbType="NVarChar(128)")] string boardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KeyCode", DbType="NVarChar(128)")] string keyCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubmitTime", DbType="DateTime")] System.Nullable<System.DateTime> submitTime)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), computerName, netBoardID, bIOSID, cPUID, diskID, boardID, keyCode, submitTime);
+			return ((ISingleResult<CreateNewReginformationResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdataUserLogTime")]
@@ -96,52 +134,22 @@ namespace RFTechnology
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetDbAllDataWithCurrentPC")]
-		public int GetDbAllDataWithCurrentPC([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserNetBoardID", DbType="NVarChar(128)")] string userNetBoardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KeyCode", DbType="NVarChar(128)")] ref string keyCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CreateTime", DbType="DateTime")] ref System.Nullable<System.DateTime> createTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RegPayFinishedTime", DbType="DateTime")] ref System.Nullable<System.DateTime> regPayFinishedTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LastLogTime", DbType="DateTime")] ref System.Nullable<System.DateTime> lastLogTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RegPayDays", DbType="Int")] ref System.Nullable<int> regPayDays)
+		public int GetDbAllDataWithCurrentPC([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserNetBoardID", DbType="NVarChar(128)")] string userNetBoardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KeyCode", DbType="NVarChar(128)")] ref string keyCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CreateTime", DbType="DateTime")] ref System.Nullable<System.DateTime> createTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RegPayFinishedTime", DbType="DateTime")] ref System.Nullable<System.DateTime> regPayFinishedTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LastLogTime", DbType="DateTime")] ref System.Nullable<System.DateTime> lastLogTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RegPayDays", DbType="Int")] ref System.Nullable<int> regPayDays, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ValidServerEndTime", DbType="DateTime")] ref System.Nullable<System.DateTime> validServerEndTime)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userNetBoardID, keyCode, createTime, regPayFinishedTime, lastLogTime, regPayDays);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userNetBoardID, keyCode, createTime, regPayFinishedTime, lastLogTime, regPayDays, validServerEndTime);
 			keyCode = ((string)(result.GetParameterValue(1)));
 			createTime = ((System.Nullable<System.DateTime>)(result.GetParameterValue(2)));
 			regPayFinishedTime = ((System.Nullable<System.DateTime>)(result.GetParameterValue(3)));
 			lastLogTime = ((System.Nullable<System.DateTime>)(result.GetParameterValue(4)));
 			regPayDays = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			validServerEndTime = ((System.Nullable<System.DateTime>)(result.GetParameterValue(6)));
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CreateNewReginformation")]
-		public int CreateNewReginformation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ComputerName", DbType="NVarChar(128)")] string computerName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NetBoardID", DbType="NVarChar(128)")] string netBoardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BIOSID", DbType="NVarChar(128)")] string bIOSID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CPUID", DbType="NVarChar(MAX)")] string cPUID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiskID", DbType="NVarChar(MAX)")] string diskID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BoardID", DbType="NVarChar(128)")] string boardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KeyCode", DbType="NVarChar(128)")] string keyCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubmitTime", DbType="DateTime")] System.Nullable<System.DateTime> submitTime)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpataUserPayInformation")]
+		public int UpataUserPayInformation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserNetBoardID", DbType="NVarChar(128)")] string userNetBoardID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RegPayDays", DbType="Int")] System.Nullable<int> regPayDays)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), computerName, netBoardID, bIOSID, cPUID, diskID, boardID, keyCode, submitTime);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddUserWxPayInformation")]
-		public int AddUserWxPayInformation(
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NetID", DbType="NVarChar(128)")] string netID, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string device_info, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string openid, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string is_subscribe, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_type, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_state, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string bank_type, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> total_fee, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> settlement_total_fee, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string fee_type, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> cash_fee, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string cash_fee_type, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> coupon_fee, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> coupon_count, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="coupon_type_$n", DbType="NVarChar(128)")] string coupon_type__n, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="coupon_id_$n", DbType="NVarChar(128)")] string coupon_id__n, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="coupon_fee_$n", DbType="Int")] System.Nullable<int> coupon_fee__n, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string transaction_id, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string out_trade_no, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string attach, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string time_end, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string trade_state_desc, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Writed", DbType="Int")] ref System.Nullable<int> writed)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), netID, device_info, openid, is_subscribe, trade_type, trade_state, bank_type, total_fee, settlement_total_fee, fee_type, cash_fee, cash_fee_type, coupon_fee, coupon_count, coupon_type__n, coupon_id__n, coupon_fee__n, transaction_id, out_trade_no, attach, time_end, trade_state_desc, writed);
-			writed = ((System.Nullable<int>)(result.GetParameterValue(22)));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userNetBoardID, regPayDays);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -915,6 +923,32 @@ namespace RFTechnology
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	public partial class CreateNewReginformationResult
+	{
+		
+		private System.Nullable<System.DateTime> _Column1;
+		
+		public CreateNewReginformationResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="", Storage="_Column1", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Column1
+		{
+			get
+			{
+				return this._Column1;
+			}
+			set
+			{
+				if ((this._Column1 != value))
+				{
+					this._Column1 = value;
+				}
 			}
 		}
 	}
