@@ -170,7 +170,7 @@ namespace RFTechnology
                 KeyCode = RegOprate.GetRegValue("KeyCode");
                 if (RegPayDays < 1)
                 {
-                    DateTime NormalWorkTime = RegWord.AddDays(30);
+                    DateTime NormalWorkTime = RegWord;
                     if (dateTime > NormalWorkTime)
                     {
                         Properties.Settings.Default.VisionType = "30天试用版";
@@ -205,7 +205,7 @@ namespace RFTechnology
                         Process.GetCurrentProcess().Kill();
                         return HasAccessToRun;
                     }
-                    DateTime NormalWorkTime = RegWord.AddDays(RegPayDays);
+                    DateTime NormalWorkTime = RegWord; //RegWord 为软件到期时间
                     if (dateTime > NormalWorkTime)
                     {
                         Properties.Settings.Default.VisionType = "正式授权版";
