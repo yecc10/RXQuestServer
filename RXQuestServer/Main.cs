@@ -29,7 +29,7 @@ namespace RFTechnology
         {
             InitializeComponent();
             NetCheck netCheck = new NetCheck();
-            int Result = netCheck.CheckAccessFromNet();//同步检查数据库中的用户记录
+            int Result = netCheck.CheckAccessFromNet(ref HasAccessToRun);//同步检查数据库中的用户记录
             if (Result!=1)
             {
                 MessageBox.Show("请连接网络获取最新软件信息及使用体验");
@@ -168,7 +168,7 @@ namespace RFTechnology
         private bool CheckUserAccess()
         {
             NetCheck netCheck = new NetCheck();
-           return netCheck.CheckUserAccess(string.Empty, DateTime.Now, DateTime.Now, -1, false);
+           return netCheck.CheckUserAccess(ref HasAccessToRun,string.Empty, DateTime.Now, DateTime.Now, -1, false);
         }
         private void Yecc_Help_Click(object sender, EventArgs e)
         {

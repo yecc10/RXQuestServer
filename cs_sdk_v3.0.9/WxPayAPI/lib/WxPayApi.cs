@@ -40,7 +40,7 @@ namespace WxPayAPI
             {
                 throw new WxPayException("提交被扫支付API接口中，缺少必填参数auth_code！");
             }
-       
+
             inputObj.SetValue("spbill_create_ip", WxPayConfig.GetConfig().GetIp());//终端ip
             inputObj.SetValue("appid", WxPayConfig.GetConfig().GetAppID());//公众账号ID
             inputObj.SetValue("mch_id", WxPayConfig.GetConfig().GetMchID());//商户号

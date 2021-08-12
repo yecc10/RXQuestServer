@@ -43,6 +43,7 @@ namespace RFTechnology.BusinessCode
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.PayFinishedGetResult = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.WxPayCode)).BeginInit();
             this.SuspendLayout();
             // 
@@ -191,6 +192,16 @@ namespace RFTechnology.BusinessCode
             this.label5.TabIndex = 8;
             this.label5.Text = "【折后】售价：756 ¥";
             // 
+            // PayFinishedGetResult
+            // 
+            this.PayFinishedGetResult.Location = new System.Drawing.Point(592, 195);
+            this.PayFinishedGetResult.Name = "PayFinishedGetResult";
+            this.PayFinishedGetResult.Size = new System.Drawing.Size(181, 67);
+            this.PayFinishedGetResult.TabIndex = 6;
+            this.PayFinishedGetResult.Text = "已支付/手动刷新";
+            this.PayFinishedGetResult.UseVisualStyleBackColor = true;
+            this.PayFinishedGetResult.Click += new System.EventHandler(this.PayFinishedGetResult_Click);
+            // 
             // BusinessPayCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -209,6 +220,7 @@ namespace RFTechnology.BusinessCode
             this.Controls.Add(this.purchase12);
             this.Controls.Add(this.purchase6);
             this.Controls.Add(this.purchase3);
+            this.Controls.Add(this.PayFinishedGetResult);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TextBox);
             this.Controls.Add(this.WxPayCode);
@@ -237,5 +249,6 @@ namespace RFTechnology.BusinessCode
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button PayFinishedGetResult;
     }
 }

@@ -218,6 +218,10 @@ namespace YeDassaultSystemDev
                     {
                         Product product = (Product)SelectArc.Item(1).LeafProduct;
                         xlsFileName = product.get_Name();
+                        Product ProductPar = (Product)product.Parent;
+                        xlsFileName = ProductPar.get_Name();
+                        //SPAWorkbench ProductParDocument = (SPAWorkbench)((ProductDocument)CatApplication.Documents.Item(xlsFileName)).GetWorkbench("SPAWorkbench");
+
                         //xlsFileName = SelectArc.Item(1).get_Name();
                         //hy product = (HybridBody)SelectArc.Item(1).Value;
                         //xlsFileName = product.();
@@ -233,7 +237,6 @@ namespace YeDassaultSystemDev
                 SPAWorkbench TheSPAWorkbench = null;
                 TheSPAWorkbench = (SPAWorkbench)CatDocument.GetWorkbench("SPAWorkbench"); // Default Get Coordxyz From Word
                 CatDocument.Product.ActivateShape("Geometrical Set.1");
-
                 Reference referenceObject;
                 String ObjType = SelectArc.Item(i).Type;
                 Boolean LeafProductProcessed;

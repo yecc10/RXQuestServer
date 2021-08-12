@@ -53,7 +53,7 @@ namespace RFTechnology
             //服务器中已存在记录
             dataClassesData.GetDbAllDataWithCurrentPC(NetBoardID, ref KeyCode, ref CreateTime, ref RegPayFinishedTime, ref LastLogTime, ref RegPayDays);
         }
-        public int CheckAccessFromNet()
+        public int CheckAccessFromNet(ref bool HasAccessToRun)
         {
             //1 正常执行完成 0 网络未连接 -1网线未连接  -2用户权限过期
             if (IsConnected())
@@ -64,12 +64,12 @@ namespace RFTechnology
                 {
                     GetedDataFromSql = true;
                     CheckCorderFromDataBase();
-                    CheckUserAccess(KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays),true);
+                    CheckUserAccess(ref HasAccessToRun ,KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays),true);
                     return 1;
                 }
                 else
                 {
-                    CheckUserAccess(KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
+                    CheckUserAccess(ref HasAccessToRun,KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
                     return -1;
                 }
             }
@@ -90,10 +90,9 @@ namespace RFTechnology
                 return string.Empty;
             }
         }
-        public bool CheckUserAccess(string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays,bool GetedDataFromSql=false)
+        public bool CheckUserAccess(ref bool HasAccessToRun,string KeyCode, DateTime CreateTime, DateTime RegPayFinishedTime, int RegPayDays,bool GetedDataFromSql=false)
         {
             DateTime dateTime = DateTime.Now;
-            bool HasAccessToRun = false;
             var Psh = new PasswordHasher();
             //检查注册信息,如果未注册设定30天试用
             PasswordHasher passwordHasher = new PasswordHasher();

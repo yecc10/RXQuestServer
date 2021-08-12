@@ -30,7 +30,6 @@ namespace WxPayAPI
         {
 
         }
-
         //采用排序的Dictionary的好处是方便对数据包进行签名，不用再签名之前再做一次排序
         private SortedDictionary<string, object> m_values = new SortedDictionary<string, object>();
 

@@ -1,12 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AHRFKJ" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=1.117.219.238;Initial Catalog=AHRFKJ;Persist Security Info=True;User ID=sa" SettingsObjectName="RFTechnology.Properties.Settings" SettingsPropertyName="AHRFKJConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.WxPayInformation" Member="WxPayInformation">
+    <Type Name="WxPayInformation">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="NetID" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="device_info" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="openid" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="is_subscribe" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="trade_type" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="trade_state" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="bank_type" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="total_fee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="settlement_total_fee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fee_type" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="cash_fee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cash_fee_type" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="coupon_fee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="coupon_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="coupon_type_$n" Member="coupon_type__n" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="coupon_id_$n" Member="coupon_id__n" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="coupon_fee_$n" Member="coupon_fee__n" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="transaction_id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="out_trade_no" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="attach" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="time_end" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="trade_state_desc" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.UserComputerData" Member="UserComputerData">
     <Type Name="UserComputerData">
-      <Column Name="NetID" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ID" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ComputerName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="NetID" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
       <Column Name="CPUID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
       <Column Name="BoardID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
       <Column Name="BIOSID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
       <Column Name="DiskID" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RegPayDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RegPayFinishedTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PushedEndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastLogTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="KeyCode" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.CheckComputerWithRegInformation" Method="CheckComputerWithRegInformation">
@@ -35,6 +70,32 @@
     <Parameter Name="BoardID" Parameter="boardID" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="KeyCode" Parameter="keyCode" Type="System.String" DbType="NVarChar(128)" />
     <Parameter Name="SubmitTime" Parameter="submitTime" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddUserWxPayInformation" Method="AddUserWxPayInformation">
+    <Parameter Name="NetID" Parameter="netID" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="device_info" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="openid" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="is_subscribe" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="trade_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="trade_state" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="bank_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="total_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="settlement_total_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fee_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="cash_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cash_fee_type" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="coupon_fee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="coupon_count" Type="System.Int32" DbType="Int" />
+    <Parameter Name="coupon_type_$n" Parameter="coupon_type__n" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="coupon_id_$n" Parameter="coupon_id__n" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="coupon_fee_$n" Parameter="coupon_fee__n" Type="System.Int32" DbType="Int" />
+    <Parameter Name="transaction_id" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="out_trade_no" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="attach" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="time_end" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="trade_state_desc" Type="System.String" DbType="NVarChar(128)" />
+    <Parameter Name="Writed" Parameter="writed" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -15,7 +15,6 @@ namespace WxPayAPI
         public ResultNotify(Page page):base(page)
         {
         }
-
         public override void ProcessNotify()
         {
             WxPayData notifyData = GetNotifyData();
