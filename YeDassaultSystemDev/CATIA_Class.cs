@@ -265,6 +265,39 @@ namespace YeDassaultSystemDev
             return;
 
         }
+        /// <summary>
+        /// 根据用户需求类型获得用户选择集
+        /// </summary>
+        /// <param name="CatDocument">主体对象</param>
+        /// <param name="SelectArc">返回选择集合</param>
+        /// <param name="InputObjectTypeIndex">选择类型</param>
+        /// <param name="form">当前窗体</param>
+        public void GetSelect(ProductDocument CatDocument, ref Selection SelectArc,int InputObjectTypeIndex, Form form)
+        {
+            if (CatDocument == null)
+            {
+                MessageBox.Show("仿真环境未初始化！请先用工具栏初始化命令初始化运行环境!");
+                return;
+            }
+            form.WindowState = FormWindowState.Minimized;
+            SelectArc = CatDocument.Selection;
+            SelectArc.Clear();
+            var Result = SelectArc.SelectElement3(InputObjectType(InputObjectTypeIndex), "请选择曲面", true, CATMultiSelectionMode.CATMultiSelTriggWhenSelPerf, false);
+            if (Result == "Cancel")
+            {
+                return;
+            }
+            if (SelectArc.Count < 1)
+            {
+                MessageBox.Show("请先选择对象后再点此命令！");
+                return;
+            }
+            form.WindowState = FormWindowState.Normal;
+            form.StartPosition = FormStartPosition.CenterScreen;
+
+            return;
+
+        }
         [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
         private object[] InputObjectType(int ReadType)
         {
@@ -289,6 +322,10 @@ namespace YeDassaultSystemDev
                 case 5: //BooleanShape  
                     {
                         return new object[] { "HybridShape", "Shape", "Body" };
+                    }
+                case 6: //BooleanShape  
+                    {
+                        return new object[] { "Product" };
                     }
                 default:
                     return new object[] { "AnyObject" };
