@@ -29,7 +29,7 @@ using FittingTypeLib;
 using DNBASY;
 using YeccAutoCenter;
 using CATSchematicTypeLib;
-
+using DRAFTINGITF;
 
 namespace YeDassaultSystemDev
 {
@@ -40,6 +40,21 @@ namespace YeDassaultSystemDev
         Part PartID;
         AnyObject[] GetRepeatRef = new AnyObject[9999];
         CATIA_Class CATIA_Class = new CATIA_Class();
+        string Identificationclass = "2DIdentificationclass";
+        List<string> ViaIndentification = new List<string> { "定位块", "连接块", "脚座", "压紧块", "压臂", "销座", "Base" };
+        /// <summary>
+        /// 3D零件有效类别
+        /// </summary>
+        enum ViaIndentificationEnum
+        {
+            定位块
+                , 连接块
+                , 脚座
+                , 压紧块
+                , 压臂
+                , 销座
+                , Base
+        }
         /// <summary>
         /// 实例化的容器存放单元中零件对象集合
         /// </summary>
@@ -48,8 +63,13 @@ namespace YeDassaultSystemDev
         /// 实例化的容器存放单元中需要创建2D的零件对象集合
         /// </summary>
         List<Product> vUnitPartProductList = new List<Product>();// 实例化的容器存放单元中需要创建2D的零件对象集合
-        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 经过检查缺失类别属性的对象
+        /// </summary>
+        List<Product> ErrPartList = new List<Product>();// 实例化的容器存放单元中需要创建2D的零件对象集合
+        DrawingDocument drawingDocument = null;
 
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         int RepeatNum = 0;
         public _2DModel()
@@ -57,12 +77,6 @@ namespace YeDassaultSystemDev
             InitializeComponent();
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
         }
-
-        private void ReConnectCATIA_Click(object sender, EventArgs e)
-        {
-            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
-        }
-
         private void Read3DPose_Click(object sender, EventArgs e)
         {
             PartlistBox.Items.Clear(); //清空当前列表
@@ -185,6 +199,182 @@ namespace YeDassaultSystemDev
                     MessageBox.Show("添加失败，请重新选择！");
                     return;
                 }
+            }
+            CheckPartList();//检测添加的对象是否合法
+        }
+
+        private void Create2DDrawing_Click(object sender, EventArgs e)
+        {
+            // 直接使用模板 不再重新创建
+            //try
+            //{
+            //    drawingDocument = (DrawingDocument)CatApplication.Documents.Add("Drawing");//创建2D草绘
+            //    string FilePath = CatDocument.Path;
+            //    if (string.IsNullOrEmpty(FilePath))
+            //    {
+            //        FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //    }
+            //    CatApplication.DisplayFileAlerts = false;
+            //    drawingDocument.SaveAs(FilePath + "\\" + UnitName.Text + ".CATDrawing");
+            //    CatApplication.DisplayFileAlerts = true;
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("创建草绘 草图失败！请重启软件重试！");
+            //    return;
+            //}
+            try
+            {
+                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
+                DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
+                drawingDocument = RefdrawingDocument; // Updata 20210729 禁用重新创建草图
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("打开参考 草图失败！请重启软件重试！");
+                return;
+            }
+            DrawingSheets drawingSheets = drawingDocument.Sheets;
+            foreach (Product item in vUnitPartProductList)
+            {
+                //根据零件属性名称 创建2D图框 草图
+
+            }
+        }
+        private void _2DModel_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+        }
+
+        private void Reconnect_Click(object sender, EventArgs e)
+        {
+            CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
+        }
+
+        private void CheckPartDefine_Click(object sender, EventArgs e)
+        {
+            CheckPartList();
+        }
+        /// <summary>
+        /// 检测即将导出2D的零件集合是否存在问题
+        /// </summary>
+        private void CheckPartList()
+        {
+            UnFindAttrPartList.Items.Clear();
+            foreach (Product Part in vUnitPartProductList)
+            {
+                Parameters parameters = null;
+                string PartName = Part.get_PartNumber();
+                try
+                {
+                    parameters = Part.ReferenceProduct.UserRefProperties;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                bool Find = false;
+                foreach (Parameter item in parameters)
+                {
+                    string ParamName = item.get_Name();
+                    string[] StrName = ParamName.Split(new char[1] { '\\' });
+                    ParamName = StrName[2];
+                    //string ParamName = item.ValueAsString(); 获取属性值
+                    if (ParamName == Identificationclass)
+                    {
+                        string ParamValue = item.ValueAsString(); //获取属性值
+                        if (ViaIndentification.IndexOf(ParamValue) > 0) //检查零件的值是否属于合法范围
+                        {
+                            Find = true;
+                            continue;
+                        }
+                    }
+                }
+                if (!Find)
+                {
+                    try
+                    {
+                        ErrPartList.Add(Part);
+                        UnFindAttrPartList.Items.Add(PartName);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(PartName + "零件缺失属性，系统在将其添加到故障零件清单中操作失败！");
+                        return;
+                    }
+                }
+                //StrParam strParam = parameters.CreateString("类型", "定位块");
+            }
+            if (UnFindAttrPartList.Items.Count < 1)
+            {
+                MessageBox.Show("当前零件全部正常！");
+            }
+        }
+        private void UnFindAttrPartList_Click(object sender, EventArgs e)
+        {
+            if (UnFindAttrPartList.SelectedIndex < 0)
+            {
+                return;
+            }
+            int DeletePartIndex = UnFindAttrPartList.SelectedIndex;
+            String DeletePartName = UnFindAttrPartList.SelectedItem.ToString();
+            try
+            {
+                Product PreDeletePart = (Product)ErrPartList[DeletePartIndex];
+                if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                {
+                    try
+                    {
+                        Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
+                        parameters.CreateString(Identificationclass, "连接块");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("为当前对象创建类别失败！请检查对象是否取消激活！");
+                        return;
+                    }
+                    ErrPartList.Remove(PreDeletePart); //删除用户指定对象
+                    UnFindAttrPartList.Items.Remove(UnFindAttrPartList.SelectedItem);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void UnitPartProductList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //PartAttr
+            if (UnitPartProductList.SelectedIndex < 0)
+            {
+                return;
+            }
+            int DeletePartIndex = UnitPartProductList.SelectedIndex;
+            String DeletePartName = UnitPartProductList.SelectedItem.ToString();
+            try
+            {
+                Product PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
+                if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                {
+                    try
+                    {
+                        Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
+                        StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
+                        PartAttr.Text = strParam.ValueAsString();
+                    }
+                    catch (Exception)
+                    {
+                        PartAttr.Text = "读取选择的对象属性失败，未检测到对象存在有效属性请在左侧对其进行定义！！！";
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                PartAttr.Text = "对象属性获取失败！！！";
             }
         }
     }
