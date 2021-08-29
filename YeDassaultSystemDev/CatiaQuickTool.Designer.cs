@@ -69,9 +69,10 @@
             // 
             // TryRead
             // 
-            this.TryRead.Location = new System.Drawing.Point(602, 461);
+            this.TryRead.Location = new System.Drawing.Point(903, 692);
+            this.TryRead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TryRead.Name = "TryRead";
-            this.TryRead.Size = new System.Drawing.Size(118, 44);
+            this.TryRead.Size = new System.Drawing.Size(177, 66);
             this.TryRead.TabIndex = 0;
             this.TryRead.Text = "返回上一级";
             this.TryRead.UseVisualStyleBackColor = true;
@@ -82,18 +83,20 @@
             this.KeepName.AutoSize = true;
             this.KeepName.Checked = true;
             this.KeepName.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.KeepName.Location = new System.Drawing.Point(12, 454);
+            this.KeepName.Location = new System.Drawing.Point(18, 681);
+            this.KeepName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.KeepName.Name = "KeepName";
-            this.KeepName.Size = new System.Drawing.Size(72, 16);
+            this.KeepName.Size = new System.Drawing.Size(106, 22);
             this.KeepName.TabIndex = 1;
             this.KeepName.Text = "保留名称";
             this.KeepName.UseVisualStyleBackColor = true;
             // 
             // OutToEXcel
             // 
-            this.OutToEXcel.Location = new System.Drawing.Point(748, 402);
+            this.OutToEXcel.Location = new System.Drawing.Point(1122, 603);
+            this.OutToEXcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.OutToEXcel.Name = "OutToEXcel";
-            this.OutToEXcel.Size = new System.Drawing.Size(118, 44);
+            this.OutToEXcel.Size = new System.Drawing.Size(177, 66);
             this.OutToEXcel.TabIndex = 2;
             this.OutToEXcel.Text = "导出EXCEL";
             this.OutToEXcel.UseVisualStyleBackColor = true;
@@ -101,9 +104,10 @@
             // 
             // BollToPoint
             // 
-            this.BollToPoint.Location = new System.Drawing.Point(164, 402);
+            this.BollToPoint.Location = new System.Drawing.Point(246, 603);
+            this.BollToPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BollToPoint.Name = "BollToPoint";
-            this.BollToPoint.Size = new System.Drawing.Size(118, 44);
+            this.BollToPoint.Size = new System.Drawing.Size(177, 66);
             this.BollToPoint.TabIndex = 2;
             this.BollToPoint.Text = "球生成点";
             this.BollToPoint.UseVisualStyleBackColor = true;
@@ -111,9 +115,10 @@
             // 
             // InsGun
             // 
-            this.InsGun.Location = new System.Drawing.Point(602, 402);
+            this.InsGun.Location = new System.Drawing.Point(903, 603);
+            this.InsGun.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.InsGun.Name = "InsGun";
-            this.InsGun.Size = new System.Drawing.Size(118, 44);
+            this.InsGun.Size = new System.Drawing.Size(177, 66);
             this.InsGun.TabIndex = 2;
             this.InsGun.Text = "插入焊钳";
             this.InsGun.UseVisualStyleBackColor = true;
@@ -125,19 +130,22 @@
             this.DataGrid.AllowUserToDeleteRows = false;
             this.DataGrid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGrid.Location = new System.Drawing.Point(12, 39);
+            this.DataGrid.Location = new System.Drawing.Point(18, 58);
+            this.DataGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DataGrid.Name = "DataGrid";
             this.DataGrid.ReadOnly = true;
+            this.DataGrid.RowHeadersWidth = 62;
             this.DataGrid.RowTemplate.Height = 23;
             this.DataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataGrid.Size = new System.Drawing.Size(852, 357);
+            this.DataGrid.Size = new System.Drawing.Size(1278, 536);
             this.DataGrid.TabIndex = 3;
             // 
             // ReadCoord
             // 
-            this.ReadCoord.Location = new System.Drawing.Point(164, 461);
+            this.ReadCoord.Location = new System.Drawing.Point(246, 692);
+            this.ReadCoord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ReadCoord.Name = "ReadCoord";
-            this.ReadCoord.Size = new System.Drawing.Size(118, 44);
+            this.ReadCoord.Size = new System.Drawing.Size(177, 66);
             this.ReadCoord.TabIndex = 2;
             this.ReadCoord.Text = "求解任意坐标";
             this.ReadCoord.UseVisualStyleBackColor = true;
@@ -145,9 +153,10 @@
             // 
             // ClearAllData
             // 
-            this.ClearAllData.Location = new System.Drawing.Point(310, 402);
+            this.ClearAllData.Location = new System.Drawing.Point(465, 603);
+            this.ClearAllData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ClearAllData.Name = "ClearAllData";
-            this.ClearAllData.Size = new System.Drawing.Size(118, 44);
+            this.ClearAllData.Size = new System.Drawing.Size(177, 66);
             this.ClearAllData.TabIndex = 2;
             this.ClearAllData.Text = "清空数据";
             this.ClearAllData.UseVisualStyleBackColor = true;
@@ -159,9 +168,10 @@
             // 
             // PointToCoord
             // 
-            this.PointToCoord.Location = new System.Drawing.Point(18, 402);
+            this.PointToCoord.Location = new System.Drawing.Point(27, 603);
+            this.PointToCoord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PointToCoord.Name = "PointToCoord";
-            this.PointToCoord.Size = new System.Drawing.Size(118, 44);
+            this.PointToCoord.Size = new System.Drawing.Size(177, 66);
             this.PointToCoord.TabIndex = 2;
             this.PointToCoord.Text = "求解点坐标";
             this.PointToCoord.UseVisualStyleBackColor = true;
@@ -170,9 +180,10 @@
             // ReadAixPoint
             // 
             this.ReadAixPoint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ReadAixPoint.Location = new System.Drawing.Point(310, 461);
+            this.ReadAixPoint.Location = new System.Drawing.Point(465, 692);
+            this.ReadAixPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ReadAixPoint.Name = "ReadAixPoint";
-            this.ReadAixPoint.Size = new System.Drawing.Size(118, 44);
+            this.ReadAixPoint.Size = new System.Drawing.Size(177, 66);
             this.ReadAixPoint.TabIndex = 2;
             this.ReadAixPoint.Text = "坐标导入";
             this.ReadAixPoint.UseVisualStyleBackColor = false;
@@ -180,9 +191,10 @@
             // 
             // Creat3dPoint
             // 
-            this.Creat3dPoint.Location = new System.Drawing.Point(456, 402);
+            this.Creat3dPoint.Location = new System.Drawing.Point(684, 603);
+            this.Creat3dPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Creat3dPoint.Name = "Creat3dPoint";
-            this.Creat3dPoint.Size = new System.Drawing.Size(118, 44);
+            this.Creat3dPoint.Size = new System.Drawing.Size(177, 66);
             this.Creat3dPoint.TabIndex = 2;
             this.Creat3dPoint.Text = "生成3D点";
             this.Creat3dPoint.UseVisualStyleBackColor = true;
@@ -190,9 +202,10 @@
             // 
             // Creat3dBall
             // 
-            this.Creat3dBall.Location = new System.Drawing.Point(456, 461);
+            this.Creat3dBall.Location = new System.Drawing.Point(684, 692);
+            this.Creat3dBall.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Creat3dBall.Name = "Creat3dBall";
-            this.Creat3dBall.Size = new System.Drawing.Size(118, 44);
+            this.Creat3dBall.Size = new System.Drawing.Size(177, 66);
             this.Creat3dBall.TabIndex = 2;
             this.Creat3dBall.Text = "生成3D球";
             this.Creat3dBall.UseVisualStyleBackColor = true;
@@ -201,9 +214,10 @@
             // BallRadio
             // 
             this.BallRadio.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BallRadio.Location = new System.Drawing.Point(787, 455);
+            this.BallRadio.Location = new System.Drawing.Point(1180, 682);
+            this.BallRadio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BallRadio.Name = "BallRadio";
-            this.BallRadio.Size = new System.Drawing.Size(77, 26);
+            this.BallRadio.Size = new System.Drawing.Size(114, 35);
             this.BallRadio.TabIndex = 4;
             this.BallRadio.Text = "6";
             this.BallRadio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -211,9 +225,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(740, 462);
+            this.label1.Location = new System.Drawing.Point(1110, 693);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(62, 18);
             this.label1.TabIndex = 5;
             this.label1.Text = "球半径";
             // 
@@ -222,9 +237,10 @@
             this.RepeatCheck.AutoSize = true;
             this.RepeatCheck.Checked = true;
             this.RepeatCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.RepeatCheck.Location = new System.Drawing.Point(12, 477);
+            this.RepeatCheck.Location = new System.Drawing.Point(18, 716);
+            this.RepeatCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RepeatCheck.Name = "RepeatCheck";
-            this.RepeatCheck.Size = new System.Drawing.Size(72, 16);
+            this.RepeatCheck.Size = new System.Drawing.Size(106, 22);
             this.RepeatCheck.TabIndex = 1;
             this.RepeatCheck.Text = "重复检查";
             this.RepeatCheck.UseVisualStyleBackColor = true;
@@ -234,9 +250,10 @@
             this.IgRepeat.AutoSize = true;
             this.IgRepeat.Checked = true;
             this.IgRepeat.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IgRepeat.Location = new System.Drawing.Point(92, 477);
+            this.IgRepeat.Location = new System.Drawing.Point(138, 716);
+            this.IgRepeat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.IgRepeat.Name = "IgRepeat";
-            this.IgRepeat.Size = new System.Drawing.Size(72, 16);
+            this.IgRepeat.Size = new System.Drawing.Size(106, 22);
             this.IgRepeat.TabIndex = 1;
             this.IgRepeat.Text = "过滤重复";
             this.IgRepeat.UseVisualStyleBackColor = true;
@@ -246,9 +263,10 @@
             this.ByExcel.AutoSize = true;
             this.ByExcel.Checked = true;
             this.ByExcel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ByExcel.Location = new System.Drawing.Point(92, 455);
+            this.ByExcel.Location = new System.Drawing.Point(138, 682);
+            this.ByExcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ByExcel.Name = "ByExcel";
-            this.ByExcel.Size = new System.Drawing.Size(66, 16);
+            this.ByExcel.Size = new System.Drawing.Size(97, 22);
             this.ByExcel.TabIndex = 1;
             this.ByExcel.Text = "ByExcel";
             this.ByExcel.UseVisualStyleBackColor = true;
@@ -258,9 +276,10 @@
             this.ARCChange.AutoSize = true;
             this.ARCChange.Checked = true;
             this.ARCChange.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ARCChange.Location = new System.Drawing.Point(12, 499);
+            this.ARCChange.Location = new System.Drawing.Point(18, 748);
+            this.ARCChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ARCChange.Name = "ARCChange";
-            this.ARCChange.Size = new System.Drawing.Size(108, 16);
+            this.ARCChange.Size = new System.Drawing.Size(160, 22);
             this.ARCChange.TabIndex = 1;
             this.ARCChange.Text = "Delmia->OutTag";
             this.ARCChange.UseVisualStyleBackColor = true;
@@ -274,7 +293,8 @@
             this.toolStripDropDownButton1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(878, 31);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.toolStrip.Size = new System.Drawing.Size(1317, 33);
             this.toolStrip.TabIndex = 6;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -286,14 +306,14 @@
             this.SportOprator.Image = global::YeDassaultSystemDev.Properties.Resources.Address_book;
             this.SportOprator.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SportOprator.Name = "SportOprator";
-            this.SportOprator.Size = new System.Drawing.Size(37, 28);
+            this.SportOprator.Size = new System.Drawing.Size(42, 28);
             this.SportOprator.Text = "实体焊点转化";
             // 
             // ExtraPadToSurface
             // 
             this.ExtraPadToSurface.Image = global::YeDassaultSystemDev.Properties.Resources.Arrow_upload;
             this.ExtraPadToSurface.Name = "ExtraPadToSurface";
-            this.ExtraPadToSurface.Size = new System.Drawing.Size(160, 22);
+            this.ExtraPadToSurface.Size = new System.Drawing.Size(236, 34);
             this.ExtraPadToSurface.Text = "实体焊点转几何";
             this.ExtraPadToSurface.Click += new System.EventHandler(this.ExtraPadToSurface_Click);
             // 
@@ -305,22 +325,23 @@
             this.toolStripDropDownButton1.Image = global::YeDassaultSystemDev.Properties.Resources.Gear;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(37, 28);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(42, 28);
             this.toolStripDropDownButton1.Text = "CATIA操作";
             // 
             // InitCatia
             // 
             this.InitCatia.Image = global::YeDassaultSystemDev.Properties.Resources.Health;
             this.InitCatia.Name = "InitCatia";
-            this.InitCatia.Size = new System.Drawing.Size(147, 22);
+            this.InitCatia.Size = new System.Drawing.Size(217, 34);
             this.InitCatia.Text = "初始化CATIA";
             this.InitCatia.Click += new System.EventHandler(this.InitCatia_Click);
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 545);
+            this.progressBar.Location = new System.Drawing.Point(18, 818);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(854, 23);
+            this.progressBar.Size = new System.Drawing.Size(1281, 34);
             this.progressBar.TabIndex = 7;
             // 
             // skipViaPoint
@@ -328,9 +349,10 @@
             this.skipViaPoint.AutoSize = true;
             this.skipViaPoint.Checked = true;
             this.skipViaPoint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.skipViaPoint.Location = new System.Drawing.Point(12, 521);
+            this.skipViaPoint.Location = new System.Drawing.Point(18, 782);
+            this.skipViaPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.skipViaPoint.Name = "skipViaPoint";
-            this.skipViaPoint.Size = new System.Drawing.Size(120, 16);
+            this.skipViaPoint.Size = new System.Drawing.Size(178, 22);
             this.skipViaPoint.TabIndex = 1;
             this.skipViaPoint.Text = "自动跳过ViaPoint";
             this.skipViaPoint.UseVisualStyleBackColor = true;
@@ -340,9 +362,10 @@
             this.getJTCoord.AutoSize = true;
             this.getJTCoord.Checked = true;
             this.getJTCoord.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.getJTCoord.Location = new System.Drawing.Point(162, 521);
+            this.getJTCoord.Location = new System.Drawing.Point(243, 782);
+            this.getJTCoord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.getJTCoord.Name = "getJTCoord";
-            this.getJTCoord.Size = new System.Drawing.Size(120, 16);
+            this.getJTCoord.Size = new System.Drawing.Size(178, 22);
             this.getJTCoord.TabIndex = 1;
             this.getJTCoord.Text = "Read-JT->STP坐标";
             this.getJTCoord.UseVisualStyleBackColor = true;
@@ -351,9 +374,10 @@
             // 
             this.ConCatia.AutoSize = true;
             this.ConCatia.Checked = true;
-            this.ConCatia.Location = new System.Drawing.Point(682, 520);
+            this.ConCatia.Location = new System.Drawing.Point(1023, 780);
+            this.ConCatia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ConCatia.Name = "ConCatia";
-            this.ConCatia.Size = new System.Drawing.Size(77, 16);
+            this.ConCatia.Size = new System.Drawing.Size(114, 22);
             this.ConCatia.TabIndex = 8;
             this.ConCatia.TabStop = true;
             this.ConCatia.Text = "CATIA通信";
@@ -363,9 +387,10 @@
             // ConDelmia
             // 
             this.ConDelmia.AutoSize = true;
-            this.ConDelmia.Location = new System.Drawing.Point(783, 520);
+            this.ConDelmia.Location = new System.Drawing.Point(1174, 780);
+            this.ConDelmia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ConDelmia.Name = "ConDelmia";
-            this.ConDelmia.Size = new System.Drawing.Size(83, 16);
+            this.ConDelmia.Size = new System.Drawing.Size(123, 22);
             this.ConDelmia.TabIndex = 8;
             this.ConDelmia.Text = "Delmia通信";
             this.ConDelmia.UseVisualStyleBackColor = true;
@@ -373,17 +398,19 @@
             // myMessage
             // 
             this.myMessage.AutoSize = true;
-            this.myMessage.Location = new System.Drawing.Point(310, 523);
+            this.myMessage.Location = new System.Drawing.Point(465, 784);
+            this.myMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.myMessage.Name = "myMessage";
-            this.myMessage.Size = new System.Drawing.Size(0, 12);
+            this.myMessage.Size = new System.Drawing.Size(0, 18);
             this.myMessage.TabIndex = 9;
             // 
             // MinDistance
             // 
             this.MinDistance.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.MinDistance.Location = new System.Drawing.Point(787, 487);
+            this.MinDistance.Location = new System.Drawing.Point(1180, 730);
+            this.MinDistance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MinDistance.Name = "MinDistance";
-            this.MinDistance.Size = new System.Drawing.Size(77, 26);
+            this.MinDistance.Size = new System.Drawing.Size(114, 35);
             this.MinDistance.TabIndex = 4;
             this.MinDistance.Text = "5";
             this.MinDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -391,18 +418,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(729, 494);
+            this.label2.Location = new System.Drawing.Point(1094, 741);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(80, 18);
             this.label2.TabIndex = 5;
             this.label2.Text = "最小间距";
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(308, 521);
+            this.linkLabel1.Location = new System.Drawing.Point(15, 867);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(155, 12);
+            this.linkLabel1.Size = new System.Drawing.Size(233, 18);
             this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "https://blog.csdn.net/qingyangwuji/article/details/116357927";
@@ -411,10 +440,10 @@
             // 
             // CatiaQuickTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(878, 580);
+            this.ClientSize = new System.Drawing.Size(1317, 898);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.myMessage);
             this.Controls.Add(this.ConDelmia);
@@ -445,6 +474,7 @@
             this.Controls.Add(this.TryRead);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CatiaQuickTool";
             this.Text = "CatiaQuickTool";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CatiaQuickTool_FormClosed);

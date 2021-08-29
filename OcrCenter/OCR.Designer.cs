@@ -44,9 +44,10 @@
             // 
             // ReadTarget
             // 
-            this.ReadTarget.Location = new System.Drawing.Point(13, 443);
+            this.ReadTarget.Location = new System.Drawing.Point(20, 664);
+            this.ReadTarget.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ReadTarget.Name = "ReadTarget";
-            this.ReadTarget.Size = new System.Drawing.Size(107, 38);
+            this.ReadTarget.Size = new System.Drawing.Size(160, 57);
             this.ReadTarget.TabIndex = 0;
             this.ReadTarget.Text = "读取文件";
             this.ReadTarget.UseVisualStyleBackColor = true;
@@ -54,41 +55,46 @@
             // 
             // FilePath
             // 
-            this.FilePath.Location = new System.Drawing.Point(70, 12);
+            this.FilePath.Location = new System.Drawing.Point(105, 18);
+            this.FilePath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FilePath.Name = "FilePath";
-            this.FilePath.Size = new System.Drawing.Size(788, 21);
+            this.FilePath.Size = new System.Drawing.Size(1180, 28);
             this.FilePath.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 15);
+            this.label1.Location = new System.Drawing.Point(8, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.Size = new System.Drawing.Size(89, 18);
             this.label1.TabIndex = 2;
             this.label1.Text = "文件地址:";
             // 
             // ResultTest
             // 
-            this.ResultTest.Location = new System.Drawing.Point(13, 42);
+            this.ResultTest.Location = new System.Drawing.Point(20, 63);
+            this.ResultTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ResultTest.Multiline = true;
             this.ResultTest.Name = "ResultTest";
             this.ResultTest.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ResultTest.Size = new System.Drawing.Size(845, 343);
+            this.ResultTest.Size = new System.Drawing.Size(1266, 512);
             this.ResultTest.TabIndex = 3;
             // 
             // PBOCR
             // 
-            this.PBOCR.Location = new System.Drawing.Point(13, 391);
+            this.PBOCR.Location = new System.Drawing.Point(20, 586);
+            this.PBOCR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PBOCR.Name = "PBOCR";
-            this.PBOCR.Size = new System.Drawing.Size(845, 23);
+            this.PBOCR.Size = new System.Drawing.Size(1268, 34);
             this.PBOCR.TabIndex = 4;
             // 
             // savetoword
             // 
-            this.savetoword.Location = new System.Drawing.Point(751, 443);
+            this.savetoword.Location = new System.Drawing.Point(1126, 664);
+            this.savetoword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.savetoword.Name = "savetoword";
-            this.savetoword.Size = new System.Drawing.Size(107, 38);
+            this.savetoword.Size = new System.Drawing.Size(160, 57);
             this.savetoword.TabIndex = 0;
             this.savetoword.Text = "保存到Word";
             this.savetoword.UseVisualStyleBackColor = true;
@@ -97,9 +103,10 @@
             // ByBaiduEngner
             // 
             this.ByBaiduEngner.AutoSize = true;
-            this.ByBaiduEngner.Location = new System.Drawing.Point(13, 421);
+            this.ByBaiduEngner.Location = new System.Drawing.Point(20, 632);
+            this.ByBaiduEngner.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ByBaiduEngner.Name = "ByBaiduEngner";
-            this.ByBaiduEngner.Size = new System.Drawing.Size(114, 16);
+            this.ByBaiduEngner.Size = new System.Drawing.Size(169, 22);
             this.ByBaiduEngner.TabIndex = 5;
             this.ByBaiduEngner.Text = "使用百度OCR引擎";
             this.ByBaiduEngner.UseVisualStyleBackColor = true;
@@ -109,18 +116,20 @@
             this.ByInnerEngner.AutoSize = true;
             this.ByInnerEngner.Checked = true;
             this.ByInnerEngner.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ByInnerEngner.Location = new System.Drawing.Point(133, 421);
+            this.ByInnerEngner.Location = new System.Drawing.Point(200, 632);
+            this.ByInnerEngner.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ByInnerEngner.Name = "ByInnerEngner";
-            this.ByInnerEngner.Size = new System.Drawing.Size(114, 16);
+            this.ByInnerEngner.Size = new System.Drawing.Size(169, 22);
             this.ByInnerEngner.TabIndex = 5;
             this.ByInnerEngner.Text = "使用内置OCR引擎";
             this.ByInnerEngner.UseVisualStyleBackColor = true;
             // 
             // GetScreenOprator
             // 
-            this.GetScreenOprator.Location = new System.Drawing.Point(126, 443);
+            this.GetScreenOprator.Location = new System.Drawing.Point(189, 664);
+            this.GetScreenOprator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GetScreenOprator.Name = "GetScreenOprator";
-            this.GetScreenOprator.Size = new System.Drawing.Size(107, 38);
+            this.GetScreenOprator.Size = new System.Drawing.Size(160, 57);
             this.GetScreenOprator.TabIndex = 0;
             this.GetScreenOprator.Text = "选取屏幕";
             this.GetScreenOprator.UseVisualStyleBackColor = true;
@@ -132,9 +141,9 @@
             // 
             // OCR
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 496);
+            this.ClientSize = new System.Drawing.Size(1302, 734);
             this.Controls.Add(this.ByInnerEngner);
             this.Controls.Add(this.ByBaiduEngner);
             this.Controls.Add(this.PBOCR);
@@ -144,9 +153,10 @@
             this.Controls.Add(this.savetoword);
             this.Controls.Add(this.GetScreenOprator);
             this.Controls.Add(this.ReadTarget);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(885, 535);
-            this.MinimumSize = new System.Drawing.Size(885, 535);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(0, 790);
             this.Name = "OCR";
             this.Text = "OCR";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OCR_FormClosed);

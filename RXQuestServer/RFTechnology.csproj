@@ -60,10 +60,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>5E5452FD9731B80F11066B7B1C1C7DEB889B72F2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>1C08F4A0EC7796F98455030D3BBA122FA837A03C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>RFTechnology_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -76,6 +77,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>RFTechnology.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>RFTechnology_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -240,9 +247,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="RFTechnology_1_TemporaryKey.pfx" />
-    <None Include="RFTechnology_TemporaryKey.pfx" />
-    <None Include="RXQuestServer_TemporaryKey.pfx" />
     <None Include="Resourse\软件协议.rtf" />
+    <None Include="RFTechnology_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

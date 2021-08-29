@@ -263,5 +263,20 @@ namespace RFTechnology
             userDataInformationFromServer.ShowDialog();
             userDataInformationFromServer.TopMost = true;
         }
+
+        private void CZ_2D_Draft_Click(object sender, EventArgs e)
+        {
+            if (!HasAccessToRun)
+            {
+                CheckUserAccess();
+            }
+            if (HasAccessToRun)
+            {
+                this.TopMost = false;
+                YeDassaultSystemDev._2DModel _2DModel = new YeDassaultSystemDev._2DModel();
+                this.Hide();
+                _2DModel.ShowDialog();
+            }
+        }
     }
 }

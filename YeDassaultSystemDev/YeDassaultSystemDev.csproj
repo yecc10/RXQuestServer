@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2DModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="2DModel.Designer.cs">
+      <DependentUpon>2DModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="CatiaQuickTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="2DModel.resx">
+      <DependentUpon>2DModel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CatiaQuickTool.resx">
       <DependentUpon>CatiaQuickTool.cs</DependentUpon>
     </EmbeddedResource>

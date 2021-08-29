@@ -59,6 +59,7 @@
             this.OpenApplicationdoc = new System.Windows.Forms.ToolStripMenuItem();
             this.反馈问题建议ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.获取当前电脑注册信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CZ_2D_Draft = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Yecc_Help)).BeginInit();
             this.MainTool.SuspendLayout();
             this.SuspendLayout();
@@ -110,9 +111,10 @@
             // 
             this.Yecc_Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Yecc_Help.Image = ((System.Drawing.Image)(resources.GetObject("Yecc_Help.Image")));
-            this.Yecc_Help.Location = new System.Drawing.Point(401, 185);
+            this.Yecc_Help.Location = new System.Drawing.Point(602, 278);
+            this.Yecc_Help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Yecc_Help.Name = "Yecc_Help";
-            this.Yecc_Help.Size = new System.Drawing.Size(125, 41);
+            this.Yecc_Help.Size = new System.Drawing.Size(188, 62);
             this.Yecc_Help.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Yecc_Help.TabIndex = 1;
             this.Yecc_Help.TabStop = false;
@@ -133,7 +135,8 @@
             this.问题反馈及帮助});
             this.MainTool.Location = new System.Drawing.Point(0, 0);
             this.MainTool.Name = "MainTool";
-            this.MainTool.Size = new System.Drawing.Size(538, 39);
+            this.MainTool.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.MainTool.Size = new System.Drawing.Size(807, 41);
             this.MainTool.TabIndex = 2;
             this.MainTool.Text = "MainTool";
             // 
@@ -142,24 +145,25 @@
             this.达索软件接口.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.达索软件接口.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.InitDelmia,
-            this.WeldSport});
+            this.WeldSport,
+            this.CZ_2D_Draft});
             this.达索软件接口.Image = global::RFTechnology.Properties.Resources.Address_book;
             this.达索软件接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.达索软件接口.Name = "达索软件接口";
-            this.达索软件接口.Size = new System.Drawing.Size(45, 36);
+            this.达索软件接口.Size = new System.Drawing.Size(50, 36);
             this.达索软件接口.Text = "达索软件接口";
             // 
             // InitDelmia
             // 
             this.InitDelmia.Name = "InitDelmia";
-            this.InitDelmia.Size = new System.Drawing.Size(140, 22);
+            this.InitDelmia.Size = new System.Drawing.Size(270, 34);
             this.InitDelmia.Text = "Delmia仿真";
             this.InitDelmia.Click += new System.EventHandler(this.InitDelmiaDocument_Click);
             // 
             // WeldSport
             // 
             this.WeldSport.Name = "WeldSport";
-            this.WeldSport.Size = new System.Drawing.Size(140, 22);
+            this.WeldSport.Size = new System.Drawing.Size(270, 34);
             this.WeldSport.Text = "焊点处理";
             this.WeldSport.Click += new System.EventHandler(this.WeldSportTool_Click);
             // 
@@ -174,34 +178,34 @@
             this.工厂仿真快捷接口.Image = global::RFTechnology.Properties.Resources.Home;
             this.工厂仿真快捷接口.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工厂仿真快捷接口.Name = "工厂仿真快捷接口";
-            this.工厂仿真快捷接口.Size = new System.Drawing.Size(45, 36);
+            this.工厂仿真快捷接口.Size = new System.Drawing.Size(50, 36);
             this.工厂仿真快捷接口.Text = "工厂仿真快捷接口";
             // 
             // plant离线创建路径ToolStripMenuItem
             // 
             this.plant离线创建路径ToolStripMenuItem.Name = "plant离线创建路径ToolStripMenuItem";
-            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.plant离线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.plant离线创建路径ToolStripMenuItem.Text = "Plant离线创建路径";
             this.plant离线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.PlantDTrack_Click);
             // 
             // plant在线创建路径ToolStripMenuItem
             // 
             this.plant在线创建路径ToolStripMenuItem.Name = "plant在线创建路径ToolStripMenuItem";
-            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.plant在线创建路径ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.plant在线创建路径ToolStripMenuItem.Text = "Plant在线创建路径";
             this.plant在线创建路径ToolStripMenuItem.Click += new System.EventHandler(this.CreateTrackOnLine_Click);
             // 
             // plant创建围栏ToolStripMenuItem
             // 
             this.plant创建围栏ToolStripMenuItem.Name = "plant创建围栏ToolStripMenuItem";
-            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.plant创建围栏ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.plant创建围栏ToolStripMenuItem.Text = "Plant创建围栏";
             this.plant创建围栏ToolStripMenuItem.Click += new System.EventHandler(this.PlantDFence_Click);
             // 
             // WordToAixForPlant
             // 
             this.WordToAixForPlant.Name = "WordToAixForPlant";
-            this.WordToAixForPlant.Size = new System.Drawing.Size(176, 22);
+            this.WordToAixForPlant.Size = new System.Drawing.Size(270, 34);
             this.WordToAixForPlant.Text = "Plant文字仓储";
             this.WordToAixForPlant.Click += new System.EventHandler(this.WordToAixForPlant_Click);
             // 
@@ -215,26 +219,26 @@
             this.工作辅助.Image = global::RFTechnology.Properties.Resources.Phone;
             this.工作辅助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.工作辅助.Name = "工作辅助";
-            this.工作辅助.Size = new System.Drawing.Size(45, 36);
+            this.工作辅助.Size = new System.Drawing.Size(50, 36);
             this.工作辅助.Text = "工作辅助";
             // 
             // 经验库登记ToolStripMenuItem
             // 
             this.经验库登记ToolStripMenuItem.Name = "经验库登记ToolStripMenuItem";
-            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.经验库登记ToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.经验库登记ToolStripMenuItem.Text = "经验库登记";
             // 
             // oCRToolStripMenuItem
             // 
             this.oCRToolStripMenuItem.Name = "oCRToolStripMenuItem";
-            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.oCRToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.oCRToolStripMenuItem.Text = "OCR";
             this.oCRToolStripMenuItem.Click += new System.EventHandler(this.GotoOCR_Click);
             // 
             // 办公ToolStripMenuItem
             // 
             this.办公ToolStripMenuItem.Name = "办公ToolStripMenuItem";
-            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.办公ToolStripMenuItem.Size = new System.Drawing.Size(200, 34);
             this.办公ToolStripMenuItem.Text = "办公";
             this.办公ToolStripMenuItem.Click += new System.EventHandler(this.WorkData_Click);
             // 
@@ -250,7 +254,7 @@
             this.问题反馈及帮助.Image = global::RFTechnology.Properties.Resources.Help;
             this.问题反馈及帮助.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.问题反馈及帮助.Name = "问题反馈及帮助";
-            this.问题反馈及帮助.Size = new System.Drawing.Size(45, 36);
+            this.问题反馈及帮助.Size = new System.Drawing.Size(50, 36);
             this.问题反馈及帮助.Text = "问题反馈及帮助";
             // 
             // ReadHelp
@@ -259,63 +263,71 @@
             this.访问官方网站ToolStripMenuItem,
             this.关于本软件ToolStripMenuItem});
             this.ReadHelp.Name = "ReadHelp";
-            this.ReadHelp.Size = new System.Drawing.Size(196, 22);
+            this.ReadHelp.Size = new System.Drawing.Size(290, 34);
             this.ReadHelp.Text = "帮助";
             this.ReadHelp.Click += new System.EventHandler(this.ReadHelp_Click);
             // 
             // 访问官方网站ToolStripMenuItem
             // 
             this.访问官方网站ToolStripMenuItem.Name = "访问官方网站ToolStripMenuItem";
-            this.访问官方网站ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.访问官方网站ToolStripMenuItem.Size = new System.Drawing.Size(402, 34);
             this.访问官方网站ToolStripMenuItem.Text = "访问官方网站http://www.ahrfkj.cn/";
             this.访问官方网站ToolStripMenuItem.Click += new System.EventHandler(this.访问官方网站ToolStripMenuItem_Click);
             // 
             // 关于本软件ToolStripMenuItem
             // 
             this.关于本软件ToolStripMenuItem.Name = "关于本软件ToolStripMenuItem";
-            this.关于本软件ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.关于本软件ToolStripMenuItem.Size = new System.Drawing.Size(402, 34);
             this.关于本软件ToolStripMenuItem.Text = "关于本软件";
             this.关于本软件ToolStripMenuItem.Click += new System.EventHandler(this.关于本软件ToolStripMenuItem_Click);
             // 
             // 注册永久授权ToolStripMenuItem
             // 
             this.注册永久授权ToolStripMenuItem.Name = "注册永久授权ToolStripMenuItem";
-            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.注册永久授权ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
             this.注册永久授权ToolStripMenuItem.Text = "注册授权";
             this.注册永久授权ToolStripMenuItem.Click += new System.EventHandler(this.Yecc_Help_Click);
             // 
             // OpenApplicationdoc
             // 
             this.OpenApplicationdoc.Name = "OpenApplicationdoc";
-            this.OpenApplicationdoc.Size = new System.Drawing.Size(196, 22);
+            this.OpenApplicationdoc.Size = new System.Drawing.Size(290, 34);
             this.OpenApplicationdoc.Text = "打开软件安装目录";
             this.OpenApplicationdoc.Click += new System.EventHandler(this.OpenApplicationdoc_Click);
             // 
             // 反馈问题建议ToolStripMenuItem
             // 
             this.反馈问题建议ToolStripMenuItem.Name = "反馈问题建议ToolStripMenuItem";
-            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.反馈问题建议ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
             this.反馈问题建议ToolStripMenuItem.Text = "反馈问题/建议";
             this.反馈问题建议ToolStripMenuItem.Click += new System.EventHandler(this.反馈问题建议ToolStripMenuItem_Click);
             // 
             // 获取当前电脑注册信息ToolStripMenuItem
             // 
             this.获取当前电脑注册信息ToolStripMenuItem.Name = "获取当前电脑注册信息ToolStripMenuItem";
-            this.获取当前电脑注册信息ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.获取当前电脑注册信息ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
             this.获取当前电脑注册信息ToolStripMenuItem.Text = "获取当前电脑注册信息";
             this.获取当前电脑注册信息ToolStripMenuItem.Click += new System.EventHandler(this.获取当前电脑注册信息ToolStripMenuItem_Click);
             // 
+            // CZ_2D_Draft
+            // 
+            this.CZ_2D_Draft.Name = "CZ_2D_Draft";
+            this.CZ_2D_Draft.Size = new System.Drawing.Size(270, 34);
+            this.CZ_2D_Draft.Text = "长城2D拆图";
+            this.CZ_2D_Draft.Click += new System.EventHandler(this.CZ_2D_Draft_Click);
+            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(538, 238);
+            this.ClientSize = new System.Drawing.Size(807, 357);
             this.Controls.Add(this.MainTool);
             this.Controls.Add(this.Yecc_Help);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -358,6 +370,7 @@
         private System.Windows.Forms.ToolStripMenuItem 访问官方网站ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于本软件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 获取当前电脑注册信息ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CZ_2D_Draft;
     }
 }
 
