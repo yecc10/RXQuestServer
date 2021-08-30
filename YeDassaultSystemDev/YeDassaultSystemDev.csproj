@@ -89,6 +89,7 @@
     <Compile Include="CATIA_Class.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="GetFilePicture.cs" />
+    <Compile Include="GetSysDPIAndScale.cs" />
     <Compile Include="GloalForDelmia.cs" />
     <Compile Include="InitDelmiaDocument.cs">
       <SubType>Form</SubType>

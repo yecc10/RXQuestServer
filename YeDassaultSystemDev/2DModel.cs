@@ -42,6 +42,7 @@ namespace YeDassaultSystemDev
         AnyObject[] GetRepeatRef = new AnyObject[9999];
         CATIA_Class CATIA_Class = new CATIA_Class();
         string Identificationclass = "2DIdentificationclass";
+        MaterialDocument oMaterial_document = null;
         List<string> ViaIndentification = new List<string> { };
         string PartTypeString = "定位块";
         /// <summary>
@@ -56,14 +57,29 @@ namespace YeDassaultSystemDev
         /// 经过检查缺失类别属性的对象
         /// </summary>
         List<Product> ErrPartList = new List<Product>();// 实例化的容器存放单元中需要创建2D的零件对象集合
+        /// <summary>
+        /// 材料集合
+        /// </summary>
+        List<Material> MaterialList = new List<Material> { };
         DrawingDocument drawingDocument = null;
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        int RepeatNum = 0;
         public _2DModel()
         {
             InitializeComponent();
+            //显示控制  100%  显示尺寸  1276, 756
+            //float SX = GetSysDPIAndScale.PrimaryScreen.ScaleX;
+            //if (SX<=1)
+            //{
+            //    this.Width = 1276;
+            //    this.Height = 756;
+            //}
+            //else
+            //{   //1912, 1132
+            //    this.Height = 1132;
+            //    this.Width = 1912 ;
+            //}
+
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
             if (!GetUserDrawingMode())
             {
@@ -490,16 +506,16 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            for (int i = 0; i < UnFindAttrPartList.SelectedItems.Count; i++)
+            do
             {
-                object item = UnFindAttrPartList.SelectedItems[i];
+                object item = UnFindAttrPartList.SelectedItems[0];
                 try
                 {
                     int DeletePartIndex = UnFindAttrPartList.Items.IndexOf(item);//获取对象在原始集合中的索引位置
                     String DeletePartName = item.ToString();//获取指定对象的名称
                     try
                     {
-                        Product PreDeletePart = (Product)ErrPartList.Find(x=>x.get_PartNumber()== DeletePartName);//根据名称在集合中自由查询到指定对象
+                        Product PreDeletePart = (Product)ErrPartList.Find(x => x.get_PartNumber() == DeletePartName);//根据名称在集合中自由查询到指定对象
                         if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                         {
                             try
@@ -538,7 +554,7 @@ namespace YeDassaultSystemDev
                     MessageBox.Show("添加失败，请重新选择！");
                     return;
                 }
-            }
+            } while (UnFindAttrPartList.SelectedItems.Count > 1);
         }
         private void UnFindAttrPartList_Click(object sender, EventArgs e)
         {
@@ -797,6 +813,124 @@ namespace YeDassaultSystemDev
             UpdataPartAttr();
             UnFindAttrPartList.SelectedItems.Clear();
             CheckPartList();
+        }
+
+        private void CheckMetera_Click(object sender, EventArgs e)
+        {
+            UnFindAttrPartList.Items.Clear();
+            ErrPartList.Clear();
+            foreach (Product item in vUnitPartProductList)
+            {
+                string PartName = item.get_PartNumber();
+                MaterialManager materialManager = (MaterialManager)item.GetItem("CATMatManagerVBExt");
+                Material material = null;
+                materialManager.GetMaterialOnProduct(item, out material); //0 Apply the material on the Part ; 1 Apply the material on the Part Body (as a link)
+                if (material == null)
+                {
+                    UnFindAttrPartList.Items.Add(PartName);
+                    ErrPartList.Add(item);
+                }
+            }
+            if (UnFindAttrPartList.Items.Count < 1)
+            {
+                MessageBox.Show("选中的全部零件材料状态已全部正常！");
+            }
+            /// 
+        }
+
+        private void GetmaterialFromDoc_Click(object sender, EventArgs e)
+        {
+            Documents mDocuments = CatApplication.Documents;
+            string MPath = CatApplication.SystemService.Environ("CATStartupPath");
+            string sFilePath = MPath + "\\materials\\RF.CATMaterial";
+            if (!CatApplication.FileSystem.FileExists(sFilePath))
+            {
+                MessageBox.Show("未查询到软件默认的材料表");
+                return;
+            }
+            try
+            {
+                oMaterial_document = (MaterialDocument)CatApplication.Documents.Open(sFilePath);//打开材料表
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("默认的材料表打开失败！");
+                return;
+            }
+            MaterialFamilies materialFamilies = oMaterial_document.Families;
+            int iNb_families_num = materialFamilies.Count;
+            string familiesListName = materialFamilies.Name;
+            MaterialFamily materialFamily = materialFamilies.Item(1);
+            string FirstFamilyName = materialFamily.get_Name();
+            foreach (Material item in materialFamily.Materials)
+            {
+                MaterialList.Add(item);
+                string MaterialName = item.get_Name();
+                materialList.Items.Add(MaterialName);
+            }
+            materialList.SelectedIndex = 1;
+            ////oMaterial_document = CatApplication.ActiveDocument;
+            //MaterialFamilies MaterialFamilies = (MaterialFamilies)oMaterial_document;
+            //int cT = MaterialFamilies.Count;
+            //Product product = null;
+        }
+
+        private void SetPartmaterial_Click(object sender, EventArgs e)
+        {
+            int UserSelectedNum = UnFindAttrPartList.SelectedItems.Count;
+            if (UserSelectedNum < 1)
+            {
+                return;
+            }
+            do
+            {
+                object item = UnFindAttrPartList.SelectedItems[0];
+                try
+                {
+                    int DeletePartIndex = UnFindAttrPartList.Items.IndexOf(item);//获取对象在原始集合中的索引位置
+                    String DeletePartName = item.ToString();//获取指定对象的名称
+                    try
+                    {
+                        Product PreDeletePart = (Product)ErrPartList.Find(x => x.get_PartNumber() == DeletePartName);//根据名称在集合中自由查询到指定对象
+                        if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                        {
+                            try
+                            {
+                                MaterialManager materialManager = (MaterialManager)PreDeletePart.GetItem("CATMatManagerVBExt");
+                                Material material = MaterialList.Find(x => x.get_Name() == materialList.Text);
+                                if (material == null)
+                                {
+                                    MessageBox.Show("从内存中读取读取材料错误！请重启软件后尝试！");
+                                }
+                                materialManager.ApplyMaterialOnProduct(PreDeletePart, material, 0);
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("为当前对象创建类别失败！请检查对象是否取消激活！");
+                                return;
+                            }
+                            ErrPartList.Remove(PreDeletePart); //删除用户指定对象
+                            UnFindAttrPartList.Items.Remove(UnFindAttrPartList.SelectedItem);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("添加失败，请重新选择！");
+                    return;
+                }
+                UserSelectedNum = UnFindAttrPartList.SelectedItems.Count;
+            } while (UserSelectedNum > 0);
+            UnFindAttrPartList.SelectedItems.Clear();
+            if (UnFindAttrPartList.Items.Count < 1)
+            {
+                oMaterial_document.Close();//关闭材料表 仅当零件材料赋值完成后关闭
+            }
         }
     }
 }

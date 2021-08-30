@@ -55,18 +55,25 @@ namespace YeDassaultSystemDev
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.BottomView = new System.Windows.Forms.PictureBox();
             this.属性缺失零件 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Reconnect = new System.Windows.Forms.Button();
             this.PartAttr = new System.Windows.Forms.TextBox();
             this.UpdateAttr = new System.Windows.Forms.Button();
             this.PartTypeGroupBox = new System.Windows.Forms.GroupBox();
-            this.CreateDraftView = new System.Windows.Forms.Button();
-            this.ScalePicture = new System.Windows.Forms.PictureBox();
             this.PartAttList = new System.Windows.Forms.ComboBox();
             this.SetPartAtt = new System.Windows.Forms.Button();
+            this.CreateDraftView = new System.Windows.Forms.Button();
+            this.ScalePicture = new System.Windows.Forms.PictureBox();
             this.获取图框中路清单 = new System.Windows.Forms.GroupBox();
-            this.GetViaPartAtt = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.AttrNumber = new System.Windows.Forms.TextBox();
+            this.GetViaPartAtt = new System.Windows.Forms.Button();
+            this.CheckMetera = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.materialList = new System.Windows.Forms.ComboBox();
+            this.SetPartmaterial = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.materialNumber = new System.Windows.Forms.TextBox();
+            this.GetmaterialFromDoc = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TopView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -79,6 +86,8 @@ namespace YeDassaultSystemDev
             this.PartTypeGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).BeginInit();
             this.获取图框中路清单.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
@@ -111,19 +120,19 @@ namespace YeDassaultSystemDev
             // 
             // CheckPartDefine
             // 
-            this.CheckPartDefine.BackColor = System.Drawing.Color.Yellow;
-            this.CheckPartDefine.Location = new System.Drawing.Point(370, 930);
+            this.CheckPartDefine.BackColor = System.Drawing.Color.Goldenrod;
+            this.CheckPartDefine.Location = new System.Drawing.Point(572, 930);
             this.CheckPartDefine.Name = "CheckPartDefine";
             this.CheckPartDefine.Size = new System.Drawing.Size(200, 64);
             this.CheckPartDefine.TabIndex = 11;
-            this.CheckPartDefine.Text = "检查零件定义";
+            this.CheckPartDefine.Text = "零件定义检查";
             this.CheckPartDefine.UseVisualStyleBackColor = false;
             this.CheckPartDefine.Click += new System.EventHandler(this.CheckPartDefine_Click);
             // 
             // Create2DDrawing
             // 
             this.Create2DDrawing.BackColor = System.Drawing.Color.Fuchsia;
-            this.Create2DDrawing.Location = new System.Drawing.Point(837, 930);
+            this.Create2DDrawing.Location = new System.Drawing.Point(1006, 930);
             this.Create2DDrawing.Name = "Create2DDrawing";
             this.Create2DDrawing.Size = new System.Drawing.Size(200, 64);
             this.Create2DDrawing.TabIndex = 11;
@@ -323,12 +332,20 @@ namespace YeDassaultSystemDev
             this.属性缺失零件.Size = new System.Drawing.Size(400, 400);
             this.属性缺失零件.TabIndex = 21;
             this.属性缺失零件.TabStop = false;
-            this.属性缺失零件.Text = "属性缺失零件【点击修复】";
+            this.属性缺失零件.Text = "待解决对象【点击修复】";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(422, 225);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(187, 43);
+            this.textBox1.TabIndex = 22;
             // 
             // Reconnect
             // 
             this.Reconnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.Reconnect.Location = new System.Drawing.Point(1444, 930);
+            this.Reconnect.Location = new System.Drawing.Point(1440, 930);
             this.Reconnect.Name = "Reconnect";
             this.Reconnect.Size = new System.Drawing.Size(200, 64);
             this.Reconnect.TabIndex = 11;
@@ -347,7 +364,7 @@ namespace YeDassaultSystemDev
             // UpdateAttr
             // 
             this.UpdateAttr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.UpdateAttr.Location = new System.Drawing.Point(604, 930);
+            this.UpdateAttr.Location = new System.Drawing.Point(356, 930);
             this.UpdateAttr.Name = "UpdateAttr";
             this.UpdateAttr.Size = new System.Drawing.Size(200, 64);
             this.UpdateAttr.TabIndex = 11;
@@ -366,26 +383,6 @@ namespace YeDassaultSystemDev
             this.PartTypeGroupBox.TabStop = false;
             this.PartTypeGroupBox.Text = "零件类型";
             // 
-            // CreateDraftView
-            // 
-            this.CreateDraftView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.CreateDraftView.Location = new System.Drawing.Point(1070, 930);
-            this.CreateDraftView.Name = "CreateDraftView";
-            this.CreateDraftView.Size = new System.Drawing.Size(200, 64);
-            this.CreateDraftView.TabIndex = 11;
-            this.CreateDraftView.Text = "创建3D零件投影";
-            this.CreateDraftView.UseVisualStyleBackColor = false;
-            this.CreateDraftView.Click += new System.EventHandler(this.CreateDraftView_Click);
-            // 
-            // ScalePicture
-            // 
-            this.ScalePicture.Location = new System.Drawing.Point(1659, 859);
-            this.ScalePicture.Name = "ScalePicture";
-            this.ScalePicture.Size = new System.Drawing.Size(200, 195);
-            this.ScalePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ScalePicture.TabIndex = 24;
-            this.ScalePicture.TabStop = false;
-            // 
             // PartAttList
             // 
             this.PartAttList.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -398,7 +395,7 @@ namespace YeDassaultSystemDev
             "压臂",
             "销座",
             "Base"});
-            this.PartAttList.Location = new System.Drawing.Point(7, 43);
+            this.PartAttList.Location = new System.Drawing.Point(8, 44);
             this.PartAttList.Name = "PartAttList";
             this.PartAttList.Size = new System.Drawing.Size(187, 32);
             this.PartAttList.TabIndex = 0;
@@ -407,13 +404,33 @@ namespace YeDassaultSystemDev
             // SetPartAtt
             // 
             this.SetPartAtt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.SetPartAtt.Location = new System.Drawing.Point(7, 94);
+            this.SetPartAtt.Location = new System.Drawing.Point(8, 94);
             this.SetPartAtt.Name = "SetPartAtt";
-            this.SetPartAtt.Size = new System.Drawing.Size(187, 64);
+            this.SetPartAtt.Size = new System.Drawing.Size(188, 64);
             this.SetPartAtt.TabIndex = 11;
             this.SetPartAtt.Text = "定义属性";
             this.SetPartAtt.UseVisualStyleBackColor = false;
             this.SetPartAtt.Click += new System.EventHandler(this.SetPartAtt_Click);
+            // 
+            // CreateDraftView
+            // 
+            this.CreateDraftView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.CreateDraftView.Location = new System.Drawing.Point(1222, 930);
+            this.CreateDraftView.Name = "CreateDraftView";
+            this.CreateDraftView.Size = new System.Drawing.Size(200, 64);
+            this.CreateDraftView.TabIndex = 11;
+            this.CreateDraftView.Text = "创建3D零件投影";
+            this.CreateDraftView.UseVisualStyleBackColor = false;
+            this.CreateDraftView.Click += new System.EventHandler(this.CreateDraftView_Click);
+            // 
+            // ScalePicture
+            // 
+            this.ScalePicture.Location = new System.Drawing.Point(1659, 860);
+            this.ScalePicture.Name = "ScalePicture";
+            this.ScalePicture.Size = new System.Drawing.Size(200, 195);
+            this.ScalePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ScalePicture.TabIndex = 24;
+            this.ScalePicture.TabStop = false;
             // 
             // 获取图框中路清单
             // 
@@ -421,47 +438,115 @@ namespace YeDassaultSystemDev
             this.获取图框中路清单.Controls.Add(this.GetViaPartAtt);
             this.获取图框中路清单.Location = new System.Drawing.Point(1659, 664);
             this.获取图框中路清单.Name = "获取图框中路清单";
-            this.获取图框中路清单.Size = new System.Drawing.Size(200, 179);
+            this.获取图框中路清单.Size = new System.Drawing.Size(200, 178);
             this.获取图框中路清单.TabIndex = 23;
             this.获取图框中路清单.TabStop = false;
             this.获取图框中路清单.Text = "获取图框种类清单";
             // 
+            // AttrNumber
+            // 
+            this.AttrNumber.Font = new System.Drawing.Font("宋体", 12F);
+            this.AttrNumber.Location = new System.Drawing.Point(8, 40);
+            this.AttrNumber.Name = "AttrNumber";
+            this.AttrNumber.Size = new System.Drawing.Size(187, 35);
+            this.AttrNumber.TabIndex = 12;
+            this.AttrNumber.Text = "10";
+            // 
             // GetViaPartAtt
             // 
             this.GetViaPartAtt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.GetViaPartAtt.Location = new System.Drawing.Point(7, 94);
+            this.GetViaPartAtt.Location = new System.Drawing.Point(8, 94);
             this.GetViaPartAtt.Name = "GetViaPartAtt";
-            this.GetViaPartAtt.Size = new System.Drawing.Size(187, 64);
+            this.GetViaPartAtt.Size = new System.Drawing.Size(188, 64);
             this.GetViaPartAtt.TabIndex = 11;
             this.GetViaPartAtt.Text = "获取属性";
             this.GetViaPartAtt.UseVisualStyleBackColor = false;
             this.GetViaPartAtt.Click += new System.EventHandler(this.GetViaPartAtt_Click);
             // 
-            // textBox1
+            // CheckMetera
             // 
-            this.textBox1.Location = new System.Drawing.Point(421, 225);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(187, 43);
-            this.textBox1.TabIndex = 22;
+            this.CheckMetera.BackColor = System.Drawing.Color.Goldenrod;
+            this.CheckMetera.Location = new System.Drawing.Point(789, 930);
+            this.CheckMetera.Name = "CheckMetera";
+            this.CheckMetera.Size = new System.Drawing.Size(200, 64);
+            this.CheckMetera.TabIndex = 11;
+            this.CheckMetera.Text = "零件材质检查";
+            this.CheckMetera.UseVisualStyleBackColor = false;
+            this.CheckMetera.Click += new System.EventHandler(this.CheckMetera_Click);
             // 
-            // AttrNumber
+            // groupBox6
             // 
-            this.AttrNumber.Font = new System.Drawing.Font("宋体", 12F);
-            this.AttrNumber.Location = new System.Drawing.Point(7, 41);
-            this.AttrNumber.Name = "AttrNumber";
-            this.AttrNumber.Size = new System.Drawing.Size(187, 35);
-            this.AttrNumber.TabIndex = 12;
-            this.AttrNumber.Text = "10";
+            this.groupBox6.Controls.Add(this.materialList);
+            this.groupBox6.Controls.Add(this.SetPartmaterial);
+            this.groupBox6.Location = new System.Drawing.Point(1653, 266);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(200, 189);
+            this.groupBox6.TabIndex = 23;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "材料类型";
+            // 
+            // materialList
+            // 
+            this.materialList.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.materialList.FormattingEnabled = true;
+            this.materialList.Location = new System.Drawing.Point(8, 44);
+            this.materialList.Name = "materialList";
+            this.materialList.Size = new System.Drawing.Size(187, 32);
+            this.materialList.TabIndex = 0;
+            this.materialList.TextChanged += new System.EventHandler(this.PartAttList_TabIndexChanged);
+            // 
+            // SetPartmaterial
+            // 
+            this.SetPartmaterial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.SetPartmaterial.Location = new System.Drawing.Point(8, 94);
+            this.SetPartmaterial.Name = "SetPartmaterial";
+            this.SetPartmaterial.Size = new System.Drawing.Size(188, 64);
+            this.SetPartmaterial.TabIndex = 11;
+            this.SetPartmaterial.Text = "定义属性";
+            this.SetPartmaterial.UseVisualStyleBackColor = false;
+            this.SetPartmaterial.Click += new System.EventHandler(this.SetPartmaterial_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.materialNumber);
+            this.groupBox7.Controls.Add(this.GetmaterialFromDoc);
+            this.groupBox7.Location = new System.Drawing.Point(1653, 62);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(200, 178);
+            this.groupBox7.TabIndex = 23;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "获取系统零件材料";
+            // 
+            // materialNumber
+            // 
+            this.materialNumber.Font = new System.Drawing.Font("宋体", 12F);
+            this.materialNumber.Location = new System.Drawing.Point(8, 40);
+            this.materialNumber.Name = "materialNumber";
+            this.materialNumber.Size = new System.Drawing.Size(187, 35);
+            this.materialNumber.TabIndex = 12;
+            this.materialNumber.Text = "10";
+            // 
+            // GetmaterialFromDoc
+            // 
+            this.GetmaterialFromDoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.GetmaterialFromDoc.Location = new System.Drawing.Point(8, 94);
+            this.GetmaterialFromDoc.Name = "GetmaterialFromDoc";
+            this.GetmaterialFromDoc.Size = new System.Drawing.Size(188, 64);
+            this.GetmaterialFromDoc.TabIndex = 11;
+            this.GetmaterialFromDoc.Text = "获取属性";
+            this.GetmaterialFromDoc.UseVisualStyleBackColor = false;
+            this.GetmaterialFromDoc.Click += new System.EventHandler(this.GetmaterialFromDoc_Click);
             // 
             // _2DModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(2167, 1090);
+            this.ClientSize = new System.Drawing.Size(1890, 1076);
             this.Controls.Add(this.ScalePicture);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.获取图框中路清单);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.PartTypeGroupBox);
             this.Controls.Add(this.PartAttr);
             this.Controls.Add(this.属性缺失零件);
@@ -480,6 +565,7 @@ namespace YeDassaultSystemDev
             this.Controls.Add(this.Reconnect);
             this.Controls.Add(this.CreateDraftView);
             this.Controls.Add(this.UpdateAttr);
+            this.Controls.Add(this.CheckMetera);
             this.Controls.Add(this.Create2DDrawing);
             this.Controls.Add(this.CheckPartDefine);
             this.Controls.Add(this.Read3DPose);
@@ -506,6 +592,9 @@ namespace YeDassaultSystemDev
             ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).EndInit();
             this.获取图框中路清单.ResumeLayout(false);
             this.获取图框中路清单.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,5 +638,12 @@ namespace YeDassaultSystemDev
         private System.Windows.Forms.GroupBox 获取图框中路清单;
         private System.Windows.Forms.TextBox AttrNumber;
         private System.Windows.Forms.Button GetViaPartAtt;
+        private System.Windows.Forms.Button CheckMetera;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.ComboBox materialList;
+        private System.Windows.Forms.Button SetPartmaterial;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox materialNumber;
+        private System.Windows.Forms.Button GetmaterialFromDoc;
     }
 }
