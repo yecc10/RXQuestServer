@@ -30,6 +30,7 @@ using DNBASY;
 using YeccAutoCenter;
 using CATSchematicTypeLib;
 using DRAFTINGITF;
+using Microsoft.WindowsAPICodePack.Shell;
 
 namespace YeDassaultSystemDev
 {
@@ -42,19 +43,7 @@ namespace YeDassaultSystemDev
         CATIA_Class CATIA_Class = new CATIA_Class();
         string Identificationclass = "2DIdentificationclass";
         List<string> ViaIndentification = new List<string> { "定位块", "连接块", "脚座", "压紧块", "压臂", "销座", "Base" };
-        /// <summary>
-        /// 3D零件有效类别
-        /// </summary>
-        enum ViaIndentificationEnum
-        {
-            定位块
-                , 连接块
-                , 脚座
-                , 压紧块
-                , 压臂
-                , 销座
-                , Base
-        }
+        string PartTypeString = "定位块";
         /// <summary>
         /// 实例化的容器存放单元中零件对象集合
         /// </summary>
@@ -80,6 +69,12 @@ namespace YeDassaultSystemDev
         private void Read3DPose_Click(object sender, EventArgs e)
         {
             PartlistBox.Items.Clear(); //清空当前列表
+            UnitPartProductList.Items.Clear();
+            UnFindAttrPartList.Items.Clear();
+            ErrPartList.Clear();
+            UnitPartList.Clear();
+            vUnitPartProductList.Clear();
+
             Selection SelectArc = null;
             CATIA_Class.GetSelect(CatDocument, ref SelectArc, 6, this);
             if (SelectArc == null || SelectArc.Count2 == 0)
@@ -223,23 +218,167 @@ namespace YeDassaultSystemDev
             //    MessageBox.Show("创建草绘 草图失败！请重启软件重试！");
             //    return;
             //}
+            if (UnFindAttrPartList.Items.Count > 0)
+            {
+                MessageBox.Show("！");
+                return;
+            }
+            progressBar.Value = 0;
             try
             {
-                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
-                DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
-                drawingDocument = RefdrawingDocument; // Updata 20210729 禁用重新创建草图
+                //读取已经打开的草图
+                drawingDocument = (DrawingDocument)CatApplication.Documents.Item("Model.CATDrawing");
+
+                //debug
+                //Documents Documents = CatApplication.Documents;
+                //foreach (Document item in Documents)
+                //{
+                //    string DocName = item.get_Name();
+                //}
             }
             catch (Exception)
             {
-                MessageBox.Show("打开参考 草图失败！请重启软件重试！");
-                return;
+                //未成功检索到 已打开的模板图  开始自行打开新的模板图
+                try
+                {
+                    string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
+                    DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
+                    drawingDocument = RefdrawingDocument; // Updata 20210729 禁用重新创建草图
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("打开参考 草图失败！请重启软件重试！");
+                    return;
+                }
             }
             DrawingSheets drawingSheets = drawingDocument.Sheets;
-            foreach (Product item in vUnitPartProductList)
+            int TotalPages = vUnitPartProductList.Count;
+            int CurrentPage = 1;
+            progressBar.Step = 1000 / TotalPages;
+            foreach (Product CUnitProduct in vUnitPartProductList)
             {
-                //根据零件属性名称 创建2D图框 草图
+                //根据零件属性名称 创建2D图框 草图 
+                string CUnitProductName = CUnitProduct.get_PartNumber();
+                Parameters parameters = CUnitProduct.ReferenceProduct.UserRefProperties;
+                StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
+                string CunitType = strParam.ValueAsString();
+                if (ViaIndentification.IndexOf(CunitType) < 0)
+                {
+                    MessageBox.Show("零件属性不合法，已停止后续任务执行！");
+                    return;
+                }
+                DrawingSheet drawingSheet = null;
+                try
+                {
+                    Selection selection = drawingDocument.Selection;
+                    selection.Clear();
+                    drawingSheet = drawingSheets.Item(CunitType);
+                    if (drawingSheet == null)
+                    {
+                        MessageBox.Show(CunitType + "  对象未在草图模板中找到！请检查该对象！");
+                        return;
+                    }
+                    selection.Add(drawingSheet);
+                    selection.Copy();
+                    selection.Clear();
+                    DrawingRoot drawingRoot = (DrawingRoot)drawingDocument.GetItem("CATIADrawingDrawing0");
+                    selection.Add(drawingRoot);
+                    selection.Paste();
+                    selection.Clear();
+                    drawingSheet = drawingSheets.Item(drawingSheets.Count);
+                    try
+                    {
+                        drawingSheet.set_Name(CUnitProductName);
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            drawingSheet.set_PaperName(CUnitProductName);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("零件：" + CUnitProductName + "操作失败！请重新操作！");
+                    return;
+                }
+                try
+                {
+                    DrawingViews DetailparametersViews = drawingSheet.Views;
+                    int uindex = DetailparametersViews.Count;
+                    DrawingView DetailparametersView = DetailparametersViews.ActiveView;
+                    string ViewName = DetailparametersView.get_Name();
+                    GeometricElements DetailGeometricElements = DetailparametersView.GeometricElements;//获取主视图中所有几何元素
+                    uindex = DetailGeometricElements.Count;
+                    foreach (GeometricElement item in DetailGeometricElements)
+                    {
+                        String MVNAME = item.get_Name();
+                    }
+                    DrawingComponents drawingComponents = DetailparametersView.Components; //获取组件
+                    uindex = drawingComponents.Count;
+                    if (uindex > 1)
+                    {
+                        foreach (DrawingComponent drawingComponent in drawingComponents)
+                        {
+                            String MVNAME = drawingComponent.get_Name();
+                        }
+                    }
+                    DrawingDimensions drawingDimensions = DetailparametersView.Dimensions;//获取尺寸标注信息
+                    uindex = drawingDimensions.Count;
+                    DrawingViewGenerativeLinks drawingViewGenerativeLinks = DetailparametersView.GenerativeLinks;//获取2D链接
+                    DrawingTexts drawingTexts = DetailparametersView.Texts;//获取图框中全部文字信息
+                    uindex = drawingTexts.Count;
+                    if (uindex > 0)
+                    {
 
+                        DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_LeftProductName");
+                        string Tvalue = drawingText.get_Text();
+                        drawingText.set_Text(CUnitProductName);
+                    }
+
+                    //进入图纸背景状态
+                    DetailparametersView = DetailparametersViews.Item(2);//获取背景视图
+                    ViewName = DetailparametersView.get_Name();
+                    drawingTexts = DetailparametersView.Texts;//获取图框中全部文字信息
+                    uindex = drawingTexts.Count;
+                    if (uindex > 0)
+                    {
+                        //更新零件背景编号
+                        DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_ProductName");
+                        //string Tvalue = drawingText.get_Text();
+                        drawingText.set_Text(CUnitProductName);
+                        //更新总页数
+                        drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_DRAWING_Num");
+                        string DRAWING_Num = drawingText.get_Text();
+                        string NewText = "共" + TotalPages + "张" + "\r\n" + "ALL No.";
+                        drawingText.set_Text(NewText);
+                        //更新当前页数
+                        drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_SHEET_Num");
+                        DRAWING_Num = drawingText.get_Text();
+                        NewText = "第" + CurrentPage + "张" + "\r\n" + "Page No.";
+                        drawingText.set_Text(NewText);
+                        CurrentPage += 1;
+                        progressBar.PerformStep();
+                        progressBar.Update();//刷新进度条
+                        //更新零件重量
+                    }
+                    //var res = DetailGeometricElements.GetItem("0-NW26-W281L-C49-U05-01");
+                    //int Pnum = parameters.Count;
+                    //StrParam STRLeftProductText = (StrParam)parameters.Item("TitleBlock_Text_LeftProductName");
+                    //STRLeftProductText.set_Value(CUnitProductName);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("零件：" + CUnitProductName + "内部编号命名失败，操作失败！请重新操作！");
+                    return;
+                }
             }
         }
         private void _2DModel_FormClosed(object sender, FormClosedEventArgs e)
@@ -279,7 +418,7 @@ namespace YeDassaultSystemDev
                 foreach (Parameter item in parameters)
                 {
                     string ParamName = item.get_Name();
-                    string[] StrName = ParamName.Split(new char[1] { '\\' });
+                    string[] StrName = ParamName.Split(new char[1] { '\\' });//分割字符串
                     ParamName = StrName[2];
                     //string ParamName = item.ValueAsString(); 获取属性值
                     if (ParamName == Identificationclass)
@@ -312,7 +451,10 @@ namespace YeDassaultSystemDev
                 MessageBox.Show("当前零件全部正常！");
             }
         }
-        private void UnFindAttrPartList_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 更新用户选中的零件属性类型
+        /// </summary>
+        private void UpdataPartAttr()
         {
             if (UnFindAttrPartList.SelectedIndex < 0)
             {
@@ -328,7 +470,7 @@ namespace YeDassaultSystemDev
                     try
                     {
                         Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
-                        parameters.CreateString(Identificationclass, "连接块");
+                        parameters.CreateString(Identificationclass, PartTypeString);
                     }
                     catch (Exception)
                     {
@@ -342,6 +484,41 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
                 throw;
+            }
+        }
+        private void UnFindAttrPartList_Click(object sender, EventArgs e)
+        {
+            if (UnFindAttrPartList.Items.Count < 1)
+            {
+                return;
+            }
+            if (UnFindAttrPartList.SelectedIndex < 0)
+            {
+                return;
+            }
+            if (true)
+            {
+
+            }
+            int DeletePartIndex = UnFindAttrPartList.SelectedIndex;
+            String DeletePartName = UnFindAttrPartList.SelectedItem.ToString();
+            try
+            {
+                Product PreDeletePart = (Product)ErrPartList[DeletePartIndex];
+                if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                {
+                    PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                    //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
+                    //ScalePicture.ImageLocation = ImagPath;
+                    ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
+                    Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
+                    ScalePicture.Image = bitmap;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
+                return;
             }
         }
 
@@ -364,6 +541,10 @@ namespace YeDassaultSystemDev
                         Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
                         StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
                         PartAttr.Text = strParam.ValueAsString();
+                        PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                        ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
+                        Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
+                        ScalePicture.Image = bitmap;
                     }
                     catch (Exception)
                     {
@@ -376,6 +557,181 @@ namespace YeDassaultSystemDev
             {
                 PartAttr.Text = "对象属性获取失败！！！";
             }
+        }
+
+        private void UpdateAttr_Click(object sender, EventArgs e)
+        {
+            if (UnitPartProductList.SelectedIndex < 0)
+            {
+                return;
+            }
+            int DeletePartIndex = UnitPartProductList.SelectedIndex;
+            String DeletePartName = UnitPartProductList.SelectedItem.ToString();
+            try
+            {
+                Product PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
+                if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                {
+                    try
+                    {
+                        Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
+                        parameters.CreateString(Identificationclass, PartTypeString);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("为当前对象更新类别失败！请检查对象是否取消激活！");
+                        return;
+                    }
+                    PartAttr.Text = "对象属性已更新完成！！！";
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #region 用户单击类型按钮对对象进行定义 ---需要更新
+        // "定位块", "连接块", "脚座", "压紧块", "压臂", "销座", "Base"
+        private void RB1_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "定位块";
+            UpdataPartAttr();
+        }
+
+        private void RB2_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "连接块";
+            UpdataPartAttr();
+        }
+
+        private void RB3_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "脚座";
+            UpdataPartAttr();
+        }
+
+        private void RB4_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "压紧块";
+            UpdataPartAttr();
+        }
+
+        private void RB5_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "压臂";
+            UpdataPartAttr();
+        }
+
+        private void RB6_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "销座";
+            UpdataPartAttr();
+        }
+
+        private void RB7_CheckedChanged(object sender, EventArgs e)
+        {
+            PartTypeString = "Base";
+            UpdataPartAttr();
+        }
+        #endregion
+        private void CreateDraftView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //读取已经打开的草图
+                drawingDocument = (DrawingDocument)CatApplication.Documents.Item("Model.CATDrawing");
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("未检索到任何已经打开的草图！请检查！任务已退出！");
+                return;
+            }
+            int TotalPages = vUnitPartProductList.Count;
+            int CurrentPage = 1;
+            progressBar.Step = 1000 / TotalPages;
+            DrawingSheets drawingSheets = drawingDocument.Sheets;
+            ProductDocument productDocument = (ProductDocument)CatApplication.Documents.Item(UnitName.Text + ".CATProduct");//直接获取对象--即将被投影的零件
+            foreach (Product CUnitProduct in vUnitPartProductList)
+            {
+                String ProductName = CUnitProduct.get_PartNumber();
+                DrawingSheet drawingSheet = null;
+                try
+                {
+                    drawingSheet = drawingSheets.Item(ProductName);
+                    if (drawingSheet == null)
+                    {
+                        MessageBox.Show(ProductName + "  对象未在草图模板中找到！请检查该对象！");
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(ProductName + "  对象未在草图模板中找到！请检查该对象！");
+                    return;
+                }
+                DrawingViews drawingViews = drawingSheet.Views;
+                DrawingView drawingView = drawingViews.Add("AutomaticNaming");
+                drawingView.x = 210;
+                drawingView.y = 184.5;
+                drawingView.Scale = 1.000000;
+                DrawingViewGenerativeLinks drawingViewGenerativeLinks = drawingView.GenerativeLinks;//获取对象链接操作接口
+                DrawingViewGenerativeBehavior drawingViewGenerativeBehavior = drawingView.GenerativeBehavior;//获取对象视角操作接口
+                Products UnitContainer = productDocument.Product.Products;
+                Product TargetPart = UnitContainer.Item(CUnitProduct.get_Name());
+                try
+                {
+                    string dename = CUnitProduct.get_Name();
+                    drawingViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
+                    drawingViewGenerativeBehavior.DefineFrontView(0.000000, -1.000000, 0.000000, -1.000000, 0.000000, 0.000000);
+                    drawingViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                try
+                {
+                    DrawingView drawingtopView = drawingViews.Add("AutomaticNaming");
+                    drawingtopView.x = 210;
+                    drawingtopView.y = 33.5;
+                    drawingtopView.Scale = 1.000000;
+                    DrawingViewGenerativeLinks drawingTopViewGenerativeLinks = drawingtopView.GenerativeLinks;//获取对象链接操作接口
+                    DrawingViewGenerativeBehavior drawingTopViewGenerativeBehavior = drawingtopView.GenerativeBehavior;//获取对象视角操作接口
+                    drawingTopViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
+                    drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catTopView);//设置顶视图投影视角
+                    drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                try
+                {
+                    DrawingView drawingtopView = drawingViews.Add("AutomaticNaming");
+                    drawingtopView.x = 325;
+                    drawingtopView.y = 148;
+                    drawingtopView.Scale = 1.000000;
+                    DrawingViewGenerativeLinks drawingTopViewGenerativeLinks = drawingtopView.GenerativeLinks;//获取对象链接操作接口
+                    DrawingViewGenerativeBehavior drawingTopViewGenerativeBehavior = drawingtopView.GenerativeBehavior;//获取对象视角操作接口
+                    drawingTopViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
+                    drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catLeftView);//设置顶视图投影视角
+                    drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                CurrentPage += 1;
+                progressBar.PerformStep();
+                progressBar.Update();//刷新进度条
+            }
+
+
+
+
         }
     }
 }
