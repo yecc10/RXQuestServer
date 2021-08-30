@@ -237,6 +237,7 @@ namespace YeDassaultSystemDev
             this.ToBottom.TabIndex = 14;
             this.ToBottom.Text = "下移";
             this.ToBottom.UseVisualStyleBackColor = true;
+            this.ToBottom.Click += new System.EventHandler(this.ToBottom_Click);
             // 
             // UnFindAttrPartList
             // 

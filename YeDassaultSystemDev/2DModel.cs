@@ -246,7 +246,6 @@ namespace YeDassaultSystemDev
             {
                 //读取已经打开的草图
                 drawingDocument = (DrawingDocument)CatApplication.Documents.Item("Model.CATDrawing");
-
                 //debug
                 //Documents Documents = CatApplication.Documents;
                 //foreach (Document item in Documents)
@@ -286,6 +285,18 @@ namespace YeDassaultSystemDev
                     MessageBox.Show("零件属性不合法，已停止后续任务执行！");
                     return;
                 }
+                #region 激活拆图窗口
+                try
+                {
+                    Windows CATWindows = CatApplication.Windows;
+                    Window DrawingWindow = CATWindows.Item("Model.CATDrawing");
+                    DrawingWindow.Activate();
+                }
+                catch (Exception)
+                {
+
+                }
+                #endregion
                 DrawingSheet drawingSheet = null;
                 try
                 {
@@ -329,62 +340,84 @@ namespace YeDassaultSystemDev
                 try
                 {
                     DrawingViews DetailparametersViews = drawingSheet.Views;
-                    int uindex = DetailparametersViews.Count;
                     DrawingView DetailparametersView = DetailparametersViews.ActiveView;
-                    string ViewName = DetailparametersView.get_Name();
-                    GeometricElements DetailGeometricElements = DetailparametersView.GeometricElements;//获取主视图中所有几何元素
-                    uindex = DetailGeometricElements.Count;
-                    foreach (GeometricElement item in DetailGeometricElements)
-                    {
-                        String MVNAME = item.get_Name();
-                    }
-                    DrawingComponents drawingComponents = DetailparametersView.Components; //获取组件
-                    uindex = drawingComponents.Count;
-                    if (uindex > 1)
-                    {
-                        foreach (DrawingComponent drawingComponent in drawingComponents)
-                        {
-                            String MVNAME = drawingComponent.get_Name();
-                        }
-                    }
-                    DrawingDimensions drawingDimensions = DetailparametersView.Dimensions;//获取尺寸标注信息
-                    uindex = drawingDimensions.Count;
+                    #region DEBUG
+                    //int uindex = DetailparametersViews.Count;
+                    //string ViewName = DetailparametersView.get_Name();
+                    //GeometricElements DetailGeometricElements = DetailparametersView.GeometricElements;//获取主视图中所有几何元素
+                    //uindex = DetailGeometricElements.Count;
+                    //foreach (GeometricElement item in DetailGeometricElements)
+                    //{
+                    //    String MVNAME = item.get_Name();
+                    //}
+                    //DrawingComponents drawingComponents = DetailparametersView.Components; //获取组件
+                    //uindex = drawingComponents.Count;
+                    //if (uindex > 1)
+                    //{
+                    //    foreach (DrawingComponent drawingComponent in drawingComponents)
+                    //    {
+                    //        String MVNAME = drawingComponent.get_Name();
+                    //    }
+                    //}
+                    //DrawingDimensions drawingDimensions = DetailparametersView.Dimensions;//获取尺寸标注信息
+                    //uindex = drawingDimensions.Count;
+                    #endregion
                     DrawingViewGenerativeLinks drawingViewGenerativeLinks = DetailparametersView.GenerativeLinks;//获取2D链接
                     DrawingTexts drawingTexts = DetailparametersView.Texts;//获取图框中全部文字信息
-                    uindex = drawingTexts.Count;
+                    int uindex = drawingTexts.Count;
                     if (uindex > 0)
                     {
-
-                        DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_LeftProductName");
-                        string Tvalue = drawingText.get_Text();
-                        drawingText.set_Text(CUnitProductName);
+                        try
+                        {
+                            DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_LeftProductName");
+                            string Tvalue = drawingText.get_Text();
+                            drawingText.set_Text(CUnitProductName);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("零件：" + CUnitProductName + "修改工作视图中属性失败，操作失败！请重新操作！");
+                            return;
+                        }
                     }
-
                     //进入图纸背景状态
                     DetailparametersView = DetailparametersViews.Item(2);//获取背景视图
-                    ViewName = DetailparametersView.get_Name();
+                    //ViewName = DetailparametersView.get_Name();
                     drawingTexts = DetailparametersView.Texts;//获取图框中全部文字信息
                     uindex = drawingTexts.Count;
                     if (uindex > 0)
                     {
-                        //更新零件背景编号
-                        DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_ProductName");
-                        //string Tvalue = drawingText.get_Text();
-                        drawingText.set_Text(CUnitProductName);
-                        //更新总页数
-                        drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_DRAWING_Num");
-                        string DRAWING_Num = drawingText.get_Text();
-                        string NewText = "共" + TotalPages + "张" + "\r\n" + "ALL No.";
-                        drawingText.set_Text(NewText);
-                        //更新当前页数
-                        drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_SHEET_Num");
-                        DRAWING_Num = drawingText.get_Text();
-                        NewText = "第" + CurrentPage + "张" + "\r\n" + "Page No.";
-                        drawingText.set_Text(NewText);
-                        CurrentPage += 1;
-                        progressBar.PerformStep();
-                        progressBar.Update();//刷新进度条
-                        //更新零件重量
+                        try
+                        {
+                            //更新零件背景编号
+                            DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_ProductName");
+                            //string Tvalue = drawingText.get_Text();
+                            drawingText.set_Text(CUnitProductName);
+                            //更新总页数
+                            drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_DRAWING_Num");
+                            string DRAWING_Num = drawingText.get_Text();
+                            string NewText = "共" + TotalPages + "张" + "\r\n" + "ALL No.";
+                            drawingText.set_Text(NewText);
+                            //更新零件重量 TitleBlock_Text_Weight_1
+                            drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_Weight_1");
+                            double PartWeight = WeightFromProduct(CUnitProduct);
+                            PartWeight = Math.Round(PartWeight, 3);
+                            string Wtext = PartWeight + "kg";
+                            drawingText.set_Text(Wtext);
+                            //更新当前页数
+                            drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_SHEET_Num");
+                            DRAWING_Num = drawingText.get_Text();
+                            NewText = "第" + CurrentPage + "张" + "\r\n" + "Page No.";
+                            drawingText.set_Text(NewText);
+                            CurrentPage += 1;
+                            progressBar.PerformStep();
+                            progressBar.Update();//刷新进度条
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("零件：" + CUnitProductName + "修改背景视图中属性失败，操作失败！请重新操作！");
+                            return;
+                        }
+
                     }
                     //var res = DetailGeometricElements.GetItem("0-NW26-W281L-C49-U05-01");
                     //int Pnum = parameters.Count;
@@ -583,6 +616,9 @@ namespace YeDassaultSystemDev
                     ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
                     Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                     ScalePicture.Image = bitmap;
+                    TopView.Image = bitmap;
+                    LeftView.Image = bitmap;
+                    BottomView.Image = bitmap;
                 }
             }
             catch (Exception)
@@ -615,6 +651,9 @@ namespace YeDassaultSystemDev
                         ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
                         Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                         ScalePicture.Image = bitmap;
+                        TopView.Image = bitmap;
+                        LeftView.Image = bitmap;
+                        BottomView.Image = bitmap;
                     }
                     catch (Exception)
                     {
@@ -931,6 +970,24 @@ namespace YeDassaultSystemDev
             {
                 oMaterial_document.Close();//关闭材料表 仅当零件材料赋值完成后关闭
             }
+        }
+        /// <summary>
+        /// 获取零件的重量信息
+        /// </summary>
+        /// <param name="product">需要获取重量信息的Product对象</param>
+        /// <returns></returns>
+        private double WeightFromProduct(Product product)
+        {
+            Inertia inertia = (Inertia)product.GetTechnologicalObject("Inertia");
+            double ProductWeight = inertia.Mass;
+            return ProductWeight;
+        }
+
+        private void ToBottom_Click(object sender, EventArgs e)
+        {
+            //Product product = vUnitPartProductList[1];
+            //string Name = product.get_PartNumber();
+            //WeightFromProduct(product);
         }
     }
 }
