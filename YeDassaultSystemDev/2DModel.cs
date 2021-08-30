@@ -42,7 +42,7 @@ namespace YeDassaultSystemDev
         AnyObject[] GetRepeatRef = new AnyObject[9999];
         CATIA_Class CATIA_Class = new CATIA_Class();
         string Identificationclass = "2DIdentificationclass";
-        List<string> ViaIndentification = new List<string> { "定位块", "连接块", "脚座", "压紧块", "压臂", "销座", "Base" };
+        List<string> ViaIndentification = new List<string> { };
         string PartTypeString = "定位块";
         /// <summary>
         /// 实例化的容器存放单元中零件对象集合
@@ -65,6 +65,11 @@ namespace YeDassaultSystemDev
         {
             InitializeComponent();
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
+            if (!GetUserDrawingMode())
+            {
+                OpenDrawingModelFile();
+                GetUserDrawingMode();
+            }
         }
         private void Read3DPose_Click(object sender, EventArgs e)
         {
@@ -197,27 +202,24 @@ namespace YeDassaultSystemDev
             }
             CheckPartList();//检测添加的对象是否合法
         }
-
+        private void OpenDrawingModelFile()
+        {
+            //直接使用模板 不再重新创建
+            try
+            {
+                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
+                DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
+                drawingDocument = RefdrawingDocument; // Updata 20210729 禁用重新创建草图
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("创建草绘 草图失败！请重启软件重试！");
+                return;
+            }
+        }
         private void Create2DDrawing_Click(object sender, EventArgs e)
         {
-            // 直接使用模板 不再重新创建
-            //try
-            //{
-            //    drawingDocument = (DrawingDocument)CatApplication.Documents.Add("Drawing");//创建2D草绘
-            //    string FilePath = CatDocument.Path;
-            //    if (string.IsNullOrEmpty(FilePath))
-            //    {
-            //        FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //    }
-            //    CatApplication.DisplayFileAlerts = false;
-            //    drawingDocument.SaveAs(FilePath + "\\" + UnitName.Text + ".CATDrawing");
-            //    CatApplication.DisplayFileAlerts = true;
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("创建草绘 草图失败！请重启软件重试！");
-            //    return;
-            //}
             if (UnFindAttrPartList.Items.Count > 0)
             {
                 MessageBox.Show("！");
@@ -396,6 +398,41 @@ namespace YeDassaultSystemDev
             CheckPartList();
         }
         /// <summary>
+        /// 获取指定属性集合中的指定名称的属性对象
+        /// </summary>
+        /// <param name="mParamName">检查的名称</param>
+        /// <param name="parameters">被检查的集合</param>
+        /// <returns></returns>
+        private Parameter GetParameterFromParameters(String mParamName, Parameters parameters)
+        {
+            foreach (Parameter item in parameters)
+            {
+                string ParamName = item.get_Name();
+                string[] StrName = ParamName.Split(new char[1] { '\\' });//分割字符串
+                ParamName = StrName[2];
+                //string ParamName = item.ValueAsString(); 获取属性值
+                if (ParamName == mParamName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 检查对象属性是否可以在2D图中找到对应模板
+        /// </summary>
+        /// <param name="parameter">属性对象</param>
+        /// <returns></returns>
+        private bool IslegalWithParamert(Parameter parameter)
+        {
+            string ParamValue = parameter.ValueAsString(); //获取属性值
+            if (ViaIndentification.IndexOf(ParamValue) > 0) //检查零件的值是否属于合法范围
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
         /// 检测即将导出2D的零件集合是否存在问题
         /// </summary>
         private void CheckPartList()
@@ -414,24 +451,9 @@ namespace YeDassaultSystemDev
 
                     throw;
                 }
-                bool Find = false;
-                foreach (Parameter item in parameters)
-                {
-                    string ParamName = item.get_Name();
-                    string[] StrName = ParamName.Split(new char[1] { '\\' });//分割字符串
-                    ParamName = StrName[2];
-                    //string ParamName = item.ValueAsString(); 获取属性值
-                    if (ParamName == Identificationclass)
-                    {
-                        string ParamValue = item.ValueAsString(); //获取属性值
-                        if (ViaIndentification.IndexOf(ParamValue) > 0) //检查零件的值是否属于合法范围
-                        {
-                            Find = true;
-                            continue;
-                        }
-                    }
-                }
-                if (!Find)
+                Parameter parameter = GetParameterFromParameters(Identificationclass, parameters);
+
+                if (parameter == null)
                 {
                     try
                     {
@@ -442,6 +464,14 @@ namespace YeDassaultSystemDev
                     {
                         MessageBox.Show(PartName + "零件缺失属性，系统在将其添加到故障零件清单中操作失败！");
                         return;
+                    }
+                }
+                else
+                {
+                    if (!IslegalWithParamert(parameter))//零件属性值不合法时  依旧添加到待处理对象中
+                    {
+                        ErrPartList.Add(Part);
+                        UnFindAttrPartList.Items.Add(PartName);
                     }
                 }
                 //StrParam strParam = parameters.CreateString("类型", "定位块");
@@ -460,30 +490,54 @@ namespace YeDassaultSystemDev
             {
                 return;
             }
-            int DeletePartIndex = UnFindAttrPartList.SelectedIndex;
-            String DeletePartName = UnFindAttrPartList.SelectedItem.ToString();
-            try
+            for (int i = 0; i < UnFindAttrPartList.SelectedItems.Count; i++)
             {
-                Product PreDeletePart = (Product)ErrPartList[DeletePartIndex];
-                if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                object item = UnFindAttrPartList.SelectedItems[i];
+                try
                 {
+                    int DeletePartIndex = UnFindAttrPartList.Items.IndexOf(item);//获取对象在原始集合中的索引位置
+                    String DeletePartName = item.ToString();//获取指定对象的名称
                     try
                     {
-                        Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
-                        parameters.CreateString(Identificationclass, PartTypeString);
+                        Product PreDeletePart = (Product)ErrPartList.Find(x=>x.get_PartNumber()== DeletePartName);//根据名称在集合中自由查询到指定对象
+                        if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                        {
+                            try
+                            {
+                                Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
+                                Parameter parameter = GetParameterFromParameters(Identificationclass, parameters);
+                                if (parameter == null)
+                                {
+                                    parameters.CreateString(Identificationclass, PartTypeString);
+                                }
+                                else
+                                {
+                                    if (!IslegalWithParamert(parameter))
+                                    {
+                                        StrParam strParam = (StrParam)parameter;
+                                        strParam.set_Value(PartTypeString);
+                                    }
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("为当前对象创建类别失败！请检查对象是否取消激活！");
+                                return;
+                            }
+                            ErrPartList.Remove(PreDeletePart); //删除用户指定对象
+                            UnFindAttrPartList.Items.Remove(UnFindAttrPartList.SelectedItem);
+                        }
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("为当前对象创建类别失败！请检查对象是否取消激活！");
-                        return;
+                        throw;
                     }
-                    ErrPartList.Remove(PreDeletePart); //删除用户指定对象
-                    UnFindAttrPartList.Items.Remove(UnFindAttrPartList.SelectedItem);
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                catch (Exception)
+                {
+                    MessageBox.Show("添加失败，请重新选择！");
+                    return;
+                }
             }
         }
         private void UnFindAttrPartList_Click(object sender, EventArgs e)
@@ -575,7 +629,16 @@ namespace YeDassaultSystemDev
                     try
                     {
                         Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
-                        parameters.CreateString(Identificationclass, PartTypeString);
+                        Parameter parameter = GetParameterFromParameters(Identificationclass, parameters);
+                        if (parameter == null)
+                        {
+                            parameters.CreateString(Identificationclass, PartTypeString);
+                        }
+                        else
+                        {
+                            StrParam strParam = (StrParam)parameter;
+                            strParam.set_Value(PartTypeString);
+                        }
                     }
                     catch (Exception)
                     {
@@ -590,50 +653,6 @@ namespace YeDassaultSystemDev
                 throw;
             }
         }
-        #region 用户单击类型按钮对对象进行定义 ---需要更新
-        // "定位块", "连接块", "脚座", "压紧块", "压臂", "销座", "Base"
-        private void RB1_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "定位块";
-            UpdataPartAttr();
-        }
-
-        private void RB2_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "连接块";
-            UpdataPartAttr();
-        }
-
-        private void RB3_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "脚座";
-            UpdataPartAttr();
-        }
-
-        private void RB4_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "压紧块";
-            UpdataPartAttr();
-        }
-
-        private void RB5_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "压臂";
-            UpdataPartAttr();
-        }
-
-        private void RB6_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "销座";
-            UpdataPartAttr();
-        }
-
-        private void RB7_CheckedChanged(object sender, EventArgs e)
-        {
-            PartTypeString = "Base";
-            UpdataPartAttr();
-        }
-        #endregion
         private void CreateDraftView_Click(object sender, EventArgs e)
         {
             try
@@ -728,10 +747,56 @@ namespace YeDassaultSystemDev
                 progressBar.PerformStep();
                 progressBar.Update();//刷新进度条
             }
+        }
 
+        private void GetViaPartAtt_Click(object sender, EventArgs e)
+        {
+            GetUserDrawingMode();
+        }
+        /// <summary>
+        /// 读取用户依旧打开的drawing 文件模板选项
+        /// </summary>
+        private bool GetUserDrawingMode()
+        {
+            try
+            {
+                //读取已经打开的草图
+                drawingDocument = (DrawingDocument)CatApplication.Documents.Item("Model.CATDrawing");
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            DrawingSheets drawingSheets = drawingDocument.Sheets;
+            ViaIndentification.Clear();//清空有效类型队列准备重新赋值
+            PartAttList.Items.Clear();
+            for (int i = 0; i < Convert.ToInt32(AttrNumber.Text); i++)
+            {
+                try
+                {
+                    string NtypeName = drawingSheets.Item(i).get_Name();
+                    PartAttList.Items.Add(NtypeName);
+                    ViaIndentification.Add(NtypeName);
+                }
+                catch (Exception)
+                {
+                    //throw;
+                }
+            }
+            PartAttList.SelectedIndex = 1;//设置默认值
+            return true;
+        }
 
+        private void PartAttList_TabIndexChanged(object sender, EventArgs e)
+        {
+            PartTypeString = PartAttList.SelectedItem.ToString();
+        }
 
-
+        private void SetPartAtt_Click(object sender, EventArgs e)
+        {
+            UpdataPartAttr();
+            UnFindAttrPartList.SelectedItems.Clear();
+            CheckPartList();
         }
     }
 }
