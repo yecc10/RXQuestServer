@@ -81,7 +81,7 @@ namespace YeDassaultSystemDev
             //}
 
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
-            if (!GetUserDrawingMode())
+            if (!GetUserDrawingMode() && CatApplication != null)
             {
                 OpenDrawingModelFile();
                 GetUserDrawingMode();
@@ -221,6 +221,7 @@ namespace YeDassaultSystemDev
         private void OpenDrawingModelFile()
         {
             //直接使用模板 不再重新创建
+            Window Catwindow = CatApplication.ActiveWindow;
             try
             {
                 string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -233,6 +234,7 @@ namespace YeDassaultSystemDev
                 MessageBox.Show("创建草绘 草图失败！请重启软件重试！");
                 return;
             }
+            Catwindow.Activate();
         }
         private void Create2DDrawing_Click(object sender, EventArgs e)
         {
@@ -430,6 +432,27 @@ namespace YeDassaultSystemDev
                     MessageBox.Show("零件：" + CUnitProductName + "内部编号命名失败，操作失败！请重新操作！");
                     return;
                 }
+            }
+            try
+            {
+                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string RefDocFilePath = FilePath + "\\" + UnitName.Text + ".CATDrawing";
+                if (!CatApplication.FileSystem.FileExists(RefDocFilePath))
+                {
+                    CatApplication.DisplayFileAlerts = false;
+                    drawingDocument.SaveAs(RefDocFilePath);
+                    CatApplication.DisplayFileAlerts = true;
+                }
+                else
+                {
+                    MessageBox.Show("图框生成成功！但是桌面已存在该单元名称的2D图纸，已为您取消强制替换保存，请手动保存！");
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("图框生成成功！但是另存图框时发生失败，请手动保存！");
+                return;
             }
         }
         private void _2DModel_FormClosed(object sender, FormClosedEventArgs e)
@@ -630,10 +653,17 @@ namespace YeDassaultSystemDev
 
         private void UnitPartProductList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //PartAttr
+            if (UnitPartProductList.Items.Count < 1)
+            {
+                return;
+            }
             if (UnitPartProductList.SelectedIndex < 0)
             {
                 return;
+            }
+            if (true)
+            {
+
             }
             int DeletePartIndex = UnitPartProductList.SelectedIndex;
             String DeletePartName = UnitPartProductList.SelectedItem.ToString();
@@ -642,29 +672,21 @@ namespace YeDassaultSystemDev
                 Product PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
-                    try
-                    {
-                        Parameters parameters = PreDeletePart.ReferenceProduct.UserRefProperties;
-                        StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
-                        PartAttr.Text = strParam.ValueAsString();
-                        PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
-                        ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
-                        Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
-                        ScalePicture.Image = bitmap;
-                        TopView.Image = bitmap;
-                        LeftView.Image = bitmap;
-                        BottomView.Image = bitmap;
-                    }
-                    catch (Exception)
-                    {
-                        PartAttr.Text = "读取选择的对象属性失败，未检测到对象存在有效属性请在左侧对其进行定义！！！";
-                        return;
-                    }
+                    PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                    //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
+                    //ScalePicture.ImageLocation = ImagPath;
+                    ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
+                    Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
+                    ScalePicture.Image = bitmap;
+                    TopView.Image = bitmap;
+                    LeftView.Image = bitmap;
+                    BottomView.Image = bitmap;
                 }
             }
             catch (Exception)
             {
-                PartAttr.Text = "对象属性获取失败！！！";
+                MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
+                return;
             }
         }
 
@@ -813,6 +835,11 @@ namespace YeDassaultSystemDev
         /// </summary>
         private bool GetUserDrawingMode()
         {
+            if (CatApplication == null)
+            {
+                MessageBox.Show("软件尚未启动！已取消自动检索设置！");
+                return false;
+            }
             try
             {
                 //读取已经打开的草图
@@ -820,6 +847,7 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
+
                 return false;
             }
             DrawingSheets drawingSheets = drawingDocument.Sheets;
