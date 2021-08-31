@@ -672,14 +672,14 @@ namespace YeDassaultSystemDev
         /// <param name="ParameName">属性名称</param>
         /// <param name="product">被查询对象</param>
         /// <returns></returns>
-        private String GetPartAttrValue(String ParameName,Product product)
+        private String GetPartAttrValue(String ParameName, Product product)
         {
             string Result = null;
             Parameters parameters = product.ReferenceProduct.UserRefProperties;
             Parameter parameter = GetParameterFromParameters(Identificationclass, parameters);
             if (parameter != null)
             {
-                Result= parameter.ValueAsString();
+                Result = parameter.ValueAsString();
             }
             else
             {
@@ -833,7 +833,7 @@ namespace YeDassaultSystemDev
             }
             try
             {
-                PartAttr.Text= GetPartAttrValue(Identificationclass, PreDeletePart);
+                PartAttr.Text = GetPartAttrValue(Identificationclass, PreDeletePart);
             }
             catch (Exception)
             {
@@ -913,9 +913,10 @@ namespace YeDassaultSystemDev
             progressBar.Step = 1000 / TotalPages;
             DrawingSheets drawingSheets = drawingDocument.Sheets;
             ProductDocument productDocument = null;
+            string vUnitName = UnitName.Text;
             try
             {
-                productDocument = (ProductDocument)CatApplication.Documents.Item(UnitName.Text + ".CATProduct");//直接获取对象--即将被投影的零件
+                productDocument = (ProductDocument)CatApplication.Documents.Item(vUnitName + ".CATProduct");//直接获取对象--即将被投影的零件
             }
             catch (Exception)
             {
@@ -927,7 +928,15 @@ namespace YeDassaultSystemDev
                         string ProductName = item.get_Name();
                         ProductName = ProductName.Split('.')[0];//获取分割段1部分字符
                         ProductName = ProductName.Trim();
-                        if (ProductName== UnitName.Text.Trim())
+                        if (ProductName.Length < vUnitName.Length)
+                        {
+                            continue;
+                        }
+                        if (ProductName.Length> vUnitName.Length)
+                        {
+                            ProductName = ProductName.Remove(vUnitName.Length);//获取指定数量的字符
+                        }
+                        if (ProductName == vUnitName.Trim())
                         {
                             try
                             {
@@ -942,7 +951,7 @@ namespace YeDassaultSystemDev
                         }
 
                     }
-                    if (productDocument==null)
+                    if (productDocument == null)
                     {
                         throw;
                     }
@@ -1222,8 +1231,16 @@ namespace YeDassaultSystemDev
         private void ToBottom_Click(object sender, EventArgs e)
         {
             //Product product = vUnitPartProductList[1];
-            //string Name = product.get_PartNumber();
+            //product.CatFileType.catFileTypeHTML, "C:\\Users\\Administrator\\Desktop\\GR.'");
+            //AnalysisMaterial analysisMaterial = null;
             //WeightFromProduct(product);
+            DrawingDocument drawingDocument = (DrawingDocument)CatApplication.Documents.Item("0-NW26-W282L-C49-UNIT.CATDrawing");
+            DrawingSheets drawingSheets = drawingDocument.Sheets;
+            DrawingSheet drawingSheet = drawingSheets.Item("0-NW26-W282L-C49-U01-00");
+            DrawingViews drawingViews = drawingSheet.Views;
+            DrawingView drawingView = drawingViews.Item("Isometric view");
+            DrawingViewGenerativeLinks drawingViewGenerativeLinks = drawingView.GenerativeLinks;//获取对象链接操作接口
+            DrawingViewGenerativeBehavior drawingViewGenerativeBehavior = drawingView.GenerativeBehavior;//获取对象视角操作接口
         }
 
         private void ExploreIGS_Click(object sender, EventArgs e)
