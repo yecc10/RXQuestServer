@@ -240,7 +240,12 @@ namespace YeDassaultSystemDev
         {
             if (UnFindAttrPartList.Items.Count > 0)
             {
-                MessageBox.Show("！");
+                MessageBox.Show("存在尚未解决的问题！");
+                return;
+            }
+            if (UnitPartProductList.Items.Count<1)
+            {
+                MessageBox.Show("任务队列中不存在任何数据！");
                 return;
             }
             progressBar.Value = 0;
@@ -410,6 +415,25 @@ namespace YeDassaultSystemDev
                             DRAWING_Num = drawingText.get_Text();
                             NewText = "第" + CurrentPage + "张" + "\r\n" + "Page No.";
                             drawingText.set_Text(NewText);
+                            if (CunitType== "单元X")
+                            {
+                                try
+                                {
+                                    //更改单元编号 中文 TitleBlock_Text_PartNumber
+                                    string CID = GetNumWithChina(CurrentPage);
+                                    drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_PartNumber");
+                                    NewText = "单元" + CID;
+                                    drawingText.set_Text(NewText);
+                                    //更改单元编号  英文 TitleBlock_Text_PartEnglistName
+                                    drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_PartEnglistName");
+                                    NewText = "UNIT " + (CurrentPage < 10 ? Convert.ToString("0" + CurrentPage) : Convert.ToString(CurrentPage));
+                                    drawingText.set_Text(NewText);
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("零件：" + CUnitProductName + "修改背景视图中单元属性失败，操作失败！请重新操作！");
+                                }
+                            }
                             CurrentPage += 1;
                             progressBar.PerformStep();
                             progressBar.Update();//刷新进度条
@@ -469,7 +493,82 @@ namespace YeDassaultSystemDev
         {
             CATIA_Class.InitCatEnv(ref CatApplication, ref CatDocument, ref PartID, this, true, myMessage);
         }
-
+        /// <summary>
+        /// 将数字转换成中文符号
+        /// </summary>
+        /// <param name="number">待转换的数字</param>
+        /// <returns></returns>
+        private string GetNumWithChina(int number)
+        {
+            string res = string.Empty;
+            string str = number.ToString();
+            string schar = str.Substring(0, 1);
+            switch (schar)
+            {
+                case "1":
+                    res = "一";
+                    break;
+                case "2":
+                    res = "二";
+                    break;
+                case "3":
+                    res = "三";
+                    break;
+                case "4":
+                    res = "四";
+                    break;
+                case "5":
+                    res = "五";
+                    break;
+                case "6":
+                    res = "六";
+                    break;
+                case "7":
+                    res = "七";
+                    break;
+                case "8":
+                    res = "八";
+                    break;
+                case "9":
+                    res = "九";
+                    break;
+                default:
+                    res = "零";
+                    break;
+            }
+            if (str.Length > 1)
+            {
+                switch (str.Length)
+                {
+                    case 2:
+                    case 6:
+                        res += "十";
+                        break;
+                    case 3:
+                    case 7:
+                        res += "百";
+                        break;
+                    case 4:
+                        res += "千";
+                        break;
+                    case 5:
+                        res += "万";
+                        break;
+                    default:
+                        res += "";
+                        break;
+                }
+                if (str.Length > 1 && int.Parse(str.Substring(1, str.Length - 1))>0)
+                {
+                    res += GetNumWithChina(int.Parse(str.Substring(1, str.Length - 1)));
+                }
+            }
+            if (str.Length>1&&schar == "1")
+            {
+                res= res.Remove(0,1);
+            }
+            return res;
+        }
         private void CheckPartDefine_Click(object sender, EventArgs e)
         {
             CheckPartList();
