@@ -445,6 +445,11 @@ namespace YeDassaultSystemDev
                 }
                 else
                 {
+                    string datatime = DateTime.Now.ToString("yyyymmddHHmmssffff");
+                    RefDocFilePath = FilePath + "\\" + UnitName.Text + "_T" + ".CATDrawing";//若连临时文件都已存在则强制替换临时文件 此处不要加时间进行区别 否则后续无法识别
+                    CatApplication.DisplayFileAlerts = false;
+                    drawingDocument.SaveAs(RefDocFilePath);
+                    CatApplication.DisplayFileAlerts = true;
                     MessageBox.Show("图框生成成功！但是桌面已存在该单元名称的2D图纸，已为您取消强制替换保存，请手动保存！");
                 }
             }
@@ -610,7 +615,7 @@ namespace YeDassaultSystemDev
                     MessageBox.Show("添加失败，请重新选择！");
                     return;
                 }
-            } while (UnFindAttrPartList.SelectedItems.Count > 1);
+            } while (UnFindAttrPartList.SelectedItems.Count > 0);
         }
         private void UnFindAttrPartList_Click(object sender, EventArgs e)
         {
@@ -739,12 +744,26 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
-
-                MessageBox.Show("未检索到任何已经打开的草图！请检查！任务已退出！");
-                return;
+                try
+                {
+                    drawingDocument = (DrawingDocument)CatApplication.Documents.Item(UnitName.Text + ".CATDrawing");
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        drawingDocument = (DrawingDocument)CatApplication.Documents.Item(UnitName.Text + "_T" + ".CATDrawing");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("未检索到任何已经打开的草图！请检查！任务已退出！");
+                        return;
+                    }
+                }
             }
             int TotalPages = vUnitPartProductList.Count;
             int CurrentPage = 1;
+            progressBar.Value = 0;
             progressBar.Step = 1000 / TotalPages;
             DrawingSheets drawingSheets = drawingDocument.Sheets;
             ProductDocument productDocument = (ProductDocument)CatApplication.Documents.Item(UnitName.Text + ".CATProduct");//直接获取对象--即将被投影的零件
@@ -781,6 +800,19 @@ namespace YeDassaultSystemDev
                     drawingViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
                     drawingViewGenerativeBehavior.DefineFrontView(0.000000, -1.000000, 0.000000, -1.000000, 0.000000, 0.000000);
                     drawingViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                    //获取视图图片
+                    //try
+                    //{
+                    //    DrawingPictures drawingpictures = drawingView.;
+                    //    int PictureNum = drawingpictures.Count;
+                    //    DrawingPicture drawingPicture = drawingpictures.Item(1);
+                    //    Image image = (Image)drawingPicture;
+                    //}
+                    //catch (Exception)
+                    //{
+
+                    //    throw;
+                    //}
                 }
                 catch (Exception)
                 {
@@ -797,23 +829,24 @@ namespace YeDassaultSystemDev
                     drawingTopViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
                     drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catTopView);//设置顶视图投影视角
                     drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                    drawingtopView.AlignedWithReferenceView();
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
                 try
                 {
                     DrawingView drawingtopView = drawingViews.Add("AutomaticNaming");
                     drawingtopView.x = 325;
-                    drawingtopView.y = 148;
+                    drawingtopView.y = 184.5;
                     drawingtopView.Scale = 1.000000;
                     DrawingViewGenerativeLinks drawingTopViewGenerativeLinks = drawingtopView.GenerativeLinks;//获取对象链接操作接口
                     DrawingViewGenerativeBehavior drawingTopViewGenerativeBehavior = drawingtopView.GenerativeBehavior;//获取对象视角操作接口
                     drawingTopViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
                     drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catLeftView);//设置顶视图投影视角
                     drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
+                    drawingtopView.AlignedWithReferenceView();
                 }
                 catch (Exception)
                 {
@@ -878,8 +911,6 @@ namespace YeDassaultSystemDev
         private void SetPartAtt_Click(object sender, EventArgs e)
         {
             UpdataPartAttr();
-            UnFindAttrPartList.SelectedItems.Clear();
-            CheckPartList();
         }
 
         private void CheckMetera_Click(object sender, EventArgs e)
@@ -968,7 +999,7 @@ namespace YeDassaultSystemDev
                                 Material material = MaterialList.Find(x => x.get_Name() == materialList.Text);
                                 if (material == null)
                                 {
-                                    MessageBox.Show("从内存中读取读取材料错误！请重启软件后尝试！");
+                                    MessageBox.Show("从内存中读取读取材料错误！请重新获取材料信息，获请重启软件后尝试！");
                                 }
                                 materialManager.ApplyMaterialOnProduct(PreDeletePart, material, 0);
                             }
@@ -1016,6 +1047,53 @@ namespace YeDassaultSystemDev
             //Product product = vUnitPartProductList[1];
             //string Name = product.get_PartNumber();
             //WeightFromProduct(product);
+        }
+
+        private void ExploreIGS_Click(object sender, EventArgs e)
+        {
+            if (UnitPartProductList.SelectedItems.Count<1)
+            {
+                return;
+            }
+            progressBar.Value = 0;
+            progressBar.Step = 1000 / UnitPartProductList.SelectedItems.Count;
+            foreach (object item in UnitPartProductList.SelectedItems)
+            {
+                try
+                {
+                    int DeletePartIndex = UnitPartProductList.Items.IndexOf(item);//获取对象在原始集合中的索引位置
+                    String DeletePartName = item.ToString();//获取指定对象的名称
+                    try
+                    {
+                        Product PreDeletePart = (Product)vUnitPartProductList.Find(x => x.get_PartNumber() == DeletePartName);//根据名称在集合中自由查询到指定对象
+                        if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
+                        {
+                            try
+                            {
+                                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                                PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName+ ".CATPart");
+                                string IGSPath = FilePath + "\\" + DeletePartName + ".igs";
+                                partDocument.ExportData(IGSPath,"igs");
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("为当前对象创建类别失败！请检查对象是否取消激活！");
+                                return;
+                            }
+                        }
+                        progressBar.PerformStep();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("添加失败，请重新选择！");
+                    return;
+                }
+            }
         }
     }
 }

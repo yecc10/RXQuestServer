@@ -27,7 +27,7 @@ namespace RFTechnology.BusinessCode
             timer.Enabled = true;//打开定时器
             TextBox.Text = Properties.Resources.PayNote.ToString();//初始化支付页面说明
             NativePay nativePay = new NativePay();
-            string url2 = nativePay.GetPayUrl("产品注册3个月", 1, "锐锋科技自动化产品3个月授权注册",ref notifyData); //生成扫码支付模式二url
+            string url2 = nativePay.GetPayUrl("产品注册3个月", 300, "锐锋科技自动化产品3个月授权注册",ref notifyData); //生成扫码支付模式二url
             //将url生成二维码图片
             WxPayCode.Image = QrCode(url2);
         }
