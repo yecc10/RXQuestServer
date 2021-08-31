@@ -667,6 +667,27 @@ namespace YeDassaultSystemDev
             }
         }
         /// <summary>
+        /// 获取指定对象 指定属性的值
+        /// </summary>
+        /// <param name="ParameName">属性名称</param>
+        /// <param name="product">被查询对象</param>
+        /// <returns></returns>
+        private String GetPartAttrValue(String ParameName,Product product)
+        {
+            string Result = null;
+            Parameters parameters = product.ReferenceProduct.UserRefProperties;
+            Parameter parameter = GetParameterFromParameters(Identificationclass, parameters);
+            if (parameter != null)
+            {
+                Result= parameter.ValueAsString();
+            }
+            else
+            {
+                Result = "指定对象不存在该属性！";
+            }
+            return Result;
+        }
+        /// <summary>
         /// 更新用户选中的零件属性类型
         /// </summary>
         private void UpdataPartAttr()
@@ -759,6 +780,10 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
+                ScalePicture.Image = null;
+                TopView.Image = null;
+                LeftView.Image = null;
+                BottomView.Image = null;
                 MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
                 return;
             }
@@ -780,9 +805,10 @@ namespace YeDassaultSystemDev
             }
             int DeletePartIndex = UnitPartProductList.SelectedIndex;
             String DeletePartName = UnitPartProductList.SelectedItem.ToString();
+            Product PreDeletePart = null;
             try
             {
-                Product PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
+                PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
@@ -799,7 +825,19 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
                 MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
+                ScalePicture.Image = null;
+                TopView.Image = null;
+                LeftView.Image = null;
+                BottomView.Image = null;
                 return;
+            }
+            try
+            {
+                PartAttr.Text= GetPartAttrValue(Identificationclass, PreDeletePart);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(DeletePartName + " 未成功获取到指定属性！");
             }
         }
 
@@ -881,17 +919,39 @@ namespace YeDassaultSystemDev
             }
             catch (Exception)
             {
-                MessageBox.Show(UnitName.Text + "获取单元失败，请检查零件名称和报错名称是否一致！");
-                return;
-                //try
-                //{
-                //    string UnitProductPath = UnitProduct.ReferenceProduct.GetMasterShapeRepresentationPathName();
-                //}
-                //catch (Exception)
-                //{
-                //    MessageBox.Show(UnitName.Text + "获取单元失败，请检查零件名称和报错名称是否一致！");
-                //    return;
-                //}
+                try
+                {
+                    Documents CatDocuments = CatApplication.Documents;
+                    foreach (Document item in CatDocuments)
+                    {
+                        string ProductName = item.get_Name();
+                        ProductName = ProductName.Split('.')[0];//获取分割段1部分字符
+                        ProductName = ProductName.Trim();
+                        if (ProductName== UnitName.Text.Trim())
+                        {
+                            try
+                            {
+                                productDocument = (ProductDocument)item;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+
+                                //throw;
+                            }
+                        }
+
+                    }
+                    if (productDocument==null)
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(UnitName.Text + "获取单元失败，请检查零件名称和报错名称是否一致！");
+                    return;
+                }
             }
             foreach (Product CUnitProduct in vUnitPartProductList)
             {
@@ -925,7 +985,7 @@ namespace YeDassaultSystemDev
                 {
                     string dename = CUnitProduct.get_Name();
                     drawingViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
-                    drawingViewGenerativeBehavior.DefineFrontView(0.000000, -1.000000, 0.000000, -1.000000, 0.000000, 0.000000);
+                    drawingViewGenerativeBehavior.DefineFrontView(-1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000);
                     drawingViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
                 }
                 catch (Exception)
@@ -1144,6 +1204,7 @@ namespace YeDassaultSystemDev
             if (UnFindAttrPartList.Items.Count < 1)
             {
                 oMaterial_document.Close();//关闭材料表 仅当零件材料赋值完成后关闭
+                materialList.Items.Clear();
             }
         }
         /// <summary>
