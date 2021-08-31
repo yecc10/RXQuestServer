@@ -62,6 +62,7 @@ namespace YeDassaultSystemDev
         /// </summary>
         List<Material> MaterialList = new List<Material> { };
         DrawingDocument drawingDocument = null;
+        Product UnitProduct = null; //单元对象
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
         public _2DModel()
@@ -105,13 +106,12 @@ namespace YeDassaultSystemDev
                 this.TopMost = true;
                 return;
             }
-            Product UnitPart = null;//单元对象
             Products UnitPartProducts = null;//零件集合
             try
             {
-                UnitPart = (Product)SelectArc.Item(1).Value;
-                UnitName.Text = UnitPart.get_PartNumber();
-                UnitPartProducts = UnitPart.Products;
+                UnitProduct = (Product)SelectArc.Item(1).Value;
+                UnitName.Text = UnitProduct.get_PartNumber();
+                UnitPartProducts = UnitProduct.Products;
             }
             catch (Exception)
             {
@@ -121,7 +121,7 @@ namespace YeDassaultSystemDev
                 this.TopMost = true;
                 return;
             }
-            foreach (var item in UnitPart.Products)
+            foreach (var item in UnitPartProducts)
             {
                 try
                 {
@@ -243,7 +243,7 @@ namespace YeDassaultSystemDev
                 MessageBox.Show("存在尚未解决的问题！");
                 return;
             }
-            if (UnitPartProductList.Items.Count<1)
+            if (UnitPartProductList.Items.Count < 1)
             {
                 MessageBox.Show("任务队列中不存在任何数据！");
                 return;
@@ -406,8 +406,17 @@ namespace YeDassaultSystemDev
                             drawingText.set_Text(NewText);
                             //更新零件重量 TitleBlock_Text_Weight_1
                             drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_Weight_1");
-                            double PartWeight = WeightFromProduct(CUnitProduct);
-                            PartWeight = Math.Round(PartWeight, 3);
+                            double PartWeight = 0;
+                            try
+                            {
+                                PartWeight = WeightFromProduct(CUnitProduct);
+                                PartWeight = Math.Round(PartWeight, 3);
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("提示：零件：" + CUnitProductName + "获取重量信息失败，请稍后自行手动操作！");
+                                //不做任何处理
+                            }
                             string Wtext = PartWeight + "kg";
                             drawingText.set_Text(Wtext);
                             //更新当前页数
@@ -415,7 +424,7 @@ namespace YeDassaultSystemDev
                             DRAWING_Num = drawingText.get_Text();
                             NewText = "第" + CurrentPage + "张" + "\r\n" + "Page No.";
                             drawingText.set_Text(NewText);
-                            if (CunitType== "单元X")
+                            if (CunitType == "单元X")
                             {
                                 try
                                 {
@@ -558,14 +567,14 @@ namespace YeDassaultSystemDev
                         res += "";
                         break;
                 }
-                if (str.Length > 1 && int.Parse(str.Substring(1, str.Length - 1))>0)
+                if (str.Length > 1 && int.Parse(str.Substring(1, str.Length - 1)) > 0)
                 {
                     res += GetNumWithChina(int.Parse(str.Substring(1, str.Length - 1)));
                 }
             }
-            if (str.Length>1&&schar == "1")
+            if (str.Length > 1 && schar == "1")
             {
-                res= res.Remove(0,1);
+                res = res.Remove(0, 1);
             }
             return res;
         }
@@ -865,7 +874,25 @@ namespace YeDassaultSystemDev
             progressBar.Value = 0;
             progressBar.Step = 1000 / TotalPages;
             DrawingSheets drawingSheets = drawingDocument.Sheets;
-            ProductDocument productDocument = (ProductDocument)CatApplication.Documents.Item(UnitName.Text + ".CATProduct");//直接获取对象--即将被投影的零件
+            ProductDocument productDocument = null;
+            try
+            {
+                productDocument = (ProductDocument)CatApplication.Documents.Item(UnitName.Text + ".CATProduct");//直接获取对象--即将被投影的零件
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(UnitName.Text + "获取单元失败，请检查零件名称和报错名称是否一致！");
+                return;
+                //try
+                //{
+                //    string UnitProductPath = UnitProduct.ReferenceProduct.GetMasterShapeRepresentationPathName();
+                //}
+                //catch (Exception)
+                //{
+                //    MessageBox.Show(UnitName.Text + "获取单元失败，请检查零件名称和报错名称是否一致！");
+                //    return;
+                //}
+            }
             foreach (Product CUnitProduct in vUnitPartProductList)
             {
                 String ProductName = CUnitProduct.get_PartNumber();
@@ -893,25 +920,13 @@ namespace YeDassaultSystemDev
                 DrawingViewGenerativeBehavior drawingViewGenerativeBehavior = drawingView.GenerativeBehavior;//获取对象视角操作接口
                 Products UnitContainer = productDocument.Product.Products;
                 Product TargetPart = UnitContainer.Item(CUnitProduct.get_Name());
+                drawingView.AlignedWithReferenceView();
                 try
                 {
                     string dename = CUnitProduct.get_Name();
                     drawingViewGenerativeLinks.AddLink(TargetPart);//将当前视图 关联零件
                     drawingViewGenerativeBehavior.DefineFrontView(0.000000, -1.000000, 0.000000, -1.000000, 0.000000, 0.000000);
                     drawingViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
-                    //获取视图图片
-                    //try
-                    //{
-                    //    DrawingPictures drawingpictures = drawingView.;
-                    //    int PictureNum = drawingpictures.Count;
-                    //    DrawingPicture drawingPicture = drawingpictures.Item(1);
-                    //    Image image = (Image)drawingPicture;
-                    //}
-                    //catch (Exception)
-                    //{
-
-                    //    throw;
-                    //}
                 }
                 catch (Exception)
                 {
@@ -929,6 +944,7 @@ namespace YeDassaultSystemDev
                     drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catTopView);//设置顶视图投影视角
                     drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
                     drawingtopView.AlignedWithReferenceView();
+                    drawingtopView.ReferenceView = drawingView;//设置联合关联视图
                 }
                 catch (Exception)
                 {
@@ -946,6 +962,7 @@ namespace YeDassaultSystemDev
                     drawingTopViewGenerativeBehavior.DefineProjectionView(drawingViewGenerativeBehavior, CatProjViewType.catLeftView);//设置顶视图投影视角
                     drawingTopViewGenerativeBehavior.Update();//刷新视图 使零件正常显示
                     drawingtopView.AlignedWithReferenceView();
+                    drawingtopView.ReferenceView = drawingView;//设置联合关联视图
                 }
                 catch (Exception)
                 {
@@ -1150,7 +1167,7 @@ namespace YeDassaultSystemDev
 
         private void ExploreIGS_Click(object sender, EventArgs e)
         {
-            if (UnitPartProductList.SelectedItems.Count<1)
+            if (UnitPartProductList.SelectedItems.Count < 1)
             {
                 return;
             }
@@ -1170,9 +1187,9 @@ namespace YeDassaultSystemDev
                             try
                             {
                                 string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                                PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName+ ".CATPart");
+                                PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName + ".CATPart");
                                 string IGSPath = FilePath + "\\" + DeletePartName + ".igs";
-                                partDocument.ExportData(IGSPath,"igs");
+                                partDocument.ExportData(IGSPath, "igs");
                             }
                             catch (Exception)
                             {
