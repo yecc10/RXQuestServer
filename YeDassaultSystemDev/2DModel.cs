@@ -287,6 +287,12 @@ namespace YeDassaultSystemDev
                 Parameters parameters = CUnitProduct.ReferenceProduct.UserRefProperties;
                 StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
                 string CunitType = strParam.ValueAsString();
+                if (CunitType == "单元X" && CurrentPage == 1)
+                {
+                    //当对象属于单元类别时候前面放置2个空白序号 用户存放总阻力及BASE图
+                    CurrentPage = 3;
+                    TotalPages += 2;
+                }
                 if (ViaIndentification.IndexOf(CunitType) < 0)
                 {
                     MessageBox.Show("零件属性不合法，已停止后续任务执行！");
@@ -386,6 +392,289 @@ namespace YeDassaultSystemDev
                             return;
                         }
                     }
+                    if (CunitType == "单元X")
+                    {
+                        DrawingTables drawingTables = DetailparametersView.Tables;
+                        uindex = drawingTables.Count;
+                        if (uindex > 0)
+                        {
+                            List<Product> TotalProduct = new List<Product> { };//申明一个容器 存放当前单元全部对象 方便后续检索
+                            try
+                            {
+                                //更新自制件
+                                #region 更新自制件
+                                DrawingTable drawingTable = (DrawingTable)drawingTables.GetItem("CreatedbyselfBOM");//获取自制件表
+                                int Rows = drawingTable.NumberOfRows;
+                                if (Rows > 1)
+                                {
+                                    do
+                                    {
+                                        drawingTable.RemoveRow(1);//删除所有多余表
+                                    } while (drawingTable.NumberOfRows > 1);
+                                }
+                                try
+                                {
+                                    int ID = 1;
+                                    List<Product> TotalSTDList = new List<Product> { };//统计全部自制 零件 便于后续统计数量
+                                    List<Product> WritedSTDList = new List<Product> { };//统计已写入Bom的自制 零件清单 放置重复写入
+                                    foreach (Product item in CUnitProduct.Products)
+                                    {
+                                        TotalSTDList.Add(item);
+                                    }
+                                    foreach (Product item in CUnitProduct.Products)
+                                    {
+                                        TotalProduct.Add(item);
+                                        string PartName = item.get_PartNumber();
+                                        if (PartName == "STD" || PartName == "PUR" || PartName == "OPEN")
+                                        {
+                                            continue;
+                                        }
+                                        String[] StrNameList = PartName.Split(new char[] { '-', '.' });
+                                        if (StrNameList.Contains("GB70") || StrNameList.Contains("STD") || StrNameList.Contains("PUR") || StrNameList.Contains("OPEN"))
+                                        {
+                                            continue;
+                                        }
+                                        if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                        {
+                                            //当前对象已写过
+                                            continue;
+                                        }
+                                        int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                        String PartID = "1" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                        drawingTable.AddRow(1);
+                                        int CRow = 1;// drawingTable.NumberOfRows;
+                                        drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                        drawingTable.SetCellString(CRow, 1, PartID);
+                                        drawingTable.SetCellString(CRow, 2, PartName);
+                                        drawingTable.SetCellString(CRow, 4, TargetNumber.ToString() + "/" + TargetNumber.ToString());//当统计的数量大于1时填写对应数量
+                                        drawingTable.SetCellString(CRow, 5, "Q235");
+                                        drawingTable.SetCellString(CRow, 6, "自制件");
+                                        WritedSTDList.Add(item);
+                                        ID += 1;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入自制件Bom信息失败，操作失败！请稍后手动重新操作！");
+                                    // throw;
+                                }
+                                #endregion
+                                //更新企标件及采购件
+                                #region 更新企标件及采购件
+                                drawingTable = (DrawingTable)drawingTables.GetItem("PURBOM");//获取自制件表
+                                Rows = drawingTable.NumberOfRows;
+                                if (Rows > 1)
+                                {
+                                    do
+                                    {
+                                        drawingTable.RemoveRow(1);//删除所有多余表
+                                    } while (drawingTable.NumberOfRows > 1);//至少留一行
+                                }
+                                try
+                                {
+                                    int ID = 1;
+                                    if (TotalProduct.Count > 0)
+                                    {
+                                        #region 写入企标件数据
+                                        Product stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("STD"));//从集合中查询到含STD标记的字符对象
+                                        if (stdproduct == null)
+                                        {
+                                            continue;
+                                        }
+                                        List<Product> TotalSTDList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                        List<Product> WritedSTDList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            TotalSTDList.Add(item);
+                                        }
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            string PartName = item.get_PartNumber();
+                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            {
+                                                //当前对象已写过
+                                                continue;
+                                            }
+                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                            drawingTable.AddRow(1);
+                                            int CRow = 1;// drawingTable.NumberOfRows;
+                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellString(CRow, 1, PartID);
+                                            drawingTable.SetCellString(CRow, 2, PartName);
+                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                            //drawingTable.SetCellString(CRow, 5, "");
+                                            drawingTable.SetCellString(CRow, 6, "企标件");
+                                            WritedSTDList.Add(item);
+                                            ID += 1;
+                                        }
+                                        #endregion
+                                        #region 写入市购品数据
+                                        stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("PUR"));//从集合中查询到含STD标记的字符对象
+                                        if (stdproduct == null)
+                                        {
+                                            continue;
+                                        }
+                                        List<Product> TotalPURList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                        List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            TotalSTDList.Add(item);
+                                        }
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            string PartName = item.get_PartNumber();
+                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            {
+                                                //当前对象已写过
+                                                continue;
+                                            }
+                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                            drawingTable.AddRow(1);
+                                            int CRow = 1;// drawingTable.NumberOfRows;
+                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellString(CRow, 1, PartID);
+                                            drawingTable.SetCellString(CRow, 2, PartName);
+                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                            //drawingTable.SetCellString(CRow, 5, "");
+                                            drawingTable.SetCellString(CRow, 6, "外购件");
+                                            WritedPURList.Add(item);
+                                            ID += 1;
+                                        }
+                                        #endregion
+
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入标注件Bom信息失败，操作失败！请稍后手动重新操作！");
+                                    // throw;
+                                }
+                                #endregion
+                                #region 更新标准件
+                                drawingTable = (DrawingTable)drawingTables.GetItem("STDBOM");//获取自制件表
+                                Rows = drawingTable.NumberOfRows;
+                                if (Rows > 1)
+                                {
+                                    do
+                                    {
+                                        drawingTable.RemoveRow(1);//删除所有多余表
+                                    } while (drawingTable.NumberOfRows > 1);//至少留一行
+                                }
+                                try
+                                {
+                                    int ID = 1;
+                                    if (TotalProduct.Count > 0)
+                                    {
+                                        #region 写入企标件数据
+                                        Product stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("GB70"));//从集合中查询到含STD标记的字符对象
+                                        if (stdproduct == null)
+                                        {
+                                            continue;
+                                        }
+                                        List<Product> TotalSTDList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                        List<Product> WritedSTDList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            TotalSTDList.Add(item);
+                                        }
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            string PartName = item.get_PartNumber();
+                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            {
+                                                //当前对象已写过
+                                                continue;
+                                            }
+                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                            //String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                            drawingTable.AddRow(1);
+                                            int CRow = 1;// drawingTable.NumberOfRows;
+                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                            //drawingTable.SetCellString(CRow, 1, PartID);
+                                            drawingTable.SetCellString(CRow, 2, PartName);
+                                            drawingTable.SetCellString(CRow, 3, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                            drawingTable.SetCellString(CRow, 4, "外购件");
+                                            WritedSTDList.Add(item);
+                                            ID += 1;
+                                        }
+                                        #endregion
+                                        #region 写入市购品数据
+                                        stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("PUR"));//从集合中查询到含STD标记的字符对象
+                                        if (stdproduct == null)
+                                        {
+                                            continue;
+                                        }
+                                        List<Product> TotalPURList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                        List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            TotalSTDList.Add(item);
+                                        }
+                                        foreach (Product item in stdproduct.Products)
+                                        {
+                                            string PartName = item.get_PartNumber();
+                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            {
+                                                //当前对象已写过
+                                                continue;
+                                            }
+                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                            drawingTable.AddRow(1);
+                                            int CRow = 1;// drawingTable.NumberOfRows;
+                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                            drawingTable.SetCellString(CRow, 1, PartID);
+                                            drawingTable.SetCellString(CRow, 2, PartName);
+                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                            //drawingTable.SetCellString(CRow, 5, "");
+                                            drawingTable.SetCellString(CRow, 6, "外购件");
+                                            WritedPURList.Add(item);
+                                            ID += 1;
+                                        }
+                                        #endregion
+
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入标注件Bom信息失败，操作失败！请稍后手动重新操作！");
+                                    // throw;
+                                }
+                                #endregion
+
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("零件：" + CUnitProductName + "修改工作视图中Bom失败，操作失败！请稍后手动重新操作！");
+                                // throw;
+                            }
+                        }
+                    }
                     //进入图纸背景状态
                     DetailparametersView = DetailparametersViews.Item(2);//获取背景视图
                     //ViewName = DetailparametersView.get_Name();
@@ -442,6 +731,7 @@ namespace YeDassaultSystemDev
                                 {
                                     MessageBox.Show("零件：" + CUnitProductName + "修改背景视图中单元属性失败，操作失败！请重新操作！");
                                 }
+                                //更新组立图Bom信息
                             }
                             CurrentPage += 1;
                             progressBar.PerformStep();
@@ -932,7 +1222,7 @@ namespace YeDassaultSystemDev
                         {
                             continue;
                         }
-                        if (ProductName.Length> vUnitName.Length)
+                        if (ProductName.Length > vUnitName.Length)
                         {
                             ProductName = ProductName.Remove(vUnitName.Length);//获取指定数量的字符
                         }
