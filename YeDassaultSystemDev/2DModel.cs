@@ -482,80 +482,79 @@ namespace YeDassaultSystemDev
                                     {
                                         #region 写入企标件数据
                                         Product stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("STD"));//从集合中查询到含STD标记的字符对象
-                                        if (stdproduct == null)
+                                        if (stdproduct != null)
                                         {
-                                            continue;
-                                        }
-                                        List<Product> TotalSTDList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
-                                        List<Product> WritedSTDList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            TotalSTDList.Add(item);
-                                        }
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            string PartName = item.get_PartNumber();
-                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            List<Product> TotalSTDList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                            List<Product> WritedSTDList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                            foreach (Product item in stdproduct.Products)
                                             {
-                                                //当前对象已写过
-                                                continue;
+                                                TotalSTDList.Add(item);
                                             }
-                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
-                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
-                                            drawingTable.AddRow(1);
-                                            int CRow = 1;// drawingTable.NumberOfRows;
-                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellString(CRow, 1, PartID);
-                                            drawingTable.SetCellString(CRow, 2, PartName);
-                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
-                                            //drawingTable.SetCellString(CRow, 5, "");
-                                            drawingTable.SetCellString(CRow, 6, "企标件");
-                                            WritedSTDList.Add(item);
-                                            ID += 1;
+                                            foreach (Product item in stdproduct.Products)
+                                            {
+                                                string PartName = item.get_PartNumber();
+                                                if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                                {
+                                                    //当前对象已写过
+                                                    continue;
+                                                }
+                                                int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                                String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                                drawingTable.AddRow(1);
+                                                int CRow = 1;// drawingTable.NumberOfRows;
+                                                drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellString(CRow, 1, PartID);
+                                                drawingTable.SetCellString(CRow, 2, PartName);
+                                                drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                                                                                                        //drawingTable.SetCellString(CRow, 5, "");
+                                                drawingTable.SetCellString(CRow, 6, "企标件");
+                                                WritedSTDList.Add(item);
+                                                ID += 1;
+                                            }
                                         }
+
                                         #endregion
                                         #region 写入市购品数据
                                         stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("PUR"));//从集合中查询到含STD标记的字符对象
-                                        if (stdproduct == null)
+                                        if (stdproduct != null)
                                         {
-                                            continue;
-                                        }
-                                        List<Product> TotalPURList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
-                                        List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            TotalPURList.Add(item);
-                                        }
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            string PartName = item.get_PartNumber();
-                                            if (WritedPURList.Count > 0 && WritedPURList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            List<Product> TotalPURList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
+                                            List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
+                                            foreach (Product item in stdproduct.Products)
                                             {
-                                                //当前对象已写过
-                                                continue;
+                                                TotalPURList.Add(item);
                                             }
-                                            int TargetNumber = TotalPURList.Count(x => x.get_PartNumber() == PartName);
-                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
-                                            drawingTable.AddRow(1);
-                                            int CRow = 1;// drawingTable.NumberOfRows;
-                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellString(CRow, 1, PartID);
-                                            drawingTable.SetCellString(CRow, 2, PartName);
-                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
-                                            //drawingTable.SetCellString(CRow, 5, "");
-                                            drawingTable.SetCellString(CRow, 6, "外购件");
-                                            WritedPURList.Add(item);
-                                            ID += 1;
+                                            foreach (Product item in stdproduct.Products)
+                                            {
+                                                string PartName = item.get_PartNumber();
+                                                if (WritedPURList.Count > 0 && WritedPURList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                                {
+                                                    //当前对象已写过
+                                                    continue;
+                                                }
+                                                int TargetNumber = TotalPURList.Count(x => x.get_PartNumber() == PartName);
+                                                String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
+                                                drawingTable.AddRow(1);
+                                                int CRow = 1;// drawingTable.NumberOfRows;
+                                                drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
+                                                drawingTable.SetCellString(CRow, 1, PartID);
+                                                drawingTable.SetCellString(CRow, 2, PartName);
+                                                drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                                                                                                        //drawingTable.SetCellString(CRow, 5, "");
+                                                drawingTable.SetCellString(CRow, 6, "外购件");
+                                                WritedPURList.Add(item);
+                                                ID += 1;
+                                            }
                                         }
                                         #endregion
 
@@ -679,13 +678,14 @@ namespace YeDassaultSystemDev
                                 try
                                 {
                                     //更改单元编号 中文 TitleBlock_Text_PartNumber
-                                    string CID = GetNumWithChina(CurrentPage);
+                                    string CID = GetNumWithChina(CurrentPage - 2);
                                     drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_PartNumber");
                                     NewText = "单元" + CID;
                                     drawingText.set_Text(NewText);
                                     //更改单元编号  英文 TitleBlock_Text_PartEnglistName
                                     drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_PartEnglistName");
-                                    NewText = "UNIT " + (CurrentPage < 10 ? Convert.ToString("0" + CurrentPage) : Convert.ToString(CurrentPage));
+                                    int WPage = CurrentPage - 2;
+                                    NewText = "UNIT " + (WPage < 10 ? Convert.ToString("0" + WPage) : Convert.ToString(WPage));
                                     drawingText.set_Text(NewText);
                                 }
                                 catch (Exception)
