@@ -529,17 +529,17 @@ namespace YeDassaultSystemDev
                                         List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
                                         foreach (Product item in stdproduct.Products)
                                         {
-                                            TotalSTDList.Add(item);
+                                            TotalPURList.Add(item);
                                         }
                                         foreach (Product item in stdproduct.Products)
                                         {
                                             string PartName = item.get_PartNumber();
-                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
+                                            if (WritedPURList.Count > 0 && WritedPURList.Count(x => x.get_PartNumber() == PartName) > 0)
                                             {
                                                 //当前对象已写过
                                                 continue;
                                             }
-                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
+                                            int TargetNumber = TotalPURList.Count(x => x.get_PartNumber() == PartName);
                                             String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
                                             drawingTable.AddRow(1);
                                             int CRow = 1;// drawingTable.NumberOfRows;
@@ -563,7 +563,7 @@ namespace YeDassaultSystemDev
                                 }
                                 catch (Exception)
                                 {
-                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入标注件Bom信息失败，操作失败！请稍后手动重新操作！");
+                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入采购件及企标件Bom信息失败，操作失败！请稍后手动重新操作！");
                                     // throw;
                                 }
                                 #endregion
@@ -618,51 +618,12 @@ namespace YeDassaultSystemDev
                                             ID += 1;
                                         }
                                         #endregion
-                                        #region 写入市购品数据
-                                        stdproduct = TotalProduct.Find(x => x.get_PartNumber().Split(new char[] { '-', '.' }).Contains("PUR"));//从集合中查询到含STD标记的字符对象
-                                        if (stdproduct == null)
-                                        {
-                                            continue;
-                                        }
-                                        List<Product> TotalPURList = new List<Product> { };//统计全部STD 零件 便于后续统计数量
-                                        List<Product> WritedPURList = new List<Product> { };//统计已写入Bom的STD 零件清单 放置重复写入
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            TotalSTDList.Add(item);
-                                        }
-                                        foreach (Product item in stdproduct.Products)
-                                        {
-                                            string PartName = item.get_PartNumber();
-                                            if (WritedSTDList.Count > 0 && WritedSTDList.Count(x => x.get_PartNumber() == PartName) > 0)
-                                            {
-                                                //当前对象已写过
-                                                continue;
-                                            }
-                                            int TargetNumber = TotalSTDList.Count(x => x.get_PartNumber() == PartName);
-                                            String PartID = "7" + (ID > 9 ? Convert.ToString(ID) : "0" + Convert.ToString(ID));
-                                            drawingTable.AddRow(1);
-                                            int CRow = 1;// drawingTable.NumberOfRows;
-                                            drawingTable.SetCellAlignment(CRow, 1, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 2, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 3, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 5, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
-                                            drawingTable.SetCellString(CRow, 1, PartID);
-                                            drawingTable.SetCellString(CRow, 2, PartName);
-                                            drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
-                                            //drawingTable.SetCellString(CRow, 5, "");
-                                            drawingTable.SetCellString(CRow, 6, "外购件");
-                                            WritedPURList.Add(item);
-                                            ID += 1;
-                                        }
-                                        #endregion
 
                                     }
                                 }
                                 catch (Exception)
                                 {
-                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入标注件Bom信息失败，操作失败！请稍后手动重新操作！");
+                                    MessageBox.Show("零件：" + CUnitProductName + "工作视图中尝试写入自制件 Bom信息失败，操作失败！请稍后手动重新操作！");
                                     // throw;
                                 }
                                 #endregion
