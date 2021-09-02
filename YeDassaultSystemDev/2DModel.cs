@@ -1485,13 +1485,25 @@ namespace YeDassaultSystemDev
             //product.CatFileType.catFileTypeHTML, "C:\\Users\\Administrator\\Desktop\\GR.'");
             //AnalysisMaterial analysisMaterial = null;
             //WeightFromProduct(product);
-            DrawingDocument drawingDocument = (DrawingDocument)CatApplication.Documents.Item("0-NW26-W282L-C49-UNIT.CATDrawing");
-            DrawingSheets drawingSheets = drawingDocument.Sheets;
-            DrawingSheet drawingSheet = drawingSheets.Item("0-NW26-W282L-C49-U01-00");
-            DrawingViews drawingViews = drawingSheet.Views;
-            DrawingView drawingView = drawingViews.Item("Isometric view");
-            DrawingViewGenerativeLinks drawingViewGenerativeLinks = drawingView.GenerativeLinks;//获取对象链接操作接口
-            DrawingViewGenerativeBehavior drawingViewGenerativeBehavior = drawingView.GenerativeBehavior;//获取对象视角操作接口
+            //DrawingDocument drawingDocument = (DrawingDocument)CatApplication.Documents.Item("0-NW26-W282L-C49-UNIT.CATDrawing");
+            //DrawingSheets drawingSheets = drawingDocument.Sheets;
+            //DrawingSheet drawingSheet = drawingSheets.Item("0-NW26-W282L-C49-U01-00");
+            //DrawingViews drawingViews = drawingSheet.Views;
+            //DrawingView drawingView = drawingViews.Item("Isometric view");
+            //DrawingViewGenerativeLinks drawingViewGenerativeLinks = drawingView.GenerativeLinks;//获取对象链接操作接口
+            //DrawingViewGenerativeBehavior drawingViewGenerativeBehavior = drawingView.GenerativeBehavior;//获取对象视角操作接口
+            if (UnitPartProductList.SelectedItems.Count < 1)
+            {
+                return;
+            }
+            object Sobj = UnitPartProductList.SelectedItem;
+            int Sindex = UnitPartProductList.SelectedIndex;
+            if (Sindex > 0)
+            {
+                UnitPartProductList.Items.Insert(Sindex + 2, Sobj);
+                UnitPartProductList.Items.RemoveAt(Sindex);
+                UnitPartProductList.SelectedIndex = Sindex + 1;
+            }
         }
 
         private void ExploreIGS_Click(object sender, EventArgs e)
@@ -1539,6 +1551,23 @@ namespace YeDassaultSystemDev
                     return;
                 }
             }
+        }
+
+        private void ToTop_Click(object sender, EventArgs e)
+        {
+            if (UnitPartProductList.SelectedItems.Count < 1)
+            {
+                return; 
+            }
+            object Sobj = UnitPartProductList.SelectedItem;
+            int Sindex = UnitPartProductList.SelectedIndex;
+            if (Sindex>0)
+            {
+                UnitPartProductList.Items.Insert(Sindex - 1, Sobj);
+                UnitPartProductList.Items.RemoveAt(Sindex + 1);
+                UnitPartProductList.SelectedIndex = Sindex - 1;
+            }
+           
         }
     }
 }
