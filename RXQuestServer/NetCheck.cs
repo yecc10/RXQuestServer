@@ -83,7 +83,16 @@ namespace RFTechnology
             if (IsConnected())
             {
                 Ping ping = new Ping();
-                PingReply reply = ping.Send("www.baidu.com");//百度IP
+                PingReply reply = null;
+                try
+                {
+                    reply = ping.Send("www.baidu.com");//百度IP
+                }
+                catch (Exception)
+                {
+                    CheckUserAccess(ref HasAccessToRun, KeyCode, Convert.ToDateTime(CreateTime), Convert.ToDateTime(RegPayFinishedTime), Convert.ToInt32(RegPayDays));
+                    return -1;
+                }
                 if (reply.Status == IPStatus.Success)
                 {
                     GetedDataFromSql = true;

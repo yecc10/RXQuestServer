@@ -265,6 +265,7 @@ namespace YeDassaultSystemDev
                 //未成功检索到 已打开的模板图  开始自行打开新的模板图
                 try
                 {
+                    
                     string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
                     DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
@@ -280,8 +281,9 @@ namespace YeDassaultSystemDev
             int TotalPages = vUnitPartProductList.Count;
             int CurrentPage = 1;
             progressBar.Step = 1000 / TotalPages;
-            foreach (Product CUnitProduct in vUnitPartProductList)
+            foreach (string CUnitPartName in UnitPartProductList.Items)
             {
+                Product CUnitProduct = vUnitPartProductList.Find(x => x.get_PartNumber() == CUnitPartName);
                 //根据零件属性名称 创建2D图框 草图 
                 string CUnitProductName = CUnitProduct.get_PartNumber();
                 Parameters parameters = CUnitProduct.ReferenceProduct.UserRefProperties;
@@ -719,7 +721,11 @@ namespace YeDassaultSystemDev
             }
             try
             {
-                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string FilePath = CreatePath(UnitName.Text);
+                if (FilePath==null)
+                {
+                    FilePath=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                }
                 string RefDocFilePath = FilePath + "\\" + UnitName.Text + ".CATDrawing";
                 if (!CatApplication.FileSystem.FileExists(RefDocFilePath))
                 {
@@ -1527,9 +1533,13 @@ namespace YeDassaultSystemDev
                         {
                             try
                             {
-                                string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                                string Path = CreatePath(UnitName.Text);
+                                if (Path == null)
+                                {
+                                    Path=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                                }
                                 PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName + ".CATPart");
-                                string IGSPath = FilePath + "\\" + DeletePartName + ".igs";
+                                string IGSPath = Path + "\\" + DeletePartName + ".igs";
                                 partDocument.ExportData(IGSPath, "igs");
                             }
                             catch (Exception)
@@ -1557,17 +1567,42 @@ namespace YeDassaultSystemDev
         {
             if (UnitPartProductList.SelectedItems.Count < 1)
             {
-                return; 
+                return;
             }
             object Sobj = UnitPartProductList.SelectedItem;
             int Sindex = UnitPartProductList.SelectedIndex;
-            if (Sindex>0)
+            if (Sindex > 0)
             {
                 UnitPartProductList.Items.Insert(Sindex - 1, Sobj);
                 UnitPartProductList.Items.RemoveAt(Sindex + 1);
                 UnitPartProductList.SelectedIndex = Sindex - 1;
             }
-           
+
+        }
+        /// <summary>
+        /// 输入文件夹名称 返回对应路径
+        /// </summary>
+        /// <param name="FileName">需要创建的文件夹名称</param>
+        /// <returns>返回对应路径</returns>
+        public string CreatePath(string FileName)
+        {
+            string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string RefDocFilePath = FilePath + "\\" + FileName;
+            if (!Directory.Exists(RefDocFilePath))//如果不存在就创建 dir 文件夹 
+            {
+                try
+                {
+                    DirectoryInfo directoryinfo = Directory.CreateDirectory(RefDocFilePath);
+                    return directoryinfo.FullName;
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("文件夹创建失败！请检查桌面是否做过非法变动或者软件未拿到写入文件夹权限！");
+                    return null;
+                }
+            }
+            return RefDocFilePath;
         }
     }
 }
