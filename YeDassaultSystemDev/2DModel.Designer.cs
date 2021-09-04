@@ -94,7 +94,7 @@ namespace YeDassaultSystemDev
             // progressBar
             // 
             this.progressBar.Location = new System.Drawing.Point(3, 676);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar.Maximum = 1000;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(1094, 27);
@@ -113,7 +113,7 @@ namespace YeDassaultSystemDev
             // 
             this.Read3DPose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Read3DPose.Location = new System.Drawing.Point(3, 620);
-            this.Read3DPose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Read3DPose.Margin = new System.Windows.Forms.Padding(2);
             this.Read3DPose.Name = "Read3DPose";
             this.Read3DPose.Size = new System.Drawing.Size(223, 43);
             this.Read3DPose.TabIndex = 11;
@@ -125,7 +125,7 @@ namespace YeDassaultSystemDev
             // 
             this.CheckPartDefine.BackColor = System.Drawing.Color.Goldenrod;
             this.CheckPartDefine.Location = new System.Drawing.Point(381, 620);
-            this.CheckPartDefine.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CheckPartDefine.Margin = new System.Windows.Forms.Padding(2);
             this.CheckPartDefine.Name = "CheckPartDefine";
             this.CheckPartDefine.Size = new System.Drawing.Size(133, 43);
             this.CheckPartDefine.TabIndex = 11;
@@ -137,7 +137,7 @@ namespace YeDassaultSystemDev
             // 
             this.Create2DDrawing.BackColor = System.Drawing.Color.Fuchsia;
             this.Create2DDrawing.Location = new System.Drawing.Point(671, 620);
-            this.Create2DDrawing.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Create2DDrawing.Margin = new System.Windows.Forms.Padding(2);
             this.Create2DDrawing.Name = "Create2DDrawing";
             this.Create2DDrawing.Size = new System.Drawing.Size(133, 43);
             this.Create2DDrawing.TabIndex = 11;
@@ -150,7 +150,7 @@ namespace YeDassaultSystemDev
             this.PartlistBox.FormattingEnabled = true;
             this.PartlistBox.ItemHeight = 12;
             this.PartlistBox.Location = new System.Drawing.Point(7, 24);
-            this.PartlistBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PartlistBox.Margin = new System.Windows.Forms.Padding(2);
             this.PartlistBox.Name = "PartlistBox";
             this.PartlistBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.PartlistBox.Size = new System.Drawing.Size(225, 532);
@@ -183,7 +183,7 @@ namespace YeDassaultSystemDev
             this.UnitPartProductList.FormattingEnabled = true;
             this.UnitPartProductList.ItemHeight = 12;
             this.UnitPartProductList.Location = new System.Drawing.Point(8, 24);
-            this.UnitPartProductList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UnitPartProductList.Margin = new System.Windows.Forms.Padding(2);
             this.UnitPartProductList.Name = "UnitPartProductList";
             this.UnitPartProductList.Size = new System.Drawing.Size(225, 532);
             this.UnitPartProductList.TabIndex = 12;
@@ -192,7 +192,7 @@ namespace YeDassaultSystemDev
             // AddOne
             // 
             this.AddOne.Location = new System.Drawing.Point(256, 131);
-            this.AddOne.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddOne.Margin = new System.Windows.Forms.Padding(2);
             this.AddOne.Name = "AddOne";
             this.AddOne.Size = new System.Drawing.Size(50, 29);
             this.AddOne.TabIndex = 14;
@@ -203,7 +203,7 @@ namespace YeDassaultSystemDev
             // RemoveOne
             // 
             this.RemoveOne.Location = new System.Drawing.Point(256, 195);
-            this.RemoveOne.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RemoveOne.Margin = new System.Windows.Forms.Padding(2);
             this.RemoveOne.Name = "RemoveOne";
             this.RemoveOne.Size = new System.Drawing.Size(50, 29);
             this.RemoveOne.TabIndex = 14;
@@ -214,7 +214,7 @@ namespace YeDassaultSystemDev
             // AddAll
             // 
             this.AddAll.Location = new System.Drawing.Point(256, 259);
-            this.AddAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddAll.Margin = new System.Windows.Forms.Padding(2);
             this.AddAll.Name = "AddAll";
             this.AddAll.Size = new System.Drawing.Size(50, 29);
             this.AddAll.TabIndex = 14;
@@ -225,7 +225,7 @@ namespace YeDassaultSystemDev
             // ClearAll
             // 
             this.ClearAll.Location = new System.Drawing.Point(256, 323);
-            this.ClearAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClearAll.Margin = new System.Windows.Forms.Padding(2);
             this.ClearAll.Name = "ClearAll";
             this.ClearAll.Size = new System.Drawing.Size(50, 29);
             this.ClearAll.TabIndex = 14;
@@ -236,7 +236,7 @@ namespace YeDassaultSystemDev
             // ToTop
             // 
             this.ToTop.Location = new System.Drawing.Point(256, 387);
-            this.ToTop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ToTop.Margin = new System.Windows.Forms.Padding(2);
             this.ToTop.Name = "ToTop";
             this.ToTop.Size = new System.Drawing.Size(50, 29);
             this.ToTop.TabIndex = 14;
@@ -247,7 +247,7 @@ namespace YeDassaultSystemDev
             // ToBottom
             // 
             this.ToBottom.Location = new System.Drawing.Point(256, 451);
-            this.ToBottom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ToBottom.Margin = new System.Windows.Forms.Padding(2);
             this.ToBottom.Name = "ToBottom";
             this.ToBottom.Size = new System.Drawing.Size(50, 29);
             this.ToBottom.TabIndex = 14;
@@ -260,7 +260,7 @@ namespace YeDassaultSystemDev
             this.UnFindAttrPartList.FormattingEnabled = true;
             this.UnFindAttrPartList.ItemHeight = 12;
             this.UnFindAttrPartList.Location = new System.Drawing.Point(4, 25);
-            this.UnFindAttrPartList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UnFindAttrPartList.Margin = new System.Windows.Forms.Padding(2);
             this.UnFindAttrPartList.Name = "UnFindAttrPartList";
             this.UnFindAttrPartList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.UnFindAttrPartList.Size = new System.Drawing.Size(251, 232);
@@ -270,9 +270,10 @@ namespace YeDassaultSystemDev
             // TopView
             // 
             this.TopView.Location = new System.Drawing.Point(8, 16);
-            this.TopView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TopView.Margin = new System.Windows.Forms.Padding(2);
             this.TopView.Name = "TopView";
             this.TopView.Size = new System.Drawing.Size(253, 245);
+            this.TopView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.TopView.TabIndex = 15;
             this.TopView.TabStop = false;
             // 
@@ -280,9 +281,9 @@ namespace YeDassaultSystemDev
             // 
             this.groupBox1.Controls.Add(this.PartlistBox);
             this.groupBox1.Location = new System.Drawing.Point(8, 41);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(240, 569);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
@@ -292,9 +293,9 @@ namespace YeDassaultSystemDev
             // 
             this.groupBox2.Controls.Add(this.UnitPartProductList);
             this.groupBox2.Location = new System.Drawing.Point(316, 41);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(239, 569);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
@@ -304,9 +305,9 @@ namespace YeDassaultSystemDev
             // 
             this.groupBox3.Controls.Add(this.TopView);
             this.groupBox3.Location = new System.Drawing.Point(559, 41);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(267, 267);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
@@ -316,9 +317,9 @@ namespace YeDassaultSystemDev
             // 
             this.groupBox4.Controls.Add(this.LeftView);
             this.groupBox4.Location = new System.Drawing.Point(830, 41);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(267, 267);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
@@ -327,9 +328,10 @@ namespace YeDassaultSystemDev
             // LeftView
             // 
             this.LeftView.Location = new System.Drawing.Point(4, 16);
-            this.LeftView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LeftView.Margin = new System.Windows.Forms.Padding(2);
             this.LeftView.Name = "LeftView";
             this.LeftView.Size = new System.Drawing.Size(253, 245);
+            this.LeftView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LeftView.TabIndex = 0;
             this.LeftView.TabStop = false;
             // 
@@ -337,9 +339,9 @@ namespace YeDassaultSystemDev
             // 
             this.groupBox5.Controls.Add(this.BottomView);
             this.groupBox5.Location = new System.Drawing.Point(559, 311);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox5.Size = new System.Drawing.Size(267, 267);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
@@ -348,9 +350,10 @@ namespace YeDassaultSystemDev
             // BottomView
             // 
             this.BottomView.Location = new System.Drawing.Point(8, 18);
-            this.BottomView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BottomView.Margin = new System.Windows.Forms.Padding(2);
             this.BottomView.Name = "BottomView";
             this.BottomView.Size = new System.Drawing.Size(253, 245);
+            this.BottomView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BottomView.TabIndex = 0;
             this.BottomView.TabStop = false;
             // 
@@ -359,9 +362,9 @@ namespace YeDassaultSystemDev
             this.属性缺失零件.Controls.Add(this.UnFindAttrPartList);
             this.属性缺失零件.Controls.Add(this.textBox1);
             this.属性缺失零件.Location = new System.Drawing.Point(830, 311);
-            this.属性缺失零件.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.属性缺失零件.Margin = new System.Windows.Forms.Padding(2);
             this.属性缺失零件.Name = "属性缺失零件";
-            this.属性缺失零件.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.属性缺失零件.Padding = new System.Windows.Forms.Padding(2);
             this.属性缺失零件.Size = new System.Drawing.Size(267, 267);
             this.属性缺失零件.TabIndex = 21;
             this.属性缺失零件.TabStop = false;
@@ -370,7 +373,7 @@ namespace YeDassaultSystemDev
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(281, 150);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(126, 30);
@@ -380,7 +383,7 @@ namespace YeDassaultSystemDev
             // 
             this.Reconnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.Reconnect.Location = new System.Drawing.Point(960, 620);
-            this.Reconnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reconnect.Margin = new System.Windows.Forms.Padding(2);
             this.Reconnect.Name = "Reconnect";
             this.Reconnect.Size = new System.Drawing.Size(133, 43);
             this.Reconnect.TabIndex = 11;
@@ -391,7 +394,7 @@ namespace YeDassaultSystemDev
             // PartAttr
             // 
             this.PartAttr.Location = new System.Drawing.Point(559, 582);
-            this.PartAttr.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PartAttr.Margin = new System.Windows.Forms.Padding(2);
             this.PartAttr.Multiline = true;
             this.PartAttr.Name = "PartAttr";
             this.PartAttr.Size = new System.Drawing.Size(539, 30);
@@ -401,7 +404,7 @@ namespace YeDassaultSystemDev
             // 
             this.UpdateAttr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.UpdateAttr.Location = new System.Drawing.Point(237, 620);
-            this.UpdateAttr.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UpdateAttr.Margin = new System.Windows.Forms.Padding(2);
             this.UpdateAttr.Name = "UpdateAttr";
             this.UpdateAttr.Size = new System.Drawing.Size(133, 43);
             this.UpdateAttr.TabIndex = 11;
@@ -414,9 +417,9 @@ namespace YeDassaultSystemDev
             this.PartTypeGroupBox.Controls.Add(this.PartAttList);
             this.PartTypeGroupBox.Controls.Add(this.SetPartAtt);
             this.PartTypeGroupBox.Location = new System.Drawing.Point(1106, 311);
-            this.PartTypeGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PartTypeGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.PartTypeGroupBox.Name = "PartTypeGroupBox";
-            this.PartTypeGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PartTypeGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.PartTypeGroupBox.Size = new System.Drawing.Size(133, 126);
             this.PartTypeGroupBox.TabIndex = 23;
             this.PartTypeGroupBox.TabStop = false;
@@ -435,7 +438,7 @@ namespace YeDassaultSystemDev
             "销座",
             "Base"});
             this.PartAttList.Location = new System.Drawing.Point(5, 29);
-            this.PartAttList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PartAttList.Margin = new System.Windows.Forms.Padding(2);
             this.PartAttList.Name = "PartAttList";
             this.PartAttList.Size = new System.Drawing.Size(126, 24);
             this.PartAttList.TabIndex = 0;
@@ -445,7 +448,7 @@ namespace YeDassaultSystemDev
             // 
             this.SetPartAtt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.SetPartAtt.Location = new System.Drawing.Point(5, 63);
-            this.SetPartAtt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SetPartAtt.Margin = new System.Windows.Forms.Padding(2);
             this.SetPartAtt.Name = "SetPartAtt";
             this.SetPartAtt.Size = new System.Drawing.Size(125, 43);
             this.SetPartAtt.TabIndex = 11;
@@ -457,7 +460,7 @@ namespace YeDassaultSystemDev
             // 
             this.CreateDraftView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.CreateDraftView.Location = new System.Drawing.Point(815, 620);
-            this.CreateDraftView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CreateDraftView.Margin = new System.Windows.Forms.Padding(2);
             this.CreateDraftView.Name = "CreateDraftView";
             this.CreateDraftView.Size = new System.Drawing.Size(133, 43);
             this.CreateDraftView.TabIndex = 11;
@@ -468,7 +471,7 @@ namespace YeDassaultSystemDev
             // ScalePicture
             // 
             this.ScalePicture.Location = new System.Drawing.Point(1106, 573);
-            this.ScalePicture.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ScalePicture.Margin = new System.Windows.Forms.Padding(2);
             this.ScalePicture.Name = "ScalePicture";
             this.ScalePicture.Size = new System.Drawing.Size(133, 130);
             this.ScalePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -480,9 +483,9 @@ namespace YeDassaultSystemDev
             this.获取图框中路清单.Controls.Add(this.AttrNumber);
             this.获取图框中路清单.Controls.Add(this.GetViaPartAtt);
             this.获取图框中路清单.Location = new System.Drawing.Point(1106, 443);
-            this.获取图框中路清单.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.获取图框中路清单.Margin = new System.Windows.Forms.Padding(2);
             this.获取图框中路清单.Name = "获取图框中路清单";
-            this.获取图框中路清单.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.获取图框中路清单.Padding = new System.Windows.Forms.Padding(2);
             this.获取图框中路清单.Size = new System.Drawing.Size(133, 119);
             this.获取图框中路清单.TabIndex = 23;
             this.获取图框中路清单.TabStop = false;
@@ -492,7 +495,7 @@ namespace YeDassaultSystemDev
             // 
             this.AttrNumber.Font = new System.Drawing.Font("宋体", 12F);
             this.AttrNumber.Location = new System.Drawing.Point(5, 27);
-            this.AttrNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AttrNumber.Margin = new System.Windows.Forms.Padding(2);
             this.AttrNumber.Name = "AttrNumber";
             this.AttrNumber.Size = new System.Drawing.Size(126, 26);
             this.AttrNumber.TabIndex = 12;
@@ -502,7 +505,7 @@ namespace YeDassaultSystemDev
             // 
             this.GetViaPartAtt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.GetViaPartAtt.Location = new System.Drawing.Point(5, 63);
-            this.GetViaPartAtt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GetViaPartAtt.Margin = new System.Windows.Forms.Padding(2);
             this.GetViaPartAtt.Name = "GetViaPartAtt";
             this.GetViaPartAtt.Size = new System.Drawing.Size(125, 43);
             this.GetViaPartAtt.TabIndex = 11;
@@ -514,7 +517,7 @@ namespace YeDassaultSystemDev
             // 
             this.CheckMetera.BackColor = System.Drawing.Color.Goldenrod;
             this.CheckMetera.Location = new System.Drawing.Point(526, 620);
-            this.CheckMetera.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CheckMetera.Margin = new System.Windows.Forms.Padding(2);
             this.CheckMetera.Name = "CheckMetera";
             this.CheckMetera.Size = new System.Drawing.Size(133, 43);
             this.CheckMetera.TabIndex = 11;
@@ -527,9 +530,9 @@ namespace YeDassaultSystemDev
             this.groupBox6.Controls.Add(this.materialList);
             this.groupBox6.Controls.Add(this.SetPartmaterial);
             this.groupBox6.Location = new System.Drawing.Point(1102, 177);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox6.Size = new System.Drawing.Size(133, 126);
             this.groupBox6.TabIndex = 23;
             this.groupBox6.TabStop = false;
@@ -540,7 +543,7 @@ namespace YeDassaultSystemDev
             this.materialList.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.materialList.FormattingEnabled = true;
             this.materialList.Location = new System.Drawing.Point(5, 29);
-            this.materialList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialList.Margin = new System.Windows.Forms.Padding(2);
             this.materialList.Name = "materialList";
             this.materialList.Size = new System.Drawing.Size(126, 24);
             this.materialList.TabIndex = 0;
@@ -550,7 +553,7 @@ namespace YeDassaultSystemDev
             // 
             this.SetPartmaterial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.SetPartmaterial.Location = new System.Drawing.Point(5, 63);
-            this.SetPartmaterial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SetPartmaterial.Margin = new System.Windows.Forms.Padding(2);
             this.SetPartmaterial.Name = "SetPartmaterial";
             this.SetPartmaterial.Size = new System.Drawing.Size(125, 43);
             this.SetPartmaterial.TabIndex = 11;
@@ -563,9 +566,9 @@ namespace YeDassaultSystemDev
             this.groupBox7.Controls.Add(this.materialNumber);
             this.groupBox7.Controls.Add(this.GetmaterialFromDoc);
             this.groupBox7.Location = new System.Drawing.Point(1102, 41);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox7.Size = new System.Drawing.Size(133, 119);
             this.groupBox7.TabIndex = 23;
             this.groupBox7.TabStop = false;
@@ -575,7 +578,7 @@ namespace YeDassaultSystemDev
             // 
             this.materialNumber.Font = new System.Drawing.Font("宋体", 12F);
             this.materialNumber.Location = new System.Drawing.Point(5, 27);
-            this.materialNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.materialNumber.Margin = new System.Windows.Forms.Padding(2);
             this.materialNumber.Name = "materialNumber";
             this.materialNumber.Size = new System.Drawing.Size(126, 26);
             this.materialNumber.TabIndex = 12;
@@ -585,7 +588,7 @@ namespace YeDassaultSystemDev
             // 
             this.GetmaterialFromDoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.GetmaterialFromDoc.Location = new System.Drawing.Point(5, 63);
-            this.GetmaterialFromDoc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GetmaterialFromDoc.Margin = new System.Windows.Forms.Padding(2);
             this.GetmaterialFromDoc.Name = "GetmaterialFromDoc";
             this.GetmaterialFromDoc.Size = new System.Drawing.Size(125, 43);
             this.GetmaterialFromDoc.TabIndex = 11;
@@ -596,7 +599,7 @@ namespace YeDassaultSystemDev
             // ExploreIGS
             // 
             this.ExploreIGS.Location = new System.Drawing.Point(256, 506);
-            this.ExploreIGS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ExploreIGS.Margin = new System.Windows.Forms.Padding(2);
             this.ExploreIGS.Name = "ExploreIGS";
             this.ExploreIGS.Size = new System.Drawing.Size(50, 29);
             this.ExploreIGS.TabIndex = 14;
@@ -641,7 +644,7 @@ namespace YeDassaultSystemDev
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.groupBox3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(1134, 672);
             this.Name = "_2DModel";
             this.Text = "锐锋科技CATIA投影助手";

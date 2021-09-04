@@ -265,7 +265,7 @@ namespace YeDassaultSystemDev
                 //未成功检索到 已打开的模板图  开始自行打开新的模板图
                 try
                 {
-                    
+
                     string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     string RefDocFilePath = FilePath + "\\" + "Model.CATDrawing";
                     DrawingDocument RefdrawingDocument = (DrawingDocument)CatApplication.Documents.Open(RefDocFilePath);//创建2D草绘
@@ -722,9 +722,9 @@ namespace YeDassaultSystemDev
             try
             {
                 string FilePath = CreatePath(UnitName.Text);
-                if (FilePath==null)
+                if (FilePath == null)
                 {
-                    FilePath=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 }
                 string RefDocFilePath = FilePath + "\\" + UnitName.Text + ".CATDrawing";
                 if (!CatApplication.FileSystem.FileExists(RefDocFilePath))
@@ -1068,15 +1068,64 @@ namespace YeDassaultSystemDev
                 PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
+                    Window MainWindow = CatApplication.ActiveWindow;
                     PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
                     //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
                     //ScalePicture.ImageLocation = ImagPath;
+                    string ProductPath = productDocument.FullName;
                     ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
                     Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                     ScalePicture.Image = bitmap;
                     TopView.Image = bitmap;
                     LeftView.Image = bitmap;
                     BottomView.Image = bitmap;
+                    ///////////////////////////////////////////////////////////////////////////
+                    PartDocument document = (PartDocument)CatApplication.Documents.Open(ProductPath);
+                    Window cwindow = CatApplication.ActiveWindow;
+                    Viewer viewer = cwindow.ActiveViewer;
+                    Viewer3D viewer3D1 = (Viewer3D)viewer;
+                    viewer.FullScreen = false;
+                    object[] array = new object[] { 0, 0, 0 };
+                    object[] arraySightDirection = new object[] { 0, 0, 0 };
+                    Viewpoint3D viewpoint3D = viewer3D1.Viewpoint3D;
+
+                    object[] StdSightDirection = new object[3] {1,0,0};
+                    object[] StdUpDirection = new object[3] { 0, 1, 0 };
+
+                    viewer.Reframe();
+                    //viewpoint3D.GetOrigin(array);
+                    //viewpoint3D.PutOrigin(array);
+                    viewpoint3D.PutSightDirection(StdSightDirection);
+                    viewpoint3D.PutUpDirection(StdUpDirection);
+                    viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
+                    viewer3D1.Update();
+                    viewer3D1.Reframe();
+                    viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg");
+                    //array = new object[3] { 0.0, 12500, 0.0 };
+                    //viewpoint3D.PutOrigin(array);
+                    //viewer3D1.Update();
+                    //viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\YProductView.jpeg");
+                    //array = new object[3] { 0.0, 0.0,12500.0 };
+                    //viewpoint3D.PutOrigin(array);
+                    //viewer3D1.Update();
+                    //viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\ZProductView.jpeg");
+                    //viewer.Reframe();
+                    ////viewer3D.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\ProductView.jpeg");
+                    //TopView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg";
+                    //LeftView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\YProductView.jpeg";
+                    BottomView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg";
+                    cwindow.Close();
+                    MainWindow.Activate();
+                    //Viewers pviewers = productDocument.NewWindow().Viewers;
+                    //int Vcont = pviewers.Count;
+                    //if (Vcont > 0)
+                    //{
+                    //    foreach (Viewer item in pviewers)
+                    //    {
+                    //        item.Activate();
+                    //    }
+                    //}
+                    //pviewer.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\PartView.jpeg");
                 }
             }
             catch (Exception)
@@ -1536,7 +1585,7 @@ namespace YeDassaultSystemDev
                                 string Path = CreatePath(UnitName.Text);
                                 if (Path == null)
                                 {
-                                    Path=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                                    Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                                 }
                                 PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName + ".CATPart");
                                 string IGSPath = Path + "\\" + DeletePartName + ".igs";
