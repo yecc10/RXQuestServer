@@ -46,7 +46,7 @@ namespace YeDassaultSystemDev
             this.ToTop = new System.Windows.Forms.Button();
             this.ToBottom = new System.Windows.Forms.Button();
             this.UnFindAttrPartList = new System.Windows.Forms.ListBox();
-            this.TopView = new System.Windows.Forms.PictureBox();
+            this.FrontView = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -63,7 +63,6 @@ namespace YeDassaultSystemDev
             this.PartAttList = new System.Windows.Forms.ComboBox();
             this.SetPartAtt = new System.Windows.Forms.Button();
             this.CreateDraftView = new System.Windows.Forms.Button();
-            this.ScalePicture = new System.Windows.Forms.PictureBox();
             this.获取图框中路清单 = new System.Windows.Forms.GroupBox();
             this.AttrNumber = new System.Windows.Forms.TextBox();
             this.GetViaPartAtt = new System.Windows.Forms.Button();
@@ -75,7 +74,12 @@ namespace YeDassaultSystemDev
             this.materialNumber = new System.Windows.Forms.TextBox();
             this.GetmaterialFromDoc = new System.Windows.Forms.Button();
             this.ExploreIGS = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.TopView)).BeginInit();
+            this.ScalePicture = new System.Windows.Forms.PictureBox();
+            this.FIA = new System.Windows.Forms.RadioButton();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.TFA = new System.Windows.Forms.RadioButton();
+            this.PictureFromCatia = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.FrontView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,10 +89,11 @@ namespace YeDassaultSystemDev
             ((System.ComponentModel.ISupportInitialize)(this.BottomView)).BeginInit();
             this.属性缺失零件.SuspendLayout();
             this.PartTypeGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).BeginInit();
             this.获取图框中路清单.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
@@ -182,77 +187,83 @@ namespace YeDassaultSystemDev
             // 
             this.UnitPartProductList.FormattingEnabled = true;
             this.UnitPartProductList.ItemHeight = 12;
-            this.UnitPartProductList.Location = new System.Drawing.Point(8, 24);
+            this.UnitPartProductList.Location = new System.Drawing.Point(4, 24);
             this.UnitPartProductList.Margin = new System.Windows.Forms.Padding(2);
             this.UnitPartProductList.Name = "UnitPartProductList";
-            this.UnitPartProductList.Size = new System.Drawing.Size(225, 532);
+            this.UnitPartProductList.Size = new System.Drawing.Size(229, 532);
             this.UnitPartProductList.TabIndex = 12;
             this.UnitPartProductList.Click += new System.EventHandler(this.UnitPartProductList_SelectedIndexChanged);
             // 
             // AddOne
             // 
-            this.AddOne.Location = new System.Drawing.Point(256, 131);
+            this.AddOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.AddOne.Location = new System.Drawing.Point(256, 50);
             this.AddOne.Margin = new System.Windows.Forms.Padding(2);
             this.AddOne.Name = "AddOne";
-            this.AddOne.Size = new System.Drawing.Size(50, 29);
+            this.AddOne.Size = new System.Drawing.Size(69, 40);
             this.AddOne.TabIndex = 14;
             this.AddOne.Text = "增加";
-            this.AddOne.UseVisualStyleBackColor = true;
+            this.AddOne.UseVisualStyleBackColor = false;
             this.AddOne.Click += new System.EventHandler(this.AddOne_Click);
             // 
             // RemoveOne
             // 
-            this.RemoveOne.Location = new System.Drawing.Point(256, 195);
+            this.RemoveOne.BackColor = System.Drawing.Color.SteelBlue;
+            this.RemoveOne.Location = new System.Drawing.Point(256, 112);
             this.RemoveOne.Margin = new System.Windows.Forms.Padding(2);
             this.RemoveOne.Name = "RemoveOne";
-            this.RemoveOne.Size = new System.Drawing.Size(50, 29);
+            this.RemoveOne.Size = new System.Drawing.Size(69, 40);
             this.RemoveOne.TabIndex = 14;
             this.RemoveOne.Text = "移除";
-            this.RemoveOne.UseVisualStyleBackColor = true;
+            this.RemoveOne.UseVisualStyleBackColor = false;
             this.RemoveOne.Click += new System.EventHandler(this.RemoveOne_Click);
             // 
             // AddAll
             // 
-            this.AddAll.Location = new System.Drawing.Point(256, 259);
+            this.AddAll.BackColor = System.Drawing.Color.SteelBlue;
+            this.AddAll.Location = new System.Drawing.Point(256, 174);
             this.AddAll.Margin = new System.Windows.Forms.Padding(2);
             this.AddAll.Name = "AddAll";
-            this.AddAll.Size = new System.Drawing.Size(50, 29);
+            this.AddAll.Size = new System.Drawing.Size(69, 40);
             this.AddAll.TabIndex = 14;
             this.AddAll.Text = "全选";
-            this.AddAll.UseVisualStyleBackColor = true;
+            this.AddAll.UseVisualStyleBackColor = false;
             this.AddAll.Click += new System.EventHandler(this.AddAll_Click);
             // 
             // ClearAll
             // 
-            this.ClearAll.Location = new System.Drawing.Point(256, 323);
+            this.ClearAll.BackColor = System.Drawing.Color.SteelBlue;
+            this.ClearAll.Location = new System.Drawing.Point(256, 236);
             this.ClearAll.Margin = new System.Windows.Forms.Padding(2);
             this.ClearAll.Name = "ClearAll";
-            this.ClearAll.Size = new System.Drawing.Size(50, 29);
+            this.ClearAll.Size = new System.Drawing.Size(69, 40);
             this.ClearAll.TabIndex = 14;
             this.ClearAll.Text = "清选";
-            this.ClearAll.UseVisualStyleBackColor = true;
+            this.ClearAll.UseVisualStyleBackColor = false;
             this.ClearAll.Click += new System.EventHandler(this.ClearAll_Click);
             // 
             // ToTop
             // 
-            this.ToTop.Location = new System.Drawing.Point(256, 387);
+            this.ToTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.ToTop.Location = new System.Drawing.Point(256, 298);
             this.ToTop.Margin = new System.Windows.Forms.Padding(2);
             this.ToTop.Name = "ToTop";
-            this.ToTop.Size = new System.Drawing.Size(50, 29);
+            this.ToTop.Size = new System.Drawing.Size(69, 40);
             this.ToTop.TabIndex = 14;
             this.ToTop.Text = "上移";
-            this.ToTop.UseVisualStyleBackColor = true;
+            this.ToTop.UseVisualStyleBackColor = false;
             this.ToTop.Click += new System.EventHandler(this.ToTop_Click);
             // 
             // ToBottom
             // 
-            this.ToBottom.Location = new System.Drawing.Point(256, 451);
+            this.ToBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.ToBottom.Location = new System.Drawing.Point(256, 360);
             this.ToBottom.Margin = new System.Windows.Forms.Padding(2);
             this.ToBottom.Name = "ToBottom";
-            this.ToBottom.Size = new System.Drawing.Size(50, 29);
+            this.ToBottom.Size = new System.Drawing.Size(69, 40);
             this.ToBottom.TabIndex = 14;
             this.ToBottom.Text = "下移";
-            this.ToBottom.UseVisualStyleBackColor = true;
+            this.ToBottom.UseVisualStyleBackColor = false;
             this.ToBottom.Click += new System.EventHandler(this.ToBottom_Click);
             // 
             // UnFindAttrPartList
@@ -267,15 +278,15 @@ namespace YeDassaultSystemDev
             this.UnFindAttrPartList.TabIndex = 12;
             this.UnFindAttrPartList.Click += new System.EventHandler(this.UnFindAttrPartList_Click);
             // 
-            // TopView
+            // FrontView
             // 
-            this.TopView.Location = new System.Drawing.Point(8, 16);
-            this.TopView.Margin = new System.Windows.Forms.Padding(2);
-            this.TopView.Name = "TopView";
-            this.TopView.Size = new System.Drawing.Size(253, 245);
-            this.TopView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.TopView.TabIndex = 15;
-            this.TopView.TabStop = false;
+            this.FrontView.Location = new System.Drawing.Point(8, 16);
+            this.FrontView.Margin = new System.Windows.Forms.Padding(2);
+            this.FrontView.Name = "FrontView";
+            this.FrontView.Size = new System.Drawing.Size(253, 245);
+            this.FrontView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FrontView.TabIndex = 15;
+            this.FrontView.TabStop = false;
             // 
             // groupBox1
             // 
@@ -292,18 +303,18 @@ namespace YeDassaultSystemDev
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.UnitPartProductList);
-            this.groupBox2.Location = new System.Drawing.Point(316, 41);
+            this.groupBox2.Location = new System.Drawing.Point(330, 41);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(239, 569);
+            this.groupBox2.Size = new System.Drawing.Size(225, 569);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "需要创建2D草图的零件";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.TopView);
+            this.groupBox3.Controls.Add(this.FrontView);
             this.groupBox3.Location = new System.Drawing.Point(559, 41);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
@@ -468,16 +479,6 @@ namespace YeDassaultSystemDev
             this.CreateDraftView.UseVisualStyleBackColor = false;
             this.CreateDraftView.Click += new System.EventHandler(this.CreateDraftView_Click);
             // 
-            // ScalePicture
-            // 
-            this.ScalePicture.Location = new System.Drawing.Point(1106, 573);
-            this.ScalePicture.Margin = new System.Windows.Forms.Padding(2);
-            this.ScalePicture.Name = "ScalePicture";
-            this.ScalePicture.Size = new System.Drawing.Size(133, 130);
-            this.ScalePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ScalePicture.TabIndex = 24;
-            this.ScalePicture.TabStop = false;
-            // 
             // 获取图框中路清单
             // 
             this.获取图框中路清单.Controls.Add(this.AttrNumber);
@@ -598,14 +599,68 @@ namespace YeDassaultSystemDev
             // 
             // ExploreIGS
             // 
-            this.ExploreIGS.Location = new System.Drawing.Point(256, 506);
+            this.ExploreIGS.BackColor = System.Drawing.Color.LimeGreen;
+            this.ExploreIGS.Location = new System.Drawing.Point(256, 422);
             this.ExploreIGS.Margin = new System.Windows.Forms.Padding(2);
             this.ExploreIGS.Name = "ExploreIGS";
-            this.ExploreIGS.Size = new System.Drawing.Size(50, 29);
+            this.ExploreIGS.Size = new System.Drawing.Size(69, 40);
             this.ExploreIGS.TabIndex = 14;
             this.ExploreIGS.Text = "EIGS";
-            this.ExploreIGS.UseVisualStyleBackColor = true;
+            this.ExploreIGS.UseVisualStyleBackColor = false;
             this.ExploreIGS.Click += new System.EventHandler(this.ExploreIGS_Click);
+            // 
+            // ScalePicture
+            // 
+            this.ScalePicture.Location = new System.Drawing.Point(1106, 573);
+            this.ScalePicture.Margin = new System.Windows.Forms.Padding(2);
+            this.ScalePicture.Name = "ScalePicture";
+            this.ScalePicture.Size = new System.Drawing.Size(133, 130);
+            this.ScalePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ScalePicture.TabIndex = 24;
+            this.ScalePicture.TabStop = false;
+            // 
+            // FIA
+            // 
+            this.FIA.AutoSize = true;
+            this.FIA.Checked = true;
+            this.FIA.Location = new System.Drawing.Point(10, 35);
+            this.FIA.Name = "FIA";
+            this.FIA.Size = new System.Drawing.Size(47, 16);
+            this.FIA.TabIndex = 25;
+            this.FIA.TabStop = true;
+            this.FIA.Text = "国标";
+            this.FIA.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.TFA);
+            this.groupBox8.Controls.Add(this.FIA);
+            this.groupBox8.Location = new System.Drawing.Point(251, 506);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(74, 104);
+            this.groupBox8.TabIndex = 26;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "默认视角";
+            // 
+            // TFA
+            // 
+            this.TFA.AutoSize = true;
+            this.TFA.Location = new System.Drawing.Point(10, 67);
+            this.TFA.Name = "TFA";
+            this.TFA.Size = new System.Drawing.Size(47, 16);
+            this.TFA.TabIndex = 25;
+            this.TFA.Text = "日标";
+            this.TFA.UseVisualStyleBackColor = true;
+            // 
+            // PictureFromCatia
+            // 
+            this.PictureFromCatia.AutoSize = true;
+            this.PictureFromCatia.Location = new System.Drawing.Point(1125, 11);
+            this.PictureFromCatia.Name = "PictureFromCatia";
+            this.PictureFromCatia.Size = new System.Drawing.Size(120, 16);
+            this.PictureFromCatia.TabIndex = 27;
+            this.PictureFromCatia.Text = "PictureFromCatia";
+            this.PictureFromCatia.UseVisualStyleBackColor = true;
             // 
             // _2DModel
             // 
@@ -613,6 +668,8 @@ namespace YeDassaultSystemDev
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ClientSize = new System.Drawing.Size(1257, 724);
+            this.Controls.Add(this.PictureFromCatia);
+            this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.ScalePicture);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.获取图框中路清单);
@@ -650,7 +707,7 @@ namespace YeDassaultSystemDev
             this.Text = "锐锋科技CATIA投影助手";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this._2DModel_FormClosed);
             this.Load += new System.EventHandler(this._2DModel_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.TopView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FrontView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -661,12 +718,14 @@ namespace YeDassaultSystemDev
             this.属性缺失零件.ResumeLayout(false);
             this.属性缺失零件.PerformLayout();
             this.PartTypeGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).EndInit();
             this.获取图框中路清单.ResumeLayout(false);
             this.获取图框中路清单.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScalePicture)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -689,7 +748,7 @@ namespace YeDassaultSystemDev
         private System.Windows.Forms.Button ToTop;
         private System.Windows.Forms.Button ToBottom;
         private System.Windows.Forms.ListBox UnFindAttrPartList;
-        private System.Windows.Forms.PictureBox TopView;
+        private System.Windows.Forms.PictureBox FrontView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -703,7 +762,6 @@ namespace YeDassaultSystemDev
         private System.Windows.Forms.Button UpdateAttr;
         private System.Windows.Forms.GroupBox PartTypeGroupBox;
         private System.Windows.Forms.Button CreateDraftView;
-        private System.Windows.Forms.PictureBox ScalePicture;
         private System.Windows.Forms.ComboBox PartAttList;
         private System.Windows.Forms.Button SetPartAtt;
         private System.Windows.Forms.TextBox textBox1;
@@ -718,5 +776,10 @@ namespace YeDassaultSystemDev
         private System.Windows.Forms.TextBox materialNumber;
         private System.Windows.Forms.Button GetmaterialFromDoc;
         private System.Windows.Forms.Button ExploreIGS;
+        private System.Windows.Forms.PictureBox ScalePicture;
+        private System.Windows.Forms.RadioButton FIA;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton TFA;
+        private System.Windows.Forms.CheckBox PictureFromCatia;
     }
 }

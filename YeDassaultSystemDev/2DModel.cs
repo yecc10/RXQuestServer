@@ -63,7 +63,8 @@ namespace YeDassaultSystemDev
         List<Material> MaterialList = new List<Material> { };
         DrawingDocument drawingDocument = null;
         Product UnitProduct = null; //单元对象
-
+        int StdSightDirectionindex = 1; //目标视角方向 1=X; 2=Y; 3=Z
+        int StdUpDirectionindex = 3;//目标视角角度 1=X; 2=Y; 3=Z
         /// ////////////////////////////////////////////////////////////////////////////////////////////////////////
         public _2DModel()
         {
@@ -868,7 +869,7 @@ namespace YeDassaultSystemDev
         private bool IslegalWithParamert(Parameter parameter)
         {
             string ParamValue = parameter.ValueAsString(); //获取属性值
-            if (ViaIndentification.IndexOf(ParamValue) > 0) //检查零件的值是否属于合法范围
+            if (ViaIndentification.IndexOf(ParamValue) > -1) //检查零件的值是否属于合法范围
             {
                 return true;
             }
@@ -1021,7 +1022,7 @@ namespace YeDassaultSystemDev
             String DeletePartName = UnFindAttrPartList.SelectedItem.ToString();
             try
             {
-                Product PreDeletePart = (Product)ErrPartList[DeletePartIndex];
+                Product PreDeletePart = (Product)ErrPartList.Find(x=>x.get_PartNumber()== DeletePartName);
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
@@ -1030,7 +1031,7 @@ namespace YeDassaultSystemDev
                     ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
                     Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                     ScalePicture.Image = bitmap;
-                    TopView.Image = bitmap;
+                    FrontView.Image = bitmap;
                     LeftView.Image = bitmap;
                     BottomView.Image = bitmap;
                 }
@@ -1038,7 +1039,7 @@ namespace YeDassaultSystemDev
             catch (Exception)
             {
                 ScalePicture.Image = null;
-                TopView.Image = null;
+                FrontView.Image = null;
                 LeftView.Image = null;
                 BottomView.Image = null;
                 MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
@@ -1065,7 +1066,7 @@ namespace YeDassaultSystemDev
             Product PreDeletePart = null;
             try
             {
-                PreDeletePart = (Product)vUnitPartProductList[DeletePartIndex];
+                PreDeletePart = (Product)vUnitPartProductList.Find(x=>x.get_PartNumber()== DeletePartName);
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     Window MainWindow = CatApplication.ActiveWindow;
@@ -1073,66 +1074,29 @@ namespace YeDassaultSystemDev
                     //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
                     //ScalePicture.ImageLocation = ImagPath;
                     string ProductPath = productDocument.FullName;
-                    ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
-                    Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
-                    ScalePicture.Image = bitmap;
-                    TopView.Image = bitmap;
-                    LeftView.Image = bitmap;
-                    BottomView.Image = bitmap;
+                    if (PictureFromCatia.Checked)
+                    {
+                        GetPartViewPicture(ProductPath);
+                        MainWindow.Activate();//激活主视图
+                    }
+                    else
+                    {
+                        ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);//已通过软件直接获取视图信息 不在通过文件缩略图获取
+                        Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
+                        ScalePicture.Image = bitmap;
+                        FrontView.Image = bitmap;
+                        LeftView.Image = bitmap;
+                        BottomView.Image = bitmap;
+                    }
                     ///////////////////////////////////////////////////////////////////////////
-                    PartDocument document = (PartDocument)CatApplication.Documents.Open(ProductPath);
-                    Window cwindow = CatApplication.ActiveWindow;
-                    Viewer viewer = cwindow.ActiveViewer;
-                    Viewer3D viewer3D1 = (Viewer3D)viewer;
-                    viewer.FullScreen = false;
-                    object[] array = new object[] { 0, 0, 0 };
-                    object[] arraySightDirection = new object[] { 0, 0, 0 };
-                    Viewpoint3D viewpoint3D = viewer3D1.Viewpoint3D;
 
-                    object[] StdSightDirection = new object[3] {1,0,0};
-                    object[] StdUpDirection = new object[3] { 0, 1, 0 };
-
-                    viewer.Reframe();
-                    //viewpoint3D.GetOrigin(array);
-                    //viewpoint3D.PutOrigin(array);
-                    viewpoint3D.PutSightDirection(StdSightDirection);
-                    viewpoint3D.PutUpDirection(StdUpDirection);
-                    viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
-                    viewer3D1.Update();
-                    viewer3D1.Reframe();
-                    viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg");
-                    //array = new object[3] { 0.0, 12500, 0.0 };
-                    //viewpoint3D.PutOrigin(array);
-                    //viewer3D1.Update();
-                    //viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\YProductView.jpeg");
-                    //array = new object[3] { 0.0, 0.0,12500.0 };
-                    //viewpoint3D.PutOrigin(array);
-                    //viewer3D1.Update();
-                    //viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\ZProductView.jpeg");
-                    //viewer.Reframe();
-                    ////viewer3D.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\ProductView.jpeg");
-                    //TopView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg";
-                    //LeftView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\YProductView.jpeg";
-                    BottomView.ImageLocation = "C:\\Users\\Administrator\\Desktop\\XProductView.jpeg";
-                    cwindow.Close();
-                    MainWindow.Activate();
-                    //Viewers pviewers = productDocument.NewWindow().Viewers;
-                    //int Vcont = pviewers.Count;
-                    //if (Vcont > 0)
-                    //{
-                    //    foreach (Viewer item in pviewers)
-                    //    {
-                    //        item.Activate();
-                    //    }
-                    //}
-                    //pviewer.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\PartView.jpeg");
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(DeletePartName + " 未成功获取到缩略图！");
                 ScalePicture.Image = null;
-                TopView.Image = null;
+                FrontView.Image = null;
                 LeftView.Image = null;
                 BottomView.Image = null;
                 return;
@@ -1146,7 +1110,106 @@ namespace YeDassaultSystemDev
                 MessageBox.Show(DeletePartName + " 未成功获取到指定属性！");
             }
         }
+        /// <summary>
+        /// 根据输入序列返回视角序列号
+        /// </summary>
+        /// <param name="RefIndex">输入索引</param>
+        /// <returns></returns>
+        private Object[] GetViewKeyArry(int RefIndex)
+        {
+            Object[] Result = new object[] { };
+            switch (RefIndex)
+            {
+                case 1:
+                    Result = new object[3] { 1, 0, 0 };
+                    break;
+                case 2:
+                    Result = new object[3] { 0, 1, 0 };
+                    break;
+                case 3:
+                    Result = new object[3] { 0, 0, 1 };
+                    break;
+                case 4:
+                    Result = new object[3] { -1, 0, 0 };
+                    break;
+                case 5:
+                    Result = new object[3] { 0, -1, 0 };
+                    break;
+                case 6:
+                    Result = new object[3] { 0, 0, -1 };
+                    break;
+                default:
+                    MessageBox.Show("读取下一组视角时发生意外错误，将返回默认视角！");
+                    Result = new object[3] { 1, 0, 0 };
+                    break;
+            }
+            return Result;
+        }
 
+        private void GetPartViewPicture(String ProductPath)
+        {
+            string FilePath = System.IO.Path.GetTempPath();//Environment.GetFolderPath(Environment.SpecialFolder.Templates);
+            PartDocument document = (PartDocument)CatApplication.Documents.Open(ProductPath);
+            Window cwindow = CatApplication.ActiveWindow;
+            SpecsAndGeomWindow specsAndGeomWindow = (SpecsAndGeomWindow)cwindow;
+            specsAndGeomWindow.Layout = CatSpecsAndGeomWindowLayout.catWindowGeomOnly;//隐藏目录树
+            Viewer viewer = cwindow.ActiveViewer;
+            Viewer3D viewer3D1 = (Viewer3D)viewer;
+            viewer.FullScreen = false;
+            Viewpoint3D viewpoint3D = viewer3D1.Viewpoint3D;
+            object[] StdSightDirection = GetViewKeyArry(StdSightDirectionindex);
+            object[] StdUpDirection = GetViewKeyArry(StdUpDirectionindex);
+            viewer.Reframe();
+            viewpoint3D.PutSightDirection(StdSightDirection);
+            viewpoint3D.PutUpDirection(StdUpDirection);
+            viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
+            viewer3D1.Update();
+            viewer3D1.Reframe();
+            string FrontImagePath = FilePath + "\\PartFrontView.jpeg";
+            viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, FrontImagePath);
+            FrontView.ImageLocation = FrontImagePath;
+            FrontView.Update();
+            if (FIA.Checked) //激活第一视角状态
+            {
+                //产生左视图
+                StdSightDirection = GetViewKeyArry(2);
+                StdUpDirection = GetViewKeyArry(3);
+                viewer.Reframe();
+                viewpoint3D.PutSightDirection(StdSightDirection);
+                viewpoint3D.PutUpDirection(StdUpDirection);
+                viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
+                viewer3D1.Update();
+                viewer3D1.Reframe();
+                 FrontImagePath = FilePath + "\\PartLeftView.jpeg";
+                viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, FrontImagePath);
+                LeftView.ImageLocation = FrontImagePath;
+                LeftView.Update();
+                //产生顶视图
+                StdSightDirection = GetViewKeyArry(3);
+                StdUpDirection = GetViewKeyArry(1);
+                viewer.Reframe();
+                viewpoint3D.PutSightDirection(StdSightDirection);
+                viewpoint3D.PutUpDirection(StdUpDirection);
+                viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
+                viewer3D1.Update();
+                viewer3D1.Reframe();
+                FrontImagePath = FilePath + "\\PartBottomView.jpeg";
+                viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, FrontImagePath);
+                BottomView.ImageLocation = FrontImagePath;
+                BottomView.Update();
+            }
+            cwindow.Close();
+            //Viewers pviewers = productDocument.NewWindow().Viewers;
+            //int Vcont = pviewers.Count;
+            //if (Vcont > 0)
+            //{
+            //    foreach (Viewer item in pviewers)
+            //    {
+            //        item.Activate();
+            //    }
+            //}
+            //pviewer.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, "C:\\Users\\Administrator\\Desktop\\PartView.jpeg");
+        }
         private void UpdateAttr_Click(object sender, EventArgs e)
         {
             if (UnitPartProductList.SelectedIndex < 0)
