@@ -1047,10 +1047,22 @@ namespace YeDassaultSystemDev
                 Product PreDeletePart = (Product)ErrPartList.Find(x => x.get_PartNumber() == DeletePartName);
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
-                    PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                    //PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                    string ProductPath = null;
+                    try
+                    {
+                        PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                        ProductPath = productDocument.FullName;
+                    }
+                    catch (Exception)
+                    {
+                        ProductDocument productDocument = (ProductDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATProduct");//直接获取对象--即将被投影的零件
+                        ProductPath = productDocument.FullName;
+                        //throw;
+                    }
                     //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
                     //ScalePicture.ImageLocation = ImagPath;
-                    ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);
+                    ShellFile shellFile = ShellFile.FromFilePath(ProductPath);
                     Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                     ScalePicture.Image = bitmap;
                     FrontView.Image = bitmap;
@@ -1092,10 +1104,20 @@ namespace YeDassaultSystemDev
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     Window MainWindow = CatApplication.ActiveWindow;
-                    PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                    string ProductPath = null;
+                    try
+                    {
+                        PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
+                        ProductPath = productDocument.FullName;
+                    }
+                    catch (Exception)
+                    {
+                        ProductDocument productDocument = (ProductDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATProduct");//直接获取对象--即将被投影的零件
+                        ProductPath = productDocument.FullName;
+                        //throw;
+                    }
                     //string ImagPath = GetFilePicture.ThumbnailHelper.GetInstance().GetJPGThumbnail(productDocument.FullName,129,129);
                     //ScalePicture.ImageLocation = ImagPath;
-                    string ProductPath = productDocument.FullName;
                     if (PictureFromCatia.Checked)
                     {
                         GetPartViewPicture(ProductPath);
@@ -1103,7 +1125,7 @@ namespace YeDassaultSystemDev
                     }
                     else
                     {
-                        ShellFile shellFile = ShellFile.FromFilePath(productDocument.FullName);//已通过软件直接获取视图信息 不在通过文件缩略图获取
+                        ShellFile shellFile = ShellFile.FromFilePath(ProductPath);//已通过软件直接获取视图信息 不在通过文件缩略图获取
                         Bitmap bitmap = shellFile.Thumbnail.LargeBitmap;
                         ScalePicture.Image = bitmap;
                         FrontView.Image = bitmap;
