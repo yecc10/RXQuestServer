@@ -279,12 +279,26 @@ namespace YeDassaultSystemDev
                 }
             }
             DrawingSheets drawingSheets = drawingDocument.Sheets;
-            int TotalPages = vUnitPartProductList.Count;
+            List<Product> TotalPeWorkProduct = new List<Product> { };//申明一个容器 存放待创建且不重复的单元全部对象 方便后续检索
+            List<Product> TotalCreatedProduct = new List<Product> { };//申明一个容器 存放已完成创建的单元全部对象 方便后续检索
+            foreach (Product CUnitPart in vUnitPartProductList)
+            {
+                if (TotalPeWorkProduct.IndexOf(CUnitPart) < 0)
+                {
+                    TotalPeWorkProduct.Add(CUnitPart);//将即将创建的零件加载到已创建的集合中
+                }
+                else
+                {
+                    continue; //当前零件已完成创建 直接跳过
+                }
+            }
+            int TotalPages = TotalPeWorkProduct.Count;
             int CurrentPage = 1;
             progressBar.Step = 1000 / TotalPages;
-            foreach (string CUnitPartName in UnitPartProductList.Items)
+            foreach (Product CUnitProduct in TotalPeWorkProduct)
             {
-                Product CUnitProduct = vUnitPartProductList.Find(x => x.get_PartNumber() == CUnitPartName);
+                string CUnitPartName = CUnitProduct.get_PartNumber();//获取当前零件名称
+                int PartNum = vUnitPartProductList.Count(x => x.get_PartNumber() == CUnitPartName); //从用户选择的目标集合中获取当前对象的数量
                 //根据零件属性名称 创建2D图框 草图 
                 string CUnitProductName = CUnitProduct.get_PartNumber();
                 Parameters parameters = CUnitProduct.ReferenceProduct.UserRefProperties;
@@ -386,8 +400,11 @@ namespace YeDassaultSystemDev
                         try
                         {
                             DrawingText drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_LeftProductName");
-                            string Tvalue = drawingText.get_Text();
+                            //string Tvalue = drawingText.get_Text();
                             drawingText.set_Text(CUnitProductName);
+                            drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_Number_1");//零件数量
+                            //Tvalue = drawingText.get_Text();
+                            drawingText.set_Text(PartNum + "/" + PartNum);
                         }
                         catch (Exception)
                         {
@@ -1022,7 +1039,7 @@ namespace YeDassaultSystemDev
             String DeletePartName = UnFindAttrPartList.SelectedItem.ToString();
             try
             {
-                Product PreDeletePart = (Product)ErrPartList.Find(x=>x.get_PartNumber()== DeletePartName);
+                Product PreDeletePart = (Product)ErrPartList.Find(x => x.get_PartNumber() == DeletePartName);
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     PartDocument productDocument = (PartDocument)CatApplication.Documents.Item(PreDeletePart.get_PartNumber() + ".CATPart");//直接获取对象--即将被投影的零件
@@ -1066,7 +1083,7 @@ namespace YeDassaultSystemDev
             Product PreDeletePart = null;
             try
             {
-                PreDeletePart = (Product)vUnitPartProductList.Find(x=>x.get_PartNumber()== DeletePartName);
+                PreDeletePart = (Product)vUnitPartProductList.Find(x => x.get_PartNumber() == DeletePartName);
                 if (PreDeletePart.get_PartNumber() == DeletePartName)//核实用户对象和软件队列中对象是一致的
                 {
                     Window MainWindow = CatApplication.ActiveWindow;
@@ -1180,7 +1197,7 @@ namespace YeDassaultSystemDev
                 viewpoint3D.ProjectionMode = INFITF.CatProjectionMode.catProjectionCylindric;
                 viewer3D1.Update();
                 viewer3D1.Reframe();
-                 FrontImagePath = FilePath + "\\PartLeftView.jpeg";
+                FrontImagePath = FilePath + "\\PartLeftView.jpeg";
                 viewer3D1.CaptureToFile(CatCaptureFormat.catCaptureFormatJPEG, FrontImagePath);
                 LeftView.ImageLocation = FrontImagePath;
                 LeftView.Update();
@@ -1276,10 +1293,7 @@ namespace YeDassaultSystemDev
                     }
                 }
             }
-            int TotalPages = vUnitPartProductList.Count;
             int CurrentPage = 1;
-            progressBar.Value = 0;
-            progressBar.Step = 1000 / TotalPages;
             DrawingSheets drawingSheets = drawingDocument.Sheets;
             ProductDocument productDocument = null;
             string vUnitName = UnitName.Text;
@@ -1331,7 +1345,22 @@ namespace YeDassaultSystemDev
                     return;
                 }
             }
-            foreach (Product CUnitProduct in vUnitPartProductList)
+            List<Product> TotalPeWorkProduct = new List<Product> { };//申明一个容器 存放待创建且不重复的单元全部对象 方便后续检索
+            foreach (Product CUnitPart in vUnitPartProductList)
+            {
+                if (TotalPeWorkProduct.IndexOf(CUnitPart) < 0)
+                {
+                    TotalPeWorkProduct.Add(CUnitPart);//将即将创建的零件加载到已创建的集合中
+                }
+                else
+                {
+                    continue; //当前零件已完成创建 直接跳过
+                }
+            }
+            int TotalPages = TotalPeWorkProduct.Count;
+            progressBar.Value = 0;
+            progressBar.Step = 1000 / TotalPages;
+            foreach (Product CUnitProduct in TotalPeWorkProduct)
             {
                 String ProductName = CUnitProduct.get_PartNumber();
                 DrawingSheet drawingSheet = null;
