@@ -304,11 +304,16 @@ namespace YeDassaultSystemDev
                 Parameters parameters = CUnitProduct.ReferenceProduct.UserRefProperties;
                 StrParam strParam = (StrParam)parameters.GetItem(Identificationclass);
                 string CunitType = strParam.ValueAsString();
-                if (CunitType == "单元X" && CurrentPage == 1)
+                //if (CunitType == "单元X" && CurrentPage == 1)
+                //{
+                //    //当对象属于单元类别时候前面放置2个空白序号 用户存放总阻力及BASE图
+                //    CurrentPage = 3;
+                //    TotalPages += 2;
+                //}
+                if (PeNumOpen.Checked && CurrentPage == 1)
                 {
-                    //当对象属于单元类别时候前面放置2个空白序号 用户存放总阻力及BASE图
-                    CurrentPage = 3;
-                    TotalPages += 2;
+                    CurrentPage = CurrentPage + Convert.ToInt32(PeNum.Text);
+                    TotalPages += Convert.ToInt32(PeNum.Text);
                 }
                 if (ViaIndentification.IndexOf(CunitType) < 0)
                 {
@@ -404,7 +409,7 @@ namespace YeDassaultSystemDev
                             drawingText.set_Text(CUnitProductName);
                             drawingText = (DrawingText)drawingTexts.GetItem("TitleBlock_Text_Number_1");//零件数量
                             //Tvalue = drawingText.get_Text();
-                            drawingText.set_Text(PartNum + "/" + PartNum);
+                            drawingText.set_Text(Symmetry.Checked ? (PartNum + "/" + PartNum) : PartNum.ToString());
                         }
                         catch (Exception)
                         {
@@ -471,7 +476,7 @@ namespace YeDassaultSystemDev
                                         drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
                                         drawingTable.SetCellString(CRow, 1, PartID);
                                         drawingTable.SetCellString(CRow, 2, PartName);
-                                        drawingTable.SetCellString(CRow, 4, TargetNumber.ToString() + "/" + TargetNumber.ToString());//当统计的数量大于1时填写对应数量
+                                        drawingTable.SetCellString(CRow, 4, Symmetry.Checked ? (TargetNumber.ToString() + "/" + TargetNumber.ToString()) : TargetNumber.ToString());//当统计的数量大于1时填写对应数量
                                         drawingTable.SetCellString(CRow, 5, "Q235");
                                         drawingTable.SetCellString(CRow, 6, "自制件");
                                         WritedSTDList.Add(item);
@@ -530,8 +535,8 @@ namespace YeDassaultSystemDev
                                                 drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
                                                 drawingTable.SetCellString(CRow, 1, PartID);
                                                 drawingTable.SetCellString(CRow, 2, PartName);
-                                                drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
-                                                                                                                        //drawingTable.SetCellString(CRow, 5, "");
+                                                drawingTable.SetCellString(CRow, 4, Symmetry.Checked ? Convert.ToString(TargetNumber * 2) : TargetNumber.ToString());//此处填写总数量L/R 所以乘2
+                                                //drawingTable.SetCellString(CRow, 5, "");
                                                 drawingTable.SetCellString(CRow, 6, "企标件");
                                                 WritedSTDList.Add(item);
                                                 ID += 1;
@@ -569,8 +574,8 @@ namespace YeDassaultSystemDev
                                                 drawingTable.SetCellAlignment(CRow, 6, CatTablePosition.CatTableMiddleCenter);
                                                 drawingTable.SetCellString(CRow, 1, PartID);
                                                 drawingTable.SetCellString(CRow, 2, PartName);
-                                                drawingTable.SetCellString(CRow, 4, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
-                                                                                                                        //drawingTable.SetCellString(CRow, 5, "");
+                                                drawingTable.SetCellString(CRow, 4, Symmetry.Checked ? Convert.ToString(TargetNumber * 2) : TargetNumber.ToString());//此处填写总数量L/R 所以乘2
+                                                //drawingTable.SetCellString(CRow, 5, "");
                                                 drawingTable.SetCellString(CRow, 6, "外购件");
                                                 WritedPURList.Add(item);
                                                 ID += 1;
@@ -631,7 +636,7 @@ namespace YeDassaultSystemDev
                                             drawingTable.SetCellAlignment(CRow, 4, CatTablePosition.CatTableMiddleCenter);
                                             //drawingTable.SetCellString(CRow, 1, PartID);
                                             drawingTable.SetCellString(CRow, 2, PartName);
-                                            drawingTable.SetCellString(CRow, 3, Convert.ToString(TargetNumber * 2));//此处填写总数量L/R 所以乘2
+                                            drawingTable.SetCellString(CRow, 3, Symmetry.Checked ? Convert.ToString(TargetNumber * 2) : TargetNumber.ToString());//此处填写总数量L/R 所以乘2
                                             drawingTable.SetCellString(CRow, 4, "外购件");
                                             WritedSTDList.Add(item);
                                             ID += 1;
@@ -1679,9 +1684,49 @@ namespace YeDassaultSystemDev
                                 {
                                     Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                                 }
-                                PartDocument partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName + ".CATPart");
-                                string IGSPath = Path + "\\" + DeletePartName + ".igs";
-                                partDocument.ExportData(IGSPath, "igs");
+                                PartDocument partDocument = null;
+                                string IGSPath = Path + "\\" + DeletePartName.Trim() + ".igs";
+                                try
+                                {
+                                    partDocument = (PartDocument)CatApplication.Documents.Item(DeletePartName + ".CATPart");
+                                }
+                                catch (Exception)
+                                {
+                                    //List<Document> documents = new List<Document> { };
+                                    foreach (Document mitem in CatApplication.Documents)
+                                    {
+                                        //documents.Add(mitem);
+                                        string Wmname = mitem.get_Name();
+                                        string Mname = Wmname.Split('.')[0].Trim();
+                                        string ItemType = Wmname.Split('.')[1].Trim();
+                                        if (Mname== DeletePartName.Trim())
+                                        {
+                                            if (ItemType== "CATPart")
+                                            {
+                                                partDocument = (PartDocument)mitem;
+                                            }
+                                            else if(ItemType == "CATProduct")
+                                            {
+                                                ProductDocument productDocument = (ProductDocument)mitem;
+                                                CatApplication.DisplayFileAlerts = false;
+                                                productDocument.ExportData(IGSPath, "igs");
+                                                CatApplication.DisplayFileAlerts = true;
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("当前选择的对象非CATPart或者CATProduct！请检查对象类型后重试！");
+                                            }
+                                        }
+                                    }
+                                    //Document mpartDocument = (Document)documents.Find(x => x.get_Name().Split('.')[0].Trim() == DeletePartName.Trim());
+                                }
+                                if (partDocument != null)
+                                {
+                                    CatApplication.DisplayFileAlerts = false;
+                                    partDocument.ExportData(IGSPath, "igs");
+                                    CatApplication.DisplayFileAlerts = true;
+                                }
                             }
                             catch (Exception)
                             {
@@ -1744,6 +1789,18 @@ namespace YeDassaultSystemDev
                 }
             }
             return RefDocFilePath;
+        }
+
+        private void PeNumOpen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (PeNumOpen.Checked)
+            {
+                PeNum.Enabled = true;
+            }
+            else
+            {
+                PeNum.Enabled = false;
+            }
         }
     }
 }
